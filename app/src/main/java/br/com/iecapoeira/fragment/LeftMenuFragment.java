@@ -17,9 +17,13 @@ import java.util.List;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
+import br.com.iecapoeira.actv.ContatoActivity_;
 import br.com.iecapoeira.actv.DashboardActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
+import br.com.iecapoeira.actv.LoginActivity;
+import br.com.iecapoeira.actv.LoginActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
+import br.com.iecapoeira.actv.MestreActivity_;
 import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
 import br.com.iecapoeira.adapter.LeftMenuAdapter;
@@ -70,13 +74,13 @@ public class LeftMenuFragment extends Fragment {
         classesSchedule.dashboardEnum = DashboardEnum.CLASSES_SCHEDULE;
         items.add(classesSchedule);
 
-        DashboardItem teachers = new DashboardItem();
-        teachers.title = getResources().getStringArray(R.array.dashboard)[3];
-        teachers.titleColor = getResources().getColor(R.color.white);
-        teachers.iconCode = getString(R.string.icon_mestres);
-        teachers.backgroundColor = getResources().getColor(R.color.green);
-        teachers.dashboardEnum = DashboardEnum.TEACHERS;
-        items.add(teachers);
+        DashboardItem chat = new DashboardItem();
+        chat.title = getResources().getStringArray(R.array.dashboard)[6];
+        chat.titleColor = getResources().getColor(R.color.white);
+        chat.iconCode = getString(R.string.icon_bate_papo);
+        chat.backgroundColor = getResources().getColor(R.color.green);
+        chat.dashboardEnum = DashboardEnum.CHAT;
+        items.add(chat);
 
         DashboardItem music = new DashboardItem();
         music.title = getResources().getStringArray(R.array.dashboard)[4];
@@ -86,21 +90,21 @@ public class LeftMenuFragment extends Fragment {
         music.dashboardEnum = DashboardEnum.MUSIC;
         items.add(music);
 
+        DashboardItem teachers = new DashboardItem();
+        teachers.title = getResources().getStringArray(R.array.dashboard)[3];
+        teachers.titleColor = getResources().getColor(R.color.white);
+        teachers.iconCode = getString(R.string.icon_mestres);
+        teachers.backgroundColor = getResources().getColor(R.color.blue);
+        teachers.dashboardEnum = DashboardEnum.TEACHERS;
+        items.add(teachers);
+
         DashboardItem edicts = new DashboardItem();
         edicts.title = getResources().getStringArray(R.array.dashboard)[5];
         edicts.titleColor = getResources().getColor(R.color.white);
         edicts.iconCode = getString(R.string.icon_editais);
-        edicts.backgroundColor = getResources().getColor(R.color.blue);
+        edicts.backgroundColor = getResources().getColor(R.color.green);
         edicts.dashboardEnum = DashboardEnum.EDICTS;
         items.add(edicts);
-
-        DashboardItem chat = new DashboardItem();
-        chat.title = getResources().getStringArray(R.array.dashboard)[6];
-        chat.titleColor = getResources().getColor(R.color.white);
-        chat.iconCode = getString(R.string.icon_bate_papo);
-        chat.backgroundColor = getResources().getColor(R.color.green);
-        chat.dashboardEnum = DashboardEnum.CHAT;
-//        items.add(chat);
 
         DashboardItem partners = new DashboardItem();
         partners.title = getResources().getStringArray(R.array.dashboard)[7];
@@ -110,13 +114,30 @@ public class LeftMenuFragment extends Fragment {
         partners.dashboardEnum = DashboardEnum.PARTNERS;
         items.add(partners);
 
-        /*DashboardItem history = new DashboardItem();
-        history.title = getResources().getStringArray(R.array.dashboard)[8];
+        DashboardItem history = new DashboardItem();
+        history.title = getResources().getStringArray(R.array.dashboard)[9];
         history.titleColor = getResources().getColor(R.color.gray_txt);
-        history.iconCode = String.valueOf((char) 0xe916);
+        //history.iconCode = String.valueOf((char) 0xe916);
         history.backgroundColor = getResources().getColor(R.color.white);
         history.dashboardEnum = DashboardEnum.HISTORY;
-//        items.add(history);*/
+        items.add(history);
+
+       DashboardItem user = new DashboardItem();
+        user.title = getResources().getStringArray(R.array.dashboard)[10];
+        user.titleColor = getResources().getColor(R.color.gray_txt);
+        //user.iconCode = String.valueOf((char) 0xe916);
+        user.backgroundColor = getResources().getColor(R.color.white);
+        user.dashboardEnum = DashboardEnum.USER;
+        items.add(user);
+
+
+        DashboardItem contact = new DashboardItem();
+        contact.title = getResources().getStringArray(R.array.dashboard)[8];
+        contact.titleColor = getResources().getColor(R.color.gray_txt);
+        //contact.iconCode = String.valueOf((char) 0xe916);
+        contact.backgroundColor = getResources().getColor(R.color.white);
+        contact.dashboardEnum = DashboardEnum.CONTACT;
+        items.add(contact);
     }
 
     @ItemClick
@@ -146,6 +167,15 @@ public class LeftMenuFragment extends Fragment {
                 break;
             case PARTNERS:
                 intent = new Intent(getActivity(), ParceirosActivity_.class);
+                break;
+            case HISTORY:
+                intent = new Intent(getActivity(), ListaMestreActivity_.class);
+                break;
+            case USER:
+                intent = new Intent(getActivity(), LoginActivity_.class);
+                break;
+            case CONTACT:
+                intent = new Intent(getActivity(), ContatoActivity_.class);
                 break;
 
         }
