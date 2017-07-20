@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app"
+    tools:context=".actv.MainActivity"
+    tools:ignore="MergeRootFrame">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppThemeTab">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/TemaPadraoTab" />
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:id="@+id/ll_angola"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="0dp"
+                android:layout_weight="0.5"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bt_angola"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="@string/angola"
+                    android:textAllCaps="true"
+                    android:textColor="@color/pager_strip_text" />
+
+                <View
+                    android:id="@+id/view_angola"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/pager_strip_border" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.7dp"
+                android:layout_height="36dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/pager_strip_border" />
+
+            <LinearLayout
+                android:id="@+id/ll_regional"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_margin="0dp"
+                android:layout_weight="0.5"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bt_regional"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="@string/regional"
+                    android:textAllCaps="true"
+                    android:textColor="@color/pager_strip_text" />
+
+                <View
+                    android:id="@+id/view_regional"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/pager_strip_border" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/pager_strip_border" />
+
+        <ListView
+            android:id="@+id/list_classes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_app"
+            android:divider="@android:color/transparent" />
+
+    </LinearLayout>
+    <fragment
+        android:id="@+id/fragment_left_menu"
+        class="br.com.iecapoeira.fragment.LeftMenuFragment_"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        tools:layout="@layout/frag_left_menu" />
+</android.support.v4.widget.DrawerLayout>

@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context="actv.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/medium"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="18dp"
+            android:layout_weight="2.5"
+            android:src="@drawable/img_logo_login" />
+
+        <EditText
+            android:id="@+id/et_associacao"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:hint="@string/hint_associacao"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            />
+
+        <EditText
+            android:id="@+id/et_apelido"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:hint="@string/hint_apelido"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:inputType="textEmailAddress"
+            android:background="@android:color/white"
+            android:hint="@string/hint_email"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:inputType="textPassword"
+            android:background="@android:color/white"
+            android:hint="@string/hint_senha"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+        <TextView
+            android:id="@+id/bt_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/green"
+            android:text="@string/bt_login"
+            android:textColor="@android:color/white"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@color/text_chat_color" />
+
+        <TextView
+            android:id="@+id/bt_login_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="18dp"
+            android:layout_weight="1"
+            android:background="@color/blue_facebook"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="@string/bt_login_face"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/text_pprivacidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="@string/politica_privacidade" />
+    </LinearLayout>
+</RelativeLayout>

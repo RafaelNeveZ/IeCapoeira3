@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/bt_photo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:src="@drawable/ic_send_camera"/>
+
+    <ImageButton
+        android:id="@+id/bt_send"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:src="@drawable/ic_send_airplane"/>
+
+    <EditText
+        android:id="@+id/edit_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/bt_photo"
+        android:layout_toLeftOf="@id/bt_send"
+        android:hint="Mensagem"
+        android:imeOptions="actionSend"
+        android:inputType="textCapSentences" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_above="@id/bt_send"
+        android:background="@color/line_color" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/view"
+        android:background="@color/bg_app"
+        android:layout_alignParentTop="true">
+
+        <include layout="@android:layout/list_content" />
+
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iê Capoeira</string>
+    <string name="aguarde">Por favor, aguarde</string>
+    <string name="title_musicas">Músicas</string>
+    <string name="title_mestres">Mestres</string>
+    <string name="title_eventos">Eventos</string>
+    <string name="title_agenda">Agenda Pessoal</string>
+    <string name="title_aulas">Aulas</string>
+    <string name="title_chat">Bate-papo</string>
+    <string name="title_parceiros">Parceiros</string>
+    <string name="title_patrocinadores">Patrocinadores</string>
+    <string name="title_contato">Contato</string>
+
+    <string name="bt_login_face">Entrar com o Facebook</string>
+    <string name="bt_login">Entrar</string>
+    <string name="buscando_dados_facebook">Pegando dados do Facebok...</string>
+    <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>
+    <string name="date_pattern">MM/dd/yyyy</string>
+    <string name="hint_city">Cidade</string>
+    <string name="hint_descricao">Fale mais sobre o evento</string>
+    <string name="hint_endereco">Endereço</string>
+    <string name="hint_estado">Estado</string>
+    <string name="hint_horario">Hora</string>
+    <string name="hint_nome_evento">Nome do evento</string>
+    <string name="hint_pais">Pais</string>
+    <string name="hint_associacao">Associação</string>
+    <string name="hint_apelido">Apelido</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_senha">Senha</string>
+    <string name="menu_chat">Salas de bate papo</string>
+    <string name="menu_eventos">Eventos Culturais</string>
+    <string name="msg_denuncia_chat">Reportar problema</string>
+    <string name="msg_denuncia_evento">Reportar esse evento</string>
+    <string name="msg_entrou">Está em</string>
+    <string name="msg_enviando_foto">Enviando foto</string>
+    <string name="msg_erro_acl">Você não é permitodo para realizar essa operação.</string>
+    <string name="msg_erro_campo_vazio">Este campo não pode ser em branco</string>
+    <string name="msg_erro_criar_evento">Falha ao criar o evento, tente novamente.</string>
+    <string name="msg_erro_desconhecido">Um erro desconhecido aconteceu, tente novamente.</string>
+    <string name="msg_erro_desconhecido_acesso_chat">Um erro desconhecido aconteceu, tente novamente.</string>
+    <string name="msg_erro_email_invalido">Por favor use um E-mail válido</string>
+    <string name="msg_erro_envio_foto">Erro ao enviar a foto, tete novamente.</string>
+    <string name="msg_erro_envio_mensagem">Erro ao enviar a mensagem.</string>
+    <string name="msg_erro_no_internet">Você está sem internet, tente novamente.</string>
+    <string name="msg_erro_sem_conexao">Você está sem internet, tente novamente.</string>
+    <string name="msg_erro_usuario_ja_existe">You cannot use this user. If the error persist, contact us.</string>
+    <string name="msg_foto_recebida">Foto recebida</string>
+    <string name="msg_no_events">Evento nao encontrado</string>
+    <string name="msg_saiu">Esquerda</string>
+    <string name="msg_salvo_sucesso">Salvo com sucesso</string>
+    <string name="msg_x_x_na_sala" formatted="false">%s %s sala de bate papo</string>
+    <string name="politica_privacidade">Quando você entrar no Ié Capoeira vocé está de acordo com nossas politicas de privacidade.</string>
+    <string name="titulo_denuncia">Problemas com a sala de bate papo? Fale mais para gente.</string>
+
+    <string name="error_missing_field">Por favor preencha todos os campos.</string>
+    <string name="error_valid_email">Por favor use um email válido.</string>
+
+    <string name="titulo_eventos_culturais">Culturais</string>
+    <string name="titulo_eventos_capoeira">Capoeira</string>
+    <string name="titulo_eventos_cidade">Eventos na minha cidade</string>
+    <string name="titulo_eventos_q_eu_vou">Eventos que eu vou</string>
+
+    <string name="msg_toast_notif_chat_sim">Vocé será notificado sobre essa sala de bate papo.</string>
+    <string name="msg_toast_notif_chat_nao">Vocé não será mais notificado sobre essa sala de bate papo.</string>
+
+    <string name="sala1">Capoeira Angola</string>
+    <string name="sala2">Capoeira Regional</string>
+    <string name="sala3">Capoeira de Rua</string>
+    <string name="sala4">Historia da Capoeira</string>
+    <string name="sala5">Capoeira no Brasil</string>
+    <string name="sala6">Capoeira no mundo</string>
+
+    <string name="angola">Angola</string>
+    <string name="regional">Regional</string>
+    <string name="teacher">Mestres</string>
+    <string name="class_schedule">Aulas agendadas</string>
+    <string name="generic_error">Um erro desconhecido aconteceu, tente novamente.</string>
+    <string name="loading_data">Carregando os dados...</string>
+    <string name="open">Aberto</string>
+    <string name="close">Fechado</string>
+
+    <plurals name="x_pessoas_irao">
+        <item quantity="zero">Nimguém irá.</item>
+        <item quantity="one">1 pessoa irá</item>
+        <item quantity="other">%d pessoas irão</item>
+    </plurals>
+
+    <string name="menu_enviar_foto">Enviando foto da galeria.</string>
+    <string name="menu_denuncia_chat">Reporte um problema com essa sala</string>
+    <string name="criar">Criado</string>
+    <string name="menu_delete">Evento deletado</string>
+    <string name="titulo_delete_event">Vocé tem certeza?</string>
+
+    <string name="mestre_veru">Mestre Veru</string>
+
+    <string name="facebook_app_id">1500676333535649</string>
+
+    <string name="error_player">Houve um erro ao inicializar o YouTubePlayer (%1$s)</string>
+
+
+</resources>

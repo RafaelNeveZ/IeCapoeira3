@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+def AAVersion = '4.0.0'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "br.com.iecapoeira"
+        minSdkVersion 16
+        targetSdkVersion 24
+        versionCode 8
+        versionName "1.0.5-beta"
+    }
+    signingConfigs {
+        release {
+            storeFile file("hemobile.jks")
+            storePassword "hemobile_Android_Keystore"
+            keyAlias "hemobile"
+            keyPassword "hemobile_Android_Keystore"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+        // if you have multiple outputs (when using splits), you may want to have other index than 0
+
+        // you should set your package name here if you are using different application IDs
+        // resourcePackageName "your.package.name"
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+
+    compile 'com.parse:parse-android:1.13.1'
+    compile 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
+
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+
+    compile 'com.google.code.gson:gson:2.4'
+
+    compile 'com.pubnub:pubnub-android:3.7.10'
+
+    compile 'com.facebook.android:facebook-android-sdk:4.+'
+
+    compile 'com.android.support:design:24.0.0'
+}

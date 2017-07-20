@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">iê Capoeira</string>
+    <string name="aguarde">Please, wait...</string>
+    <string name="title_musicas">Music</string>
+    <string name="title_mestres">Teachers</string>
+    <string name="title_eventos">Events</string>
+    <string name="title_agenda">Personal Schedule</string>
+    <string name="title_aulas">Classes</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_parceiros">Partners</string>
+    <string name="title_patrocinadores">Sponsors</string>
+    <string name="title_contato">Contact</string>
+
+    <string name="bt_login_face">Login with Facebook</string>
+    <string name="bt_login">Login</string>
+    <string name="buscando_dados_facebook">Gathering Facebook data...</string>
+    <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>
+    <string name="date_pattern">MM/dd/yyyy</string>
+    <string name="hint_city">City</string>
+    <string name="hint_descricao">Tell more about the event</string>
+    <string name="hint_endereco">Address</string>
+    <string name="hint_estado">State</string>
+    <string name="hint_horario">Hour</string>
+    <string name="hint_nome_evento">Event Name</string>
+    <string name="hint_pais">Country</string>
+    <string name="hint_associacao">Association</string>
+    <string name="hint_apelido">Nickname</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_senha">Password</string>
+    <string name="menu_chat">Chat Rooms</string>
+    <string name="menu_eventos">Cultural Events</string>
+    <string name="msg_denuncia_chat">Report chat problems</string>
+    <string name="msg_denuncia_evento">Report this event</string>
+    <string name="msg_entrou">it\'s in</string>
+    <string name="msg_enviando_foto">Sending photo...</string>
+    <string name="msg_erro_acl">You are not allowed to execute this operation.</string>
+    <string name="msg_erro_campo_vazio">This field cannot be empty.</string>
+    <string name="msg_erro_criar_evento">Fail to creat the event! Please, try again.</string>
+    <string name="msg_erro_desconhecido">An unknown error has been occurred. Please, try again.</string>
+    <string name="msg_erro_desconhecido_acesso_chat">An unknown error has been occurred when accessing this chat</string>
+    <string name="msg_erro_email_invalido">Please, use a valid e-mail address.</string>
+    <string name="msg_erro_envio_foto">Error sending the photo. Please, try again.</string>
+    <string name="msg_erro_envio_mensagem">Error sending the message!</string>
+    <string name="msg_erro_no_internet">You are offline at the moment.</string>
+    <string name="msg_erro_sem_conexao">You are offline at the moment, try again later.</string>
+    <string name="msg_erro_usuario_ja_existe">You cannot use this user. If the error persist, contact us.</string>
+    <string name="msg_foto_recebida">Photo Received</string>
+    <string name="msg_no_events">No events found.</string>
+    <string name="msg_saiu">left</string>
+    <string name="msg_salvo_sucesso">Successfully saved!</string>
+    <string name="msg_x_x_na_sala" formatted="false">%s %s the room</string>
+    <string name="politica_privacidade">When you enter Iê Capoeira, you are in agreement with our privacy policy.</string>
+    <string name="titulo_denuncia">Problems in this chat room? Tell us more about it</string>
+
+    <string name="error_missing_field">Please fill in all the fields.</string>
+    <string name="error_valid_email">Please use a valid email.</string>
+
+    <string name="titulo_eventos_culturais">Cultural</string>
+    <string name="titulo_eventos_capoeira">Capoeira</string>
+    <string name="titulo_eventos_cidade">Events on my City</string>
+    <string name="titulo_eventos_q_eu_vou">Events I\'m Going</string>
+
+    <string name="msg_toast_notif_chat_sim">You will be notified about this chat room.</string>
+    <string name="msg_toast_notif_chat_nao">You won\'t be notified about this chat room.</string>
+
+    <string name="sala1">Capoeira Angola</string>
+    <string name="sala2">Regional Capoeira</string>
+    <string name="sala3">Capoeira Street</string>
+    <string name="sala4">History of Capoeira</string>
+    <string name="sala5">Capoeira in Brazil</string>
+    <string name="sala6">Capoeira in the World</string>
+
+    <string name="angola">Angola</string>
+    <string name="regional">Regional</string>
+    <string name="teacher">Teacher</string>
+    <string name="class_schedule">Schedule of Classes</string>
+    <string name="generic_error">It was not possible to make the request</string>
+    <string name="loading_data">Loading data...</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="lbl_contato_telefone" translatable="false">(71) 991292-0300</string>
+    <string name="lbl_contato_email" translatable="false">appiecapoeira@gmail.com</string>
+    <string name="lbl_contato_website" translatable="false">www.iecapoeira.com.br</string>
+
+
+    <plurals name="x_pessoas_irao">
+        <item quantity="zero">no one is going</item>
+        <item quantity="one">1 person is going</item>
+        <item quantity="other">%d persons are going</item>
+    </plurals>
+
+    <string name="menu_enviar_foto">Send photo from Gallery</string>
+    <string name="menu_denuncia_chat">Report problems on this room</string>
+    <string name="criar">Create</string>
+    <string name="menu_delete">Delete Event</string>
+    <string name="titulo_delete_event">Are you sure?</string>
+
+    <string name="mestre_veru">Teacher Veru</string>
+
+    <string name="facebook_app_id">1500676333535649</string>
+
+    <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+
+    <!-- Icons -->
+    <string name="icon_phone" translatable="false"></string>
+    <string name="icon_mail" translatable="false"></string>
+    <string name="icon_home" translatable="false"></string>
+    <string name="icon_contact" translatable="false"></string>
+    <string name="icon_eventos" translatable="false"></string>
+    <string name="icon_agenda_pessoal" translatable="false"></string>
+    <string name="icon_aulas" translatable="false"></string>
+    <string name="icon_bate_papo" translatable="false"></string>
+    <string name="icon_musicas" translatable="false"></string>
+    <string name="icon_mestres" translatable="false"></string>
+    <string name="icon_editais" translatable="false"></string>
+    <string name="icon_parceiros" translatable="false"></string>
+    <string name="icon_add" translatable="false"></string>
+    <string name="icon_remove" translatable="false"></string>
+    <string name="icon_play" translatable="false"></string>
+
+</resources>

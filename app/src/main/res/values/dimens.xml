@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="sbig">20dp</dimen>
+    <dimen name="medium">16dp</dimen>
+    <dimen name="small_plus">10dp</dimen>
+    <dimen name="small">8dp</dimen>
+    <dimen name="little_plus">4dp</dimen>
+    <dimen name="little">2dp</dimen>
+    <dimen name="txt_big">22sp</dimen>
+    <dimen name="txt_menu_title">18sp</dimen>
+    <dimen name="txt_medium_plus">20sp</dimen>
+    <dimen name="txt_medium">16sp</dimen>
+    <dimen name="txt_small">12sp</dimen>
+    <dimen name="txt_pprivacidade">10sp</dimen>
+    <dimen name="bt_height">48dp</dimen>
+    <dimen name="txt_name_chat">14sp</dimen>
+    <dimen name="txt_chat">15sp</dimen>
+    <dimen name="txt_detail_chat">13sp</dimen>
+    <dimen name="item_offset">9dp</dimen>
+</resources>

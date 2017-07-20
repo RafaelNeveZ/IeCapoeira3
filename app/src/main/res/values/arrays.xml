@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>Regional</item>
+        <item>Angola</item>
+    </string-array>
+
+    <string-array name="dashboard">
+        <item>Events</item>
+        <item>Personal Schedule</item>
+        <item>Classes Schedule</item>
+        <item>Teachers</item>
+        <item>Music</item>
+        <item>Edicts</item>
+        <item>Chat</item>
+        <item>Partners</item>
+        <item>Contact</item>
+        <item>History of Capoeira</item>
+    </string-array>
+
+</resources>

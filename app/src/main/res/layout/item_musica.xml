@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    >
+
+    <TextView
+        android:id="@+id/tv_nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toLeftOf="@+id/tv_add"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textColor="@color/gray_txt"
+        android:textSize="16sp"
+        tools:text="musica" />
+
+    <br.com.iecapoeira.widget.TextViewPlus
+        android:id="@+id/tv_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:paddingRight="16dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="@string/icon_play"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        app:fontNameTextViewPlus="icomoon" />
+
+    <br.com.iecapoeira.widget.TextViewPlus
+        android:id="@+id/tv_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_toLeftOf="@id/tv_play"
+        android:text="@string/icon_add"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        app:fontNameTextViewPlus="icomoon" />
+
+    <ImageView
+        android:id="@+id/vw_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/gray_txt" />
+
+
+</RelativeLayout>

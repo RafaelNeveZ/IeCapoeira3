@@ -1,0 +1,133 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="br.com.iecapoeira">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:name=".IEApplication_"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemeTab">
+
+        <activity
+            android:name=".actv.SplashScreen_"
+            android:theme="@style/AppThemeTab">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".actv.LoginActivity_"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".actv.MainActivity_"
+            android:label="@string/title_eventos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.NewEventActivity_"
+            android:label="@string/title_eventos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.EventDetailActivity_"
+            android:label="@string/title_eventos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.ChatActivity_"
+            android:label="@string/title_chat"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".actv.ClassScheduleActivity_"
+            android:label="@string/title_aulas"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".actv.ClassScheduleDetailActivity_"
+            android:label="@string/title_aulas"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".actv.DashboardActivity_"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".actv.EventsActivity_"
+            android:label="@string/title_eventos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.ListaMestreActivity_"
+            android:label="@string/title_mestres"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.MestreActivity_"
+            android:label="@string/title_mestres"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".actv.ListaMestreActivity_"
+            />
+
+        <activity
+            android:name=".actv.SimpleTabsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".actv.MusicaActivity_"
+            android:label="@string/title_musicas"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.MusicaDetalheActivity_"
+            android:label="@string/title_musicas"
+            android:icon="@drawable/ic_logo"
+            android:parentActivityName=".actv.MusicaActivity_"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.ParceirosActivity_"
+            android:label="@string/title_parceiros"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".actv.ContatoActivity_"
+            android:label="@string/title_contato"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:replace="android:theme" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:exported="true" />
+
+        <service android:name=".chat.PubnubService_" />
+        <service android:name=".chat.ChatMessageService_" />
+
+        <receiver android:name=".chat.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

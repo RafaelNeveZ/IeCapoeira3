@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="bar_color">#ffffff</color>
+    <color name="bg_lista_evento">#00FF00 </color>
+    <color name="bg_app">#c9deee</color>
+    <color name="green">#58983f</color>
+    <color name="blue">#364c6e</color>
+    <color name="blue_facebook">#3b5998</color>
+    <color name="yellow">#e9aa00</color>
+    <color name="orange">#f1a83b</color>
+    <color name="gray_txt">#9a9a9a</color>
+    <color name="line_color">#000000</color>
+    <color name="name_chat_color">#364c6e</color>
+    <color name="text_chat_color">#ff2d2d2f</color>
+
+    <color name="pager_strip_border">#2c496d</color>
+    <color name="pager_strip_text">#b3b3b3</color>
+    <color name="pager_strip_separator">#9d9d9d</color>
+
+    <!-- new colors -->
+    <color name="colorPrimary">#f1a83b</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#2c496d</color>
+    <color name="colorDivider">#bfd7e2</color>
+</resources>
