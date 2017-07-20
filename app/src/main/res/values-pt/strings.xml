@@ -13,6 +13,7 @@
     <string name="title_contato">Contato</string>
 
     <string name="bt_login_face">Entrar com o Facebook</string>
+    <string name="bt_singup">Cadastrar</string>
     <string name="bt_login">Entrar</string>
     <string name="buscando_dados_facebook">Pegando dados do Facebok...</string>
     <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>

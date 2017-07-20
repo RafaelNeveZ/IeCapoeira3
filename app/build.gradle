@@ -4,7 +4,7 @@ def AAVersion = '4.0.0'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion '26'
 
     defaultConfig {
         applicationId "br.com.iecapoeira"

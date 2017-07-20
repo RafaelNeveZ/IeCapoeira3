@@ -44,7 +44,8 @@ import br.com.iecapoeira.model.UserDetails;
 public class LoginActivity extends BaseActivity {
 
     @ViewById
-    EditText etAssociacao, etApelido, etEmail, etPassword;
+//    EditText etAssociacao, etApelido, etEmail, etPassword;
+    EditText  etEmail, etPassword;
 
     private static final List<String> PERMISSIONS = Arrays.asList("email",
             "user_birthday",
@@ -69,10 +70,10 @@ public class LoginActivity extends BaseActivity {
 
     private boolean validateFields() {
         boolean result = true;
-        if (etAssociacao.getText().toString().isEmpty()) {
-            etAssociacao.setError(getString(R.string.error_missing_field));
-            result = false;
-        }
+//        if (etAssociacao.getText().toString().isEmpty()) {
+//            etAssociacao.setError(getString(R.string.error_missing_field));
+//            result = false;
+//        }
         if (etEmail.getText().toString().isEmpty()) {
             etEmail.setError(getString(R.string.error_missing_field));
             result = false;
@@ -80,28 +81,31 @@ public class LoginActivity extends BaseActivity {
             etEmail.setError(getString(R.string.error_valid_email));
             result = false;
         }
-        if (etApelido.getText().toString().isEmpty()) {
-            etApelido.setError(getString(R.string.error_missing_field));
-            result = false;
-        }
+//        if (etApelido.getText().toString().isEmpty()) {
+//            etApelido.setError(getString(R.string.error_missing_field));
+//            result = false;
+//        }
         if (etPassword.getText().toString().isEmpty()) {
             etPassword.setError(getString(R.string.error_missing_field));
             result = false;
         }
         return result;
     }
-
+    @Click
+    public void btSingup() {
+        goToMainList();
+    }
     @Click
     public void btLogin() {
         if (validateFields()) {
             ParseUser newUser = new ParseUser();
-            newUser.setUsername(etApelido.getText().toString());
+//            newUser.setUsername(etApelido.getText().toString());
             newUser.setPassword(etPassword.getText().toString());
             newUser.setEmail(etEmail.getText().toString());
-            newUser.put("Associacao", etAssociacao.getText().toString());
+//            newUser.put("Associacao", etAssociacao.getText().toString());
             UserDetails details = new UserDetails();
             details.setEmail(etEmail.getText().toString());
-            details.setName(etApelido.getText().toString());
+//            details.setName(etApelido.getText().toString());
             final UserDetails finalDetails = details;
             final ParseUser finalUser = newUser;
             details.saveInBackground(new SaveCallback() {
@@ -145,34 +149,32 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @Click
-    public void btLoginFacebook() {
-        final ParseUser currentUser = ParseUser.getCurrentUser();
-
-        // http://parseplatform.github.io/docs/android/guide/#facebook-users
-        if (currentUser == null || !ParseFacebookUtils.isLinked(currentUser)) {
-            ParseFacebookUtils.logInWithReadPermissionsInBackground(this, PERMISSIONS, new LogInCallback() {
-                @Override
-                public void done(ParseUser user, ParseException err) {
-                    startActivity(new Intent(getActivity(), DashboardActivity_.class));
-                    finish();
-                    if (user == null) {
-                        Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-                    } else {
-                        if (user.isNew()) {
-                            Log.d("MyApp", "User signed up and logged in through Facebook!");
-                        } else {
-                            Log.d("MyApp", "User logged in through Facebook!");
-                        }
-                        startActivity(new Intent(getActivity(), DashboardActivity_.class));
-                        finish();
-                    }
-                }
-            });
-        }else {
-//            getFacebookData();
-        }
-    }
+//    @Click
+//    public void btLoginFacebook() {
+//        final ParseUser currentUser = ParseUser.getCurrentUser();
+//
+//        // http://parseplatform.github.io/docs/android/guide/#facebook-users
+//        if (currentUser == null || !ParseFacebookUtils.isLinked(currentUser)) {
+//            ParseFacebookUtils.logInWithReadPermissionsInBackground(this, PERMISSIONS, new LogInCallback() {
+//                @Override
+//                public void done(ParseUser user, ParseException err) {
+//                    if (user == null) {
+//                        Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
+//                    } else {
+//                        if (user.isNew()) {
+//                            Log.d("MyApp", "User signed up and logged in through Facebook!");
+//                        } else {
+//                            Log.d("MyApp", "User logged in through Facebook!");
+//                        }
+//                        startActivity(new Intent(getActivity(), DashboardActivity_.class));
+//                        finish();
+//                    }
+//                }
+//            });
+//        }else {
+////            getFacebookData();
+//        }
+//    }
 
     private void readParseException(ParseException err) {
         String strError = getString(R.string.msg_erro_desconhecido);
@@ -214,99 +216,99 @@ public class LoginActivity extends BaseActivity {
         }).executeAsync();
     }*/
 
-    @Background
-    public void handleFacebookDataInBackground(LoginResponse response) {
-        final ParseUser currentUser = ParseUser.getCurrentUser();
-
-        UserDetails details = (UserDetails) currentUser.get(UserDetails.USER_DETAILS);
-
-        if (details == null)
-            details = ParseObject.create(UserDetails.class);
-
-        currentUser.put(UserDetails.FACEBOOK_ID, response.getId());
-        String email = response.getEmail();
-        if (email != null) {
-            currentUser.put(UserDetails.EMAIL, email);
-        }
-
-        details.setName(response.getFirstName() + " " + response.getLastName());
-        details.setGender(response.getGender());
-
-        //get City
-        try {
-            String location = response.getLocation().getString(UserDetails.NAME);
-            details.setCity(location.split(",")[0].toLowerCase());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Bitmap bitmap = getRemoteImage(getPictureURLFromResponse(response));
-        try {
-            details.setProfilePicture(bitmap);
-            final UserDetails finalDetails = details;
-            details.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        readParseException(e);
-                        return;
-                    }
-
-                    try {
-                        finalDetails.pin();
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                    }
-
-                    currentUser.put(UserDetails.USER_DETAILS, finalDetails);
-                    currentUser.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                readParseException(e);
-                                return;
-                            }
-                            dismissProgress();
-                            goToMainList();
-                        }
-                    });
-                }
-            });
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Background
+//    public void handleFacebookDataInBackground(LoginResponse response) {
+//        final ParseUser currentUser = ParseUser.getCurrentUser();
+//
+//        UserDetails details = (UserDetails) currentUser.get(UserDetails.USER_DETAILS);
+//
+//        if (details == null)
+//            details = ParseObject.create(UserDetails.class);
+//
+//        currentUser.put(UserDetails.FACEBOOK_ID, response.getId());
+//        String email = response.getEmail();
+//        if (email != null) {
+//            currentUser.put(UserDetails.EMAIL, email);
+//        }
+//
+//        details.setName(response.getFirstName() + " " + response.getLastName());
+//        details.setGender(response.getGender());
+//
+//        //get City
+//        try {
+//            String location = response.getLocation().getString(UserDetails.NAME);
+//            details.setCity(location.split(",")[0].toLowerCase());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        Bitmap bitmap = getRemoteImage(getPictureURLFromResponse(response));
+//        try {
+//            details.setProfilePicture(bitmap);
+//            final UserDetails finalDetails = details;
+//            details.saveInBackground(new SaveCallback() {
+//                @Override
+//                public void done(ParseException e) {
+//                    if (e != null) {
+//                        readParseException(e);
+//                        return;
+//                    }
+//
+//                    try {
+//                        finalDetails.pin();
+//                    } catch (ParseException e1) {
+//                        e1.printStackTrace();
+//                    }
+//
+//                    currentUser.put(UserDetails.USER_DETAILS, finalDetails);
+//                    currentUser.saveInBackground(new SaveCallback() {
+//                        @Override
+//                        public void done(ParseException e) {
+//                            if (e != null) {
+//                                readParseException(e);
+//                                return;
+//                            }
+//                            dismissProgress();
+//                            goToMainList();
+//                        }
+//                    });
+//                }
+//            });
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void goToMainList() {
         startActivity(new Intent(getActivity(), DashboardActivity_.class));
         finish();
     }
 
-    public String getPictureURLFromResponse(LoginResponse response) {
-        JSONObject jsonObject = response.getPicture();
-        try {
-            return ((JSONObject) jsonObject.get("data")).get("url").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public String getPictureURLFromResponse(LoginResponse response) {
+//        JSONObject jsonObject = response.getPicture();
+//        try {
+//            return ((JSONObject) jsonObject.get("data")).get("url").toString();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
-    public Bitmap getRemoteImage(final String s) {
-        try {
-            URL aURL = new URL(s);
-            final URLConnection conn = aURL.openConnection();
-            conn.connect();
-            final BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-            final Bitmap bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            return bm;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public Bitmap getRemoteImage(final String s) {
+//        try {
+//            URL aURL = new URL(s);
+//            final URLConnection conn = aURL.openConnection();
+//            conn.connect();
+//            final BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+//            final Bitmap bm = BitmapFactory.decodeStream(bis);
+//            bis.close();
+//            return bm;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public String printKeyHash() {
         // http://stackoverflow.com/questions/23674131/android-facebook-integration-invalid-key-hash
@@ -343,23 +345,23 @@ public class LoginActivity extends BaseActivity {
         return key;
     }
 
-    //   public interface LoginResponse extends GraphObject {
-    public interface LoginResponse {
-        public String getFirstName();
-
-        public String getLastName();
-
-        public String getId();
-
-        public JSONObject getPicture();
-
-        public String getEmail();
-
-        public String getGender();
-
-        public JSONObject getAgeRange();
-
-        public JSONObject getLocation();
-    }
+//    //   public interface LoginResponse extends GraphObject {
+//    public interface LoginResponse {
+//        public String getFirstName();
+//
+//        public String getLastName();
+//
+//        public String getId();
+//
+//        public JSONObject getPicture();
+//
+//        public String getEmail();
+//
+//        public String getGender();
+//
+//        public JSONObject getAgeRange();
+//
+//        public JSONObject getLocation();
+//    }
 
 }
