@@ -5,6 +5,8 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -35,7 +37,10 @@ import br.com.iecapoeira.model.UserDetails;
 
 @EActivity(R.layout.actv_new_event)
 @OptionsMenu(R.menu.new_event)
-public class NewEventActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class NewEventActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    @ViewById
+    Toolbar toolbar;
 
     @ViewById
     EditText editName;
@@ -71,8 +76,16 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
 
     @AfterViews
     public void init() {
+        setHeader();
         Calendar c = Calendar.getInstance();
         setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
+    }
+
+    public void setHeader() {
+        toolbar.setNavigationIcon(R.drawable.logo_voltar);
+        toolbar.setTitle(getString(R.string.title_eventos));
+        setSupportActionBar(toolbar);
+
     }
 
     private void setupTime(int year, int month, int day, int hour, int minute) {
@@ -120,7 +133,7 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
             return;
         }
 
-        showProgress(getString(R.string.aguarde));
+      //  showProgress(getString(R.string.aguarde));
 
         Event event = Event.create(Event.class);
         event.setName(name);
@@ -144,29 +157,29 @@ public class NewEventActivity extends BaseActivity implements DatePickerDialog.O
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    Toast.makeText(getActivity(), R.string.msg_salvo_sucesso, Toast.LENGTH_LONG).show();
+          //          Toast.makeText(getActivity(), R.string.msg_salvo_sucesso, Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK);
                     finish();
                 } else {
-                    Toast.makeText(getActivity(), R.string.msg_erro_criar_evento, Toast.LENGTH_LONG).show();
+           //         Toast.makeText(getActivity(), R.string.msg_erro_criar_evento, Toast.LENGTH_LONG).show();
                 }
-                dismissProgress();
+           //     dismissProgress();
             }
         });
     }
 
     @Click
     public void btPhoto() {
-        PhotoUtil.getCroppedImageFromGallery(getActivity());
+      //  PhotoUtil.getCroppedImageFromGallery(getActivity());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
         if (uri != null) {
-            bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
+            /*bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
             btPhoto.setImageBitmap(bmp);
-            btPhoto.setBackgroundResource(android.R.color.transparent);
+            btPhoto.setBackgroundResource(android.R.color.transparent);*/
         }
     }
 

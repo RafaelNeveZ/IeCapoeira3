@@ -38,7 +38,8 @@
         <activity
             android:name=".actv.NewEventActivity_"
             android:label="@string/title_eventos"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".actv.MainActivity_"/>
         <activity
             android:name=".actv.EventDetailActivity_"
             android:label="@string/title_eventos"
