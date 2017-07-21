@@ -50,6 +50,9 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
 
     @AfterViews
     void init(){
+
+
+
         setHeader();
         rvMestres.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -136,6 +139,5 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
     @Override
     public void onClickListener(View view, int position) {
         MestreActivity_.intent(this).mestre(adapter.getList().get(position)).start();
-
     }
 }

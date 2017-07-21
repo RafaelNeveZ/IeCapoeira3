@@ -11,10 +11,12 @@
     <string name="title_parceiros">Partners</string>
     <string name="title_patrocinadores">Sponsors</string>
     <string name="title_contato">Contact</string>
+    <string name="title_historia">Históry</string>
 
     <string name="bt_login_face">Login with Facebook</string>
     <string name="bt_singup">Sing Up</string>
     <string name="bt_login">Login</string>
+    <string name="bt_save">SAVE</string>
     <string name="buscando_dados_facebook">Gathering Facebook data...</string>
     <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>
     <string name="date_pattern">MM/dd/yyyy</string>

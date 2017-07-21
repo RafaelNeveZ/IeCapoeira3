@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="br.com.iecapoeira">
@@ -16,21 +17,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppThemeTab">
-
         <activity
             android:name=".actv.SplashScreen_"
             android:theme="@style/AppThemeTab">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".actv.LoginActivity_"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".actv.MainActivity_"
             android:label="@string/title_eventos"
@@ -38,8 +37,8 @@
         <activity
             android:name=".actv.NewEventActivity_"
             android:label="@string/title_eventos"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".actv.MainActivity_"/>
+            android:parentActivityName=".actv.MainActivity_"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actv.EventDetailActivity_"
             android:label="@string/title_eventos"
@@ -48,22 +47,18 @@
             android:name=".actv.ChatActivity_"
             android:label="@string/title_chat"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.ClassScheduleActivity_"
             android:label="@string/title_aulas"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.ClassScheduleDetailActivity_"
             android:label="@string/title_aulas"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.DashboardActivity_"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.EventsActivity_"
             android:label="@string/title_eventos"
@@ -75,34 +70,33 @@
         <activity
             android:name=".actv.MestreActivity_"
             android:label="@string/title_mestres"
-            android:screenOrientation="portrait"
             android:parentActivityName=".actv.ListaMestreActivity_"
-            />
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actv.SimpleTabsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.MusicaActivity_"
             android:label="@string/title_musicas"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.MusicaDetalheActivity_"
-            android:label="@string/title_musicas"
             android:icon="@drawable/ic_logo"
+            android:label="@string/title_musicas"
             android:parentActivityName=".actv.MusicaActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ParceirosActivity_"
             android:label="@string/title_parceiros"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.ContatoActivity_"
             android:label="@string/title_contato"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".actv.HistoryActivity_"
+            android:label="@string/title_historia"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -128,6 +122,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
 
     </application>
 

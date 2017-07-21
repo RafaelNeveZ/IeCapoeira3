@@ -2,6 +2,7 @@ package br.com.iecapoeira.actv;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -69,9 +70,12 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
     @ViewById
     Button btHour;
 
+    @ViewById
+    Button btHourFinal;
+
     private int selDay, selMonth, selYear;
     private int selHour, selMinute;
-
+    private final Context context = this;
     private Bitmap bmp;
 
     @AfterViews
@@ -101,6 +105,7 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
 
         btDate.setText(sdf.format(c.getTime()));
         btHour.setText(String.format("%02d:%02d", hour, minute));
+        btHourFinal.setText(String.format("%02d:%02d", hour, minute));
     }
 
     @OptionsItem
@@ -146,7 +151,6 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
         date.set(selYear, selMonth, selDay, selHour, selMinute);
         event.setDate(date.getTime());
         event.setOwner((UserDetails) ParseUser.getCurrentUser().get(UserDetails.USER_DETAILS));
-
         try {
             event.setBitmap(bmp);
         } catch (Exception e) {
@@ -157,11 +161,11 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-          //          Toast.makeText(getActivity(), R.string.msg_salvo_sucesso, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.msg_salvo_sucesso, Toast.LENGTH_LONG).show();
                     setResult(RESULT_OK);
                     finish();
                 } else {
-           //         Toast.makeText(getActivity(), R.string.msg_erro_criar_evento, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.msg_erro_criar_evento, Toast.LENGTH_LONG).show();
                 }
            //     dismissProgress();
             }
@@ -170,21 +174,27 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
 
     @Click
     public void btPhoto() {
-      //  PhotoUtil.getCroppedImageFromGallery(getActivity());
+        PhotoUtil.getCroppedImageFromGallery((NewEventActivity)context);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
         if (uri != null) {
-            /*bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
+            bmp = PhotoUtil.resizeBitmap((NewEventActivity)context, uri);
             btPhoto.setImageBitmap(bmp);
-            btPhoto.setBackgroundResource(android.R.color.transparent);*/
+            btPhoto.setBackgroundResource(android.R.color.transparent);
         }
     }
 
     @Click
     public void btHour() {
+        TimePickerDialog tpd = new TimePickerDialog(this, this, selHour, selMinute, true);
+        tpd.show();
+    }
+
+    @Click
+    public void btHourFinal() {
         TimePickerDialog tpd = new TimePickerDialog(this, this, selHour, selMinute, true);
         tpd.show();
     }

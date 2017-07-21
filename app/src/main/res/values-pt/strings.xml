@@ -11,10 +11,12 @@
     <string name="title_parceiros">Parceiros</string>
     <string name="title_patrocinadores">Patrocinadores</string>
     <string name="title_contato">Contato</string>
+    <string name="title_historia">História da Capoeria</string>
 
     <string name="bt_login_face">Entrar com o Facebook</string>
     <string name="bt_singup">Cadastrar</string>
     <string name="bt_login">Entrar</string>
+    <string name="bt_save">SALVAR</string>
     <string name="buscando_dados_facebook">Pegando dados do Facebok...</string>
     <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>
     <string name="date_pattern">MM/dd/yyyy</string>

@@ -19,6 +19,7 @@ import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
 import br.com.iecapoeira.actv.ContatoActivity_;
 import br.com.iecapoeira.actv.DashboardActivity_;
+import br.com.iecapoeira.actv.HistoryActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.LoginActivity;
 import br.com.iecapoeira.actv.LoginActivity_;
@@ -142,49 +143,66 @@ public class LeftMenuFragment extends Fragment {
 
     @ItemClick
     void listViewItemClicked(DashboardItem selectedModel) {
-        Intent intent = new Intent(getActivity(), ClassScheduleActivity_.class);
+        Intent intent= new Intent(getActivity(), DashboardActivity_.class);
+        boolean notDashActivity=false;
         switch (selectedModel.dashboardEnum) {
             case EVENTS:
                 intent = new Intent(getActivity(), MainActivity_.class);
+                notDashActivity=true;
                 break;
             case PERSONAL_SCHEDULE:
 //                intent = new Intent(getActivity(), PersonalScheduleActivity_.class);
+//                notDashActivity=true;
                 break;
             case CLASSES_SCHEDULE:
                 intent = new Intent(getActivity(), ClassScheduleActivity_.class);
+                notDashActivity=true;
                 break;
             case TEACHERS:
                 intent = new Intent(getActivity(), ListaMestreActivity_.class);
+                notDashActivity=true;
                 break;
             case MUSIC:
                 intent = new Intent(getActivity(), MusicaActivity_.class);
+                notDashActivity=true;
                 break;
             case EDICTS:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://prosas.com.br"));
+                notDashActivity=true;
                 break;
             case CHAT:
                 intent = new Intent(getActivity(), ChatActivity_.class);
+                notDashActivity=true;
                 break;
             case PARTNERS:
                 intent = new Intent(getActivity(), ParceirosActivity_.class);
+                notDashActivity=true;
                 break;
             case HISTORY:
-                intent = new Intent(getActivity(), ListaMestreActivity_.class);
+                intent = new Intent(getActivity(), HistoryActivity_.class);
+                notDashActivity=true;
                 break;
             case USER:
                 intent = new Intent(getActivity(), LoginActivity_.class);
+                notDashActivity=true;
                 break;
             case CONTACT:
                 intent = new Intent(getActivity(), ContatoActivity_.class);
+                notDashActivity=true;
                 break;
 
         }
         startActivity(intent);
+        if(notDashActivity){
+      //   getActivity().finish();
+            }
+
     }
 
     @Click(R.id.iv_header)
     void clickHeader(){
         DashboardActivity_.intent(this).start();
+        getActivity().finish();
     }
 
 }
