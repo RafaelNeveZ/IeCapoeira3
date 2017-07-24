@@ -79,13 +79,14 @@
         <activity
             android:name=".actv.ListaMestreActivity_"
             android:label="@string/title_mestres"
+            android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.UserActivity_"
             android:label="@string/title_usuario"
-            android:screenOrientation="portrait"
             android:parentActivityName=".actv.DashboardActivity_"
-            android:theme="@style/menuWhiteTheme"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.MestreActivity_"
             android:label="@string/title_mestres"
@@ -147,7 +148,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
 
     </application>
 

@@ -72,7 +72,6 @@ public class MusicaActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-
        /* final ListView lista = (ListView) findViewById(R.id.listView1);
         ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, musicas );
         lista.setAdapter(adapter);*/

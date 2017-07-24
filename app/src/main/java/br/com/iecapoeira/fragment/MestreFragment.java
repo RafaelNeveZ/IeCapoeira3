@@ -78,7 +78,6 @@ public class MestreFragment extends Fragment  {
     public void onClickListener(View view, int position) {
         Toast.makeText(getActivity(), "Position: "+position, Toast.LENGTH_SHORT).show();
         Intent myIntent = new Intent(getActivity(), MestreActivity_.class);
-
         // myIntent.putExtra("key", value); //Optional parameters
         MestreFragment.this.startActivity(myIntent);
 

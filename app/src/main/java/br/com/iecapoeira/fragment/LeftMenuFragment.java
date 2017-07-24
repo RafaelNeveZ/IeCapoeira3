@@ -17,15 +17,12 @@ import java.util.List;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
-import br.com.iecapoeira.actv.ClassScheduleDetailActivity_;
 import br.com.iecapoeira.actv.ContatoActivity_;
 import br.com.iecapoeira.actv.DashboardActivity_;
 import br.com.iecapoeira.actv.HistoryActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
-import br.com.iecapoeira.actv.LoginActivity;
-import br.com.iecapoeira.actv.LoginActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
-import br.com.iecapoeira.actv.MestreActivity_;
+
 import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
 import br.com.iecapoeira.actv.UserActivity_;

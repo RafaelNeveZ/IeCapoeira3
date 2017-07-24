@@ -27,9 +27,10 @@
                 app:popupTheme="@style/TemaPadraoTab">
 
             </android.support.v7.widget.Toolbar>
+
         </android.support.design.widget.AppBarLayout>
 
-        <!--<LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -52,6 +53,7 @@
                     android:gravity="center"
                     android:text="@string/angola"
                     android:textAllCaps="true"
+                    android:textStyle="bold"
                     android:textColor="@color/pager_strip_text" />
 
                 <View
@@ -84,6 +86,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:text="@string/regional"
+                    android:textStyle="bold"
                     android:textAllCaps="true"
                     android:textColor="@color/pager_strip_text" />
 
@@ -94,7 +97,7 @@
                     android:background="@color/yellow" />
 
             </LinearLayout>
-        </LinearLayout>-->
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_mestres"

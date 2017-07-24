@@ -1,6 +1,7 @@
 package br.com.iecapoeira.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Mestre;
@@ -19,6 +21,9 @@ public class MestreAdapter extends RecyclerView.Adapter<MestreAdapter.MyViewHold
     private List<Mestre> mList;
     private LayoutInflater mLayoutInflater;
     private RecyclerViewOnClickListenerHack mRecyclerViewOnClickListenerHack;
+    public final static int TYPE_ANGOLA = 1;
+    public final static int TYPE_REGIONAL = 2;
+    int viewType;
 
 
     public MestreAdapter(Context c, List<Mestre> l){
@@ -44,6 +49,18 @@ public class MestreAdapter extends RecyclerView.Adapter<MestreAdapter.MyViewHold
         Log.i("LOG", "onBindViewHolder()");
         myViewHolder.ivFoto.setImageResource( mList.get(position).getThumb() );
         myViewHolder.tvNome.setText(mList.get(position).getNome() );
+    }
+
+    public void setAngola(List<Mestre> listPartners) {
+        this.mList = listPartners;
+        viewType = TYPE_ANGOLA;
+        notifyDataSetChanged();
+    }
+
+    public void setRegional(List<Mestre> listPartners) {
+        this.mList = listPartners;
+        viewType = TYPE_REGIONAL;
+        notifyDataSetChanged();
     }
 
     @Override

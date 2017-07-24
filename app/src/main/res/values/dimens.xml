@@ -21,4 +21,6 @@
     <dimen name="txt_detail_chat">13sp</dimen>
     <dimen name="item_offset">9dp</dimen>
     <dimen name="history_padding">15dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
 </resources>
