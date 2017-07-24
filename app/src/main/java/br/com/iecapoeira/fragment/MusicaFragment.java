@@ -2,6 +2,7 @@ package br.com.iecapoeira.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.MusicaActivity;
 import br.com.iecapoeira.actv.MusicaDetalheActivity_;
 import br.com.iecapoeira.actv.NewEventActivity_;
+import br.com.iecapoeira.actv.NewMusicActivity_;
 import br.com.iecapoeira.adapter.MusicaAdapter;
 import br.com.iecapoeira.model.Musica;
 import br.com.iecapoeira.model.Playlist;
@@ -87,8 +89,8 @@ public class MusicaFragment extends Fragment implements RecyclerViewOnClickListe
     }
 
     @OptionsItem
-    public void newMusic() {
-      //  startActivityForResult(new Intent(getActivity(), NewMusicActivity_.class), 10);
+    public void newEvent() {
+        startActivityForResult(new Intent(getActivity(), NewMusicActivity_.class), 10);
     }
 
     private void updateFavoritos(){
@@ -101,7 +103,9 @@ public class MusicaFragment extends Fragment implements RecyclerViewOnClickListe
     }
     @Override
     public void onClickListener(View view, int position) {
-        MusicaDetalheActivity_.intent(getContext()).musica(mList.get(position)).start();
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+ mList.get(position).getLink())));
+
+        //MusicaDetalheActivity_.intent(getContext()).musica(mList.get(position)).start();
     }
 
     @UiThread

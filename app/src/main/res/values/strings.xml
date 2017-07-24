@@ -13,6 +13,7 @@
     <string name="title_patrocinadores">Sponsors</string>
     <string name="title_contato">Contact</string>
     <string name="title_historia">Históry</string>
+    <string name="title_new_song">New Music</string>
 
     <string name="bt_login_face">Login with Facebook</string>
     <string name="bt_singup">Sing Up</string>
@@ -140,5 +141,8 @@
     <string name="hint_estilo_capoeira">Style of capoeira</string>
     <string name="hint_graduacao">Graduation</string>
     <string name="hint_descricao_aula">Tell more about the class</string>
+    <string name="new_song">Insert a new song</string>
+    <string name="hint_link_youtube">Paste a Youtube link</string>
+    <string name="hint_title_song">Title of the music</string>
 
 </resources>

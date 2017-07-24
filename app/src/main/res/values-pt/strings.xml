@@ -13,6 +13,7 @@
     <string name="title_patrocinadores">Patrocinadores</string>
     <string name="title_contato">Contato</string>
     <string name="title_historia">História da Capoeria</string>
+    <string name="title_new_song">Nova Música</string>
 
     <string name="bt_login_face">Entrar com o Facebook</string>
     <string name="bt_singup">Cadastrar</string>
@@ -119,6 +120,9 @@
     <string name="hint_estilo_capoeira">Estilo de capoeira</string>
     <string name="hint_graduacao">Graduação</string>
     <string name="hint_descricao_aula">Fale mais sobre a aula</string>
+    <string name="new_song">Insira uma nova música</string>
+    <string name="hint_link_youtube">Cole o link do Youtube</string>
+    <string name="hint_title_song">Titulo da música</string>
 
 
 </resources>
