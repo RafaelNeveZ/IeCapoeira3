@@ -2,12 +2,16 @@ package br.com.iecapoeira.actv;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.iecapoeira.R;
@@ -18,10 +22,11 @@ import br.com.iecapoeira.utils.ImageUtil;
  * Created by Rafael on 10/08/16.
  */
 @EActivity(R.layout.actv_class_schedule_detail)
+@OptionsMenu(R.menu.class_detail)
 public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     public static Aula model;
-
+    public boolean IsNotAdmin = false;
     @ViewById
     Toolbar toolbar;
 
@@ -32,10 +37,16 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
     @ViewById
     TextView tvTeacher, tvDescription, tvDays, tvTime, tvPlace;
 
+    @OptionsMenuItem(R.id.delete)
+    MenuItem delete;
+
+
+    @OptionsMenuItem(R.id.edit)
+    MenuItem edit;
+
     @AfterViews
     public void init() {
         setHeader();
-
         if (model == null) {
             return;
         }
@@ -62,7 +73,22 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
+        if (item.getItemId() == R.id.delete)
+            ContatoActivity_.intent(this).start();
+
+        if (item.getItemId() == R.id.edit)
+            DashboardActivity_.intent(this).start();
+
         return false;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu) {
+        if(IsNotAdmin)
+            menu.getItem(1).setEnabled(false);
+
+        return true;
+
     }
 
     public void setDaysText() {
@@ -81,5 +107,6 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
         }
         tvDays.setText(days);
     }
+
 
 }

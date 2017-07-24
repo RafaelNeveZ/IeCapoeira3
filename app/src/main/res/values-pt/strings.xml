@@ -83,6 +83,10 @@
     <string name="loading_data">Carregando os dados...</string>
     <string name="open">Aberto</string>
     <string name="close">Fechado</string>
+    <string name="delete_class">Deletar</string>
+    <string name="edit_class">Editar</string>
+
+
 
     <plurals name="x_pessoas_irao">
         <item quantity="zero">Nimguém irá.</item>

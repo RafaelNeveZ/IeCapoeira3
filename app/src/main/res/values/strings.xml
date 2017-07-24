@@ -83,6 +83,8 @@
     <string name="loading_data">Loading data...</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="delete_class">Delete</string>
+    <string name="edit_class">Edit</string>
 
     <string name="lbl_contato_telefone" translatable="false">(71) 991292-0300</string>
     <string name="lbl_contato_email" translatable="false">appiecapoeira@gmail.com</string>
