@@ -88,7 +88,7 @@
     <string name="delete_class">Deletar</string>
     <string name="edit_class">Editar</string>
     <string name="other_event">+ Adicionar outro dia de evento</string>
-    <string name="other_class">+ Adicionar outro aula</string>
+    <string name="other_class">+ Adicionar outra aula</string>
 
 
     <plurals name="x_pessoas_irao">
@@ -127,6 +127,7 @@
     <string name="hint_nome">Nome</string>
     <string name="hint_second_name">Sobrenome</string>
     <string name="hint_telefone">Telefone</string>
+    <string name="title_usuario">Usuário</string>
 
 
 </resources>

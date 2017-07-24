@@ -82,8 +82,9 @@ public class DashboardActivity extends AppCompatActivity {
         if (drawerToggle != null && drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+
         if (item.getItemId() == R.id.contato)
-            ContatoActivity_.intent(this).start();
+            ClassScheduleDetailActivity_.intent(this).start();
 
         return super.onOptionsItemSelected(item);
     }

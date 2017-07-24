@@ -32,10 +32,10 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".actv.CadastroActivity_"
-            android:parentActivityName=".actv.LoginActivity_"
             android:label="@string/app_cadastro"
+            android:parentActivityName=".actv.LoginActivity_"
             android:screenOrientation="portrait"
-            android:theme="@style/menuWhiteTheme"/>
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.MainActivity_"
             android:label="@string/title_eventos"
@@ -80,6 +80,12 @@
             android:name=".actv.ListaMestreActivity_"
             android:label="@string/title_mestres"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.UserActivity_"
+            android:label="@string/title_usuario"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".actv.DashboardActivity_"
+            android:theme="@style/menuWhiteTheme"/>
         <activity
             android:name=".actv.MestreActivity_"
             android:label="@string/title_mestres"

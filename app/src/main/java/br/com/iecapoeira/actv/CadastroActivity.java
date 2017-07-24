@@ -18,8 +18,10 @@ import br.com.iecapoeira.R;
 public class CadastroActivity extends AppCompatActivity {
     @ViewById
     EditText editName, editSecondName, editEmail, editTel, editCity, editCountry, editAssociation, editNickname;
+
     @OptionsItem
     public void newEvent() {
+
 
         String name = editName.getText().toString().trim();
         String secondName = editSecondName.getText().toString().trim();
@@ -32,6 +34,8 @@ public class CadastroActivity extends AppCompatActivity {
 
         if (name.isEmpty()) {
             setError(editName, getString(R.string.msg_erro_campo_vazio));
+            startActivity(new Intent(this, DashboardActivity_.class));
+            finish();
             return;
         }
         if (secondName.isEmpty()) {

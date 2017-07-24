@@ -148,5 +148,6 @@
     <string name="hint_nome">Name</string>
     <string name="hint_second_name">Last name</string>
     <string name="hint_telefone">Phone</string>
+    <string name="title_usuario">User</string>
 
 </resources>
