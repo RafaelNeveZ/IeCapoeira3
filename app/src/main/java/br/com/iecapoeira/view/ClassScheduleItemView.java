@@ -42,7 +42,6 @@ public class ClassScheduleItemView extends RelativeLayout {
 
     public void bind(Aula model) {
         this.model = model;
-
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
         ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 50);

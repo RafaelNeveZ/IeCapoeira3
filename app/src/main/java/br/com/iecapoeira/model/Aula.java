@@ -20,7 +20,8 @@ import java.util.List;
 public class Aula extends ParseObject {
 
     public static final String FOTOPROFESSOR = "fotoProfessor";
-    public static final String HORARIO = "horario";
+    public static final String HORARIO_COMECO = "horario";
+    public static final String HORARIO_FIM = "horario";
     public static final String DIASSEMANA = "diasSemana";
     public static final String LONGITUDE = "longitude";
     public static final String LATITUDE = "latitude";
@@ -31,8 +32,12 @@ public class Aula extends ParseObject {
     public static final String TIPOCAPOEIRA = "tipoCapoeira";
 
 
-    public String getHorario() {
-        return getString(HORARIO);
+    public String getHorarioStart() {
+        return getString(HORARIO_COMECO);
+    }
+
+    public String getHorarioEnd() {
+        return getString(HORARIO_FIM);
     }
 
     public List<Integer> getDiasSemana() {

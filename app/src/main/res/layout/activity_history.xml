@@ -5,13 +5,14 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_app"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/bg_app">
+        >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,7 +24,47 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppThemeTab" />
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="18dp"
+
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/capoeira_img"
+
+            android:paddingLeft="@dimen/history_padding"
+            android:paddingRight="@dimen/history_padding"
+            android:paddingTop="@dimen/history_padding"
+            android:layout_width="match_parent"
+            android:layout_height="258dp"
+            android:src="@drawable/capoeira"
+            />
+
+            <ScrollView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical">
+            <TextView
+                android:id="@+id/bt_login"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp"
+                android:paddingBottom="15dp"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:text="@string/hist_capoeira"
+                android:textColor="@android:color/darker_gray"
+                android:paddingLeft="@dimen/history_padding"
+                android:paddingRight="@dimen/history_padding" />
+            </ScrollView>
+    </LinearLayout>
+
+    </LinearLayout>
     <fragment
         android:id="@+id/fragment_left_menu"
         class="br.com.iecapoeira.fragment.LeftMenuFragment_"

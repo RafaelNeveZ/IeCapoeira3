@@ -77,6 +77,7 @@
     <string name="angola">Angola</string>
     <string name="regional">Regional</string>
     <string name="teacher">Mestres</string>
+    <string name="schedule">Agenda</string>
     <string name="class_schedule">Aulas agendadas</string>
     <string name="generic_error">Um erro desconhecido aconteceu, tente novamente.</string>
     <string name="loading_data">Carregando os dados...</string>

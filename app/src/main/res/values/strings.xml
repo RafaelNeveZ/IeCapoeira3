@@ -77,6 +77,7 @@
     <string name="angola">Angola</string>
     <string name="regional">Regional</string>
     <string name="teacher">Teacher</string>
+    <string name="schedule">Schedule</string>
     <string name="class_schedule">Schedule of Classes</string>
     <string name="generic_error">It was not possible to make the request</string>
     <string name="loading_data">Loading data...</string>

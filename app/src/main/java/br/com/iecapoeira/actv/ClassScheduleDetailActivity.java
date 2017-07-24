@@ -43,7 +43,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
         ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 80);
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
-        tvTime.setText(model.getHorario());
+        tvTime.setText(model.getHorarioStart()+ " às "+ model.getHorarioEnd());
         tvPlace.setText(model.getNomeAcademia());
         setDaysText();
     }

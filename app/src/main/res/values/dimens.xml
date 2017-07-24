@@ -20,4 +20,5 @@
     <dimen name="txt_chat">15sp</dimen>
     <dimen name="txt_detail_chat">13sp</dimen>
     <dimen name="item_offset">9dp</dimen>
+    <dimen name="history_padding">15dp</dimen>
 </resources>
