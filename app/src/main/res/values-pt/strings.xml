@@ -123,6 +123,10 @@
     <string name="new_song">Insira uma nova música</string>
     <string name="hint_link_youtube">Cole o link do Youtube</string>
     <string name="hint_title_song">Titulo da música</string>
+    <string name="app_cadastro">Cadastro</string>
+    <string name="hint_nome">Nome</string>
+    <string name="hint_second_name">Sobrenome</string>
+    <string name="hint_telefone">Telefone</string>
 
 
 </resources>

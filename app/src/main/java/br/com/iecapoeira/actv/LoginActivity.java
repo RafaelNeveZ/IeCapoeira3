@@ -281,7 +281,7 @@ public class LoginActivity extends BaseActivity {
 //    }
 
     private void goToMainList() {
-        startActivity(new Intent(getActivity(), DashboardActivity_.class));
+        startActivity(new Intent(getActivity(), CadastroActivity_.class));
         finish();
     }
 

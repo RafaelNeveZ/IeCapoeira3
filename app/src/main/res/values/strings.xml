@@ -144,5 +144,9 @@
     <string name="new_song">Insert a new song</string>
     <string name="hint_link_youtube">Paste a Youtube link</string>
     <string name="hint_title_song">Title of the music</string>
+    <string name="app_cadastro">Sing Up</string>
+    <string name="hint_nome">Name</string>
+    <string name="hint_second_name">Last name</string>
+    <string name="hint_telefone">Phone</string>
 
 </resources>
