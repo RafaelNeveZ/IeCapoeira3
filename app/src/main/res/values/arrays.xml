@@ -19,7 +19,7 @@
     <string-array name="dashboard">
         <item>Events</item>
         <item>Personal Schedule</item>
-        <item>Classes Schedule</item>
+        <item>Classes</item>
         <item>Teachers</item>
         <item>Music</item>
         <item>Edicts</item>

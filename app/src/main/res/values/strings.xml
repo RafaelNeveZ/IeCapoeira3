@@ -7,6 +7,7 @@
     <string name="title_eventos">Events</string>
     <string name="title_agenda">Personal Schedule</string>
     <string name="title_aulas">Classes</string>
+    <string name="title_class_register">Sing up Class</string>
     <string name="title_chat">Chat</string>
     <string name="title_parceiros">Partners</string>
     <string name="title_patrocinadores">Sponsors</string>
@@ -85,6 +86,8 @@
     <string name="close">Close</string>
     <string name="delete_class">Delete</string>
     <string name="edit_class">Edit</string>
+    <string name="other_event">+ Add another day of event</string>
+    <string name="other_class">+ Add another class</string>
 
     <string name="lbl_contato_telefone" translatable="false">(71) 991292-0300</string>
     <string name="lbl_contato_email" translatable="false">appiecapoeira@gmail.com</string>
@@ -125,5 +128,17 @@
     <string name="icon_add" translatable="false"></string>
     <string name="icon_remove" translatable="false"></string>
     <string name="icon_play" translatable="false"></string>
+
+    <string name="seg">MON</string>
+    <string name="ter">TUE</string>
+    <string name="qua">WED</string>
+    <string name="qui">THU</string>
+    <string name="sex">FRI</string>
+    <string name="sab">SAT</string>
+    <string name="dom">SUN</string>
+    <string name="hint_nome_professor">Name of the teacher</string>
+    <string name="hint_estilo_capoeira">Style of capoeira</string>
+    <string name="hint_graduacao">Graduation</string>
+    <string name="hint_descricao_aula">Tell more about the class</string>
 
 </resources>

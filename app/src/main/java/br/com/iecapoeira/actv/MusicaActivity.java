@@ -92,6 +92,7 @@ public class MusicaActivity extends AppCompatActivity {
 
     public void setHeader() {
         toolbar.setNavigationIcon(R.drawable.ic_logo);
+        toolbar.setTitle(getString(R.string.title_musicas));
         setSupportActionBar(toolbar);
     }
 

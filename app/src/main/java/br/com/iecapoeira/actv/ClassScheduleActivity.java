@@ -22,6 +22,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -36,6 +38,7 @@ import br.com.iecapoeira.model.Aula;
  * Created by Rafael on 09/08/16.
  */
 @EActivity(R.layout.actv_class_schedule)
+@OptionsMenu(R.menu.main)
 public class ClassScheduleActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
@@ -59,7 +62,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
     @AfterViews
     public void init() {
         setHeader();
-        getAngolaList();
+       // getAngolaList();
         drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 drawerLayout,         /* DrawerLayout object */
@@ -87,6 +90,12 @@ public class ClassScheduleActivity extends AppCompatActivity {
             drawerToggle.onConfigurationChanged(newConfig);
     }
 
+
+    @OptionsItem
+    public void newEvent() {
+        Intent intent = new Intent(this, NewClassActivity_.class);
+        startActivity(intent);
+    }
 
 
     @Override

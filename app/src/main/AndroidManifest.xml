@@ -38,7 +38,14 @@
             android:name=".actv.NewEventActivity_"
             android:label="@string/title_eventos"
             android:parentActivityName=".actv.MainActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
+            android:name=".actv.NewClassActivity_"
+            android:label="@string/title_class_register"
+            android:theme="@style/menuWhiteTheme"
+            android:parentActivityName=".actv.ClassScheduleActivity_"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".actv.EventDetailActivity_"
             android:label="@string/title_eventos"
@@ -78,7 +85,8 @@
         <activity
             android:name=".actv.MusicaActivity_"
             android:label="@string/title_musicas"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".actv.MusicaDetalheActivity_"
             android:icon="@drawable/ic_logo"
@@ -93,11 +101,10 @@
             android:name=".actv.ContatoActivity_"
             android:label="@string/title_contato"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".actv.HistoryActivity_"
+        <activity
+            android:name=".actv.HistoryActivity_"
             android:label="@string/title_historia"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

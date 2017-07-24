@@ -1,6 +1,7 @@
 package br.com.iecapoeira.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,8 @@ import com.parse.ParseQuery;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -24,6 +27,7 @@ import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.MusicaActivity;
 import br.com.iecapoeira.actv.MusicaDetalheActivity_;
+import br.com.iecapoeira.actv.NewEventActivity_;
 import br.com.iecapoeira.adapter.MusicaAdapter;
 import br.com.iecapoeira.model.Musica;
 import br.com.iecapoeira.model.Playlist;
@@ -31,6 +35,7 @@ import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
 
 
 @EFragment(R.layout.frag_musica)
+@OptionsMenu(R.menu.main)
 public class MusicaFragment extends Fragment implements RecyclerViewOnClickListenerHack {
 
     @ViewById
@@ -79,6 +84,11 @@ public class MusicaFragment extends Fragment implements RecyclerViewOnClickListe
             }
         });
 
+    }
+
+    @OptionsItem
+    public void newMusic() {
+      //  startActivityForResult(new Intent(getActivity(), NewMusicActivity_.class), 10);
     }
 
     private void updateFavoritos(){

@@ -7,6 +7,7 @@
     <string name="title_eventos">Eventos</string>
     <string name="title_agenda">Agenda Pessoal</string>
     <string name="title_aulas">Aulas</string>
+    <string name="title_class_register">Registrar Aula</string>
     <string name="title_chat">Bate-papo</string>
     <string name="title_parceiros">Parceiros</string>
     <string name="title_patrocinadores">Patrocinadores</string>
@@ -85,7 +86,8 @@
     <string name="close">Fechado</string>
     <string name="delete_class">Deletar</string>
     <string name="edit_class">Editar</string>
-
+    <string name="other_event">+ Adicionar outro dia de evento</string>
+    <string name="other_class">+ Adicionar outro aula</string>
 
 
     <plurals name="x_pessoas_irao">
@@ -105,6 +107,18 @@
     <string name="facebook_app_id">1500676333535649</string>
 
     <string name="error_player">Houve um erro ao inicializar o YouTubePlayer (%1$s)</string>
+    <string name="seg">SEG</string>
+    <string name="ter">TER</string>
+    <string name="qua">QUA</string>
+    <string name="qui">QUI</string>
+    <string name="sex">SEX</string>
+    <string name="sab">SAB</string>
+    <string name="dom">DOM</string>
+
+    <string name="hint_nome_professor">Nome do professor</string>
+    <string name="hint_estilo_capoeira">Estilo de capoeira</string>
+    <string name="hint_graduacao">Graduação</string>
+    <string name="hint_descricao_aula">Fale mais sobre a aula</string>
 
 
 </resources>

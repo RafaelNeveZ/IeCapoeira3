@@ -19,11 +19,11 @@
     <string-array name="dashboard">
         <item>Eventos</item>  <!-- 0-->
         <item>Agenda Pessoal</item>  <!--1-->
-        <item>Aulas Agendadas</item>  <!--2-->
+        <item>Aulas</item>  <!--2-->
         <item>Mestres</item>  <!--3-->
         <item>Musica</item>  <!--4-->
         <item>Editais</item>  <!--5-->
-        <item>Sala de bate papo</item>  <!--6-->
+        <item>Bate papo</item>  <!--6-->
         <item>Parceiros</item>  <!--7-->
         <item>Contato</item>  <!--8-->
         <item>História da Capoeira</item>  <!--9-->
