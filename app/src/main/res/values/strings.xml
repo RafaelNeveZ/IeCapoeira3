@@ -161,5 +161,10 @@
     <string name="imagem_erro">Please insert an Image</string>
     <string name="title_new_partners">Add Partners</string>
     <string name="title_filter">Filter by City</string>
+    <string name="title_edital">Notice</string>
+    <string name="title_add_edital">Add New Notice</string>
+    <string name="new_edital">Add a new Notice</string>
+    <string name="hint_edital_link">Paste the link of the Notice</string>
+    <string name="hint_title_edital">Title of the notice</string>
 
 </resources>

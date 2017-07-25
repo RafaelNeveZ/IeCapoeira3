@@ -19,6 +19,7 @@ import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
 import br.com.iecapoeira.actv.ContatoActivity_;
 import br.com.iecapoeira.actv.DashboardActivity_;
+import br.com.iecapoeira.actv.EditalActivity_;
 import br.com.iecapoeira.actv.HistoryActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
@@ -166,7 +167,7 @@ public class LeftMenuFragment extends Fragment {
                 notDashActivity=true;
                 break;
             case EDICTS:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://prosas.com.br"));
+                intent = new Intent(getActivity(), EditalActivity_.class);
                 notDashActivity=true;
                 break;
             case CHAT:

@@ -16,6 +16,8 @@ import java.util.List;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
+import br.com.iecapoeira.actv.EditalActivity;
+import br.com.iecapoeira.actv.EditalActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 import br.com.iecapoeira.actv.MusicaActivity_;
@@ -138,7 +140,7 @@ public class DashboardFragment extends Fragment {
                 intent = new Intent(getActivity(), MusicaActivity_.class);
                 break;
             case EDICTS:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://prosas.com.br"));
+                intent = new Intent(getActivity(), EditalActivity_.class);
                 break;
             case CHAT:
                 intent = new Intent(getActivity(), ChatActivity_.class);

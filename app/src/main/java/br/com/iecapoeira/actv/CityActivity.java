@@ -47,10 +47,6 @@ public class CityActivity extends AppCompatActivity {
     @AfterViews
     public void init() {
         startJSON();
-
-        listaCidade.add("foo");
-        listaCidade.add("bar");
-
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,

@@ -125,6 +125,20 @@
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
+            android:name=".actv.EditalActivity_"
+            android:label="@string/title_edital"
+            android:parentActivityName=".actv.DashboardActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
+            android:name=".actv.NewEditalActivity_"
+            android:label="@string/title_add_edital"
+            android:parentActivityName=".actv.EditalActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+
+
+        <activity
             android:name=".actv.NewParceiroActivity_"
             android:label="@string/title_new_partners"
             android:parentActivityName=".actv.ParceirosActivity_"
@@ -164,7 +178,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".actv.EditalActivity"></activity>
+
     </application>
 
 </manifest>
