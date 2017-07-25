@@ -7,11 +7,13 @@
     <TextView
         android:layout_margin="15dp"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:textColor="@color/gray_txt"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
         android:text="testando"
         android:textSize="20dp"
         android:id="@+id/text_title"/>

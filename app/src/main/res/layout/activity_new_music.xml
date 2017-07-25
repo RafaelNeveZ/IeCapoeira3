@@ -31,7 +31,6 @@
         android:layout_marginRight="@dimen/small"
         android:hint="@string/hint_title_song"
         android:inputType="textCapSentences"
-        android:maxLength="35"
         android:maxLines="1" />
 
     <EditText
@@ -43,7 +42,6 @@
         android:layout_marginRight="@dimen/small"
         android:hint="@string/hint_link_youtube"
         android:inputType="textUri"
-        android:maxLength="50"
         android:maxLines="1" />
 
 </LinearLayout>

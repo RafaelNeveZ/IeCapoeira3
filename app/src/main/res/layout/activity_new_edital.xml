@@ -31,7 +31,6 @@
         android:layout_marginRight="@dimen/small"
         android:hint="@string/hint_title_edital"
         android:inputType="textCapSentences"
-        android:maxLength="35"
         android:maxLines="1" />
 
     <EditText
@@ -43,7 +42,6 @@
         android:layout_marginRight="@dimen/small"
         android:hint="@string/hint_edital_link"
         android:inputType="textUri"
-        android:maxLength="50"
         android:maxLines="1" />
 
 </LinearLayout>
