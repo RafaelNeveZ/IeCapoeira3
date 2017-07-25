@@ -133,5 +133,6 @@
     <string name="cb_sponsor">Patrocionador</string>
     <string name="imagem_erro">Por favor insira uma imagem</string>
     <string name="title_new_partners">Adicionar Parceiros</string>
+    <string name="title_filter">Filtrar por Cidade</string>
 
 </resources>

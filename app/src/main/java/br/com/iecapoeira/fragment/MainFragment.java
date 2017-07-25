@@ -1,10 +1,13 @@
 package br.com.iecapoeira.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -13,12 +16,25 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.CityActivity;
+import br.com.iecapoeira.actv.CityActivity_;
+import br.com.iecapoeira.actv.ContatoActivity_;
+import br.com.iecapoeira.actv.MainActivity;
 import br.com.iecapoeira.actv.NewEventActivity_;
 
 @EFragment(R.layout.frag_main)
-@OptionsMenu(R.menu.main)
+@OptionsMenu(R.menu.event_menu)
 public class MainFragment extends Fragment {
 
     @ViewById
@@ -55,15 +71,36 @@ public class MainFragment extends Fragment {
 
             }
         });
+
     }
+
+
+
 
     @OptionsItem
     public void newEvent() {
         startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10);
     }
 
+    @OptionsItem
+    public void filter() {
+        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 5) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+                adapter.update();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
+            }
+        }
         adapter.update();
     }
 

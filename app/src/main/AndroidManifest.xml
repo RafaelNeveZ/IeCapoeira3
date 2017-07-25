@@ -119,11 +119,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
+            android:name=".actv.CityActivity_"
+            android:label="@string/title_filter"
+            android:parentActivityName=".actv.MainActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
             android:name=".actv.NewParceiroActivity_"
             android:label="@string/title_new_partners"
             android:parentActivityName=".actv.ParceirosActivity_"
             android:screenOrientation="portrait"
-            android:theme="@style/menuWhiteTheme"/>
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ContatoActivity_"
             android:label="@string/title_contato"
@@ -158,7 +164,7 @@
             </intent-filter>
         </receiver>
 
-
+        <activity android:name=".actv.EditalActivity"></activity>
     </application>
 
 </manifest>

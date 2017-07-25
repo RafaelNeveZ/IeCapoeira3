@@ -160,5 +160,6 @@
     <string name="cb_sponsor">Sponsor</string>
     <string name="imagem_erro">Please insert an Image</string>
     <string name="title_new_partners">Add Partners</string>
+    <string name="title_filter">Filter by City</string>
 
 </resources>
