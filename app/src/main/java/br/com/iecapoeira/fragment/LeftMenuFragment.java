@@ -26,6 +26,7 @@ import br.com.iecapoeira.actv.MainActivity_;
 
 import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
+import br.com.iecapoeira.actv.SalaChatActivity_;
 import br.com.iecapoeira.actv.UserActivity_;
 import br.com.iecapoeira.adapter.LeftMenuAdapter;
 import br.com.iecapoeira.model.DashboardEnum;
@@ -171,7 +172,7 @@ public class LeftMenuFragment extends Fragment {
                 notDashActivity=true;
                 break;
             case CHAT:
-                intent = new Intent(getActivity(), ChatActivity_.class);
+                intent = new Intent(getActivity(), SalaChatActivity_.class);
                 notDashActivity=true;
                 break;
             case PARTNERS:

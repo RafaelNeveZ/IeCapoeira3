@@ -22,6 +22,7 @@ import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
+import br.com.iecapoeira.actv.SalaChatActivity_;
 import br.com.iecapoeira.adapter.DashboardAdapter;
 import br.com.iecapoeira.model.DashboardEnum;
 import br.com.iecapoeira.model.DashboardItem;
@@ -143,7 +144,7 @@ public class DashboardFragment extends Fragment {
                 intent = new Intent(getActivity(), EditalActivity_.class);
                 break;
             case CHAT:
-                intent = new Intent(getActivity(), ChatActivity_.class);
+                intent = new Intent(getActivity(), SalaChatActivity_.class);
                 break;
             case PARTNERS:
                 intent = new Intent(getActivity(), ParceirosActivity_.class);

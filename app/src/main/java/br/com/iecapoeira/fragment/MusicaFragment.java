@@ -81,6 +81,7 @@ public class MusicaFragment extends Fragment implements RecyclerViewOnClickListe
                     adapter = new MusicaAdapter(getActivity(), musicasFavoritas);
                 } else
                     adapter = new MusicaAdapter(getActivity(), mList);
+
                 adapter.setRecyclerViewOnClickListenerHack(MusicaFragment.this);
                 recyclerviewMusica.setAdapter(adapter);
             }
@@ -104,7 +105,6 @@ public class MusicaFragment extends Fragment implements RecyclerViewOnClickListe
     @Override
     public void onClickListener(View view, int position) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+ mList.get(position).getLink())));
-
         //MusicaDetalheActivity_.intent(getContext()).musica(mList.get(position)).start();
     }
 
