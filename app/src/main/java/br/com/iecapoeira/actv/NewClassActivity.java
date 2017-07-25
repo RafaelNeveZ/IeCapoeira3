@@ -234,7 +234,9 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             return;
         }
 
-          showProgress(getString(R.string.aguarde));
+        finish();
+
+      //    showProgress(getString(R.string.aguarde));
 
        /* Aula aula = Aula.create(Aula.class);
         aula.setName(name);
