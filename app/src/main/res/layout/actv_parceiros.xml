@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <!--<android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 app:popupTheme="@style/TemaPadraoTab">
 
             </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.AppBarLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,11 +105,11 @@
             android:padding="8dp" />
 
     </LinearLayout>
-    <fragment
+ <!--   <fragment
         android:id="@+id/fragment_left_menu"
         class="br.com.iecapoeira.fragment.LeftMenuFragment_"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        tools:layout="@layout/frag_left_menu" />
+        tools:layout="@layout/frag_left_menu" />-->
 </android.support.v4.widget.DrawerLayout>

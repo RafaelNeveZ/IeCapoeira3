@@ -128,6 +128,10 @@
     <string name="hint_second_name">Sobrenome</string>
     <string name="hint_telefone">Telefone</string>
     <string name="title_usuario">Usuário</string>
-
+    <string name="hint_part_sponso">Nome da Instuição</string>
+    <string name="cb_partner">Parceiro</string>
+    <string name="cb_sponsor">Patrocionador</string>
+    <string name="imagem_erro">Por favor insira uma imagem</string>
+    <string name="title_new_partners">Adicionar Parceiros</string>
 
 </resources>
