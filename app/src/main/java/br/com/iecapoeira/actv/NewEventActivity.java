@@ -5,15 +5,19 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -43,6 +47,8 @@ import br.com.hemobile.BaseActivity;
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.adapter.NewEventAdapter;
+import br.com.iecapoeira.fragment.EditalFragment_;
+import br.com.iecapoeira.fragment.NewEventFragment_;
 import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.model.UserDetails;
@@ -100,6 +106,8 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
     private int selHour, selMinute;
     private final Context context = this;
     private Bitmap bmp;
+    private int horaInicial, minutoInicial, horafinal,minutofinal;
+    private final static String TAG = "TAG";
 
     @AfterViews
     public void init() {
@@ -107,6 +115,8 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
         Calendar c = Calendar.getInstance();
         setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
 
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().add(R.id.content, NewEventFragment_.builder().build()).commit();
 
 //        ListView listaDeCursos = (ListView) findViewById(R.id.list);
 //
@@ -133,19 +143,26 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
 
 
     private void setupTime(int year, int month, int day, int hour, int minute) {
+
         Calendar c = Calendar.getInstance();
+
+
         selDay = day;
         selMonth = month;
         selYear = year;
         selMinute = minute;
         selHour = hour;
+        horaInicial = hour;
+        minutoInicial = minute;
+        horafinal = hour+1;
+        minutofinal= minute;
         String pattern = getString(R.string.date_pattern);
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         c.set(year, month, day, hour, minute);
 
         btDate.setText(sdf.format(c.getTime()));
         btHour.setText(String.format("%02d:%02d", hour, minute));
-        btFinalHour.setText(String.format("%02d:%02d", hour, minute));
+        btFinalHour.setText(String.format("%02d:%02d", hour+1, minute));
 
     }
 
@@ -153,12 +170,27 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
         Calendar c = Calendar.getInstance();
         selMinute = minute;
         selHour = hour;
-        c.set(2000, 1, 1, hour, minute);
+        c.set(0,0,0,hour, minute);
         if (isInicial){
+            int horaInitInSec = hour*3600 + minute*60;
+            int horaFimInSec = horafinal*3600 + minutofinal*60;
+            if( horaFimInSec <= horaInitInSec) {
+                showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
+            }
             btHour.setText(String.format("%02d:%02d", hour, minute));
+            horaInicial = hour;
+            minutoInicial = minute;
+
         }else{
+            int horaInitInSec = horaInicial*3600 + minutoInicial*60;
+            int horaFimInSec = hour*3600 + minute*60;
+                if(horaFimInSec <= horaInitInSec) {
+                    showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
+                }
             btFinalHour.setText(String.format("%02d:%02d", hour, minute));
-        }
+            horafinal = hour;
+            minutofinal = minute;
+    }
     }
 
     private void setJustDate(int year, int month, int day){
@@ -168,10 +200,29 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
         selYear = year;
         String pattern = getString(R.string.date_pattern);
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        c.set(year, month, day, 00, 00);
-        btDate.setText(sdf.format(c.getTime()));
+        c.set(year, month, day);
+        long dateRecivedinMills = c.getTimeInMillis();
+        Log.e(TAG,"tem atual "+System.currentTimeMillis());
+        Log.e(TAG,"tem mod "+dateRecivedinMills);
+        if(System.currentTimeMillis() < dateRecivedinMills){
+            btDate.setText(sdf.format(c.getTime()));
+            }else{
+             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
+        }
 
+    }
 
+    public void showAlert(String title, String msg){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.dialog_confirm),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     @OptionsItem
@@ -204,7 +255,7 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
             return;
         }
 
-       showProgress(getString(R.string.aguarde));
+  /*     //showProgress(getString(R.string.aguarde));
 
         Event event = Event.create(Event.class);
         event.setName(name);
@@ -236,6 +287,8 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
                dismissProgress();
             }
         });
+        }*/
+            finish();
     }
 
     @Click
@@ -246,6 +299,7 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
     public void galleyView(){
         if(isReadStorageAllowed()) {
             PhotoUtil.getCroppedImageFromGallery(this);
+
         }else{
             requestStoragePermission();
         }

@@ -118,9 +118,9 @@ public class LeftMenuFragment extends Fragment {
 
         DashboardItem history = new DashboardItem();
         history.title = getResources().getStringArray(R.array.dashboard)[9];
-        history.titleColor = getResources().getColor(R.color.gray_txt);
-        //history.iconCode = String.valueOf((char) 0xe916);
-        history.backgroundColor = getResources().getColor(R.color.white);
+        history.titleColor = getResources().getColor(R.color.white);
+        history.iconCode = String.valueOf((char) 0xe916);
+        history.backgroundColor = getResources().getColor(R.color.blue);
         history.dashboardEnum = DashboardEnum.HISTORY;
         items.add(history);
 

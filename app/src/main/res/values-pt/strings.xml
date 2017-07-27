@@ -20,8 +20,8 @@
     <string name="bt_login">Entrar</string>
     <string name="bt_save">SALVAR</string>
     <string name="buscando_dados_facebook">Pegando dados do Facebok...</string>
-    <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>
-    <string name="date_pattern">MM/dd/yyyy</string>
+    <string name="date_hour_pattern">dd/MM/yyyy \'at\' HH:mm</string>
+    <string name="date_pattern">dd/MM/yyyy</string>
     <string name="hint_city">Cidade</string>
     <string name="hint_descricao">Fale mais sobre o evento</string>
     <string name="hint_endereco">Endereço</string>
@@ -85,7 +85,7 @@
     <string name="loading_data">Carregando os dados...</string>
     <string name="open">Aberto</string>
     <string name="close">Fechado</string>
-    <string name="delete_class">Deletar</string>
+    <string name="delete_class">Apagar</string>
     <string name="edit_class">Editar</string>
     <string name="other_event">+ Adicionar outro dia de evento</string>
     <string name="other_class">+ Adicionar outra aula</string>
@@ -100,7 +100,7 @@
     <string name="menu_enviar_foto">Enviando foto da galeria.</string>
     <string name="menu_denuncia_chat">Reporte um problema com essa sala</string>
     <string name="criar">Criado</string>
-    <string name="menu_delete">Evento deletado</string>
+    <string name="menu_delete">Evento apagado</string>
     <string name="titulo_delete_event">Vocé tem certeza?</string>
 
     <string name="mestre_veru">Mestre Veru</string>
@@ -139,5 +139,14 @@
     <string name="new_edital">Insira um novo edital</string>
     <string name="hint_edital_link">Cole o link do Edital</string>
     <string name="hint_title_edital">Titulo do edital</string>
+
+    <string name="forgot_pass"><u>Esqueci minha senha</u>.</string>
+    <string name="hint_senha_again">Repita a senha</string>
+    <string name="msg_erro_senha_dif">Senhas diferentes</string>
+    <string name="erro_valid_date">A data não pode ser em um dia já passado.</string>
+    <string name="erro_date_title">Data Inválida!</string>
+    <string name="erro_valid_time">A hora final é menor que a inicial, é isso que deseja?</string>
+    <string name="erro_time_title">Hora pode esta Inválida!</string>
+    <string name="dialog_confirm">Entendi</string>
 
 </resources>

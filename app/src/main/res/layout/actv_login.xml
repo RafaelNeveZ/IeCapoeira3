@@ -10,7 +10,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/medium"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
         android:orientation="vertical">
 
         <ImageView
@@ -50,6 +53,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
+            android:maxLength="50"
             android:inputType="textEmailAddress"
             android:background="@android:color/white"
             android:hint="@string/hint_email"
@@ -62,6 +66,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
+            android:maxLength="30"
             android:inputType="textPassword"
             android:background="@android:color/white"
             android:hint="@string/hint_senha"
@@ -110,15 +115,24 @@
             android:layout_marginBottom="18dp"
             android:layout_weight="1"
             android:background="@color/blue"
-        android:gravity="center"
+            android:gravity="center"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textSize="20dp"
             android:text="@string/bt_singup"
             android:textColor="@android:color/white" />
-
-
         <TextView
+            android:id="@+id/text_forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColorLink="@color/bg_app"
+            android:textColor="@android:color/white"
+            android:text="@string/forgot_pass" />
+
+        <!--<TextView
             android:id="@+id/text_pprivacidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,6 +140,6 @@
             android:textSize="12sp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:text="@string/politica_privacidade" />
+            android:text="@string/politica_privacidade" />-->
     </LinearLayout>
 </RelativeLayout>

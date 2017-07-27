@@ -17,7 +17,7 @@ import br.com.iecapoeira.R;
 @OptionsMenu(R.menu.new_event)
 public class CadastroActivity extends AppCompatActivity {
     @ViewById
-    EditText editName, editSecondName, editEmail, editTel, editCity, editCountry, editAssociation, editNickname;
+    EditText editName, editSecondName, editEmail, editTel, editCity, editCountry, editAssociation, editNickname, editPass, editPassAgain;
 
     @OptionsItem
     public void newEvent() {
@@ -31,6 +31,8 @@ public class CadastroActivity extends AppCompatActivity {
         String country = editCountry.getText().toString().trim();
         String tel = editTel.getText().toString().trim();
         String ass = editAssociation.getText().toString().trim();
+        String pass = editPass.getText().toString().trim();
+        String passAgain = editPassAgain.getText().toString().trim();
 
         if (name.isEmpty()) {
             setError(editName, getString(R.string.msg_erro_campo_vazio));
@@ -66,6 +68,21 @@ public class CadastroActivity extends AppCompatActivity {
             setError(editNickname, getString(R.string.msg_erro_campo_vazio));
             return;
         }
+        if (pass.isEmpty()) {
+            setError(editPass, getString(R.string.msg_erro_campo_vazio));
+            return;
+        }
+        if (passAgain.isEmpty()) {
+            setError(editPassAgain, getString(R.string.msg_erro_campo_vazio));
+            return;
+        }
+        if (!pass.equals(passAgain)) {
+            setError(editPassAgain, getString(R.string.msg_erro_senha_dif));
+            return;
+        }
+
+
+
         startActivity(new Intent(this, DashboardActivity_.class));
         finish();
     }

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -46,6 +47,9 @@ public class LoginActivity extends BaseActivity {
     @ViewById
 //    EditText etAssociacao, etApelido, etEmail, etPassword;
     EditText  etEmail, etPassword;
+
+    @ViewById
+    TextView textForgot;
 
     private static final List<String> PERMISSIONS = Arrays.asList("email",
             "user_birthday",
@@ -147,6 +151,12 @@ public class LoginActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    @Click
+    public void textForgot() {
+        Toast.makeText(LoginActivity.this, "Esqueci minha senha", Toast.LENGTH_LONG).show();
+
     }
 
 //    @Click

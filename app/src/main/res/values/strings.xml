@@ -126,9 +126,12 @@
     <string name="icon_mestres" translatable="false"></string>
     <string name="icon_editais" translatable="false"></string>
     <string name="icon_parceiros" translatable="false"></string>
+    <string name="icon_historia" translatable="false"></string>
     <string name="icon_add" translatable="false"></string>
     <string name="icon_remove" translatable="false"></string>
     <string name="icon_play" translatable="false"></string>
+
+
 
     <string name="seg">MON</string>
     <string name="ter">TUE</string>
@@ -166,5 +169,13 @@
     <string name="new_edital">Add a new Notice</string>
     <string name="hint_edital_link">Paste the link of the Notice</string>
     <string name="hint_title_edital">Title of the notice</string>
+    <string name="forgot_pass"><u>Forgot password</u>.</string>
+    <string name="hint_senha_again">Repeat the password</string>
+    <string name="msg_erro_senha_dif">Passwords are diferents</string>
+    <string name="erro_valid_date">The date must be today or after.</string>
+    <string name="erro_valid_time">The initial time is greater than the finish time, is this what you want?</string>
+    <string name="erro_date_title">Invalid date!</string>
+    <string name="erro_time_title">Time maybe is Invalid!</string>
+    <string name="dialog_confirm">Understood</string>
 
 </resources>

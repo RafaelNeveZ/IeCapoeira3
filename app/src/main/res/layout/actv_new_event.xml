@@ -110,7 +110,7 @@
             android:layout_marginRight="@dimen/small"
             android:hint="@string/hint_estado"
             android:inputType="textCapSentences"
-            android:maxLength="2"
+            android:maxLength="30"
             android:maxLines="1" />
 
         <EditText
@@ -132,7 +132,7 @@
             android:layout_marginRight="@dimen/small"
             android:hint="@string/hint_descricao"
             android:inputType="textCapSentences"
-            android:maxLength="140"
+            android:maxLength="150"
             android:maxLines="1" />
 
         <Button
@@ -172,13 +172,12 @@
             />
         </LinearLayout>
 
-      <!--  <ListView
+        <FrameLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:id="@+id/list"
             android:layout_height="wrap_content">
 
-
-        </ListView>-->
+        </FrameLayout>
 
         <Button
             android:id="@+id/add_other_event"
@@ -192,7 +191,11 @@
             android:textColor="@color/gray_txt"
             android:textStyle="bold"/>
 
+
+
     </LinearLayout>
+
+
 
     </ScrollView>
 </RelativeLayout>
