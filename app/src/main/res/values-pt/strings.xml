@@ -145,8 +145,9 @@
     <string name="msg_erro_senha_dif">Senhas diferentes</string>
     <string name="erro_valid_date">A data não pode ser em um dia já passado.</string>
     <string name="erro_date_title">Data Inválida!</string>
-    <string name="erro_valid_time">A hora final é menor que a inicial, é isso que deseja?</string>
-    <string name="erro_time_title">Hora pode esta Inválida!</string>
+    <string name="erro_valid_time">A hora final é menor que a inicial, é isso mesmo que deseja?</string>
+    <string name="erro_time_title">Hora pode está Inválida!</string>
     <string name="dialog_confirm">Entendi</string>
+    <string name="title_diag_style">Escolha estilo de capoeira</string>
 
 </resources>

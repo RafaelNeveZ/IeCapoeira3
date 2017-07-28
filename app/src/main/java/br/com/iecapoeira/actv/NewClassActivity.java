@@ -2,9 +2,11 @@ package br.com.iecapoeira.actv;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,13 +14,19 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -56,7 +64,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     ImageView photo;
 
     @ViewById
-    EditText editName,editEstilo, editGraduation, editDesc,editAddress,editCity, editState, editCountry;
+    EditText editName, editGraduation, editDesc,editAddress,editCity, editState, editCountry;
 
     @ViewById
     Button btHour;
@@ -66,8 +74,11 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @ViewById
     Button addOtherClass;
+    @ViewById
+    RadioButton rdAngola, RdRegional;
 
     private ProgressDialog progressDialog;
+    private int horaInicial, minutoInicial, horafinal,minutofinal;
 
     private int selHour, selMinute;
     private final Context context = this;
@@ -85,6 +96,10 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         Calendar c = Calendar.getInstance();
         selMinute = minute;
         selHour = hour;
+        horaInicial = hour;
+        minutoInicial = minute;
+        horafinal = hour+1;
+        minutofinal= minute;
         c.set(2000, 1, 1, hour, minute);
         btHour.setText(String.format("%02d:%02d", hour, minute));
         btFinalHour.setText(String.format("%02d:%02d", hour, minute));
@@ -95,12 +110,40 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         Calendar c = Calendar.getInstance();
         selMinute = minute;
         selHour = hour;
-        c.set(2000, 1, 1, hour, minute);
+        c.set(0,0,0,hour, minute);
         if (isInicial){
+            int horaInitInSec = hour*3600 + minute*60;
+            int horaFimInSec = horafinal*3600 + minutofinal*60;
+            if( horaFimInSec <= horaInitInSec) {
+                showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
+            }
             btHour.setText(String.format("%02d:%02d", hour, minute));
+            horaInicial = hour;
+            minutoInicial = minute;
+
         }else{
+            int horaInitInSec = horaInicial*3600 + minutoInicial*60;
+            int horaFimInSec = hour*3600 + minute*60;
+            if(horaFimInSec <= horaInitInSec) {
+                showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
+            }
             btFinalHour.setText(String.format("%02d:%02d", hour, minute));
+            horafinal = hour;
+            minutofinal = minute;
         }
+    }
+
+    public void showAlert(String title, String msg){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(msg);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.dialog_confirm),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     @Click
@@ -159,6 +202,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         return false;
     }
 
+
     @Click
     public void btHour() {
         isInit = true;
@@ -189,7 +233,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     public void newEvent() {
 
         String name = editName.getText().toString().trim();
-        String style = editEstilo.getText().toString().trim();
+
         String graduation = editGraduation.getText().toString().trim();
         String description = editDesc.getText().toString().trim();
         String address = editAddress.getText().toString().trim();
@@ -203,11 +247,11 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             dontLeave = true;
             return;
         }
-        if (style.isEmpty()) {
-            setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
+       /* if (style.isEmpty()) {
+        //    setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
             return;
-        }
+        }*/
         if (graduation.isEmpty()) {
             setError(editGraduation, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
@@ -223,11 +267,11 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             dontLeave = true;
             return;
         }
-        if (state.isEmpty()) {
+        /*if (state.isEmpty()) {
             setError(editState, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
             return;
-        }
+        }*/
         if (country.isEmpty()) {
             setError(editCountry, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;

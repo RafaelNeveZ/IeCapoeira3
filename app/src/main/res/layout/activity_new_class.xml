@@ -79,16 +79,51 @@
                 android:maxLength="35"
                 android:maxLines="1" />
 
-            <EditText
-                android:id="@+id/edit_estilo"
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
-                android:layout_marginLeft="@dimen/small"
-                android:layout_marginRight="@dimen/small"
-                android:hint="@string/hint_estilo_capoeira"
-                android:inputType="textCapSentences"
-                android:maxLength="140"
-                android:maxLines="1" />
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                >
+                <TextView
+                    android:text="Escolha o estilo de capoeira"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_height="wrap_content">
+
+                    <requestFocus />
+                </TextView>
+
+                <RadioGroup
+                    android:id="@+id/rd_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="15dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_regional"
+                        android:checked="true"
+                        android:layout_width="match_parent"
+                        android:text="REGIONAL"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/rd_angola"
+                        android:layout_width="match_parent"
+                        android:text="ANGOLA"
+                        android:layout_marginTop="5dp"
+
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+
+            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/edit_graduation"
@@ -143,7 +178,7 @@
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_estado"
                 android:inputType="textCapSentences"
-                android:maxLength="2"
+                android:maxLength="30"
                 android:maxLines="1" />
 
             <EditText

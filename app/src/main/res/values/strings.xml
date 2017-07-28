@@ -173,9 +173,10 @@
     <string name="hint_senha_again">Repeat the password</string>
     <string name="msg_erro_senha_dif">Passwords are diferents</string>
     <string name="erro_valid_date">The date must be today or after.</string>
-    <string name="erro_valid_time">The initial time is greater than the finish time, is this what you want?</string>
+    <string name="erro_valid_time">The initial time is greater than the finish time, is this really what you want?</string>
     <string name="erro_date_title">Invalid date!</string>
     <string name="erro_time_title">Time maybe is Invalid!</string>
     <string name="dialog_confirm">Understood</string>
+    <string name="title_diag_style">Choose capoeira style</string>
 
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_app"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/confirm_logout"
+        android:text="Escolha o estilo de capoeira"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content">
+
+        <requestFocus />
+    </TextView>
+
+    <RadioGroup
+        android:id="@+id/rd_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp">
+
+        <RadioButton
+            android:id="@+id/rd_regional"
+            android:checked="true"
+            android:layout_width="match_parent"
+            android:text="REGIONAL"
+            android:layout_height="wrap_content" />
+
+        <RadioButton
+            android:id="@+id/rd_angola"
+            android:layout_width="match_parent"
+            android:text="ANGOLA"
+            android:layout_marginTop="5dp"
+
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bt_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Ok"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:background="@color/blue"/>
+
+
+</LinearLayout>

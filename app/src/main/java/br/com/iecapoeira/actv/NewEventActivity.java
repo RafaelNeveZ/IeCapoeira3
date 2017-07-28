@@ -246,10 +246,10 @@ public class NewEventActivity extends AppCompatActivity implements DatePickerDia
             setError(editCity, getString(R.string.msg_erro_campo_vazio));
             return;
         }
-        if (state.isEmpty()) {
+        /*if (state.isEmpty()) {
             setError(editState, getString(R.string.msg_erro_campo_vazio));
             return;
-        }
+        }*/
         if (country.isEmpty()) {
             setError(editCountry, getString(R.string.msg_erro_campo_vazio));
             return;
