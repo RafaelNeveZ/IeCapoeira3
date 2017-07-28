@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -29,12 +32,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.adapter.SearchableAdapter;
 
 @EActivity(R.layout.activity_city)
 public class CityActivity extends AppCompatActivity {
 
     @ViewById
     ListView myList;
+
+    @ViewById
+    EditText etSearch;
 
 
 
@@ -47,12 +54,32 @@ public class CityActivity extends AppCompatActivity {
     @AfterViews
     public void init() {
         startJSON();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        final SearchableAdapter mSearchableAdapter = new SearchableAdapter(
                 this,
-                android.R.layout.simple_list_item_1,
                 listaCidade );
 
-        myList.setAdapter(arrayAdapter);
+        myList.setAdapter(mSearchableAdapter);
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("Text ["+s+"]");
+
+                mSearchableAdapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
         myList.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
 
