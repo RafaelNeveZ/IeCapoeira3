@@ -15,7 +15,7 @@ import org.androidannotations.annotations.ViewById;
 import br.com.iecapoeira.R;
 
 @EActivity(R.layout.activity_new_music)
-@OptionsMenu(R.menu.main)
+@OptionsMenu(R.menu.new_event)
 public class NewMusicActivity extends AppCompatActivity {
     @ViewById
     EditText editTitle;

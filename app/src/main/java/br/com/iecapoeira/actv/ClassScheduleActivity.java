@@ -108,7 +108,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
 
     public void setHeader() {
         toolbar.setNavigationIcon(R.drawable.ic_logo);
-        toolbar.setTitle(getString(R.string.class_schedule));
+        toolbar.setTitle(getString(R.string.title_aulas));
         setSupportActionBar(toolbar);
     }
 

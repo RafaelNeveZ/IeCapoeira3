@@ -20,7 +20,7 @@ import br.com.iecapoeira.R;
  * Created by Rafael on 11/08/16.
  */
 @EActivity(R.layout.actv_dashboard)
-@OptionsMenu(R.menu.dashboard)
+/*@OptionsMenu(R.menu.dashboard)*/
 public class DashboardActivity extends AppCompatActivity {
 
     @ViewById
@@ -83,8 +83,8 @@ public class DashboardActivity extends AppCompatActivity {
             return true;
         }
 
-        if (item.getItemId() == R.id.contato)
-            ClassScheduleDetailActivity_.intent(this).start();
+       /* if (item.getItemId() == R.id.contato)
+            ClassScheduleDetailActivity_.intent(this).start();*/
 
         return super.onOptionsItemSelected(item);
     }

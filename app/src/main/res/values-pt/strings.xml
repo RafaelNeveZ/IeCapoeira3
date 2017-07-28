@@ -130,14 +130,14 @@
     <string name="title_usuario">Usuário</string>
     <string name="hint_part_sponso">Nome da Instuição</string>
     <string name="cb_partner">Parceiro</string>
-    <string name="cb_sponsor">Patrocionador</string>
+    <string name="cb_sponsor">Patrocinador</string>
     <string name="imagem_erro">Por favor insira uma imagem</string>
     <string name="title_new_partners">Adicionar Parceiros</string>
     <string name="title_filter">Filtrar por Cidade</string>
     <string name="title_edital">Edital</string>
     <string name="title_add_edital">Adicionar Edital</string>
     <string name="new_edital">Insira um novo edital</string>
-    <string name="hint_edital_link">Cole o link do Edital</string>
+    <string name="hint_edital_link">Cole o link do edital</string>
     <string name="hint_title_edital">Titulo do edital</string>
 
     <string name="forgot_pass"><u>Esqueci minha senha</u>.</string>

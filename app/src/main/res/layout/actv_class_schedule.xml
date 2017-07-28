@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -26,7 +27,10 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/TemaPadraoTab" />
+                app:popupTheme="@style/TemaPadraoTab">
+
+            </android.support.v7.widget.Toolbar>
+
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
@@ -51,22 +55,22 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:text="@string/angola"
+                    android:textSize="12dp"
                     android:textAllCaps="true"
-                    android:textColor="@color/pager_strip_text" />
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
 
                 <View
                     android:id="@+id/view_angola"
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
-                    android:layout_alignParentBottom="true"
                     android:background="@color/pager_strip_border" />
             </LinearLayout>
 
             <View
                 android:layout_width="0.7dp"
-                android:layout_height="36dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:layout_height="16dp"
                 android:background="@color/pager_strip_border" />
 
             <LinearLayout
@@ -85,24 +89,24 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:text="@string/regional"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
                     android:textAllCaps="true"
-                    android:textColor="@color/pager_strip_text" />
+                    android:textColor="@android:color/black" />
 
                 <View
                     android:id="@+id/view_regional"
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/pager_strip_border" />
+                    android:background="@android:color/transparent" />
 
             </LinearLayout>
-
         </LinearLayout>
 
-        <View
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/pager_strip_border" />
+            android:background="@color/pager_strip_border" />-->
 
         <ListView
             android:id="@+id/list_classes"
