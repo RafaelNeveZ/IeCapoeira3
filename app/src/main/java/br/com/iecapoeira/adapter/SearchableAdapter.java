@@ -80,7 +80,7 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
     static class ViewHolder {
         TextView etSearch;
     }
-
+//asd
     public Filter getFilter() {
         return mFilter;
     }
