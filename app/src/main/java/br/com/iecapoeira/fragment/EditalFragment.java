@@ -37,7 +37,7 @@ public class EditalFragment extends Fragment implements RecyclerViewOnClickListe
 
     @AfterViews
     void init(){
-           recyclerviewChat.setHasFixedSize(true);
+            recyclerviewChat.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             recyclerviewChat.setLayoutManager(llm);
             mList = setEditalList();

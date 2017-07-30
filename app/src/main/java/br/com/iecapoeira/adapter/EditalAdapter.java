@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.NewEventActivity;
 import br.com.iecapoeira.model.Edital;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
 
@@ -53,6 +54,10 @@ public class EditalAdapter extends RecyclerView.Adapter<EditalAdapter.MyViewHold
 
     public void setRecyclerViewOnClickListenerHack(RecyclerViewOnClickListenerHack r) {
         mRecyclerViewOnClickListenerHack = r;
+    }
+
+    public void setRecyclerViewOnClickListenerHack(NewEventActivity newEventActivity) {
+
     }
 
 
