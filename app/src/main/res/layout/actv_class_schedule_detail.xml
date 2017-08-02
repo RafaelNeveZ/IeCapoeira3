@@ -118,8 +118,8 @@
                     android:layout_marginLeft="8dp"
                     android:padding="8dp"
                     android:text="time"
-                    android:textColor="@color/gray_txt"
-                    android:textStyle="bold" />
+                    android:textColor="@color/gray_txt_dark"
+                     />
 
             </LinearLayout>
 
@@ -143,8 +143,8 @@
                     android:layout_marginLeft="8dp"
                     android:padding="8dp"
                     android:text="hour"
-                    android:textColor="@color/gray_txt"
-                    android:textStyle="bold" />
+                    android:textColor="@color/gray_txt_dark"
+                     />
 
             </LinearLayout>
 
@@ -168,8 +168,8 @@
                     android:layout_marginLeft="8dp"
                     android:padding="8dp"
                     android:text="place"
-                    android:textColor="@color/gray_txt"
-                    android:textStyle="bold" />
+                    android:textColor="@color/gray_txt_dark"
+                     />
 
 
             </LinearLayout>

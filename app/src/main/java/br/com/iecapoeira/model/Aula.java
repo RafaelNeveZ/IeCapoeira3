@@ -22,14 +22,14 @@ public class Aula extends ParseObject {
     public static final String FOTOPROFESSOR = "foto";
     public static final String HORARIO_COMECO = "horario";
     public static final String HORARIO_FIM = "horarioFinal";
-    public static final String DIASSEMANA = "diasSemana";
-    public static final String LONGITUDE = "longitude";
-    public static final String LATITUDE = "latitude";
+    public static final String DIASSEMANA = "data";
+    public static final String ENDERECO = "endereco";
     public static final String NOMEACADEMIA = "nomeAcademia";
     public static final String MESTRE = "mestre";
     public static final String NOMEPROFESSOR = "nomeProfessor";
     public static final String SOBREAULA = "sobre";
     public static final String TIPOCAPOEIRA = "estilo";
+
 
 
     public String getHorarioStart() {
@@ -40,16 +40,12 @@ public class Aula extends ParseObject {
         return getString(HORARIO_FIM);
     }
 
-    public List<Integer> getDiasSemana() {
-        return (List<Integer>)get(DIASSEMANA);
+    public String getDiasSemana() {
+        return getString(DIASSEMANA);
     }
 
-    public String getLongitude() {
-        return getString(LONGITUDE);
-    }
-
-    public String getLatitude() {
-        return getString(LATITUDE);
+    public String getEndereco() {
+        return getString(ENDERECO);
     }
 
     public String getNomeAcademia() {
@@ -71,4 +67,6 @@ public class Aula extends ParseObject {
     public int getTipoCapoeira() {
         return getInt(TIPOCAPOEIRA);
     }
+
+
 }

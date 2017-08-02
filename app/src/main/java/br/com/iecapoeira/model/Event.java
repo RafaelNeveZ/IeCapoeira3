@@ -36,6 +36,7 @@ public class Event extends ParseObject {
     public Event() {
 
     }
+    public  String getType(){return  get(TYPE).toString();}
 
     public String getName() {
         return get(NAME).toString();

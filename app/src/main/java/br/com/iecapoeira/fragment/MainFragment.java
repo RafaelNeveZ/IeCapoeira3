@@ -121,9 +121,11 @@ public class MainFragment extends Fragment {
             if (fragments[position] == null) {
                 switch (position) {
                     case 0:
+                        EventListFragment.LIST =0;
                         fragments[position] = EventListFragment_.builder().listType(EventListFragment.LIST_BY_CAPOEIRA).build();
                         break;
                     case 1:
+                        EventListFragment.LIST =1;
                         fragments[position] = EventListFragment_.builder().listType(EventListFragment.LIST_BY_CULTURAIS).build();
                         break;
                     default:

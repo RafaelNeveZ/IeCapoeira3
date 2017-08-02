@@ -132,14 +132,23 @@
     <string name="icon_play" translatable="false"></string>
 
 
-
+    <string name="dom">SUN</string>
     <string name="seg">MON</string>
     <string name="ter">TUE</string>
     <string name="qua">WED</string>
     <string name="qui">THU</string>
     <string name="sex">FRI</string>
     <string name="sab">SAT</string>
-    <string name="dom">SUN</string>
+
+
+    <string name="segunda">Monday</string>
+    <string name="terca">Tuesday</string>
+    <string name="quarta">Wednesday</string>
+    <string name="quinta">Thursday</string>
+    <string name="sexta">Friday</string>
+    <string name="sabado">Saturday</string>
+    <string name="domingo">Sunday</string>
+
     <string name="hint_nome_professor">Name of the teacher</string>
     <string name="hint_estilo_capoeira">Style of capoeira</string>
     <string name="hint_graduacao">Graduation</string>

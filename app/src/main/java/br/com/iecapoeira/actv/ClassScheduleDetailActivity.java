@@ -1,18 +1,31 @@
 package br.com.iecapoeira.actv;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Aula;
@@ -40,9 +53,13 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
     @OptionsMenuItem(R.id.delete)
     MenuItem delete;
 
+    private ProgressDialog progressDialog;
+
 
     @OptionsMenuItem(R.id.edit)
     MenuItem edit;
+
+    private final Context context=this;
 
     @AfterViews
     public void init() {
@@ -51,12 +68,13 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             return;
         }
 
-        ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 80);
+       // ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 80);
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
-        tvTime.setText(model.getHorarioStart()+ " às "+ model.getHorarioEnd());
-        tvPlace.setText(model.getNomeAcademia());
-        setDaysText();
+        tvDays.setText(model.getDiasSemana());
+        Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco());
+        tvPlace.setText(model.getEndereco());
+        tvTime.setText(model.getHorarioStart()+ " as "+ model.getHorarioEnd());
     }
 
 
@@ -73,14 +91,47 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-        if (item.getItemId() == R.id.delete)
-            ContatoActivity_.intent(this).start();
+        if (item.getItemId() == R.id.delete){
+            showProgress("Deletando aula...");
+            ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
+            query.getInBackground(model.getObjectId(), new GetCallback<Aula>() {
+                public void done(Aula thisClass, ParseException e) {
+                    if (e == null) {
+                        thisClass.deleteInBackground();
+                        dismissProgress();
+                        finish();
+                    }else{
+                        dismissProgress();
+                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
+        }
         if (item.getItemId() == R.id.edit)
             DashboardActivity_.intent(this).start();
 
         return false;
     }
+
+    @UiThread
+    public void showProgress(String text) {
+        try {
+            progressDialog = ProgressDialog.show(this, getString(R.string.aguarde), text, true, false);
+        } catch (Exception e) { e.printStackTrace(); }
+
+    }
+
+    @UiThread
+    public void dismissProgress() {
+        if (progressDialog != null) {
+            try {
+                progressDialog.dismiss();
+            } catch (Exception e) { e.printStackTrace(); }
+
+        }
+    }
+
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
@@ -91,7 +142,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     }
 
-    public void setDaysText() {
+/*    public void setDaysText() {
         String days = "";
         if (model.getDiasSemana() != null) {
             for(int i = 0; i < model.getDiasSemana().size(); i++) {
@@ -106,7 +157,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             }
         }
         tvDays.setText(days);
-    }
+    }*/
 
 
 }

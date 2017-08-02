@@ -266,7 +266,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @OptionsItem
     public void newEvent() {
-        /*if(validateFields()) {
+        if(validateFields()) {
             showProgress("Criando aula...");
 
             ParseObject newClass = ParseObject.create("Aulas");
@@ -281,7 +281,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             newClass.put("pais", editCountry.getText().toString());
             newClass.put("horario",btHour.getText().toString());
             newClass.put("horarioFinal",btFinalHour.getText().toString());
-           *//* newClass.put("data",)*//*
+            newClass.put("data",putDays());
             newClass.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
@@ -293,9 +293,10 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                     }
                 }
             });
-        }*/
+             Log.e("TAG",putDays());
+        }
 
-           Log.e("TAG",putDays());
+
       //    showProgress(getString(R.string.aguarde));
 
        /* Aula aula = Aula.create(Aula.class);
@@ -338,31 +339,31 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         String[] aux = new String[7];
         int auxCount =0;
         if(rdBtSeg.isChecked()) {
-            aux[auxCount] = getText(R.string.seg).toString();
+            aux[auxCount] = getText(R.string.segunda).toString();
             auxCount++;
         }
         if(rdBtTer.isChecked()){
-            aux[auxCount] = getText(R.string.ter).toString();
+            aux[auxCount] = getText(R.string.terca).toString();
             auxCount++;
         }
         if(rdBtQua.isChecked()){
-            aux[auxCount] = getText(R.string.qua).toString();
+            aux[auxCount] = getText(R.string.quarta).toString();
             auxCount++;
         }
         if(rdBtQui.isChecked()){
-            aux[auxCount] = getText(R.string.qui).toString();
+            aux[auxCount] = getText(R.string.quinta).toString();
             auxCount++;
         }
         if(rdBtSex.isChecked()){
-            aux[auxCount] = getText(R.string.sex).toString();
+            aux[auxCount] = getText(R.string.sexta).toString();
             auxCount++;
         }
         if(rdBtSab.isChecked()){
-            aux[auxCount] = getText(R.string.sab).toString();
+            aux[auxCount] = getText(R.string.sabado).toString();
             auxCount++;
         }
         if(rdBtDom.isChecked()){
-            aux[auxCount] = getText(R.string.dom).toString();
+            aux[auxCount] = getText(R.string.domingo).toString();
             auxCount++;
         }
 
@@ -379,7 +380,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
 
         if(auxCount==0)
-            return "erro";
+            return "error";
 
         return days.toLowerCase();
     }
@@ -435,6 +436,11 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         if (country.isEmpty()) {
             setError(editCountry, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
+            return false;
+        }
+
+        if(putDays().equals("error")) {
+            Toast.makeText(this, "Selecione os dias", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

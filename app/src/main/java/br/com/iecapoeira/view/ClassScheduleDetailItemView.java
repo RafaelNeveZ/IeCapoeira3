@@ -34,13 +34,13 @@ public class ClassScheduleDetailItemView  extends LinearLayout {
 
     public void bind(Aula model) {
         this.model = model;
-        setDaysText();
+      /*  setDaysText();*/
         tvTime.setText("SEXTA");
         tvHour.setText(model.getHorarioStart()+ " às "+model.getHorarioEnd());
         tvPlace.setText(model.getNomeAcademia());
     }
 
-    public void setDaysText() {
+   /* public void setDaysText() {
         String days = "";
         if (model.getDiasSemana() != null) {
             for(int i = 0; i < model.getDiasSemana().size(); i++) {
@@ -55,6 +55,6 @@ public class ClassScheduleDetailItemView  extends LinearLayout {
             }
         }
         tvTime.setText(days);
-    }
+    }*/
 
 }

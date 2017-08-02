@@ -2,6 +2,7 @@ package br.com.iecapoeira.fragment;
 
 import android.content.Intent;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -35,8 +36,10 @@ public class EventListFragment extends ListFragment {
 
     public static final int LIST_BY_CAPOEIRA = 0;
     public static final int LIST_BY_CULTURAIS = 1;
-    public static final String TYPE_CAPOEIRA = "capoeira";
-    public static final String TYPE_CULTURAL = "cultural";
+    public static final String TYPE_CAPOEIRA = "0";
+    public static final String TYPE_CULTURAL = "1";
+
+    public static int LIST = 0;
 
     @FragmentArg
     int listType;
@@ -59,29 +62,35 @@ public class EventListFragment extends ListFragment {
     void update() {
 
         if(!HENetworkUtil.isOnline(getActivity())){
-
             showToast(getString(R.string.msg_erro_sem_conexao));
-
             return;
         }
 
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.OWNER);
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
+//        query.include(Event.OWNER);
         try {
+            Log.d("TAG","" + listType);
             switch (listType) {
                 case LIST_BY_CAPOEIRA:
-                    query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-//                    query.whereEqualTo(Event.TYPE, TYPE_CAPOEIRA);
+ //                   query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                    query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
+                    Log.d("TAG","CAPOEIRA");
+                    Log.d("Event.TYPE",Event.TYPE);
+                    Log.d("TYPE_CUTURAL",TYPE_CAPOEIRA);
                     break;
                 case LIST_BY_CULTURAIS:
-                    query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-//                    query.whereEqualTo(Event.TYPE, TYPE_CULTURAL);
+ //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                   query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
+                    Log.d("TAG","CULTURAL");
+                    Log.d("Event.TYPE",Event.TYPE);
+                    Log.d("TYPE_CUTURAL",TYPE_CULTURAL);
                     break;
             }
-            query.orderByAscending(Event.DATE);
+           // query.orderByAscending(Event.DATE);
             query.findInBackground(new FindCallback<Event>() {
                 @Override
                 public void done(List<Event> events, ParseException e) {
+                    Log.d("LISTA DE EVENT SIZE","" + events.size());
                     handleResult(events, e);
                 }
             });
@@ -92,11 +101,11 @@ public class EventListFragment extends ListFragment {
 
     @Background
     void handleResult(List<Event> events, ParseException e) {
-        if (e == null) {
+        /*if (e == null) {
             for (Event event : events) {
                 getUsersGoing(event);
             }
-        }
+        }*/
         setupAdapter(events);
     }
 
@@ -112,6 +121,7 @@ public class EventListFragment extends ListFragment {
     @UiThread
     void setupAdapter(List<Event> events) {
         try {
+
             adapter.setList(events);
             adapter.notifyDataSetChanged();
             if (getListAdapter() == null)

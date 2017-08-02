@@ -11,6 +11,7 @@
     <color name="yellow">#e9aa00</color>
     <color name="orange">#f1a83b</color>
     <color name="gray_txt">#9a9a9a</color>
+    <color name="gray_txt_dark">#4a4a4a</color>
     <color name="line_color">#000000</color>
     <color name="name_chat_color">#364c6e</color>
     <color name="text_chat_color">#ff2d2d2f</color>

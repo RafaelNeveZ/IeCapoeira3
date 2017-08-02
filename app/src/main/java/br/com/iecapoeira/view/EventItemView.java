@@ -47,12 +47,12 @@ public class EventItemView extends ItemView<Event> {
         super(context);
     }
 
-    private final GetDataCallback callback = new GetDataCallback() {
+   /* private final GetDataCallback callback = new GetDataCallback() {
         @Override
         public void done(byte[] bytes, ParseException e) {
             setProfilePicture(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
         }
-    };
+    };*/
 
     @UiThread
     public void setProfilePicture(Bitmap picture) {
@@ -62,28 +62,28 @@ public class EventItemView extends ItemView<Event> {
     @Override
     public void bind(Event obj, int position) {
         this.obj = obj;
-        IEApplication.getUserDetails();
+      //  IEApplication.getUserDetails();
         textName.setText(obj.getName());
         String pattern = getContext().getString(R.string.date_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         textDate.setText(sdf.format(obj.getDate()));
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
-        try {
+       /* try {
             boolean userGoing = obj.isUserGoing(IEApplication.getUserDetails());
             setImageBtGoing(userGoing);
             btGoing.setTag(userGoing);
         } catch (ParseException e) {
             setImageBtGoing(false);
             btGoing.setTag(false);
-        }
+        }*/
 
-        Bitmap picture = obj.getProfilePicture(callback);
+        /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {
             setProfilePicture(picture);
         }
-        else {
+        else {*/
             img.setImageResource(R.drawable.ic_eventlist_cell_photo);
-        }
+        /*}*/
 
     }
 
@@ -97,12 +97,12 @@ public class EventItemView extends ItemView<Event> {
 
     @Background
     void changeGoingOnParse(Boolean userGoing) {
-        try {
+      /*  try {
             obj.setUserGoing(IEApplication.getUserDetails(), userGoing);
         } catch (ParseException e) {
             e.printStackTrace();
             setImageBtGoing(!userGoing);
-        }
+        }*/
     }
 
     @UiThread
