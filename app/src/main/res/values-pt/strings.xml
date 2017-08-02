@@ -149,5 +149,7 @@
     <string name="erro_time_title">Hora pode está Inválida!</string>
     <string name="dialog_confirm">Entendi</string>
     <string name="title_diag_style">Escolha estilo de capoeira</string>
+    <string name="log_out">Sair</string>
+    <string name="choose_city">Clique para escolher a cidade</string>
 
 </resources>

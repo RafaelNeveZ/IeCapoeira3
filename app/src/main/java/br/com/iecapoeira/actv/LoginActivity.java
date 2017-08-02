@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
@@ -59,11 +60,17 @@ public class LoginActivity extends BaseActivity {
 
     @AfterViews
     public void init() {
-        printKeyHash();
+         printKeyHash();
+                Log.e("APP ID: ","");
+                Log.e("ClientKey: ","");
+                Log.e("SERVER: ","");
 
         if (ParseUser.getCurrentUser() != null) {
-            goToMainList();
+            startActivity(new Intent(getActivity(), DashboardActivity_.class));
+            finish();
         }
+
+
     }
 
     @Override
@@ -83,7 +90,7 @@ public class LoginActivity extends BaseActivity {
             result = false;
         } else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()){
             etEmail.setError(getString(R.string.error_valid_email));
-            result = false;
+          //  result = false;
         }
 //        if (etApelido.getText().toString().isEmpty()) {
 //            etApelido.setError(getString(R.string.error_missing_field));
@@ -102,21 +109,46 @@ public class LoginActivity extends BaseActivity {
     @Click
     public void btLogin() {
         if (validateFields()) {
+            showProgress("Entrando...");
             ParseUser newUser = new ParseUser();
-//            newUser.setUsername(etApelido.getText().toString());
+            newUser.setUsername(etEmail.getText().toString());
             newUser.setPassword(etPassword.getText().toString());
-            newUser.setEmail(etEmail.getText().toString());
-//            newUser.put("Associacao", etAssociacao.getText().toString());
-            UserDetails details = new UserDetails();
-            details.setEmail(etEmail.getText().toString());
-//            details.setName(etApelido.getText().toString());
-            final UserDetails finalDetails = details;
-            final ParseUser finalUser = newUser;
-            details.saveInBackground(new SaveCallback() {
+           // newUser.setEmail(etEmail.getText().toString());
+          //  newUser.put("Associacao", "teste2");
+
+          //  UserDetails details = new UserDetails();
+          //  details.setEmail(etEmail.getText().toString());
+          //  details.setName("teste2");
+          //  final UserDetails finalDetails = details;
+          //  final ParseUser finalUser = newUser;
+
+
+            newUser.logInInBackground(newUser.getUsername(), etPassword.getText().toString(), new LogInCallback() {
+                @Override
+                public void done(ParseUser parseUser, ParseException e) {
+                   // Log.d("TAG",e.getMessage());
+                    if (parseUser != null) {
+                        startActivity(new Intent(getActivity(), DashboardActivity_.class));
+                        dismissProgress();
+                        finish();
+                        //Login Successful
+                        //You may choose what to do or display here
+                        //For example: Welcome + ParseUser.getUsername()
+                    } else {
+                        //Login Fail
+                        dismissProgress();
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+
+           /* newUser.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e != null) {
                         readParseException(e);
+                        Toast.makeText(LoginActivity.this, "null", Toast.LENGTH_LONG).show();
                         return;
                     }
 
@@ -139,8 +171,8 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
                 }
-            });
-            newUser.signUpInBackground(new SignUpCallback() {
+            });*/
+           /* newUser.signUpInBackground(new SignUpCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
                         startActivity(new Intent(getActivity(), DashboardActivity_.class));
@@ -149,7 +181,7 @@ public class LoginActivity extends BaseActivity {
                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
-            });
+            });*/
         }
     }
 

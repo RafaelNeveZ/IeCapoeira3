@@ -44,6 +44,6 @@ public class ClassScheduleItemView extends RelativeLayout {
         this.model = model;
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
-        ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 50);
+     //   ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 50);
     }
 }

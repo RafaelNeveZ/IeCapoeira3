@@ -14,7 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,33 +40,6 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
         this.items = items;
 
     }
-/*
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
-        PaymentHolder holder = null;
-
-        LayoutInflater inflater = ((NewEventActivity) context).getLayoutInflater();
-        row = inflater.inflate(layoutResourceId, parent, false);
-
-        holder = new PaymentHolder();
-
-        holder.newEvent = items.get(position);
-
-        holder.btDate = (Button) row.findViewById(R.id.bt_date);
-        holder.btDate.setTag(holder.newEvent);
-
-        holder.btHour = (Button) row.findViewById(R.id.bt_hour);
-        holder.btHour.setTag(holder.newEvent);
-
-        holder.btFinalHout = (Button) row.findViewById(R.id.bt_final_hour);
-        holder.btFinalHout.setTag(holder.newEvent);
-
-        row.setTag(holder);
-
-
-        return row;
-    }*/
 
     @Override
     public PaymentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -79,6 +54,11 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
     public void onBindViewHolder(PaymentHolder holder, int position) {
         Log.i("LOG", "onBindViewHolder()");
         final NewEvent item = items.get(position);
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        holder.btDate.setText(item.getselDay()+"/"+item.getselMonth()+"/"+item.getselYear());
+        holder.btFinalHour.setText("13:00");
+        holder.btHour.setText("12:00");
     }
 
     @Override
@@ -91,6 +71,7 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
     }
 
     public class PaymentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public Button btDate;
         public Button btHour;
         public Button btFinalHour;
@@ -103,7 +84,28 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
             btHour = (Button) itemView.findViewById(R.id.bt_hour);
             btFinalHour = (Button) itemView.findViewById(R.id.bt_final_hour);
 
-            itemView.setOnClickListener(this);
+            /*itemView.setOnClickListener(this);*/
+
+            btDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "DATA", Toast.LENGTH_LONG).show();
+                }
+            });
+            btHour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "horaI", Toast.LENGTH_LONG).show();
+                }
+            });
+            btFinalHour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "horaF", Toast.LENGTH_LONG).show();
+                }
+            });
+
+
         }
 
         @Override

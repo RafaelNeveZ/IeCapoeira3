@@ -1,6 +1,7 @@
 package br.com.iecapoeira.actv;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -17,10 +18,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -31,8 +34,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -42,6 +47,8 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -64,7 +71,10 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     ImageView photo;
 
     @ViewById
-    EditText editName, editGraduation, editDesc,editAddress,editCity, editState, editCountry;
+    EditText editName, editGraduation, editDesc,editAddress, editState, editCountry;
+
+    @ViewById
+    TextView editCity;
 
     @ViewById
     Button btHour;
@@ -74,8 +84,12 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @ViewById
     Button addOtherClass;
+
     @ViewById
-    RadioButton rdAngola, RdRegional;
+    RadioButton rdAngola, rdRegional;
+
+    @ViewById
+    CheckBox rdBtSeg, rdBtTer,rdBtQua,rdBtQui,rdBtSex,rdBtSab,rdBtDom;
 
     private ProgressDialog progressDialog;
     private int horaInicial, minutoInicial, horafinal,minutofinal;
@@ -83,8 +97,10 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     private int selHour, selMinute;
     private final Context context = this;
     private Bitmap bmp;
+    private byte[] byteArray;
     public boolean isInit = true;
     public boolean dontLeave = false;
+    public ParseObject newClass;
 
     @AfterViews
     public void init() {
@@ -161,12 +177,31 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
-        if (uri != null) {
-            bmp = PhotoUtil.resizeBitmap(this, uri);
-            photo.setImageBitmap(bmp);
-            photo.setBackgroundResource(android.R.color.transparent);
+        if (requestCode == 19) {
+            Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
+            if (uri != null) {
+
+                bmp = PhotoUtil.resizeBitmap(this, uri);
+                float width = bmp.getWidth();
+                float height = bmp.getHeight();
+                int size = bmp.getRowBytes() * bmp.getHeight();
+                ByteBuffer byteBuffer = ByteBuffer.allocate(size);
+                bmp.copyPixelsToBuffer(byteBuffer);
+                byteArray = byteBuffer.array();
+                photo.setImageBitmap(bmp);
+                photo.setBackgroundResource(android.R.color.transparent);
+            }
         }
+        if (requestCode == 5) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+                editCity.setText(result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void requestStoragePermission(){
@@ -231,55 +266,36 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @OptionsItem
     public void newEvent() {
+        /*if(validateFields()) {
+            showProgress("Criando aula...");
 
-        String name = editName.getText().toString().trim();
-
-        String graduation = editGraduation.getText().toString().trim();
-        String description = editDesc.getText().toString().trim();
-        String address = editAddress.getText().toString().trim();
-        String city = editCity.getText().toString().trim();
-        String country = editCountry.getText().toString().trim();
-        String state = editState.getText().toString().trim();
-
-
-        if (name.isEmpty()) {
-            setError(editName, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }
-       /* if (style.isEmpty()) {
-        //    setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
+            ParseObject newClass = ParseObject.create("Aulas");
+         // newClass.put("foto",byteArray);
+            newClass.put("mestre", editName.getText().toString());
+            newClass.put("estilo",isRegional());
+            newClass.put("graduacao", editGraduation.getText().toString());
+            newClass.put("sobre", editDesc.getText().toString());
+            newClass.put("endereco", editAddress.getText().toString());
+            newClass.put("cidade", editCity.getText().toString());
+            newClass.put("estado", editState.getText().toString());
+            newClass.put("pais", editCountry.getText().toString());
+            newClass.put("horario",btHour.getText().toString());
+            newClass.put("horarioFinal",btFinalHour.getText().toString());
+           *//* newClass.put("data",)*//*
+            newClass.saveInBackground(new SaveCallback() {
+                public void done(ParseException e) {
+                    if (e == null) {
+                        dismissProgress();
+                        finish();
+                    } else {
+                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                        dismissProgress();
+                    }
+                }
+            });
         }*/
-        if (graduation.isEmpty()) {
-            setError(editGraduation, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }
-        if (address.isEmpty()) {
-            setError(editAddress, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }
-        if (city.isEmpty()) {
-            setError(editCity, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }
-        /*if (state.isEmpty()) {
-            setError(editState, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }*/
-        if (country.isEmpty()) {
-            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }
 
-        finish();
-
+           Log.e("TAG",putDays());
       //    showProgress(getString(R.string.aguarde));
 
        /* Aula aula = Aula.create(Aula.class);
@@ -317,6 +333,112 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     }
 
+    private  String putDays(){
+        String days="";
+        String[] aux = new String[7];
+        int auxCount =0;
+        if(rdBtSeg.isChecked()) {
+            aux[auxCount] = getText(R.string.seg).toString();
+            auxCount++;
+        }
+        if(rdBtTer.isChecked()){
+            aux[auxCount] = getText(R.string.ter).toString();
+            auxCount++;
+        }
+        if(rdBtQua.isChecked()){
+            aux[auxCount] = getText(R.string.qua).toString();
+            auxCount++;
+        }
+        if(rdBtQui.isChecked()){
+            aux[auxCount] = getText(R.string.qui).toString();
+            auxCount++;
+        }
+        if(rdBtSex.isChecked()){
+            aux[auxCount] = getText(R.string.sex).toString();
+            auxCount++;
+        }
+        if(rdBtSab.isChecked()){
+            aux[auxCount] = getText(R.string.sab).toString();
+            auxCount++;
+        }
+        if(rdBtDom.isChecked()){
+            aux[auxCount] = getText(R.string.dom).toString();
+            auxCount++;
+        }
+
+        for(int i = 0; i<auxCount;i++){
+            days+= aux[i];
+            if (i + 1 < auxCount) {
+                days += ", ";
+            }
+            if (i == auxCount - 1) {
+                days += ".";
+            }
+        }
+
+
+
+        if(auxCount==0)
+            return "erro";
+
+        return days.toLowerCase();
+    }
+
+    private String isRegional() {
+        if(rdRegional.isChecked())
+        return (String) getText(R.string.regional);
+        else
+            return (String) getText(R.string.angola);
+    }
+
+    public boolean validateFields(){
+        String name = editName.getText().toString().trim();
+
+        String graduation = editGraduation.getText().toString().trim();
+        String description = editDesc.getText().toString().trim();
+        String address = editAddress.getText().toString().trim();
+        String city = (String) getText(R.string.choose_city);
+        String country = editCountry.getText().toString().trim();
+        String state = editState.getText().toString().trim();
+
+
+        if (name.isEmpty()) {
+            setError(editName, getString(R.string.msg_erro_campo_vazio));
+            dontLeave = true;
+            return false;
+        }
+       /* if (style.isEmpty()) {
+        //    setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
+            dontLeave = true;
+            return;
+        }*/
+        if (graduation.isEmpty()) {
+            setError(editGraduation, getString(R.string.msg_erro_campo_vazio));
+            dontLeave = true;
+            return false;
+        }
+        if (address.isEmpty()) {
+            setError(editAddress, getString(R.string.msg_erro_campo_vazio));
+            dontLeave = true;
+            return false;
+        }
+        if (editCity.getText().equals(city)) {
+            Toast.makeText(this, "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
+            dontLeave = true;
+            return false;
+        }
+        /*if (state.isEmpty()) {
+            setError(editState, getString(R.string.msg_erro_campo_vazio));
+            dontLeave = true;
+            return;
+        }*/
+        if (country.isEmpty()) {
+            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
+            dontLeave = true;
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -333,6 +455,12 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         edit.setError(error);
         dismissError(edit);
     }
+
+    @Click
+    public void editCity(){
+        startActivityForResult(new Intent(context, CityActivity_.class), 5);
+    }
+
 
     @UiThread(delay = 3000)
     public void dismissError(EditText edit) {

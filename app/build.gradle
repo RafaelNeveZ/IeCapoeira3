@@ -57,7 +57,8 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-    compile 'com.parse:parse-android:1.13.1'
+//    compile 'com.parse:parse-android:1.13.1'
+    compile 'com.parse:parse-android:1.15.7'
     compile 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'com.google.code.gson:gson:2.4'

@@ -83,14 +83,14 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     @ViewById
     ImageView photo;
 
-   /* @ViewById
+    @ViewById
     Button btDate;
 
     @ViewById
     Button btHour;
 
     @ViewById
-    Button btFinalHour;*/
+    Button btFinalHour;
 
     @ViewById
     Button addOtherEvent;
@@ -133,7 +133,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         Log.e("TAG",""+eventDaysCount);
         List<NewEvent> listAux = new ArrayList<>();
 
-        NewEvent aux = new NewEvent(eventDaysCount);
+        NewEvent aux = new NewEvent(selDay,selMonth,selYear,selHour,selMinute);
         listAux.add(aux);
         eventDaysCount++;
 
@@ -369,7 +369,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     public void addOtherEvent() {
         Log.e("TAG",""+eventDaysCount);
 
-        NewEvent aux = new NewEvent(eventDaysCount);
+        NewEvent aux = new NewEvent(selDay,selMonth,selYear,selHour,selMinute);
         listNE.add(aux);
         adapter.notifyItemInserted(listNE.size() - 1);
 

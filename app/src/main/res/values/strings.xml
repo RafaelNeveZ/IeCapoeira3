@@ -178,5 +178,7 @@
     <string name="erro_time_title">Time maybe is Invalid!</string>
     <string name="dialog_confirm">Understood</string>
     <string name="title_diag_style">Choose capoeira style</string>
+    <string name="log_out">Log Out</string>
+    <string name="choose_city">Choose the  city</string>
 
 </resources>

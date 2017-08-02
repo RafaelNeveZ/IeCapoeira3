@@ -37,9 +37,9 @@ public class IEApplication extends MyApplication {
         Parse.initialize(this, PARSE_APP_ID, PARSE_CLIENT_KEY);
 
 
-        // Facebook
+     /*   // Facebook
         FacebookSdk.sdkInitialize(getApplicationContext());
-        ParseFacebookUtils.initialize(getApplicationContext());
+        ParseFacebookUtils.initialize(getApplicationContext());*/
 
 
 //        PubnubService.startPubnubService();

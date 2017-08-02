@@ -11,18 +11,61 @@ import android.widget.ArrayAdapter;
 
 public class NewEvent {
 
-    private int name = 0;
+    public static int selDay = 0;
+    public static  int selMinute = 0;
+    public static  int selYear=0;
+    public static  int selMonth =0;
+    public static  int selHour=0;
 
-    public NewEvent(int name) {
-        this.setName(name);
+
+    public NewEvent(int selDay, int selMonth, int selYear, int selHour, int selMinute) {
+        this.setselDay(selDay);
+        this.setselMonth(selMonth);
+        this.setselYear(selYear);
+        this.setselHour(selHour);
+        this.setselMinute(selMinute);
 
     }
 
-    public int getName() {
-        return name;
+    public int getselDay() {
+        return selDay;
     }
 
-    public void setName(int name) {
-        this.name = name;
+    public void setselDay(int selDay) {
+        this.selDay = selDay;
     }
+    public int getselMonth() {
+        return selMonth;
+    }
+
+    public void setselMonth(int selMonth) {
+        this.selMonth = selMonth;
+    }
+
+    public int getselYear() {
+        return selYear;
+    }
+
+    public void setselYear(int selYear) {
+        this.selYear = selYear;
+    }
+
+    public int getselHour() {
+        return selHour;
+    }
+
+    public void setselHour(int selHour) {
+        this.selHour = selHour;
+    }
+
+    public int getselMinute() {
+        return selMinute;
+    }
+
+    public void setselMinute(int selMinute) {
+        this.selMinute = selMinute;
+    }
+
+
+
 }

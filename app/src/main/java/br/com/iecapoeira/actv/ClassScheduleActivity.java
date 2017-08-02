@@ -62,7 +62,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
     @AfterViews
     public void init() {
         setHeader();
-       // getAngolaList();
+        getAngolaList();
         drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 drawerLayout,         /* DrawerLayout object */
@@ -127,14 +127,12 @@ public class ClassScheduleActivity extends AppCompatActivity {
 
     public void getList() {
         showProgress(getString(R.string.loading_data));
-
-        ParseQuery<Aula> query = ParseQuery.getQuery(Aula.class);
-        query.whereEqualTo(Aula.TIPOCAPOEIRA, isAngola ? 0 : 1);
+        ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
+        query.whereEqualTo(Aula.TIPOCAPOEIRA, isAngola ?  "Angola" : "Regional");
         query.findInBackground(new FindCallback<Aula>() {
             @Override
             public void done(List<Aula> models, ParseException e) {
                 dismissProgress();
-
                 ClassScheduleActivity.this.models = models;
                 updateList();
             }
@@ -162,7 +160,6 @@ public class ClassScheduleActivity extends AppCompatActivity {
             isAngola = true;
             viewAngola.setBackgroundColor(getResources().getColor(R.color.pager_strip_border));
             viewRegional.setBackgroundColor(getResources().getColor(R.color.white));
-
             getList();
         } else {
             Toast.makeText(this, R.string.msg_erro_no_internet, Toast.LENGTH_LONG).show();
