@@ -1,6 +1,7 @@
 package br.com.iecapoeira.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -25,8 +26,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -44,7 +50,9 @@ import java.util.List;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.CityActivity_;
 import br.com.iecapoeira.adapter.NewEventAdapter;
+import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.model.NewEvent;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
 
@@ -66,7 +74,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     EditText editAddress;
 
     @ViewById
-    EditText editCity;
+    TextView editCity;
 
     @ViewById
     EditText editState;
@@ -237,33 +245,64 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @OptionsItem
     public void newEvent() {
-        String name = editName.getText().toString().trim();
-        String address = editAddress.getText().toString().trim();
-        String city = editCity.getText().toString().trim();
-        String country = editCountry.getText().toString().trim();
-        String state = editState.getText().toString().trim();
-        String description = editDesc.getText().toString().trim();
 
-        if (name.isEmpty()) {
-            setError(editName, getString(R.string.msg_erro_campo_vazio));
-            return;
+            if(validateFields()){
+
+                showProgress("Criando evento...");
+
+                ParseObject newEvent = ParseObject.create("Event");
+                // newClass.put("foto",byteArray);
+                newEvent.put(Event.NAME, editName.getText().toString());
+                newEvent.put(Event.DESCRIPTION, editDesc.getText().toString());
+                newEvent.put(Event.ADDRESS, editAddress.getText().toString());
+                newEvent.put(Event.CITY, editCity.getText().toString());
+                newEvent.put(Event.STATE, editState.getText().toString());
+                newEvent.put(Event.COUNTRY, editCountry.getText().toString());
+                newEvent.put(Event.HOURINIT,"15:00");
+                newEvent.put(Event.HOUREND,"18:00");
+                newEvent.put(Event.TYPE,1);
+                Calendar date = Calendar.getInstance();
+                date.set(selYear, selMonth, selDay, selHour, selMinute);
+                newEvent.put(Event.DATE,date.getTime());
+                newEvent.saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            dismissProgress();
+                            getActivity().finish();
+                        } else {
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            dismissProgress();
+                        }
+                    }
+                });
+
+            }
+
+        Intent returnIntent = new Intent();
+        getActivity().setResult(Activity.RESULT_OK,returnIntent);
+        getActivity().finish();
+
+            }
+
+    @Click
+    public void editCity(){
+        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+    }
+   /* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 5) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra("result");
+                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
+            }
         }
-        if (address.isEmpty()) {
-            setError(editAddress, getString(R.string.msg_erro_campo_vazio));
-            return;
-        }
-        if (city.isEmpty()) {
-            setError(editCity, getString(R.string.msg_erro_campo_vazio));
-            return;
-        }
-        /*if (state.isEmpty()) {
-            setError(editState, getString(R.string.msg_erro_campo_vazio));
-            return;
-        }*/
-        if (country.isEmpty()) {
-            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
-            return;
-        }
+
+    }*/
+
 
   /*     //showProgress(getString(R.string.aguarde));
 
@@ -298,7 +337,41 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             }
         });
         }*/
-        getActivity().finish();
+
+
+
+    public boolean validateFields(){
+
+        String name = editName.getText().toString().trim();
+        String address = editAddress.getText().toString().trim();
+        String city = editCity.getText().toString().trim();
+        String country = editCountry.getText().toString().trim();
+        String state = editState.getText().toString().trim();
+        String description = editDesc.getText().toString().trim();
+
+        if (name.isEmpty()) {
+            setError(editName, getString(R.string.msg_erro_campo_vazio));
+            return false;
+        }
+        if (address.isEmpty()) {
+            setError(editAddress, getString(R.string.msg_erro_campo_vazio));
+            return false;
+        }
+        /*if (city.isEmpty()) {
+            setError(editCity, getString(R.string.msg_erro_campo_vazio));
+            return false;
+        }*/
+        /*if (state.isEmpty()) {
+            setError(editState, getString(R.string.msg_erro_campo_vazio));
+            return;
+        }*/
+        if (country.isEmpty()) {
+            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
+            return false;
+        }
+
+        return true;
+
     }
 
     @Click
@@ -358,12 +431,12 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         return false;
     }
 
-    @Click
+   /* @Click
     public void btHour() {
         isInit = true;
         TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, selHour, selMinute, true);
         tpd.show();
-    }
+    }*/
 
     @Click
     public void addOtherEvent() {
@@ -377,18 +450,18 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     }
 
-    @Click
+    /*@Click
     public void btFinalHour() {
         isInit = false;
         TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, selHour, selMinute, true);
         tpd.show();
-    }
+    }*/
 
-    @Click
+/*    @Click
     public void btDate() {
         DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, selYear, selMonth, selDay);
         dpd.show();
-    }
+    }*/
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {

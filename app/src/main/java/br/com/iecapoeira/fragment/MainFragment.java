@@ -101,6 +101,15 @@ public class MainFragment extends Fragment {
                 Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
             }
         }
+
+        if (requestCode == 10) {
+            if(resultCode == Activity.RESULT_OK){
+                Log.d("TAG","DEU CERTO");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getActivity(), "Algo errado aconteceu", Toast.LENGTH_SHORT).show();
+            }
+        }
         adapter.update();
     }
 

@@ -30,6 +30,8 @@ public class Event extends ParseObject {
     public static final String OWNER = "owner";
     public static final String GOING = "going";
     public static final String TYPE = "type";
+    public static final String HOURINIT = "startTime";
+    public static final String HOUREND = "finalTime";
 
     private Bitmap bitmap;
 
