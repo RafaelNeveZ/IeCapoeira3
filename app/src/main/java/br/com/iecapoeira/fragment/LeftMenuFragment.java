@@ -1,8 +1,10 @@
 package br.com.iecapoeira.fragment;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -119,7 +121,7 @@ public class LeftMenuFragment extends Fragment {
         DashboardItem history = new DashboardItem();
         history.title = getResources().getStringArray(R.array.dashboard)[9];
         history.titleColor = getResources().getColor(R.color.white);
-        history.iconCode = String.valueOf((char) 0xe916);
+        history.image = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.history_icon);
         history.backgroundColor = getResources().getColor(R.color.blue);
         history.dashboardEnum = DashboardEnum.HISTORY;
         items.add(history);

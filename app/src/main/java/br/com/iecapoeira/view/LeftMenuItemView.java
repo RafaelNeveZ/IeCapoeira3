@@ -1,7 +1,9 @@
 package br.com.iecapoeira.view;
 
 import android.content.Context;
+import android.media.Image;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +31,9 @@ public class LeftMenuItemView extends LinearLayout {
     @ViewById
     TextView tvTitle;
 
+    @ViewById
+    ImageView imgView;
+
     public LeftMenuItemView(Context context) {
         super(context);
     }
@@ -41,7 +46,11 @@ public class LeftMenuItemView extends LinearLayout {
         this.model = model;
 
         llItem.setBackgroundColor(model.backgroundColor);
+        if(this.model.iconCode!=null)
         tvIcon.setText(model.iconCode);
+        if(this.model.image!=null)
+
+        imgView.setImageBitmap(model.image);
         tvTitle.setText(model.title);
         tvTitle.setTextColor(model.titleColor);
 

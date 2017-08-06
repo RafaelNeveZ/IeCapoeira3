@@ -32,17 +32,18 @@ public class EditalAdapter extends RecyclerView.Adapter<EditalAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        Log.i("LOG", "onCreateViewHolder()");
+
         View v = mLayoutInflater.inflate(R.layout.edital_item, viewGroup, false);
-        Log.i("LOG", "INFLEI");
+
         MyViewHolder mvh = new MyViewHolder(v);
         return mvh;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
-        Log.i("LOG", "onBindViewHolder()");
+
         final Edital edital = mList.get(position);
+
         myViewHolder.title.setText(edital.getTitulo());
     }
 

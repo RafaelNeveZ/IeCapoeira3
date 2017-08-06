@@ -23,7 +23,6 @@
 
         <Button
             android:id="@+id/bt_hour"
-            android:onClick="removePayOnClickHandler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/small"
@@ -34,7 +33,6 @@
         />
         <Button
             android:id="@+id/bt_final_hour"
-            android:onClick="removePayOnClickHandler"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/small"

@@ -8,17 +8,25 @@
     android:background="@color/yellow"
     android:gravity="center_vertical"
     android:padding="8dp">
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <br.com.iecapoeira.widget.TextViewPlus
         android:id="@+id/tv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="C"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_marginRight="16dp"
         app:fontNameTextViewPlus="icomoon" />
-
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:id="@+id/img_view"
+        android:layout_marginRight="16dp"
+        />
+</RelativeLayout>
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"

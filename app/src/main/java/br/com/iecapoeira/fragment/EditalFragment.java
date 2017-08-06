@@ -34,14 +34,13 @@ public class EditalFragment extends Fragment implements RecyclerViewOnClickListe
 
     private List<Edital> mList;
 
-
+    public    EditalAdapter adapter;
     @AfterViews
     void init(){
             recyclerviewChat.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             recyclerviewChat.setLayoutManager(llm);
             mList = setEditalList();
-            EditalAdapter adapter;
             adapter = new EditalAdapter(getActivity(), mList);
             adapter.setRecyclerViewOnClickListenerHack(EditalFragment.this);
             recyclerviewChat.setAdapter(adapter);
@@ -85,6 +84,7 @@ public class EditalFragment extends Fragment implements RecyclerViewOnClickListe
                 Edital edital = new Edital(title,link);
                 Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
                 mList.add(edital);
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();

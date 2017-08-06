@@ -77,7 +77,7 @@ public class ParceirosActivity extends AppCompatActivity {
         listaParceiros.add(getResources().getDrawable(R.drawable.parceiro_01));
         listaParceiros.add(getResources().getDrawable(R.drawable.parceiro_02));
         listaParceiros.add(getResources().getDrawable(R.drawable.parceiro_03));
-        layoutManager.setSpanCount(3);
+        layoutManager.setSpanCount(2);
         adapter.setPartners(listaParceiros);
     }
     private void getListPatrocinadores(){

@@ -54,7 +54,10 @@ import br.com.iecapoeira.actv.CityActivity_;
 import br.com.iecapoeira.adapter.NewEventAdapter;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.model.NewEvent;
+import br.com.iecapoeira.utils.OnButtonClicked;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
+
+import static android.icu.text.DateTimePatternGenerator.DAY;
 
 @EFragment(R.layout.actv_new_event)
 @OptionsMenu(R.menu.new_event)
@@ -116,18 +119,37 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     public List<NewEvent> listNE;
     private int eventDaysCount = 0;
     private NewEventAdapter adapter;
+    public final  Context context= getContext();
+    public int Day=0,Month=0,Year=0;
+    public String newDate;
+    private int rightPosition;
 
     @AfterViews
     public void init() {
 //        setHeader();
         Calendar c = Calendar.getInstance();
-        setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
+        setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
         rcNew.setHasFixedSize(false);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rcNew.setLayoutManager(llm);
         rcNew.setNestedScrollingEnabled(false);
-        listNE = setListNE();
-        adapter = new NewEventAdapter(getActivity(), listNE);
+        listNE = new ArrayList<NewEvent>();
+        listNE = setListNE() ;
+        adapter = new NewEventAdapter(getActivity(), listNE, new OnButtonClicked() {
+            @Override
+            public void onBtnClick(int position, int choosed) {
+                rightPosition = position;
+                if (choosed == 0) {
+                    putDate();
+                }else if(choosed==1){
+                    isInit= true;
+                    putTime();
+                }else{
+                    isInit=false;
+                    putTime();
+                }
+            }
+        });
         adapter.setRecyclerViewOnClickListenerHack(this);
         rcNew.setAdapter(adapter);
 
@@ -138,11 +160,11 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
     public List<NewEvent> setListNE(){
-        Log.e("TAG",""+eventDaysCount);
+
         List<NewEvent> listAux = new ArrayList<>();
 
-        NewEvent aux = new NewEvent(selDay,selMonth,selYear,selHour,selMinute);
-        listAux.add(aux);
+        NewEvent aux2 = new NewEvent(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
+        listAux.add(aux2);
         eventDaysCount++;
 
         return  (listAux);
@@ -156,8 +178,17 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 //        setSupportActionBar(toolbar);
 
     }
-*/
+    */
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        setJustTime(hourOfDay, minute,isInit);
+    }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        setJustDate(year,monthOfYear,dayOfMonth);
+
+    }
 
 
     private void setupTime(int year, int month, int day, int hour, int minute) {
@@ -178,10 +209,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         c.set(year, month, day, hour, minute);
 
-     //   btDate.setText(sdf.format(c.getTime()));
-     //   btHour.setText(String.format("%02d:%02d", hour, minute));
-     //   btFinalHour.setText(String.format("%02d:%02d", hour+1, minute));
-
     }
 
     private void setJustTime(int hour, int minute, boolean isInicial){
@@ -195,7 +222,8 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             if( horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
             }
-          //  btHour.setText(String.format("%02d:%02d", hour, minute));
+            listNE.get(rightPosition).setselHour(hour);
+            listNE.get(rightPosition).setselMinute(minute);
             horaInicial = hour;
             minutoInicial = minute;
 
@@ -205,10 +233,13 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             if(horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
             }
+            listNE.get(rightPosition).setFinalHour(hour);
+            listNE.get(rightPosition).setFinalMinute(minute);
           //  btFinalHour.setText(String.format("%02d:%02d", hour, minute));
             horafinal = hour;
             minutofinal = minute;
         }
+        adapter.notifyDataSetChanged();
     }
 
     private void setJustDate(int year, int month, int day){
@@ -220,10 +251,13 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         c.set(year, month, day);
         long dateRecivedinMills = c.getTimeInMillis();
-        Log.e(TAG,"tem atual "+System.currentTimeMillis());
-        Log.e(TAG,"tem mod "+dateRecivedinMills);
         if(System.currentTimeMillis() < dateRecivedinMills){
-         //   btDate.setText(sdf.format(c.getTime()));
+            Log.i("POS: "+rightPosition, " "+ listNE.get(rightPosition).getselDay());
+            Log.i("POS: "+(rightPosition-1), " "+ listNE.get(rightPosition).getselDay());
+            listNE.get(rightPosition).setselDay(day);
+            listNE.get(rightPosition).setselMonth(month);
+            listNE.get(rightPosition).setselYear(year);
+            adapter.notifyDataSetChanged();
         }else{
             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
         }
@@ -440,38 +474,30 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Click
     public void addOtherEvent() {
-        Log.e("TAG",""+eventDaysCount);
 
-        NewEvent aux = new NewEvent(selDay,selMonth,selYear,selHour,selMinute);
+        NewEvent aux = new NewEvent(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
         listNE.add(aux);
         adapter.notifyItemInserted(listNE.size() - 1);
-
+        adapter.notifyDataSetChanged();
         eventDaysCount++;
 
     }
 
-    /*@Click
-    public void btFinalHour() {
-        isInit = false;
+
+
+
+    public void putTime() {
         TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, selHour, selMinute, true);
         tpd.show();
-    }*/
+    }
 
-/*    @Click
-    public void btDate() {
+
+    public void putDate() {
         DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, selYear, selMonth, selDay);
         dpd.show();
-    }*/
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        setJustTime(hourOfDay, minute,isInit);
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        setJustDate(year, monthOfYear, dayOfMonth);
-    }
+
 
     public void setError(EditText edit, String error) {
         edit.requestFocus();
@@ -503,7 +529,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
     @Override
-    public void onClickListener(View view, int position) {
+    public void onClickListener(View v, int position) {
 
     }
 }
