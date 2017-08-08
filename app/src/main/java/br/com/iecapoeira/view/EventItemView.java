@@ -3,6 +3,7 @@ package br.com.iecapoeira.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import br.com.hemobile.ItemView;
 import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.utils.HETextUtil;
 
@@ -53,7 +55,7 @@ public class EventItemView extends ItemView<Event> {
             setProfilePicture(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
         }
     };*/
-
+   public  boolean go = true;
     @UiThread
     public void setProfilePicture(Bitmap picture) {
         img.setImageBitmap(picture);
@@ -82,17 +84,27 @@ public class EventItemView extends ItemView<Event> {
             setProfilePicture(picture);
         }
         else {*/
-            img.setImageResource(R.drawable.ic_eventlist_cell_photo);
+        if(obj.get(Event.FOTO)!=null) {
+            byte[] decodedString = Base64.decode(obj.get(Event.FOTO).toString(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            img.setImageBitmap(decodedByte);
+        }
+
         /*}*/
 
     }
 
     @Click
     public void btGoing() {
-        Boolean userGoing = ! (Boolean) btGoing.getTag();
-        setImageBtGoing(userGoing);
-        btGoing.setTag(userGoing);
-        changeGoingOnParse(userGoing);
+
+        if(go) {
+            setImageBtGoing(true);
+            go=false;
+        }else {
+            setImageBtGoing(false);
+            go=true;
+        }
+
     }
 
     @Background

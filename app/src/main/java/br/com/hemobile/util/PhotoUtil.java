@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory.Options;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -164,6 +165,19 @@ public class PhotoUtil {
         photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
         photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         actv.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+    }
+
+    public static void getCroppedImageFromGalleryFrag(Fragment fragment) {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        photoPickerIntent.setType("image/*");
+        photoPickerIntent.putExtra("crop", "true");
+        photoPickerIntent.putExtra("aspectX", 4);
+        photoPickerIntent.putExtra("aspectY", 3);
+        photoPickerIntent.putExtra("scale",true);
+        photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+        photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        fragment.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
     }
 
     private static Uri getTempUri() {

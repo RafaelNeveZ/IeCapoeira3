@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
 
 import br.com.hemobile.BaseActivity;
 import br.com.iecapoeira.R;

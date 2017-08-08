@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,6 +44,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -123,6 +125,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     public int Day=0,Month=0,Year=0;
     public String newDate;
     private int rightPosition;
+    private String my64foto=null;
 
     @AfterViews
     public void init() {
@@ -295,6 +298,8 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 newEvent.put(Event.HOURINIT,"15:00");
                 newEvent.put(Event.HOUREND,"18:00");
                 newEvent.put(Event.TYPE,1);
+                if(my64foto!=null)
+                newEvent.put(Event.FOTO,my64foto);
                 Calendar date = Calendar.getInstance();
                 date.set(selYear, selMonth, selDay, selHour, selMinute);
                 newEvent.put(Event.DATE,date.getTime());
@@ -312,9 +317,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
             }
 
-        Intent returnIntent = new Intent();
-        getActivity().setResult(Activity.RESULT_OK,returnIntent);
-        getActivity().finish();
+
 
             }
 
@@ -415,7 +418,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     public void galleyView(){
         if(isReadStorageAllowed()) {
-            PhotoUtil.getCroppedImageFromGallery(getActivity());
+            PhotoUtil.getCroppedImageFromGalleryFrag(this);
 
         }else{
             requestStoragePermission();
@@ -424,11 +427,29 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
-        if (uri != null) {
-            bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
-            photo.setImageBitmap(bmp);
-            photo.setBackgroundResource(android.R.color.transparent);
+        if (requestCode == 19) {
+            Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
+            Log.d("URI", uri + "");
+            if (uri != null) {
+                bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                Log.d("STRING: ", my64foto);
+                photo.setImageBitmap(bmp);
+                photo.setBackgroundResource(android.R.color.transparent);
+
+            }
+        }
+        if (requestCode == 5) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra("result");
+                editCity.setText(result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

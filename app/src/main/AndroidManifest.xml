@@ -62,6 +62,8 @@
         <activity
             android:name=".actv.EventDetailActivity_"
             android:label="@string/title_eventos"
+            android:parentActivityName=".actv.MainActivity_"
+            android:theme="@style/menuWhiteTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ChatActivity_"
@@ -84,6 +86,8 @@
         <activity
             android:name=".actv.EventsActivity_"
             android:label="@string/title_eventos"
+            android:theme="@style/menuWhiteTheme"
+            android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ListaMestreActivity_"

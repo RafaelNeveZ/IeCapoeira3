@@ -29,7 +29,6 @@ import br.com.iecapoeira.fragment.SalaChatFragment_;
 @EActivity(R.layout.activity_edital)
 public class EditalActivity extends AppCompatActivity {
 
-
     @AfterViews
     public void init() {
         FragmentManager fm = getSupportFragmentManager();

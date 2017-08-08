@@ -20,7 +20,7 @@
     <string name="bt_login">Entrar</string>
     <string name="bt_save">SALVAR</string>
     <string name="buscando_dados_facebook">Pegando dados do Facebok...</string>
-    <string name="date_hour_pattern">dd/MM/yyyy \'at\' HH:mm</string>
+    <string name="date_hour_pattern">dd/MM/yyyy \'as\' HH:mm</string>
     <string name="date_pattern">dd/MM/yyyy</string>
     <string name="hint_city">Cidade</string>
     <string name="hint_descricao">Fale mais sobre o evento</string>

@@ -32,6 +32,7 @@ public class Event extends ParseObject {
     public static final String TYPE = "type";
     public static final String HOURINIT = "startTime";
     public static final String HOUREND = "finalTime";
+    public static final String FOTO = "foto";
 
     private Bitmap bitmap;
 

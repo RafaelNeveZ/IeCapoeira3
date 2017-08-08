@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,9 +20,12 @@ import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
@@ -36,6 +41,7 @@ import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.ChatActivity;
 import br.com.iecapoeira.actv.ChatActivity_;
+import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.model.UserDetails;
 import br.com.iecapoeira.utils.HETextUtil;
@@ -59,6 +65,8 @@ public class EventDetailFragment extends Fragment {
     @ViewById
     TextView textDesc;
 
+       @ViewById
+       Toolbar toolbar;
     private Event obj;
 
     @ViewById
@@ -108,7 +116,18 @@ public class EventDetailFragment extends Fragment {
     public void init() {
         String id = getActivity().getIntent().getStringExtra("id");
         obj = ParseObject.createWithoutData(Event.class, id);
-        obj.fetchIfNeededInBackground(new GetCallback<Event>() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
+        query.getInBackground(obj.getObjectId(), new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    obj = (Event) object;
+                    update();
+                }else{
+
+                }
+            }
+        });
+        /*obj.fetchIfNeededInBackground(new GetCallback<Event>() {
             @Override
             public void done(Event event, ParseException e) {
                 obj = event;
@@ -119,12 +138,17 @@ public class EventDetailFragment extends Fragment {
                     update();
                 }
             }
-        });
+        });*/
     }
 
+
+    @Click
+    public void profileImg(){
+        menuDelete() ;
+    }
     @UiThread
     void update() {
-        textName.setText(obj.getName());
+        textName.setText(obj.get(Event.NAME).toString());
         String pattern = getString(R.string.date_hour_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         textDate.setText(sdf.format(obj.getDate()));
@@ -139,9 +163,13 @@ public class EventDetailFragment extends Fragment {
             textDesc.setText(obj.getDescription());
         }
 
-        Bitmap eventImage = obj.getProfilePicture(callback);
-        if (eventImage != null)
-            setImage(eventImage);
+        if(obj.get(Event.FOTO)!=null) {
+            byte[] decodedString = Base64.decode(obj.get(Event.FOTO).toString(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            setImage(decodedByte);
+        }
+
+
 
         if (owner != null) {
             Bitmap profilePicture = owner.getProfilePicture(callbackProfilePicture);
@@ -231,6 +259,17 @@ public class EventDetailFragment extends Fragment {
     public void deleteEvent() {
         ((BaseActivity)getActivity()).showProgress(getString(R.string.aguarde));
         try {
+            ParseQuery<Event> query = ParseQuery.getQuery("Event");
+            query.getInBackground(obj.getObjectId(), new GetCallback<Event>() {
+                public void done(Event thisEvent, ParseException e) {
+                    if (e == null) {
+                        thisEvent.deleteInBackground();
+                        getActivity().finish();
+                    }else{
+
+                    }
+                }
+            });
             obj.delete();
         } catch (ParseException e) {
             e.printStackTrace();
