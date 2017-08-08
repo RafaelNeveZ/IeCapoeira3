@@ -1,7 +1,9 @@
 package br.com.iecapoeira.actv;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -116,9 +118,24 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
         }
         if (item.getItemId() == R.id.edit)
-            DashboardActivity_.intent(this).start();
+            startActivityForResult(new Intent(this, EditNewClassActivity_.class), 10);
 
         return false;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 10) {
+            if(resultCode == Activity.RESULT_OK){
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+            }
+            if (resultCode == Activity.RESULT_FIRST_USER) {
+
+            }
+        }
     }
 
     @UiThread

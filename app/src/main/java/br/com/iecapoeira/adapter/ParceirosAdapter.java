@@ -96,6 +96,7 @@ public class ParceirosAdapter extends RecyclerView.Adapter<ParceirosAdapter.View
             byte[] decodedString = Base64.decode(foto, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             ivLogo.setImageBitmap(decodedByte);
+            ivLogo.setBackgroundResource(android.R.color.transparent);
         }
 
         @Override

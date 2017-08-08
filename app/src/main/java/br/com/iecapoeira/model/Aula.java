@@ -24,6 +24,10 @@ public class Aula extends ParseObject {
     public static final String HORARIO_FIM = "horarioFinal";
     public static final String DIASSEMANA = "data";
     public static final String ENDERECO = "endereco";
+    public static final String ESTADO = "endereco";
+    public static final String PAIS = "pais";
+    public static final String CIDADE = "cidade";
+    public static final String GRADUACAO = "graduacao";
     public static final String NOMEACADEMIA = "nomeAcademia";
     public static final String MESTRE = "mestre";
     public static final String NOMEPROFESSOR = "nomeProfessor";

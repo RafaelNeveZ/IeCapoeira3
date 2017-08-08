@@ -74,6 +74,7 @@
         <activity
             android:name=".actv.ClassScheduleDetailActivity_"
             android:label="@string/title_aulas"
+            android:parentActivityName=".actv.ClassScheduleActivity_"
             android:theme="@style/menuWhiteTheme"
             android:screenOrientation="portrait" />
         <activity

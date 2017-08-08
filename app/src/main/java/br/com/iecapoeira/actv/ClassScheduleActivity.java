@@ -173,8 +173,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
     @ItemClick
     void listClassesItemClicked(Aula selectedModel) {
         ClassScheduleDetailActivity.model = selectedModel;
-        Intent intent = new Intent(this, ClassScheduleDetailActivity_.class);
-        startActivity(intent);
+        startActivityForResult(new Intent(this, ClassScheduleDetailActivity_.class), 15);
     }
 
 
