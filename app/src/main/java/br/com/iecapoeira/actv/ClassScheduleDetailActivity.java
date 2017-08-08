@@ -2,8 +2,11 @@ package br.com.iecapoeira.actv;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -63,12 +66,16 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     @AfterViews
     public void init() {
-        setHeader();
+        //setHeader();
         if (model == null) {
             return;
         }
 
-       // ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 80);
+        if(model.get(Aula.FOTO)!=null) {
+            byte[] decodedString = Base64.decode(model.get(Aula.FOTO).toString(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ivTeacher.setImageBitmap(decodedByte);
+        }
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
         tvDays.setText(model.getDiasSemana());

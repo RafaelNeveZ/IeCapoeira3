@@ -6,23 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppThemeTab">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/TemaPadraoTab">
-
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,7 +49,7 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/mestre_bimba"
+                    android:background="@drawable/ic_teacher"
                     android:scaleType="centerCrop" />
 
                 <ImageView
@@ -118,8 +101,7 @@
                     android:layout_marginLeft="8dp"
                     android:padding="8dp"
                     android:text="time"
-                    android:textColor="@color/gray_txt_dark"
-                     />
+                    android:textColor="@color/gray_txt_dark" />
 
             </LinearLayout>
 
@@ -143,8 +125,7 @@
                     android:layout_marginLeft="8dp"
                     android:padding="8dp"
                     android:text="hour"
-                    android:textColor="@color/gray_txt_dark"
-                     />
+                    android:textColor="@color/gray_txt_dark" />
 
             </LinearLayout>
 
@@ -168,8 +149,7 @@
                     android:layout_marginLeft="8dp"
                     android:padding="8dp"
                     android:text="place"
-                    android:textColor="@color/gray_txt_dark"
-                     />
+                    android:textColor="@color/gray_txt_dark" />
 
 
             </LinearLayout>
@@ -184,4 +164,22 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppThemeTab">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/TemaPadraoTab">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
 </LinearLayout>

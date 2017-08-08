@@ -3,7 +3,6 @@ package br.com.iecapoeira.actv;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -17,12 +16,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -36,9 +31,7 @@ import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -49,20 +42,15 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Aula;
-import br.com.iecapoeira.model.Event;
-import br.com.iecapoeira.model.Parceiro;
-import br.com.iecapoeira.model.UserDetails;
 
 @EActivity(R.layout.activity_new_class)
 @OptionsMenu(R.menu.new_event)
-public class NewClassActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EditNewClassActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private int STORAGE_PERMISSION_CODE = 23;
 
@@ -107,6 +95,12 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @AfterViews
     public void init() {
+
+
+
+
+
+
         Calendar c = Calendar.getInstance();
         setupTime( (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
     }

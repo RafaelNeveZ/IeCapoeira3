@@ -29,12 +29,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/iv_teacher"
-            android:background="@drawable/ic_teacher"
-            android:scaleType="centerCrop"
             android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:background="@drawable/ic_teacher"
+            android:scaleType="centerCrop" />
+
         <TextView
             android:id="@+id/tv_description"
             android:padding="10dp"

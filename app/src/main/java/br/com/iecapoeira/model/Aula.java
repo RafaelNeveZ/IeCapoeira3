@@ -19,7 +19,7 @@ import java.util.List;
 @ParseClassName("Aulas")
 public class Aula extends ParseObject {
 
-    public static final String FOTOPROFESSOR = "foto";
+    public static final String FOTO = "foto";
     public static final String HORARIO_COMECO = "horario";
     public static final String HORARIO_FIM = "horarioFinal";
     public static final String DIASSEMANA = "data";
@@ -29,8 +29,9 @@ public class Aula extends ParseObject {
     public static final String NOMEPROFESSOR = "nomeProfessor";
     public static final String SOBREAULA = "sobre";
     public static final String TIPOCAPOEIRA = "estilo";
-    public static final String Foto = "foto";
 
+
+    public  String getFOTO() {return getString(FOTO);}
 
     public String getHorarioStart() {
         return getString(HORARIO_COMECO);

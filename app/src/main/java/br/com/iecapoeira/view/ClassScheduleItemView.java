@@ -1,7 +1,10 @@
 package br.com.iecapoeira.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -44,6 +47,11 @@ public class ClassScheduleItemView extends RelativeLayout {
         this.model = model;
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
+        if(model.get(Aula.FOTO)!=null) {
+            byte[] decodedString = Base64.decode(model.get(Aula.FOTO).toString(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ivTeacher.setImageBitmap(decodedByte);
+        }
      //   ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 50);
     }
 }

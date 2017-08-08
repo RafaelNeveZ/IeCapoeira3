@@ -54,6 +54,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
+            android:name=".actv.EditNewClassActivity_"
+            android:label="@string/title_class_register"
+            android:parentActivityName=".actv.ClassScheduleActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
             android:name=".actv.EventDetailActivity_"
             android:label="@string/title_eventos"
             android:screenOrientation="portrait" />
@@ -68,6 +74,7 @@
         <activity
             android:name=".actv.ClassScheduleDetailActivity_"
             android:label="@string/title_aulas"
+            android:theme="@style/menuWhiteTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.DashboardActivity_"
@@ -136,6 +143,7 @@
             android:parentActivityName=".actv.EditalActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
+
         <activity
             android:name=".actv.SalaChatActivity_"
             android:label="@string/title_chat"

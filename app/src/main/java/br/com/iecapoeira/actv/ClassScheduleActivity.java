@@ -59,6 +59,7 @@ public class ClassScheduleActivity extends AppCompatActivity {
 
     List<Aula> models;
     boolean isAngola;
+    private boolean other=false;
 
     @AfterViews
     public void init() {
@@ -104,19 +105,23 @@ public class ClassScheduleActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 getList();
             }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            if (resultCode == Activity.RESULT_FIRST_USER) {
+                other=true;
+                getList();
             }
         }
         if (requestCode == 15) {
             if(resultCode == Activity.RESULT_OK){
-                updateList();
+                getList();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
+
+
+
 
 
     @Override
@@ -154,8 +159,13 @@ public class ClassScheduleActivity extends AppCompatActivity {
             @Override
             public void done(List<Aula> models, ParseException e) {
                 dismissProgress();
+                if(other){
+                    other=false;
+                    newEvent();
+                }
                 ClassScheduleActivity.this.models = models;
                 updateList();
+
             }
         });
     }
