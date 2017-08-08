@@ -35,6 +35,7 @@ public class EditalFragment extends Fragment implements RecyclerViewOnClickListe
     private List<Edital> mList;
 
     public    EditalAdapter adapter;
+
     @AfterViews
     void init(){
             recyclerviewChat.setHasFixedSize(true);

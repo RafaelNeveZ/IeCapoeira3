@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.parse.ParseUser;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsMenu;
@@ -30,6 +32,8 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
 
+
+
     @AfterViews
     public void init() {
         toolbar.setNavigationIcon(R.drawable.ic_logo);
@@ -50,6 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
+
     }
 
     @Override
