@@ -29,7 +29,7 @@ public class Aula extends ParseObject {
     public static final String NOMEPROFESSOR = "nomeProfessor";
     public static final String SOBREAULA = "sobre";
     public static final String TIPOCAPOEIRA = "estilo";
-
+    public static final String Foto = "foto";
 
 
     public String getHorarioStart() {

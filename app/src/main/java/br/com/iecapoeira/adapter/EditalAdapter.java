@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
+
 import java.util.List;
 
 import br.com.iecapoeira.R;
@@ -18,12 +20,12 @@ import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
 
 
 public class EditalAdapter extends RecyclerView.Adapter<EditalAdapter.MyViewHolder> {
-    private List<Edital> mList;
+    private List<ParseObject> mList;
     private LayoutInflater mLayoutInflater;
     private RecyclerViewOnClickListenerHack mRecyclerViewOnClickListenerHack;
     private Context context;
 
-    public EditalAdapter(Context c, List<Edital> list) {
+    public EditalAdapter(Context c, List<ParseObject> list) {
         mList = list;
         mLayoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         context = c;
@@ -42,9 +44,9 @@ public class EditalAdapter extends RecyclerView.Adapter<EditalAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
 
-        final Edital edital = mList.get(position);
+        final ParseObject edital = mList.get(position);
 
-        myViewHolder.title.setText(edital.getTitulo());
+        myViewHolder.title.setText( (String) edital.get(Edital.TITLE));
     }
 
     @Override

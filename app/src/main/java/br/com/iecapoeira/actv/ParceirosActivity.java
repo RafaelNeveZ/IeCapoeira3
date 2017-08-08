@@ -301,7 +301,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
         if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.delete_par);
-            dialog.setTitle("Log Out");
+            dialog.setTitle("Parceiro/Patrocinador");
             dialog.show();
             TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
             Button btY = (Button) dialog.findViewById(R.id.yes);

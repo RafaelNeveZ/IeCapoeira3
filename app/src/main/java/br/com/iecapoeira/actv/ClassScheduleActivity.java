@@ -1,5 +1,6 @@
 package br.com.iecapoeira.actv;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -93,8 +94,28 @@ public class ClassScheduleActivity extends AppCompatActivity {
 
     @OptionsItem
     public void newEvent() {
-        Intent intent = new Intent(this, NewClassActivity_.class);
-        startActivity(intent);
+        startActivityForResult(new Intent(this, NewClassActivity_.class), 10);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 10) {
+            if(resultCode == Activity.RESULT_OK){
+                getList();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (requestCode == 15) {
+            if(resultCode == Activity.RESULT_OK){
+                updateList();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
@@ -145,6 +166,11 @@ public class ClassScheduleActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ClassScheduleDetailActivity_.class);
         startActivity(intent);
     }
+
+
+
+
+
 
     @UiThread
     public void updateList() {

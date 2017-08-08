@@ -135,29 +135,26 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
-        if(IsNotAdmin)
+
+        if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
+            Log.d("TAG", "ADM");
+
+            menu.getItem(1).setEnabled(true);
+            menu.getItem(0).setEnabled(true);
+
+        } else {
+            Log.d("TAG", "Não é ADM");
+
             menu.getItem(1).setEnabled(false);
+            menu.getItem(0).setEnabled(true);
+        }
+
 
         return true;
 
     }
 
-/*    public void setDaysText() {
-        String days = "";
-        if (model.getDiasSemana() != null) {
-            for(int i = 0; i < model.getDiasSemana().size(); i++) {
-                try {
-                    days = days + getResources().getStringArray(R.array.days)[i];
-                    if (i + 1 < model.getDiasSemana().size()) {
-                        days += ",";
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        tvDays.setText(days);
-    }*/
+
 
 
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/confirm_logout"
+        android:text="O que deeja fazer com o edital?"
+        android:textAlignment="center"
+        android:textColor="@color/gray_txt_dark"
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_height="wrap_content">
+
+        <requestFocus />
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <Button
+            android:id="@+id/no"
+            android:layout_marginTop="15dp"
+            android:onClick="btNo"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:background="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deletar" />
+        <Button
+            android:id="@+id/yes"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:onClick="btYes"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:textColor="@color/white"
+            android:background="@color/blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Abrir" />
+
+
+
+    </LinearLayout>
+</LinearLayout>

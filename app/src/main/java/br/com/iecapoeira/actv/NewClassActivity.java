@@ -286,6 +286,8 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                 public void done(ParseException e) {
                     if (e == null) {
                         dismissProgress();
+                        Intent returnIntent = new Intent();
+                        setResult(Activity.RESULT_OK,returnIntent);
                         finish();
                     } else {
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
