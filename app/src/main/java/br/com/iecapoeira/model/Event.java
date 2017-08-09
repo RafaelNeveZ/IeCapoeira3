@@ -11,6 +11,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 import java.util.Date;
 
@@ -33,6 +34,8 @@ public class Event extends ParseObject {
     public static final String HOURINIT = "startTime";
     public static final String HOUREND = "finalTime";
     public static final String FOTO = "foto";
+    public static final String OBJECTID = "objectId";
+    public static final String EVENTGO = "eventgo";
 
     private Bitmap bitmap;
 
@@ -161,8 +164,8 @@ public class Event extends ParseObject {
      * @throws ParseException
      */
     public boolean isUserGoing(UserDetails user) throws ParseException {
-        ParseRelation<UserDetails> relation = getRelation(GOING);
-        ParseQuery<UserDetails> query = relation.getQuery();
+        ParseRelation<ParseUser> relation = getRelation(GOING);
+        ParseQuery<ParseUser> query = relation.getQuery();
         query.fromLocalDatastore();
         query.whereEqualTo("objectId", user.getObjectId());
         return query.getFirst() != null;

@@ -11,16 +11,16 @@ import android.widget.ArrayAdapter;
 
 public class NewEvent {
 
-    public static int selDay = 0;
-    public static  int selMinute = 0;
-    public static  int selYear=0;
-    public static  int selMonth =0;
-    public static  int selHour=0;
+    public  int selDay = 0;
+    public   int selMinute = 0;
+    public   int selYear=0;
+    public   int selMonth =0;
+    public   int selHour=0;
 
 
-    public static  int finalHour =0;
-    public static  int finalMinute=0;
-    public  static  String date="";
+    public  int finalHour =0;
+    public   int finalMinute=0;
+    public    String date="";
 
 
     public NewEvent(int selDay, int selMonth, int selYear, int selHour, int selMinute, int finalHour, int finalMinute) {
@@ -34,20 +34,20 @@ public class NewEvent {
     }
 
 
-    public static int getFinalHour() {
+    public  int getFinalHour() {
         return finalHour;
     }
 
-    public static void setFinalHour(int finalHour) {
-        NewEvent.finalHour = finalHour;
+    public  void setFinalHour(int finalHour) {
+        this.finalHour = finalHour;
     }
 
-    public static int getFinalMinute() {
+    public  int getFinalMinute() {
         return finalMinute;
     }
 
-    public static void setFinalMinute(int finalMinute) {
-        NewEvent.finalMinute = finalMinute;
+    public  void setFinalMinute(int finalMinute) {
+        this.finalMinute = finalMinute;
     }
 
     public void setDate(String date){this.date = date;}

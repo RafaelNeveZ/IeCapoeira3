@@ -1,14 +1,25 @@
 package br.com.iecapoeira.view;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
@@ -17,10 +28,12 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import br.com.hemobile.ItemView;
 import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.ClassScheduleActivity;
 import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.utils.HETextUtil;
@@ -44,6 +57,7 @@ public class EventItemView extends ItemView<Event> {
 
     @ViewById
     ImageView img;
+    private ProgressDialog progressDialog;
 
     public EventItemView(Context context) {
         super(context);
@@ -70,15 +84,7 @@ public class EventItemView extends ItemView<Event> {
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         textDate.setText(sdf.format(obj.getDate()));
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
-       /* try {
-            boolean userGoing = obj.isUserGoing(IEApplication.getUserDetails());
-            setImageBtGoing(userGoing);
-            btGoing.setTag(userGoing);
-        } catch (ParseException e) {
-            setImageBtGoing(false);
-            btGoing.setTag(false);
-        }*/
-
+        checkEvents();
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {
             setProfilePicture(picture);
@@ -90,19 +96,84 @@ public class EventItemView extends ItemView<Event> {
             img.setImageBitmap(decodedByte);
         }
 
-        /*}*/
+
 
     }
 
+    public  void checkEvents(){
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
+        query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
+        query.findInBackground(new FindCallback<Event>() {
+            @Override
+            public void done(List<Event> models, ParseException e) {
+                Log.d("EVENT NAME",models.get(0).get(Event.NAME).toString());
+                ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
+                ParseQuery<ParseObject> qry = relation.getQuery();
+                qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
+                qry.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> users, ParseException e) {
+                        if(users.size()>0){
+                            setImageBtGoing(true);
+                            go=false;
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+   public void subscribe(){
+       ParseQuery<Event> query = ParseQuery.getQuery("Event");
+       query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
+       query.findInBackground(new FindCallback<Event>() {
+           @Override
+           public void done(List<Event> models, ParseException e) {
+               ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
+               relation.add(ParseUser.getCurrentUser());
+               models.get(0).saveInBackground(new SaveCallback() {
+                   public void done(ParseException e) {
+                       if (e == null) {
+                           setImageBtGoing(true);
+                           go=false;
+                       } else {
+
+                       }
+                   }
+               });
+           }
+       });
+   }
+
+   public  void unSubscribe(){
+       ParseQuery<Event> query = ParseQuery.getQuery("Event");
+       query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
+       query.findInBackground(new FindCallback<Event>() {
+           @Override
+           public void done(List<Event> models, ParseException e) {
+               ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
+               relation.remove(ParseUser.getCurrentUser());
+               models.get(0).saveInBackground(new SaveCallback() {
+                   public void done(ParseException e) {
+                       if (e == null) {
+                           setImageBtGoing(false);
+                           go=true;
+                       } else {
+
+                       }
+                   }
+               });
+           }
+       });
+   }
     @Click
     public void btGoing() {
 
         if(go) {
-            setImageBtGoing(true);
-            go=false;
+            subscribe();
+
         }else {
-            setImageBtGoing(false);
-            go=true;
+            unSubscribe();
         }
 
     }
@@ -121,4 +192,6 @@ public class EventItemView extends ItemView<Event> {
     void setImageBtGoing(boolean userGoing) {
         btGoing.setImageResource(userGoing ? R.drawable.ic_eventlist_cell_confirm_unselect : R.drawable.ic_eventlist_cell_confirm_select);
     }
+
+
 }

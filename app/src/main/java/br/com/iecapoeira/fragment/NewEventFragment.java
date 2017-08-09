@@ -255,8 +255,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         c.set(year, month, day);
         long dateRecivedinMills = c.getTimeInMillis();
         if(System.currentTimeMillis() < dateRecivedinMills){
-            Log.i("POS: "+rightPosition, " "+ listNE.get(rightPosition).getselDay());
-            Log.i("POS: "+(rightPosition-1), " "+ listNE.get(rightPosition).getselDay());
             listNE.get(rightPosition).setselDay(day);
             listNE.get(rightPosition).setselMonth(month);
             listNE.get(rightPosition).setselYear(year);
