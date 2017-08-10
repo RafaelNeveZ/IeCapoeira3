@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.parse.ParseObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.List;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.NewEventActivity;
 import br.com.iecapoeira.model.Edital;
+import br.com.iecapoeira.model.EventDate;
 import br.com.iecapoeira.model.NewEvent;
 import br.com.iecapoeira.utils.OnButtonClicked;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
@@ -34,13 +37,13 @@ import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
 
 public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.PaymentHolder> implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private List<NewEvent> items;
+    private List<ParseObject> items;
     private LayoutInflater mLayoutInflater;
     private RecyclerViewOnClickListenerHack mRecyclerViewOnClickListenerHack;
     private Context context;
     private OnButtonClicked listener=null;
 
-    public NewEventAdapter(Context context, List<NewEvent> items, OnButtonClicked listener) {
+    public NewEventAdapter(Context context, List<ParseObject> items, OnButtonClicked listener) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
         this.items = items;
@@ -60,12 +63,12 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
     @Override
     public void onBindViewHolder(final PaymentHolder holder, int position) {
 
-        final NewEvent item = items.get(position);
+        final ParseObject item = items.get(position);
         /*Log.d("POSITION",position+"");
         Log.d("DAY",item.getselDay()+"");*/
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        holder.btDate.setText(item.getselDay()+"/"+item.getselMonth()+"/"+item.getselYear());
+        holder.btDate.setText(item.get("day")+"/"+item.get("month")+"/"+item.get("year"));
         holder.btDate.setTag(position);
         holder.btDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +78,7 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
                 }
             }
         });
-        holder.btFinalHour.setText(String.format("%02d:%02d", item.getFinalHour(),item.getFinalMinute()));
+        holder.btFinalHour.setText(String.format("%02d:%02d", item.get(EventDate.HOUREND),item.get(EventDate.MIMEND)));
         holder.btFinalHour.setTag(position);
         holder.btFinalHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +88,7 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
                 }
             }
         });
-        holder.btHour.setText(String.format("%02d:%02d", item.getselHour(), item.getselMinute()));
+        holder.btHour.setText(String.format("%02d:%02d", item.get(EventDate.HOURINIT), item.get(EventDate.MIMINIT)));
         holder.btHour.setTag(position);
         holder.btHour.setOnClickListener(new View.OnClickListener() {
             @Override

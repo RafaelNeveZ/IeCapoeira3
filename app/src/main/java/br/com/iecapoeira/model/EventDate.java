@@ -1,18 +1,23 @@
 package br.com.iecapoeira.model;
 
-import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.widget.ArrayAdapter;
-
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-/**
- * Created by rafae on 30/07/2017.
- */
+import java.util.Date;
 
-public class NewEvent {
+/**
+ * Created by rafae on 10/08/2017.
+ */
+@ParseClassName("EventDate")
+public class EventDate extends ParseObject {
+
+    public static final String YEAR = "year";
+    public static final String MONTH = "month";
+    public static final String DAY = "day";
+    public static final String HOURINIT = "horaInicial";
+    public static final String HOUREND = "horaFinal";
+    public static final String MIMINIT = "minuteInicial";
+    public static final String MIMEND = "minuteFinal";
 
     public  int selDay = 0;
     public   int selMinute = 0;
@@ -25,24 +30,35 @@ public class NewEvent {
     public   int finalMinute=0;
     public    String date="";
 
-    public NewEvent() {
+    public  EventDate(){
 
     }
 
-    public NewEvent(int selDay, int selMonth, int selYear, int selHour, int selMinute, int finalHour, int finalMinute) {
-        this.setselDay(selDay);
-        this.setselMonth(selMonth);
-        this.setselYear(selYear);
-        this.setselHour(selHour);
-        this.setselMinute(selMinute);
-        this.setFinalHour(finalHour);
-        this.setFinalMinute(finalMinute);
+    public EventDate(int selDay, int selMonth, int selYear, int selHour, int selMinute, int finalHour, int finalMinute) {
+        this.selDay=selDay;
+        this.selMonth=selMonth;
+        this.selYear =selYear;
+        this.selHour=selHour;
+        this.selMinute=selMinute;
+        this.finalHour=finalHour;
+        this.finalMinute=finalMinute;
+
     }
 
-
-    public  int getFinalHour() {
-        return finalHour;
+    public  void setHOURINIT(String horainit) {
+        put(HOURINIT,horainit);
     }
+    public String getHOURINIT() {
+        return get(HOURINIT).toString();
+    }
+
+    public void setHOUREND(String horfim) {
+        put(HOUREND,horfim);
+    }
+    public String getHOUREND() {
+        return get(HOUREND).toString();
+    }
+
 
     public  void setFinalHour(int finalHour) {
         this.finalHour = finalHour;
@@ -98,6 +114,7 @@ public class NewEvent {
         this.selMinute = selMinute;
     }
 
-
-
+    public  int getFinalHour() {
+        return finalHour;
+    }
 }

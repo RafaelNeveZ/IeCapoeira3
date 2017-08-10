@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,12 +17,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -34,6 +38,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import br.com.hemobile.BaseActivity;
 import br.com.hemobile.MyApplication;
@@ -41,7 +46,6 @@ import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.ChatActivity;
 import br.com.iecapoeira.actv.ChatActivity_;
-import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.model.UserDetails;
 import br.com.iecapoeira.utils.HETextUtil;
@@ -65,15 +69,20 @@ public class EventDetailFragment extends Fragment {
     @ViewById
     TextView textDesc;
 
-       @ViewById
-       Toolbar toolbar;
-    private Event obj;
+    @ViewById
+    Toolbar toolbar;
+
+    public static  Event thisEvent;
 
     @ViewById
     ImageView img;
 
     @ViewById
     ImageView profileImg;
+
+    public  boolean go = true;
+
+
 
     private final GetDataCallback callbackProfilePicture = new GetDataCallback() {
         @Override
@@ -114,25 +123,26 @@ public class EventDetailFragment extends Fragment {
 
     @AfterViews
     public void init() {
+
         String id = getActivity().getIntent().getStringExtra("id");
-        obj = ParseObject.createWithoutData(Event.class, id);
+        thisEvent = ParseObject.createWithoutData(Event.class, id);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
-        query.getInBackground(obj.getObjectId(), new GetCallback<ParseObject>() {
+        query.getInBackground(thisEvent.getObjectId(), new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    obj = (Event) object;
+                    thisEvent = (Event) object;
                     update();
                 }else{
 
                 }
             }
         });
-        /*obj.fetchIfNeededInBackground(new GetCallback<Event>() {
+        /*thisEvent.fetchIfNeededInBackground(new GetCallback<Event>() {
             @Override
             public void done(Event event, ParseException e) {
-                obj = event;
+                thisEvent = event;
                 try {
-                    obj.setOwner((UserDetails) obj.getOwner().fetchIfNeeded());
+                    thisEvent.setOwner((UserDetails) thisEvent.getOwner().fetchIfNeeded());
                 } catch (ParseException e1) {}
                 if (e == null) {
                     update();
@@ -142,29 +152,57 @@ public class EventDetailFragment extends Fragment {
     }
 
 
+
+
     @Click
     public void profileImg(){
         menuDelete() ;
     }
     @UiThread
     void update() {
-        textName.setText(obj.get(Event.NAME).toString());
+        textName.setText(thisEvent.get(Event.NAME).toString());
         String pattern = getString(R.string.date_hour_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        textDate.setText(sdf.format(obj.getDate()));
-        textLocation.setText(String.format("%s\n%s, %s - %s", HETextUtil.toTitleCase(obj.getAddress()), HETextUtil.toTitleCase(obj.getCity()), obj.getState().toUpperCase(), obj.getCountry()));
-        int howManyIsGoing = obj.getHowManyIsGoing();
-        textQuantity.setText(getResources().getQuantityString(R.plurals.x_pessoas_irao, howManyIsGoing, howManyIsGoing));
+        textDate.setText(sdf.format(thisEvent.getDate()));
+        textLocation.setText(String.format("%s\n%s, %s - %s", HETextUtil.toTitleCase(thisEvent.getAddress()), HETextUtil.toTitleCase(thisEvent.getCity()), thisEvent.getState().toUpperCase(), thisEvent.getCountry()));
+        int howManyIsGoing = thisEvent.getHowManyIsGoing();
+
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
+        query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
+        query.findInBackground(new FindCallback<Event>() {
+            @Override
+            public void done(List<Event> models, ParseException e) {
+
+                ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
+                ParseQuery<ParseObject> qry = relation.getQuery();
+                qry.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> users, ParseException e) {
+                        Log.d("SIUZE", users.size() + "");
+                        if (users != null) {
+                            if (users.size() == 1)
+                                textQuantity.setText(users.size() + " pessoa irá à este evento");
+                            if (users.size() == 0)
+                                textQuantity.setText("Ninguém irá a este evento até o momento");
+                            if (users.size() > 1)
+                                textQuantity.setText(users.size() + " pessoas irão a este evento");
+                        }
+                    }
+                });
+            }
+        });
+
+       // textQuantity.setText(getResources().getQuantityString(R.plurals.x_pessoas_irao, howManyIsGoing, howManyIsGoing));
         UserDetails owner = null;
         try {
-            owner = obj.getOwner();
-            textDesc.setText(obj.getDescription() + "\n\n- " + owner.getName());
+            owner = thisEvent.getOwner();
+            textDesc.setText(thisEvent.getDescription() + "\n\n- " + owner.getName());
         } catch (Exception ex) {
-            textDesc.setText(obj.getDescription());
+            textDesc.setText(thisEvent.getDescription());
         }
 
-        if(obj.get(Event.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(obj.get(Event.FOTO).toString(), Base64.DEFAULT);
+        if(thisEvent.get(Event.FOTO)!=null) {
+            byte[] decodedString = Base64.decode(thisEvent.get(Event.FOTO).toString(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             setImage(decodedByte);
         }
@@ -186,12 +224,12 @@ public class EventDetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         try {
-            menuGo.setIcon(obj.isUserGoing(IEApplication.getUserDetails()) ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
+            menuGo.setIcon(thisEvent.isUserGoing(IEApplication.getUserDetails()) ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
         } catch (Exception e) {
             setIconLater();
         }
         try {
-            if (obj.getOwner().equals(IEApplication.getUserDetails())) {
+            if (thisEvent.getOwner().equals(IEApplication.getUserDetails())) {
                 menuDelete.setVisible(true);
             }
         } catch (Exception e) {
@@ -202,11 +240,11 @@ public class EventDetailFragment extends Fragment {
     @UiThread
     public void setIconLater() {
         try {
-            menuGo.setIcon(obj.isUserGoing(IEApplication.getUserDetails()) ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
+            menuGo.setIcon(thisEvent.isUserGoing(IEApplication.getUserDetails()) ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
         } catch (Exception e) {
         }
         try {
-            if (obj.getOwner().equals(IEApplication.getUserDetails())) {
+            if (thisEvent.getOwner().equals(IEApplication.getUserDetails())) {
                 menuDelete.setVisible(true);
             }
         } catch (Exception e) {
@@ -217,7 +255,7 @@ public class EventDetailFragment extends Fragment {
     @OptionsItem
     public void menuChat() {
         if (MyApplication.hasInternetConnection()) {
-            startActivity(new Intent(getActivity(), ChatActivity_.class).putExtra(ChatActivity.EXTRA_ID, obj.getObjectId()).putExtra(ChatActivity.EXTRA_CHAT_NAME, obj.getName()));
+            startActivity(new Intent(getActivity(), ChatActivity_.class).putExtra(ChatActivity.EXTRA_ID, thisEvent.getObjectId()).putExtra(ChatActivity.EXTRA_CHAT_NAME, thisEvent.getName()));
         } else {
             Toast.makeText(getActivity(), R.string.msg_erro_no_internet, Toast.LENGTH_LONG).show();
         }
@@ -225,20 +263,51 @@ public class EventDetailFragment extends Fragment {
 
     @OptionsItem
     public void menuGo() {
-        UserDetails user = IEApplication.getUserDetails();
-        boolean isGoing;
-        try {
-            isGoing = ! obj.isUserGoing(user);
-        } catch (ParseException e) {
-            isGoing = true;
-        }
+        if(go) {
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
+        query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
+        query.findInBackground(new FindCallback<Event>() {
+            @Override
+            public void done(List<Event> models, ParseException e) {
+                ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
+                relation.remove(ParseUser.getCurrentUser());
+                models.get(0).saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            menuGo.setIcon(go ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
+                            go=false;
+                            update();
+                        } else {
 
-        try {
-            obj.setUserGoing(user, isGoing);
-            menuGo.setIcon(isGoing ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
-        } catch (Exception e) {
-        }
-        update();
+                        }
+                    }
+                });
+            }
+        });
+
+    }else {
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
+        query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
+        query.findInBackground(new FindCallback<Event>() {
+            @Override
+            public void done(List<Event> models, ParseException e) {
+                ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
+                relation.remove(ParseUser.getCurrentUser());
+                models.get(0).saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            menuGo.setIcon(go ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
+                            go=true;
+                            update();
+                        } else {
+
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     }
 
 
@@ -260,7 +329,7 @@ public class EventDetailFragment extends Fragment {
         ((BaseActivity)getActivity()).showProgress(getString(R.string.aguarde));
         try {
             ParseQuery<Event> query = ParseQuery.getQuery("Event");
-            query.getInBackground(obj.getObjectId(), new GetCallback<Event>() {
+            query.getInBackground(thisEvent.getObjectId(), new GetCallback<Event>() {
                 public void done(Event thisEvent, ParseException e) {
                     if (e == null) {
                         thisEvent.deleteInBackground();
@@ -270,7 +339,7 @@ public class EventDetailFragment extends Fragment {
                     }
                 }
             });
-            obj.delete();
+            thisEvent.delete();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -291,7 +360,7 @@ public class EventDetailFragment extends Fragment {
                             ParseObject denuncia = new ParseObject("Denuncia");
                             denuncia.put("user", IEApplication.getUserDetails());
                             denuncia.put("text", string);
-                            denuncia.put("sala", obj.getObjectId());
+                            denuncia.put("sala", thisEvent.getObjectId());
                             denuncia.saveEventually();
                         }
                     }

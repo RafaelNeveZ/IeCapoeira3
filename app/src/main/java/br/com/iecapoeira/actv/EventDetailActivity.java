@@ -1,6 +1,7 @@
 package br.com.iecapoeira.actv;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -11,7 +12,7 @@ import br.com.iecapoeira.R;
 import br.com.iecapoeira.fragment.EventDetailFragment_;
 
 @EActivity(R.layout.actv_detail_event)
-public class EventDetailActivity extends BaseActivity {
+public class EventDetailActivity extends AppCompatActivity {
 
     @AfterViews
     public void init() {

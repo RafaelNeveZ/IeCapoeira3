@@ -106,7 +106,7 @@ public class EventItemView extends ItemView<Event> {
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(List<Event> models, ParseException e) {
-                Log.d("EVENT NAME",models.get(0).get(Event.NAME).toString());
+
                 ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
                 ParseQuery<ParseObject> qry = relation.getQuery();
                 qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
@@ -114,6 +114,9 @@ public class EventItemView extends ItemView<Event> {
                     @Override
                     public void done(List<ParseObject> users, ParseException e) {
                         if(users.size()>0){
+                            for(int a=0;a<users.size();a++) {
+                                Log.d("EVENT NAME", users.get(a).get(Event.NAME).toString());
+                            }
                             setImageBtGoing(true);
                             go=false;
                         }

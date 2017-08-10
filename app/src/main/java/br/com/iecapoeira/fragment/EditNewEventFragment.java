@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -52,9 +53,12 @@ import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.CityActivity_;
 import br.com.iecapoeira.actv.ClassScheduleDetailActivity_;
+import br.com.iecapoeira.actv.EventDetailActivity;
+import br.com.iecapoeira.actv.EventDetailActivity_;
 import br.com.iecapoeira.adapter.NewEventAdapter;
 import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
+import br.com.iecapoeira.model.EventDate;
 import br.com.iecapoeira.model.NewEvent;
 import br.com.iecapoeira.utils.OnButtonClicked;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
@@ -109,6 +113,8 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     @ViewById
     RecyclerView rcNew;
 
+    private Event editEvent;
+
     private ProgressDialog progressDialog;
 
     private int selDay, selMonth, selYear;
@@ -116,7 +122,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     private Bitmap bmp;
     private int horaInicial, minutoInicial, horafinal,minutofinal;
     private final static String TAG = "TAG";
-    public List<NewEvent> listNE;
+    public List<ParseObject> listNE;
     private int eventDaysCount = 0;
     private NewEventAdapter adapter;
     public final  Context context= getContext();
@@ -127,18 +133,20 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     @AfterViews
     public void init() {
-       /* addOtherClass.setVisibility(View.GONE);
-        mod =  ClassScheduleDetailActivity_.model;
-        editName.setText(mod.get(Aula.MESTRE).toString());
-        editGraduation.setText(mod.get(Aula.GRADUACAO).toString());
-        editDesc.setText(mod.get(Aula.SOBREAULA).toString());
-        editAddress.setText(mod.get(Aula.ENDERECO).toString());
-        editState.setText(mod.get(Aula.ESTADO).toString());
-        editCountry.setText(mod.get(Aula.PAIS).toString());
-        editCity.setText(mod.get(Aula.CIDADE).toString());
-        btHour.setText(mod.get(Aula.HORARIO_COMECO).toString());
-        btFinalHour.setText(mod.get(Aula.HORARIO_FIM).toString());
-        btDate.*/
+
+        editEvent = EventDetailFragment_.thisEvent;
+        editName.setText(editEvent.get(Event.NAME).toString());
+        editDesc.setText(editEvent.get(Event.DESCRIPTION).toString());
+        editAddress.setText(editEvent.get(Event.ADDRESS).toString());
+        editState.setText(editEvent.get(Event.STATE).toString());
+        editCountry.setText(editEvent.get(Event.COUNTRY).toString());
+        editCity.setText(editEvent.get(Event.CITY).toString());
+
+        if(editEvent.get(Aula.FOTO)!=null) {
+            byte[] decodedString = Base64.decode(editEvent.get(Event.FOTO).toString(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            photo.setImageBitmap(decodedByte);
+        }
 
 
 
@@ -152,7 +160,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rcNew.setLayoutManager(llm);
         rcNew.setNestedScrollingEnabled(false);
-        listNE = new ArrayList<NewEvent>();
+        listNE = new ArrayList<ParseObject>();
         listNE = setListNE() ;
         adapter = new NewEventAdapter(getActivity(), listNE, new OnButtonClicked() {
             @Override
@@ -178,11 +186,11 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     }
 
-    public List<NewEvent> setListNE(){
+    public List<ParseObject> setListNE(){
 
-        List<NewEvent> listAux = new ArrayList<>();
-
-        NewEvent aux2 = new NewEvent(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
+        List<ParseObject> listAux = new ArrayList<>();
+        ParseObject aux2 =  ParseObject.create("EventDate");
+        // EventDate aux2 = new EventDate(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
         listAux.add(aux2);
         eventDaysCount++;
 
@@ -241,8 +249,8 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             if( horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
             }
-            listNE.get(rightPosition).setselHour(hour);
-            listNE.get(rightPosition).setselMinute(minute);
+            listNE.get(rightPosition).put(EventDate.HOURINIT,hour);
+            listNE.get(rightPosition).put(EventDate.MIMINIT,minute);
             horaInicial = hour;
             minutoInicial = minute;
 
@@ -252,9 +260,9 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             if(horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
             }
-            listNE.get(rightPosition).setFinalHour(hour);
-            listNE.get(rightPosition).setFinalMinute(minute);
-          //  btFinalHour.setText(String.format("%02d:%02d", hour, minute));
+            listNE.get(rightPosition).put(EventDate.HOUREND,hour);
+            listNE.get(rightPosition).put(EventDate.MIMEND,minute);
+            //  btFinalHour.setText(String.format("%02d:%02d", hour, minute));
             horafinal = hour;
             minutofinal = minute;
         }
@@ -271,11 +279,9 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         c.set(year, month, day);
         long dateRecivedinMills = c.getTimeInMillis();
         if(System.currentTimeMillis() < dateRecivedinMills){
-            Log.i("POS: "+rightPosition, " "+ listNE.get(rightPosition).getselDay());
-            Log.i("POS: "+(rightPosition-1), " "+ listNE.get(rightPosition).getselDay());
-            listNE.get(rightPosition).setselDay(day);
-            listNE.get(rightPosition).setselMonth(month);
-            listNE.get(rightPosition).setselYear(year);
+            listNE.get(rightPosition).put(EventDate.DAY,day);
+            listNE.get(rightPosition).put(EventDate.MONTH,month);
+            listNE.get(rightPosition).put(EventDate.YEAR,year);
             adapter.notifyDataSetChanged();
         }else{
             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
@@ -512,7 +518,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     @Click
     public void addOtherEvent() {
 
-        NewEvent aux = new NewEvent(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
+        EventDate aux = new EventDate(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
         listNE.add(aux);
         adapter.notifyItemInserted(listNE.size() - 1);
         adapter.notifyDataSetChanged();

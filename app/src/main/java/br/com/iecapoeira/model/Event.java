@@ -36,6 +36,7 @@ public class Event extends ParseObject {
     public static final String FOTO = "foto";
     public static final String OBJECTID = "objectId";
     public static final String EVENTGO = "eventgo";
+    public static final String EVENTTIME = "eventgo";
 
     private Bitmap bitmap;
 
