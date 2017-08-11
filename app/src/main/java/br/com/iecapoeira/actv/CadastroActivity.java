@@ -9,7 +9,11 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.ParseSession;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
@@ -50,8 +54,9 @@ public class CadastroActivity extends AppCompatActivity {
             newUser.signUpInBackground(new SignUpCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
-                        startActivity(new Intent(context, DashboardActivity_.class));
+                        Toast.makeText(context, "Verifique no seu email", Toast.LENGTH_LONG).show();
                         dismissProgress();
+                        startActivity(new Intent(context, LoginActivity_.class));
                         finish();
                     } else {
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
