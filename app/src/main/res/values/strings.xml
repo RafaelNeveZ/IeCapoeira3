@@ -68,7 +68,7 @@
 
     <string name="msg_toast_notif_chat_sim">You will be notified about this chat room.</string>
     <string name="msg_toast_notif_chat_nao">You won\'t be notified about this chat room.</string>
-
+    <string name="resend_email"><u>Send activation email</u>.</string>
     <string name="sala1">Capoeira Angola</string>
     <string name="sala2">Regional Capoeira</string>
     <string name="sala3">Capoeira Street</string>

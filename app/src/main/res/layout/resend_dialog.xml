@@ -4,31 +4,43 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:gravity="center">
 
 
     <TextView
         android:id="@+id/confirm_logout"
-        android:text="Digite o email para recuperar sua senha?"
+        android:text="Reenviar email de ativação"
         android:textAlignment="center"
         android:textColor="@color/gray_txt_dark"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_height="wrap_content">
 
-        <requestFocus />
+
     </TextView>
     <EditText
-        android:id="@+id/edit_email_reset"
-        android:hint="Email"
+        android:id="@+id/edit_email_send"
+        android:hint="@string/hint_email"
         android:inputType="textEmailAddress"
-        android:textAlignment="center"
         android:textColor="@color/gray_txt_dark"
-        android:layout_width="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content">
 
         <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/edit_email_pass"
+        android:hint="@string/hint_senha"
+        android:inputType="textPassword"
+        android:textColor="@color/gray_txt_dark"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+
+
     </EditText>
 
     <LinearLayout
@@ -39,7 +51,6 @@
 
         <Button
             android:id="@+id/no"
-            android:layout_marginTop="15dp"
             android:onClick="btNo"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
@@ -50,7 +61,6 @@
             android:text="Cancelar" />
         <Button
             android:id="@+id/yes"
-            android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:onClick="btYes"
             android:layout_margin="@dimen/activity_horizontal_margin"

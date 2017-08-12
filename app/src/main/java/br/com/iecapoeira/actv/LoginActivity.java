@@ -59,8 +59,8 @@ public class LoginActivity extends BaseActivity {
     EditText  etEmail, etPassword;
 
     @ViewById
-    TextView textForgot;
-
+    TextView textForgot , textResend;
+    private int Whoisworng=0;
     private final Context context=this;
 
     private static final List<String> PERMISSIONS = Arrays.asList("email",
@@ -76,10 +76,20 @@ public class LoginActivity extends BaseActivity {
                 Log.e("ClientKey: ","");
                 Log.e("SERVER: ","");
 
-        if (ParseUser.getCurrentUser() != null) {
-            startActivity(new Intent(getActivity(), DashboardActivity_.class));
-            finish();
-        }
+        if (ParseUser.getCurrentUser() != null)
+        Log.d("USER",""+ParseUser.getCurrentUser().get("emailVerified"));
+
+
+      if (ParseUser.getCurrentUser() != null && (Boolean) ParseUser.getCurrentUser().get("emailVerified")) {
+
+          startActivity(new Intent(getActivity(), DashboardActivity_.class));
+          finish();
+      }
+
+      if (ParseUser.getCurrentUser() != null && !((Boolean) ParseUser.getCurrentUser().get("emailVerified"))) {
+          ParseUser.logOut();
+      }
+
 
 
     }
@@ -216,8 +226,9 @@ public class LoginActivity extends BaseActivity {
     public void textForgot() {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.forgot_dialog);
-        dialog.setTitle("Parceiro/Patrocinador");
+        dialog.setTitle("Recuperar senha");
         dialog.show();
+        final EditText edit = (EditText)dialog.findViewById(R.id.edit_email_reset);
         TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
         Button btY = (Button) dialog.findViewById(R.id.yes);
         Button btN = (Button) dialog.findViewById(R.id.no);
@@ -232,14 +243,14 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                ParseUser.requestPasswordResetInBackground("rafaelnevesgonzaga@gmail.com",new RequestPasswordResetCallback() {
+                ParseUser.requestPasswordResetInBackground(edit.getText().toString(),new RequestPasswordResetCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
-
                             Toast.makeText(LoginActivity.this, "O Email foi enviado", Toast.LENGTH_LONG).show();
                             dismissProgress();
-
+                        }else{
+                            Toast.makeText(LoginActivity.this, "O Email inválido", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -248,6 +259,100 @@ public class LoginActivity extends BaseActivity {
         });
 
 
+    }
+    @Click
+    public void textResend() {
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.resend_dialog);
+        dialog.setTitle("Reenviar email de ativação");
+        dialog.show();
+        final EditText editem = (EditText)dialog.findViewById(R.id.edit_email_send);
+        final EditText editse = (EditText)dialog.findViewById(R.id.edit_email_pass);
+        TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
+        Button btY = (Button) dialog.findViewById(R.id.yes);
+        Button btN = (Button) dialog.findViewById(R.id.no);
+
+        btN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btY.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               if (validateDialogFields(editem.getText().toString(),editse.getText().toString())) {
+                   dialog.dismiss();
+                   showProgress("Reenviando...");
+                   ParseQuery<ParseUser> query = ParseQuery.getUserQuery();
+                   query.whereEqualTo("email", editem.getText().toString());
+                   query.findInBackground(new FindCallback<ParseUser>() {
+                       public void done(List<ParseUser> newUser, ParseException e) {
+                           if (newUser.size() != 0){
+                               if (!((Boolean) newUser.get(0).get("emailVerified"))) {
+                                   if (e == null) {
+                                       newUser.get(0).logInInBackground(editem.getText().toString(), editse.getText().toString(), new LogInCallback() {
+
+                                           @Override
+                                           public void done(ParseUser actualUser, ParseException e) {
+                                               // Log.d("TAG",e.getMessage());
+                                               if (actualUser != null) {
+                                                   actualUser.put("username", editem.getText().toString());
+                                                   actualUser.put("email", editem.getText().toString());
+                                                   actualUser.saveInBackground(new SaveCallback() {
+                                                       @Override
+                                                       public void done(ParseException e) {
+                                                           ParseUser.logOut();
+                                                           Toast.makeText(LoginActivity.this, "Email enviado", Toast.LENGTH_LONG).show();
+                                                           dismissProgress();
+                                                       }
+                                                   });
+
+                                               } else {
+                                                   dismissProgress();
+                                                   Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                               }
+                                           }
+                                       });
+                                   } else {
+                                       dismissProgress();
+                                       Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                   }
+
+                               } else {
+                                   Toast.makeText(LoginActivity.this, "Conta já ativada", Toast.LENGTH_LONG).show();
+                                   dismissProgress();
+                               }
+                       }else{
+                               Toast.makeText(LoginActivity.this, "Usuário não encontrado", Toast.LENGTH_LONG).show();
+                               dismissProgress();
+                           }
+                   }
+                   });
+               }else if(Whoisworng==1){
+                   editem.setError(getString(R.string.error_missing_field));
+               }else if(Whoisworng==2){
+                   editse.setError(getString(R.string.error_missing_field));
+               }
+           }
+        });
+       }
+
+    private boolean validateDialogFields(String email, String senha) {
+       Whoisworng=0;
+        boolean result = true;
+        if (email.isEmpty()) {
+            Whoisworng=1;
+            result = false;
+            return result;
+        }
+        if (senha.isEmpty()) {
+            Whoisworng=2;
+            result = false;
+            return result;
+        }
+        return result;
     }
 
 //    @Click

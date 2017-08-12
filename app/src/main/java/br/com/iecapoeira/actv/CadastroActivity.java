@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.LogOutCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -44,6 +45,7 @@ public class CadastroActivity extends AppCompatActivity {
             newUser.setUsername(editEmail.getText().toString());
             newUser.setPassword(editPass.getText().toString());
             newUser.setEmail(editEmail.getText().toString());
+            newUser.put("emailVerified",false);
             newUser.put("name",editName.getText().toString());
             newUser.put("lastName",editSecondName.getText().toString());
             newUser.put("phone", editTel.getText().toString());

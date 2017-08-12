@@ -61,7 +61,10 @@ public class UserActivity extends AppCompatActivity {
             query.getInBackground(actualUser.getObjectId(), new GetCallback<ParseUser>() {
                 public void done(ParseUser actualUser, ParseException e) {
                     if (e == null) {
-                        actualUser.put("email",editEmail.getText().toString());
+                       if(!(editEmail.getText().toString().equals(""+actualUser.get("username")))){
+                           actualUser.put("username", editEmail.getText().toString());
+                           actualUser.put("email", editEmail.getText().toString());
+                       }
                         actualUser.put("Associacao",editAssociation.getText().toString());
                         actualUser.put("nickname",editNickname.getText().toString());
                         actualUser.saveInBackground();
