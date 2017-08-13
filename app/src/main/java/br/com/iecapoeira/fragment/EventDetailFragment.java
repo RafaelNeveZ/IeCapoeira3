@@ -270,7 +270,7 @@ public class EventDetailFragment extends Fragment {
             @Override
             public void done(List<Event> models, ParseException e) {
                 ParseRelation<ParseObject> relation = models.get(0).getRelation("eventgo");
-                relation.remove(ParseUser.getCurrentUser());
+                relation.add(ParseUser.getCurrentUser());
                 models.get(0).saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
                         if (e == null) {

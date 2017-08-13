@@ -11,11 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import org.androidannotations.annotations.AfterViews;
@@ -27,7 +29,11 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.model.Aula;
 
 @EActivity(R.layout.activity_user)
 @OptionsMenu(R.menu.new_event)
@@ -40,35 +46,86 @@ public class UserActivity extends AppCompatActivity {
     private ParseUser actualUser;
     private final Context context = this;
     private ProgressDialog progressDialog;
+    private boolean mudouEmail=false;
+    public static String safe="";
+    public List<String> localList;
 
     @AfterViews
     public void init() {
+
+        setlist();
         actualUser = ParseUser.getCurrentUser();
         editEmail.setText(actualUser.getEmail());
         editAssociation.setText(actualUser.get("Associacao").toString());
         editNickname.setText(actualUser.get("nickname").toString());
     }
 
+    public void setlist(){
+        localList=new ArrayList<>();
+        showProgress("Carregando dados");
+        ParseQuery query = ParseUser.getQuery();
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> allusers, ParseException e) {
+                if(e==null){
+                    for (ParseUser templist: allusers
+                            ) {
+                        Log.d("list",templist.getEmail());
+                        localList.add(templist.getEmail());
+                    }
+                    dismissProgress();
+
+                }else{
+                    Toast.makeText(context, "Ocorreu um erro desconhecido", Toast.LENGTH_LONG).show();
+                    dismissProgress();
+                }
+            }
+        });
+
+    }
 
 
     @OptionsItem
     public void newEvent(){
 
         if(validateFields()){
+
             showProgress("Atualizando Cadastro...");
             Log.e("TAG",actualUser.getObjectId());
-            ParseQuery<ParseUser> query = ParseQuery.getUserQuery();
+            ParseQuery<ParseUser> query = ParseUser.getQuery();
             query.getInBackground(actualUser.getObjectId(), new GetCallback<ParseUser>() {
                 public void done(ParseUser actualUser, ParseException e) {
                     if (e == null) {
                        if(!(editEmail.getText().toString().equals(""+actualUser.get("username")))){
-                           actualUser.put("username", editEmail.getText().toString());
-                           actualUser.put("email", editEmail.getText().toString());
+                           if(!(localList.contains(editEmail.getText().toString()))){
+                               actualUser.put("username", editEmail.getText().toString());
+                               actualUser.put("email", editEmail.getText().toString());
+                               mudouEmail = true;
+                           }else{
+                               Toast.makeText(context, "Email já em uso, escolha outro.", Toast.LENGTH_LONG).show();
+                           }
                        }
                         actualUser.put("Associacao",editAssociation.getText().toString());
                         actualUser.put("nickname",editNickname.getText().toString());
-                        actualUser.saveInBackground();
-                        dismissProgress();
+                        actualUser.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e==null) {
+                                    if (mudouEmail) {
+                                        dismissProgress();
+                                        Toast.makeText(context, "Verifique seu email e entre novamente", Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(context, LoginActivity_.class));
+                                        finish();
+                                        mudouEmail=false;
+                                    }else{
+                                        dismissProgress();
+                                    }
+                                }else{
+                                    dismissProgress();
+                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                     }else{
                         dismissProgress();
                         Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.AgendaActivity_;
 import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
 import br.com.iecapoeira.actv.ContatoActivity_;
@@ -154,8 +155,8 @@ public class LeftMenuFragment extends Fragment {
                 notDashActivity=true;
                 break;
             case PERSONAL_SCHEDULE:
-//                intent = new Intent(getActivity(), PersonalScheduleActivity_.class);
-//                notDashActivity=true;
+                intent = new Intent(getActivity(),AgendaActivity_.class);
+                notDashActivity=true;
                 break;
             case CLASSES_SCHEDULE:
                 intent = new Intent(getActivity(), ClassScheduleActivity_.class);

@@ -135,38 +135,44 @@ public class LoginActivity extends BaseActivity {
             query.whereEqualTo("username",etEmail.getText().toString());
             query.findInBackground( new FindCallback<ParseUser>() {
                 public void done(List<ParseUser> newUser, ParseException e) {
-                    if ((Boolean) newUser.get(0).get("emailVerified")){
-                        if (e == null) {
-                            newUser.get(0).setUsername(etEmail.getText().toString());
-                            newUser.get(0).setPassword(etPassword.getText().toString());
-                            newUser.get(0).setEmail(etEmail.getText().toString());
-                            newUser.get(0).logInInBackground(newUser.get(0).getUsername(), etPassword.getText().toString(), new LogInCallback() {
-                                @Override
-                                public void done(ParseUser parseUser, ParseException e) {
-                                    // Log.d("TAG",e.getMessage());
-                                    if (parseUser != null) {
-                                        startActivity(new Intent(getActivity(), DashboardActivity_.class));
-                                        dismissProgress();
-                                        finish();
-                                        //Login Successful
-                                        //You may choose what to do or display here
-                                        //For example: Welcome + ParseUser.getUsername()
-                                    } else {
-                                        //Login Fail
-                                        dismissProgress();
-                                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    if (newUser.size() != 0){
+                        if ((Boolean) newUser.get(0).get("emailVerified")) {
+                            if (e == null) {
+                                newUser.get(0).setUsername(etEmail.getText().toString());
+                                newUser.get(0).setPassword(etPassword.getText().toString());
+                                newUser.get(0).setEmail(etEmail.getText().toString());
+                                newUser.get(0).logInInBackground(newUser.get(0).getUsername(), etPassword.getText().toString(), new LogInCallback() {
+                                    @Override
+                                    public void done(ParseUser parseUser, ParseException e) {
+                                        // Log.d("TAG",e.getMessage());
+                                        if (parseUser != null) {
+                                            startActivity(new Intent(getActivity(), DashboardActivity_.class));
+                                            dismissProgress();
+                                            finish();
+                                            //Login Successful
+                                            //You may choose what to do or display here
+                                            //For example: Welcome + ParseUser.getUsername()
+                                        } else {
+                                            //Login Fail
+                                            dismissProgress();
+                                            Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                dismissProgress();
+                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
                         } else {
-                            dismissProgress();
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }else{
                             dismissProgress();
                             newUser.get(0).setEmail(etEmail.getText().toString());
                             newUser.get(0).saveInBackground();
                             Toast.makeText(context, "Verifique seu email", Toast.LENGTH_LONG).show();
+                        }
+
+                    }else{
+                        dismissProgress();
+                        Toast.makeText(LoginActivity.this, "Invalid username/password.", Toast.LENGTH_LONG).show();
                     }
                 }
             });

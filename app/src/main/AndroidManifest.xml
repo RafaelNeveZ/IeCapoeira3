@@ -164,6 +164,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
+            android:name=".actv.AgendaActivity_"
+            android:label="Agenda"
+            android:parentActivityName=".actv.DashboardActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
             android:name=".actv.ContatoActivity_"
             android:label="@string/title_contato"
             android:parentActivityName=".actv.DashboardActivity_"

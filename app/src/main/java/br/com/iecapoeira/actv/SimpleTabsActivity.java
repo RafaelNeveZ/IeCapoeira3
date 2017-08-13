@@ -40,7 +40,7 @@ public class SimpleTabsActivity extends ActionBarActivity {
         List<Mestre> listAux = new ArrayList<>();
 
         for(int i = 0; i < qtd; i++){
-            //Mestre m = new Mestre( models[i % models.length],photos[i % models.length] );
+            //Mestre m = new Mestre( aula[i % aula.length],photos[i % aula.length] );
             //listAux.add(m);
         }
         return(listAux);

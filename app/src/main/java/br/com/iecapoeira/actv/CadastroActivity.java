@@ -46,6 +46,7 @@ public class CadastroActivity extends AppCompatActivity {
             newUser.setPassword(editPass.getText().toString());
             newUser.setEmail(editEmail.getText().toString());
             newUser.put("emailVerified",false);
+            newUser.put("Admin",false);
             newUser.put("name",editName.getText().toString());
             newUser.put("lastName",editSecondName.getText().toString());
             newUser.put("phone", editTel.getText().toString());

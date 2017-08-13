@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.AgendaActivity_;
 import br.com.iecapoeira.actv.ChatActivity_;
 import br.com.iecapoeira.actv.ClassScheduleActivity_;
 import br.com.iecapoeira.actv.EditalActivity;
@@ -129,7 +130,7 @@ public class DashboardFragment extends Fragment {
                 intent = new Intent(getActivity(), MainActivity_.class);
                 break;
             case PERSONAL_SCHEDULE:
-//                intent = new Intent(getActivity(), PersonalScheduleActivity_.class);
+                intent = new Intent(getActivity(),AgendaActivity_.class);
                 break;
             case CLASSES_SCHEDULE:
                 intent = new Intent(getActivity(), ClassScheduleActivity_.class);
