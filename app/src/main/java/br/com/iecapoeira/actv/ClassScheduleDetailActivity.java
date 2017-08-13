@@ -83,7 +83,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
         tvDays.setText(model.getDiasSemana());
         Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco());
         tvPlace.setText(model.getEndereco());
-        tvTime.setText(model.getHorarioStart()+ " as "+ model.getHorarioEnd());
+        tvTime.setText(model.getHorarioStart()+ " às "+ model.getHorarioEnd());
     }
 
 

@@ -62,6 +62,7 @@ import br.com.hemobile.MyApplication;
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.ChatActivity;
 import br.com.iecapoeira.adapter.ChatMessageAdapter;
 import br.com.iecapoeira.chat.ChatMessageService;
 import br.com.iecapoeira.chat.PubnubPusher;
@@ -474,7 +475,7 @@ public class ChatFragment extends ListFragment {
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_RECEIVED));
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_UPDATED));
-        ((BaseActivity)getActivity()).hideKeyboard();
+        ((ChatActivity)getActivity()).hideKeyboard();
     }
 
     @Override
@@ -482,7 +483,7 @@ public class ChatFragment extends ListFragment {
         super.onPause();
         ChatMessageService.setCurrentChatId(null);
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
-        ((BaseActivity)getActivity()).hideKeyboard();
+        ((ChatActivity)getActivity()).hideKeyboard();
     }
 
     @Override

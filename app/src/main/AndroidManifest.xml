@@ -68,6 +68,8 @@
         <activity
             android:name=".actv.ChatActivity_"
             android:label="@string/title_chat"
+            android:parentActivityName=".actv.SalaChatActivity_"
+            android:theme="@style/menuWhiteTheme"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ClassScheduleActivity_"

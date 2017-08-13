@@ -49,9 +49,12 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
@@ -374,49 +377,66 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         String days="";
         String[] aux = new String[7];
         int auxCount =0;
+        String last = "";
+
         if(rdBtSeg.isChecked()) {
             aux[auxCount] = getText(R.string.segunda).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
         if(rdBtTer.isChecked()){
             aux[auxCount] = getText(R.string.terca).toString();
             auxCount++;
+            last = aux[auxCount];
         }
         if(rdBtQua.isChecked()){
             aux[auxCount] = getText(R.string.quarta).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
         if(rdBtQui.isChecked()){
             aux[auxCount] = getText(R.string.quinta).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
         if(rdBtSex.isChecked()){
             aux[auxCount] = getText(R.string.sexta).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
         if(rdBtSab.isChecked()){
             aux[auxCount] = getText(R.string.sabado).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
         if(rdBtDom.isChecked()){
             aux[auxCount] = getText(R.string.domingo).toString();
             auxCount++;
+            last = aux[auxCount];
         }
-
-        for(int i = 0; i<auxCount;i++){
-            days+= aux[i];
-            if (i + 1 < auxCount) {
-                days += ", ";
-            }
-            if (i == auxCount - 1) {
-                days += ".";
-            }
-        }
-
-
 
         if(auxCount==0)
             return "error";
+
+            for (int i = 0; i < auxCount; i++) {
+                days += aux[i];
+                if (i + 1 < auxCount && i != auxCount - 1) {
+                    days += ", ";
+                }
+
+                if (i == auxCount-1) {
+                    days = " e " + days + ".";
+                }
+
+
+
+            }
+
 
         return days.toLowerCase();
     }
