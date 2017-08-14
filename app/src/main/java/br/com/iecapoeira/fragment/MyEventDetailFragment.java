@@ -1,5 +1,6 @@
 package br.com.iecapoeira.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -7,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
@@ -38,13 +41,21 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
+import br.com.iecapoeira.actv.EditNewClassActivity_;
+import br.com.iecapoeira.actv.EditNewEventActivity_;
+import br.com.iecapoeira.actv.EventDetailActivity_;
+import br.com.iecapoeira.actv.MyEventDetailActivity_;
 import br.com.iecapoeira.actv.UserGoActivity_;
+import br.com.iecapoeira.adapter.MyTimeEventoAdapter;
+import br.com.iecapoeira.adapter.TimeEventoAdapter;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.model.UserDetails;
 import br.com.iecapoeira.utils.HETextUtil;
@@ -73,6 +84,9 @@ public class MyEventDetailFragment extends Fragment {
 
     public static  Event thisEvent;
 
+    @OptionsMenuItem(R.id.menu_edit)
+    MenuItem menuEdit;
+
     @ViewById
     ImageView img;
 
@@ -82,6 +96,7 @@ public class MyEventDetailFragment extends Fragment {
     @ViewById
     ImageView profileImg;
 
+    public List<JSONObject> jList;
     public  boolean go = true;
 
 
@@ -110,12 +125,13 @@ public class MyEventDetailFragment extends Fragment {
     @OptionsMenuItem(R.id.menu_go)
     MenuItem menuGo;
 
-    @OptionsMenuItem(R.id.menu_edit)
-    MenuItem menuEdit;
-
     @OptionsMenuItem(R.id.menu_delete)
     MenuItem menuDelete;
     private ProgressDialog progressDialog;
+    private MyTimeEventoAdapter adapter;
+
+    @ViewById
+    RecyclerView recyclerviewChat;
 
     @UiThread
     public void setImage(Bitmap picture) {
@@ -136,9 +152,31 @@ public class MyEventDetailFragment extends Fragment {
 
     @AfterViews
     public void init() {
-        showProgress("Carregando informações...");
         String id = getActivity().getIntent().getStringExtra("id");
         thisEvent = ParseObject.createWithoutData(Event.class, id);
+        showProgress("Carregando informações...");
+        jList=new ArrayList<>();
+        JSONObject jason = thisEvent.getJSONObject("eventDate");
+        for(int a=0;a<7;a++) {
+            try {
+                jList.add(jason.getJSONObject(a+""));
+                Log.d("JSON "+a,jList.get(a).getString("startTime"));
+            } catch (Exception c) {
+                Log.e("JSON "+a,c.getMessage());
+                break;
+            }
+        }
+        recyclerviewChat.setHasFixedSize(false);
+        recyclerviewChat.setNestedScrollingEnabled(false);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerviewChat.setLayoutManager(llm);
+        adapter = new MyTimeEventoAdapter(getActivity(), jList);
+        adapter.setRecyclerViewOnClickListenerHack((MyEventDetailActivity_) getActivity());
+        recyclerviewChat.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.getInBackground(thisEvent.getObjectId(), new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
@@ -165,47 +203,47 @@ public class MyEventDetailFragment extends Fragment {
         });*/
     }
     public  void checkEvent(){
-        /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
+      /*  ParseQuery<Event> query = ParseQuery.getQuery("Event");
         query.whereEqualTo(Event.OBJECTID, thisEvent.getObjectId());
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(final List<Event> models, ParseException e) {*/
-               // ParseRelation<ParseObject> relation1 = models.get(0).getRelation("eventGo");
-                ParseRelation<ParseObject> relation1 = thisEvent.getRelation("eventGo");
-                ParseQuery<ParseObject> qry = relation1.getQuery();
-                qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
-                qry.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> users, ParseException e) {
-                        if(users.size()==0 && e==null){
-                            Log.d("SELECET","NÃO TEM GENTE");
-                            menuGo.setIcon(R.drawable.ic_eventdetail_action_select);
-                        }else if(e==null) {
-                            Log.d("SELECET","TEM GENTE");
-                            menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
-                            go=false;
-                        }else{
-                            // Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-       /*     }
+        ParseRelation<ParseObject> relation1 = thisEvent.getRelation("eventGo");
+        //  ParseRelation<ParseObject> relation1 = models.get(0).getRelation("eventGo");
+        ParseQuery<ParseObject> qry = relation1.getQuery();
+        qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
+        qry.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> users, ParseException e) {
+                if(users.size()==0 && e==null){
+                    Log.d("SELECET","NÃO TEM GENTE");
+                    menuGo.setIcon(R.drawable.ic_eventdetail_action_select);
+                }else if(e==null) {
+                    Log.d("SELECET","TEM GENTE");
+                    menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
+                    go=false;
+                }else{
+                    // Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        /*    }
         });*/
     }
 
 
 
 
-    @Click
-    public void profileImg(){
-        menuDelete() ;
-    }
+
     @UiThread
     void update() {
+
+
+
         textName.setText(thisEvent.get(Event.NAME).toString());
         String pattern = getString(R.string.date_hour_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        textDate.setText(sdf.format(thisEvent.getDate()));
+        //  textDate.setText(/*sdf.format(*//*)*/);
         textLocation.setText(String.format("%s\n%s, %s - %s", HETextUtil.toTitleCase(thisEvent.getAddress()), HETextUtil.toTitleCase(thisEvent.getCity()), thisEvent.getState().toUpperCase(), thisEvent.getCountry()));
         int howManyIsGoing = thisEvent.getHowManyIsGoing();
 
@@ -214,30 +252,30 @@ public class MyEventDetailFragment extends Fragment {
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(List<Event> models, ParseException e) {*/
-                ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
-//                ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-                ParseQuery<ParseObject> qry = relation.getQuery();
-                qry.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> users, ParseException e) {
-                        Log.d("SIUZE", users.size() + "");
-                        if (users != null) {
-                            if (users.size() == 1)
-                                textQuantity.setText(users.size() + " pessoa irá à este evento");
-                            if (users.size() == 0)
-                                textQuantity.setText("Ninguém irá a este evento até o momento");
-                            if (users.size() > 1)
-                                textQuantity.setText(users.size() + " pessoas irão a este evento");
-                            dismissProgress();
-                        }else {
-                            dismissProgress();
-                        }
-                        }
-                });
-           /* }
+        ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
+        //  ParseRelation<ParseObject> relation1 = models.get(0).getRelation("eventGo");
+        ParseQuery<ParseObject> qry = relation.getQuery();
+        qry.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> users, ParseException e) {
+                Log.d("SIUZE", users.size() + "");
+                if (users != null) {
+                    if (users.size() == 1)
+                        textQuantity.setText(users.size() + " pessoa irá à este evento");
+                    if (users.size() == 0)
+                        textQuantity.setText("Ninguém irá a este evento até o momento");
+                    if (users.size() > 1)
+                        textQuantity.setText(users.size() + " pessoas irão a este evento");
+                    dismissProgress();
+                }else {
+                    dismissProgress();
+                }
+            }
+        });
+         /*   }
         });*/
 
-       // textQuantity.setText(getResources().getQuantityString(R.plurals.x_pessoas_irao, howManyIsGoing, howManyIsGoing));
+        // textQuantity.setText(getResources().getQuantityString(R.plurals.x_pessoas_irao, howManyIsGoing, howManyIsGoing));
         UserDetails owner = null;
         try {
             owner = thisEvent.getOwner();
@@ -276,33 +314,50 @@ public class MyEventDetailFragment extends Fragment {
             setIconLater();
         }
         try {
-            if (thisEvent.get(Event.OWNER).equals(ParseUser.getCurrentUser().getUsername())) {
+            if ((Boolean) ParseUser.getCurrentUser().get("Admin") || thisEvent.get(Event.OWNER).equals(ParseUser.getCurrentUser().getUsername())) {
                 menuDelete.setVisible(true);
-            }else{
-                menuDelete.setVisible(false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            if (thisEvent.get(Event.OWNER).equals(ParseUser.getCurrentUser().getUsername())) {
                 menuEdit.setVisible(true);
             }else{
+                menuDelete.setVisible(false);
                 menuEdit.setVisible(false);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    @OptionsItem
+    public void menuEdit(){
+                EditNewEventFragment.event=thisEvent;
+                startActivityForResult(new Intent(getActivity(), EditNewEventActivity_.class), 10);
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 10) {
+            if(resultCode == Activity.RESULT_OK){
+                Intent returnIntent = new Intent();
+                getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                getActivity().finish();
+            }
+            if (resultCode == Activity.RESULT_FIRST_USER) {
+
+            }
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+
             getActivity().onBackPressed();
             return true;
         }
         return false;
     }
+
+
+
 
     @UiThread
     public void setIconLater() {
@@ -330,6 +385,7 @@ public class MyEventDetailFragment extends Fragment {
 
     @OptionsItem
     public void menuGo() {
+
         if(go) {
             showProgress("Se inscrevendo no evento...");
         /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
@@ -337,66 +393,66 @@ public class MyEventDetailFragment extends Fragment {
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(final List<Event> models, ParseException e) {*/
-                ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
-             //   ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-                relation.add(ParseUser.getCurrentUser());
-               thisEvent.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
-                            relation.add(thisEvent);
-                            ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    Log.d("OK", "COLOCADO");
-                                    Toast.makeText(getActivity(), "Você está inscrito no evento", Toast.LENGTH_LONG).show();
-                                    menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
-                                    go =false;
-                                    update();
-                                }
-                            });
-                            dismissProgress();
-                        } else {
-                            Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
-                            dismissProgress();
-                        }
+            ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
+            //   ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
+            relation.add(ParseUser.getCurrentUser());
+            thisEvent.saveInBackground(new SaveCallback() {
+                public void done(ParseException e) {
+                    if (e == null) {
+                        ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
+                        relation.add(thisEvent);
+                        ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                Log.d("OK", "COLOCADO");
+                                Toast.makeText(getActivity(), "Você está inscrito no evento", Toast.LENGTH_LONG).show();
+                                menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
+                                go =false;
+                                update();
+                            }
+                        });
+                        dismissProgress();
+                    } else {
+                        Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
+                        dismissProgress();
+                    }
             /*        }
                 });*/
-            }
-        });
+                }
+            });
 
-    }else {
-        showProgress("Retirando inscrição no evento...");
+        }else {
+            showProgress("Retirando inscrição no evento...");
         /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
         query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
         query.findInBackground(new FindCallback<Event>() {
             @Override
             public void done(final List<Event> models, ParseException e) {*/
-                ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
-                relation.remove(ParseUser.getCurrentUser());
-               thisEvent.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
-                            relation.remove(thisEvent);
-                            ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
+            ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
+            relation.remove(ParseUser.getCurrentUser());
+            thisEvent.saveInBackground(new SaveCallback() {
+                public void done(ParseException e) {
+                    if (e == null) {
+                        ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
+                        relation.remove(thisEvent);
+                        ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
                                 menuGo.setIcon(R.drawable.ic_eventdetail_action_select);
                                 go=true;
                                 update();
 
-                                }
-                            });
-                        } else {
-                            Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
-                            dismissProgress();
-                        }
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
+                        dismissProgress();
                     }
-                });
+                }
+            });
          /*   }
         });*/
-    }
+        }
 
     }
 
@@ -417,11 +473,11 @@ public class MyEventDetailFragment extends Fragment {
     @Background
     public void deleteEvent() {
         showProgress("Deletando evento...");
-      /*  try {
-            ParseQuery<Event> query = ParseQuery.getQuery("Event");
+//        try {
+           /* ParseQuery<Event> query = ParseQuery.getQuery("Event");
             query.getInBackground(thisEvent.getObjectId(), new GetCallback<Event>() {
-                public void done(Event thisEvent, ParseException e) {*//*
-                    *//*if (e == null) {*/
+                public void done(Event thisEvent, ParseException e) {*/
+                    /*if (e == null) {*/
         thisEvent.deleteInBackground(new DeleteCallback() {
             @Override
             public void done(ParseException e) {
@@ -437,12 +493,12 @@ public class MyEventDetailFragment extends Fragment {
             }
         });
 
-              /*      }else{
+                   /* }else{
 
-                    }
-               }*/
-        /*    });
-        } catch (ParseException e) {
+                    }*/
+             /*   }
+            });*/
+      /*  } catch (ParseException e) {
             e.printStackTrace();
         }*/
 

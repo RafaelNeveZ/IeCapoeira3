@@ -78,10 +78,31 @@
                 <TextView
                     android:id="@+id/text_date"
                     android:layout_width="wrap_content"
+                    android:textSize="12dp"
+                    android:text="00/00/0000"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/little_plus" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/little"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/little_plus"
+                    android:src="@drawable/ic_alarm_gray_24dp" />
+
+                <TextView
+                    android:id="@+id/text_time"
+                    android:layout_width="wrap_content"
+                    android:textSize="12dp"
+                    android:text="00:00"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/little_plus" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +117,9 @@
 
                 <TextView
                     android:id="@+id/text_location"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textSize="12dp"
+                    android:text="LUGAR"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/little_plus" />
             </LinearLayout>

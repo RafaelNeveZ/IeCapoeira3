@@ -1,6 +1,7 @@
 package br.com.iecapoeira.actv;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -20,9 +21,11 @@ public class SplashScreen extends AppCompatActivity {
 
     @AfterViews
     void init() {
+        final MediaPlayer mp = MediaPlayer.create(this,R.raw.berimbau);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                mp.start();
                 /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(SplashScreen.this, LoginActivity_.class);
                 SplashScreen.this.startActivity(mainIntent);

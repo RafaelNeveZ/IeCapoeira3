@@ -115,7 +115,7 @@ public class ChatFragment extends ListFragment {
             sender = IEApplication.getUserDetails().getName();
         }catch (NullPointerException ex){
             try {
-                sender = ParseUser.getCurrentUser().getUsername();
+                sender = (String) ParseUser.getCurrentUser().get("nickname");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -475,6 +475,10 @@ public class ChatFragment extends ListFragment {
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_RECEIVED));
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_UPDATED));
+
+        if (subscribeHolder.isSubscribed(channel)) {
+            sendSystemMessage(true);
+        }
         ((ChatActivity)getActivity()).hideKeyboard();
     }
 

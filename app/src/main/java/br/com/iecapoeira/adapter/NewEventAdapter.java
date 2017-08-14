@@ -111,12 +111,12 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-       // setJustTime(hourOfDay, minute,isInit);
+        // setJustTime(hourOfDay, minute,isInit);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-     //   setJustDate(year, monthOfYear, dayOfMonth);
+        //   setJustDate(year, monthOfYear, dayOfMonth);
     }
 
     public class PaymentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

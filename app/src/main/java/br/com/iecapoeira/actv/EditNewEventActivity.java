@@ -7,6 +7,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
 import br.com.iecapoeira.R;
+/*import br.com.iecapoeira.fragment.EditNewEventFragment_;*/
 import br.com.iecapoeira.fragment.EditNewEventFragment_;
 import br.com.iecapoeira.fragment.NewEventFragment_;
 

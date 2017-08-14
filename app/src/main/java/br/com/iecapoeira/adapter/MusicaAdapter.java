@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.List;
@@ -22,12 +23,12 @@ import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
 
 
 public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MyViewHolder> {
-    private List<Musica> mList;
+    private List<ParseObject> mList;
     private LayoutInflater mLayoutInflater;
     private RecyclerViewOnClickListenerHack mRecyclerViewOnClickListenerHack;
     private Context context;
 
-    public MusicaAdapter(Context c, List<Musica> l) {
+    public MusicaAdapter(Context c, List<ParseObject> l) {
         mList = l;
         mLayoutInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         context = c;
@@ -45,9 +46,9 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
         Log.i("LOG", "onBindViewHolder()");
-        final Musica musica = mList.get(position);
-        myViewHolder.tvNome.setText(musica.getNome());
-        if (musica.isFavorito()) {
+        final ParseObject musica = mList.get(position);
+        myViewHolder.tvNome.setText(musica.getString("title"));
+       /* if (musica.isFavorito()) {
             myViewHolder.tvAdd.setText(context.getString(R.string.icon_remove));
             myViewHolder.tvAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,7 +82,7 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MyViewHold
                     notifyDataSetChanged();
                 }
             });
-        }
+        }*/
     }
 
     @Override

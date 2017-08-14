@@ -164,6 +164,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
+            android:name=".actv.EditNewEventActivity_"
+            android:label="@string/title_add_edital"
+            android:parentActivityName=".actv.MainActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
             android:name=".actv.SalaChatActivity_"
             android:label="@string/title_chat"
             android:parentActivityName=".actv.DashboardActivity_"

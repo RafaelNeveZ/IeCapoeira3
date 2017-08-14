@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.util.EventLog;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,8 +15,11 @@ import android.widget.TextView;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Aula;
@@ -36,16 +40,17 @@ public class EventScheduleItemView extends RelativeLayout {
     TextView textDate;
 
     @ViewById
-    TextView textLocation;
+    TextView textLocation,textTime;
 
     @ViewById
     ImageView btGoing;
 
     private Event obj;
-
+    public List<JSONObject> jList;
     @ViewById
     ImageView img;
     private ProgressDialog progressDialog;
+
 
     public EventScheduleItemView(Context context) {
         super(context);
@@ -61,7 +66,23 @@ public class EventScheduleItemView extends RelativeLayout {
         textName.setText(obj.getName());
         String pattern = getContext().getString(R.string.date_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        textDate.setText(sdf.format(obj.getDate()));
+        jList=new ArrayList<>();
+        JSONObject jason = obj.getJSONObject("eventDate");
+        for(int a=0;a<7;a++) {
+            try {
+                jList.add(jason.getJSONObject(a+""));
+                Log.d("JSON "+a,jList.get(a).getString("startTime"));
+            } catch (Exception c) {
+                Log.e("JSON "+a,c.getMessage());
+                break;
+            }
+        }
+        try {
+            textDate.setText(jList.get(0).getString("date") + "");
+            textTime.setText("Das "+jList.get(0).getString("startTime")+" às "+jList.get(0).getString("endTime")+" horas");
+        }catch (Exception c){
+
+        }
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {

@@ -20,8 +20,10 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hemobile.ItemView;
@@ -36,7 +38,7 @@ public class MyEventItemView extends ItemView<Event> {
     TextView textName;
 
     @ViewById
-    TextView textDate;
+    TextView textDate, textTime;;
 
     @ViewById
     TextView textLocation;
@@ -45,6 +47,8 @@ public class MyEventItemView extends ItemView<Event> {
     ImageView btGoing;
 
     private Event obj;
+
+    public List<JSONObject> jList;
 
     @ViewById
     ImageView img;
@@ -67,16 +71,30 @@ public class MyEventItemView extends ItemView<Event> {
     }
 
     @Override
-    public void bind(Event obj, int position) {
+    public void bind(Event obj, int positionj) {
         this.obj = obj;
-      //  IEApplication.getUserDetails();
+        //  IEApplication.getUserDetails();
         textName.setText(obj.getName());
         String pattern = getContext().getString(R.string.date_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        textDate.setText(sdf.format(obj.getDate()));
-        textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
+        jList=new ArrayList<>();
+        JSONObject jason = obj.getJSONObject("eventDate");
+        for(int a=0;a<7;a++) {
+            try {
+                jList.add(jason.getJSONObject(a+""));
+                Log.d("JSON "+a,jList.get(a).getString("startTime"));
+            } catch (Exception c) {
+                Log.e("JSON "+a,c.getMessage());
+                break;
+            }
+        }
+        try {
+            textDate.setText(jList.get(0).getString("date") + "");
+            textTime.setText("Das "+jList.get(0).getString("startTime")+" às "+jList.get(0).getString("endTime")+" horas");
+        }catch (Exception c){
 
-        setImageBtGoing(true);
+        }
+        textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {
             setProfilePicture(picture);
@@ -87,8 +105,6 @@ public class MyEventItemView extends ItemView<Event> {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             img.setImageBitmap(decodedByte);
         }
-
-
 
     }
 

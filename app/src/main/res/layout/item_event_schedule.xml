@@ -83,7 +83,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/little_plus" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/little"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/little_plus"
+                    android:src="@drawable/ic_alarm_gray_24dp" />
+
+                <TextView
+                    android:id="@+id/text_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/little_plus" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

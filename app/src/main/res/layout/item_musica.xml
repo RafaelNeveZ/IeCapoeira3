@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:layout_marginRight="10dp"
     >
 
     <TextView
@@ -18,11 +19,12 @@
         android:paddingRight="16dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        android:textColor="@color/gray_txt"
+        android:textStyle="bold"
+        android:textColor="@color/gray_txt_dark"
         android:textSize="16sp"
         tools:text="musica" />
 
-    <br.com.iecapoeira.widget.TextViewPlus
+    <!--<br.com.iecapoeira.widget.TextViewPlus
         android:id="@+id/tv_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +36,7 @@
         android:text="@string/icon_play"
         android:textColor="@color/blue"
         android:textSize="20sp"
-        app:fontNameTextViewPlus="icomoon" />
+        app:fontNameTextViewPlus="icomoon" />-->
 
     <br.com.iecapoeira.widget.TextViewPlus
         android:id="@+id/tv_add"
@@ -43,7 +45,7 @@
         android:layout_margin="8dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
-        android:layout_toLeftOf="@id/tv_play"
+        android:layout_alignParentEnd="true"
         android:text="@string/icon_add"
         android:textColor="@color/blue"
         android:textSize="20sp"

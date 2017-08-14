@@ -1,6 +1,7 @@
 package br.com.iecapoeira.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -8,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
@@ -40,8 +43,11 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hemobile.BaseActivity;
@@ -50,10 +56,16 @@ import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.ChatActivity;
 import br.com.iecapoeira.actv.ChatActivity_;
+import br.com.iecapoeira.actv.EditNewEventActivity_;
+import br.com.iecapoeira.actv.EventDetailActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
+import br.com.iecapoeira.actv.NewEventActivity;
 import br.com.iecapoeira.actv.UserGoActivity_;
+import br.com.iecapoeira.adapter.EditalAdapter;
+import br.com.iecapoeira.adapter.TimeEventoAdapter;
 import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
+import br.com.iecapoeira.model.EventDate;
 import br.com.iecapoeira.model.UserDetails;
 import br.com.iecapoeira.utils.HETextUtil;
 
@@ -93,6 +105,7 @@ public class EventDetailFragment extends Fragment {
     @ViewById
     ImageView profileImg;
 
+    public List<JSONObject> jList;
     public  boolean go = true;
 
 
@@ -124,6 +137,10 @@ public class EventDetailFragment extends Fragment {
     @OptionsMenuItem(R.id.menu_delete)
     MenuItem menuDelete;
     private ProgressDialog progressDialog;
+    private TimeEventoAdapter adapter;
+
+    @ViewById
+    RecyclerView recyclerviewChat;
 
     @UiThread
     public void setImage(Bitmap picture) {
@@ -144,9 +161,31 @@ public class EventDetailFragment extends Fragment {
 
     @AfterViews
     public void init() {
-        showProgress("Carregando informações...");
         String id = getActivity().getIntent().getStringExtra("id");
         thisEvent = ParseObject.createWithoutData(Event.class, id);
+        showProgress("Carregando informações...");
+        jList=new ArrayList<>();
+        JSONObject jason = thisEvent.getJSONObject("eventDate");
+        for(int a=0;a<7;a++) {
+            try {
+                jList.add(jason.getJSONObject(a+""));
+                Log.d("JSON "+a,jList.get(a).getString("startTime"));
+            } catch (Exception c) {
+                Log.e("JSON "+a,c.getMessage());
+                break;
+            }
+        }
+        recyclerviewChat.setHasFixedSize(false);
+        recyclerviewChat.setNestedScrollingEnabled(false);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerviewChat.setLayoutManager(llm);
+        adapter = new TimeEventoAdapter(getActivity(), jList);
+        adapter.setRecyclerViewOnClickListenerHack((EventDetailActivity_) getActivity());
+        recyclerviewChat.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.getInBackground(thisEvent.getObjectId(), new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
@@ -204,17 +243,16 @@ public class EventDetailFragment extends Fragment {
 
 
 
-    @Click
-    public void profileImg(){
-        menuDelete() ;
-    }
+
     @UiThread
     void update() {
+
+
 
         textName.setText(thisEvent.get(Event.NAME).toString());
         String pattern = getString(R.string.date_hour_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        textDate.setText(sdf.format(thisEvent.getDate()));
+      //  textDate.setText(/*sdf.format(*//*)*/);
         textLocation.setText(String.format("%s\n%s, %s - %s", HETextUtil.toTitleCase(thisEvent.getAddress()), HETextUtil.toTitleCase(thisEvent.getCity()), thisEvent.getState().toUpperCase(), thisEvent.getCountry()));
         int howManyIsGoing = thisEvent.getHowManyIsGoing();
 
@@ -294,6 +332,26 @@ public class EventDetailFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    @OptionsItem
+    public void menuEdit(){
+        EditNewEventFragment.event=thisEvent;
+        startActivityForResult(new Intent(getActivity(), EditNewEventActivity_.class), 10);
+
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 10) {
+            if(resultCode == Activity.RESULT_OK){
+                Intent returnIntent = new Intent();
+                getActivity().setResult(Activity.RESULT_OK, returnIntent);
+                getActivity().finish();
+            }
+            if (resultCode == Activity.RESULT_FIRST_USER) {
+
+            }
         }
     }
 

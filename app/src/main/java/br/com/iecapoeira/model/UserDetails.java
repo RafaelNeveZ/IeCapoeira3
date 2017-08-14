@@ -31,7 +31,7 @@ public class UserDetails extends ParseObject {
     }
 
     public String getName() {
-        return get("name").toString();
+        return get("nickname").toString();
     }
 
     public void setName(String name) {

@@ -46,11 +46,14 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -148,10 +151,12 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     private int rightPosition;
     private String my64foto=null;
     private String Pais="";
-    @AfterViews
-    public void init() {
-//        setHeader();
+    private JSONObject jasonFinal;
 
+    @AfterViews
+    public void init(){
+//        setHeader();
+        jasonFinal=new JSONObject();
         Calendar c = Calendar.getInstance();
         setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
         rcNew.setHasFixedSize(false);
@@ -159,7 +164,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         rcNew.setLayoutManager(llm);
         rcNew.setNestedScrollingEnabled(false);
         listNE = new ArrayList<ParseObject>();
-        listNE = setListNE() ;
         adapter = new NewEventAdapter(getActivity(), listNE, new OnButtonClicked() {
             @Override
             public void onBtnClick(int position, int choosed) {
@@ -184,10 +188,24 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     }
 
-    public List<ParseObject> setListNE(){
+    public List<ParseObject> setListNE() throws JSONException {
 
         List<ParseObject> listAux = new ArrayList<>();
         ParseObject aux2 =  ParseObject.create("EventDate");
+
+        JSONObject json = new JSONObject();
+        JSONObject manJson = new JSONObject();
+        String pattern = getString(R.string.date_pattern);
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            manJson.put("date",String.format("%02d/%02d/%02d",selDay,selMonth,selYear));
+            manJson.put("startTime", String.format("%02d:%02d",selHour,selMinute));
+            manJson.put("endTime",String.format("%02d:%02d",selHour+1,selMinute) );
+            jasonFinal.put(""+eventDaysCount,manJson);
+        }catch (Exception e){
+
+        }
+
 
         aux2.put(EventDate.HOURINIT,selHour);
         aux2.put(EventDate.HOUREND,selHour+1);
@@ -197,10 +215,53 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         aux2.put(EventDate.MONTH,selMonth);
         aux2.put(EventDate.YEAR,selYear);
         // EventDate aux2 = new EventDate(selDay,selMonth,selYear,selHour,selMinute,selHour+1,selMinute);
-        listAux.add(aux2);
+  ;
         eventDaysCount++;
 
         return  (listAux);
+
+    }
+
+    @Click
+    public void addOtherEvent() {
+    /*    listNE = setListNE() ;*/
+    if(listNE.size()<4) {
+        List<ParseObject> listAux = new ArrayList<>();
+        ParseObject aux2 = ParseObject.create("EventDate");
+
+
+        /*JSONObject json = new JSONObject();
+        JSONObject manJson = new JSONObject();
+        String pattern = getString(R.string.date_pattern);
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            manJson.put("date", String.format("%02d/%02d/%02d", selDay, selMonth, selYear));
+            manJson.put("startTime", String.format("%02d:%02d", selHour, selMinute));
+            manJson.put("endTime", String.format("%02d:%02d", selHour + 1, selMinute));
+            jasonFinal.put(rightPosition + "", manJson);
+        } catch (Exception e) {
+
+        }*/
+
+        aux2.put(EventDate.HOURINIT, selHour);
+        aux2.put(EventDate.HOUREND, selHour + 1);
+        aux2.put(EventDate.MIMINIT, selMinute);
+        aux2.put(EventDate.MIMEND, selMinute);
+        aux2.put(EventDate.DAY, selDay);
+        aux2.put(EventDate.MONTH, selMonth);
+        aux2.put(EventDate.YEAR, selYear);
+        listNE.add(aux2);
+       // adapter.notifyItemInserted(listNE.size() - 1);
+        adapter.notifyDataSetChanged();
+        eventDaysCount++;
+    }else{
+        Toast.makeText(getActivity(), "Limite máximo de dias", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public  void onDestroy(){
+        super.onDestroy();
 
     }
     @Click
@@ -260,27 +321,38 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         Calendar c = Calendar.getInstance();
         selMinute = minute;
         selHour = hour;
+        JSONObject json = new JSONObject();
+        JSONObject manJson = new JSONObject();
+        String pattern = getString(R.string.date_pattern);
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         c.set(0,0,0,hour, minute);
         if (isInicial){
             int horaInitInSec = hour*3600 + minute*60;
-            int horaFimInSec = horafinal*3600 + minutofinal*60;
+            int horaFimInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOUREND)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMEND)*60;
             if( horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
             }
-            listNE.get(rightPosition).put(EventDate.HOURINIT,hour);
-            listNE.get(rightPosition).put(EventDate.MIMINIT,minute);
+            try {
+                listNE.get(rightPosition).put(EventDate.HOURINIT,hour);
+                listNE.get(rightPosition).put(EventDate.MIMINIT,minute);
+            }catch (Exception e){
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
             horaInicial = hour;
             minutoInicial = minute;
 
         }else{
-            int horaInitInSec = horaInicial*3600 + minutoInicial*60;
+            int horaInitInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOURINIT)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMINIT)*60;
             int horaFimInSec = hour*3600 + minute*60;
             if(horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
             }
-            listNE.get(rightPosition).put(EventDate.HOUREND,hour);
-            listNE.get(rightPosition).put(EventDate.MIMEND,minute);
-            //  btFinalHour.setText(String.format("%02d:%02d", hour, minute));
+            try {
+                listNE.get(rightPosition).put(EventDate.HOUREND,hour);
+                listNE.get(rightPosition).put(EventDate.MIMEND,minute);
+            }catch (Exception e){
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
             horafinal = hour;
             minutofinal = minute;
         }
@@ -297,9 +369,16 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         c.set(year, month, day);
         long dateRecivedinMills = c.getTimeInMillis();
         if(System.currentTimeMillis() < dateRecivedinMills){
-            listNE.get(rightPosition).put(EventDate.DAY,day);
-            listNE.get(rightPosition).put(EventDate.MONTH,month);
-            listNE.get(rightPosition).put(EventDate.YEAR,year);
+            JSONObject json = new JSONObject();
+            JSONObject manJson = new JSONObject();
+            try {
+                listNE.get(rightPosition).put(EventDate.DAY,day);
+                listNE.get(rightPosition).put(EventDate.MONTH,month);
+                listNE.get(rightPosition).put(EventDate.YEAR,year);
+                adapter.notifyDataSetChanged();
+            }catch (Exception e){
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
             adapter.notifyDataSetChanged();
         }else{
             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
@@ -323,7 +402,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     @OptionsItem
     public void newEvent() {
 
-            if(validateFields()){
+            if(validateFields()) {
 
                 showProgress("Criando evento...");
 
@@ -341,7 +420,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 }*/
 
                 int editCityVisb = cityChoice.getVisibility();
-                ParseObject newEvent = ParseObject.create("Event");
+                final ParseObject newEvent = ParseObject.create("Event");
 
                 newEvent.put(Event.NAME, editName.getText().toString());
                 newEvent.put(Event.DESCRIPTION, editDesc.getText().toString());
@@ -349,19 +428,42 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
                 newEvent.put(Event.STATE, editState.getText().toString());
 
-                if(editCityVisb == View.VISIBLE) {
+                if (editCityVisb == View.VISIBLE) {
                     newEvent.put(Event.COUNTRY, "Brasil");
                     newEvent.put(Event.CITY, editCity.getText().toString());
-                }else{
+                } else {
                     newEvent.put(Event.COUNTRY, editCountry.getText().toString());
                     newEvent.put(Event.CITY, editTrueCity.getText().toString());
                 }
                 /*ParseRelation<ParseUser> relation = newEvent.getRelation(Event.OWNER);
                 relation.add(ParseUser.getCurrentUser());*/
-                newEvent.put(Event.OWNER,ParseUser.getCurrentUser().getUsername());
-                newEvent.put(Event.TYPE,isCapeira());
-                if(my64foto!=null)
-                newEvent.put(Event.FOTO,my64foto);
+                newEvent.put(Event.OWNER, ParseUser.getCurrentUser().getUsername());
+                newEvent.put(Event.TYPE, isCapeira());
+                if (my64foto != null)
+                    newEvent.put(Event.FOTO, my64foto);
+                /*ParseRelation<ParseObject>relation=newEvent.getRelation("eventTime");
+                relation.add(listNE.get(0));*/
+                jasonFinal=new JSONObject();
+                int i=0;
+                for (ParseObject item:listNE
+                     ) {
+
+                    JSONObject manJson = new JSONObject();
+                    String pattern = getString(R.string.date_pattern);
+                    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                    try {
+                        manJson.put("date",String.format("%02d/%02d/%02d",item.get(EventDate.DAY), item.get(EventDate.MONTH),item.get(EventDate.YEAR)));
+                        manJson.put("startTime", String.format("%02d:%02d",item.get(EventDate.HOURINIT),item.get(EventDate.MIMINIT)));
+                        manJson.put("endTime",String.format("%02d:%02d",item.get(EventDate.HOUREND),item.get(EventDate.MIMEND)) );
+                        jasonFinal.put(i+"",manJson);
+                        i++;
+                    }catch (Exception e){
+
+                    }
+                    newEvent.put("eventDate", jasonFinal);
+                }
+
+
                 Calendar date = Calendar.getInstance();
                 date.set(selYear, selMonth, selDay, selHour, selMinute);
                 newEvent.put(Event.DATE,date.getTime());
@@ -378,8 +480,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 });
 
             }
-
-
 
         }
 
@@ -446,7 +546,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
 
 
-    public boolean validateFields(){
+    public boolean validateFields() {
 
         String name = editName.getText().toString().trim();
         String address = editAddress.getText().toString().trim();
@@ -464,12 +564,12 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             return false;
         }
         int editCityVisb = cityChoice.getVisibility();
-        if(editCityVisb == View.VISIBLE) {
+        if (editCityVisb == View.VISIBLE) {
             if (editCity.getText().equals(city)) {
                 Toast.makeText(getActivity(), "Escolha uma cidade", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        }else{
+        } else {
 
             if (editTrueCity.getText().toString().isEmpty()) {
                 setError(editTrueCity, getString(R.string.msg_erro_campo_vazio));
@@ -480,6 +580,10 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 return false;
             }
 
+        }
+        if (listNE.size()==0){
+            Toast.makeText(getActivity(), "Escolha pelo menos uma data", Toast.LENGTH_SHORT).show();
+            return false;
         }
         /*if (city.isEmpty()) {
             setError(editCity, getString(R.string.msg_erro_campo_vazio));
@@ -577,24 +681,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         tpd.show();
     }*/
 
-    @Click
-    public void addOtherEvent() {
-
-        List<ParseObject> listAux = new ArrayList<>();
-        ParseObject aux2 =  ParseObject.create("EventDate");
-        aux2.put(EventDate.HOURINIT,selHour);
-        aux2.put(EventDate.HOUREND,selHour+1);
-        aux2.put(EventDate.MIMINIT,selMinute);
-        aux2.put(EventDate.MIMEND,selMinute);
-        aux2.put(EventDate.DAY,selDay);
-        aux2.put(EventDate.MONTH,selMonth);
-        aux2.put(EventDate.YEAR,selYear);
-        listNE.add(aux2);
-        adapter.notifyItemInserted(listNE.size() - 1);
-        adapter.notifyDataSetChanged();
-        eventDaysCount++;
-
-    }
 
 
 

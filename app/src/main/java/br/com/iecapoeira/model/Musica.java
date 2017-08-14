@@ -9,10 +9,10 @@ public class Musica implements Serializable {
     private boolean isFavorito;
 
 
-    public Musica(String nome, String link, String letra) {
+    public Musica(String nome, String link) {
         this.nome = nome;
         this.link = link;
-        this.letra = letra;
+
     }
 
     public Musica(String m, int p) {

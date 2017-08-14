@@ -12,7 +12,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -51,6 +59,7 @@ public class MusicaActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    public List<ParseObject> musicas;
 
 
     String[] musicas2 = {
@@ -61,6 +70,7 @@ public class MusicaActivity extends AppCompatActivity {
     @AfterViews
     void init(){
         setHeader();
+        musicas=new ArrayList<>();
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -151,8 +161,8 @@ public class MusicaActivity extends AppCompatActivity {
         }
     }
 
-    public List<Musica> getSetMusicaList(){
-        String[] musicas = {
+    public void getSetMusicaList(){
+        /*String[] musicas = {
                 "É DE BAMBA",
                 "CAPOEIRA É UMA ARTE",
                 "MUNDO ENGANADOR",
@@ -226,10 +236,12 @@ public class MusicaActivity extends AppCompatActivity {
         List<Musica> listAux = new ArrayList<>();
 
         for(int i = 0; i < musicas.length; i++){
-            Musica m = new Musica(musicas[i % musicas.length], links[i % links.length], letras[i % letras.length]);
+            Musica m = new Musica(musicas[i % musicas.length], links[i % links.length]);
             listAux.add(m);
-        }
-        return(listAux);
+        }*/
+
+
+
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -253,6 +265,9 @@ public class MusicaActivity extends AppCompatActivity {
         if (drawerToggle != null)
             drawerToggle.onConfigurationChanged(newConfig);
     }
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

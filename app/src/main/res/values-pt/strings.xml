@@ -37,7 +37,7 @@
     <string name="menu_eventos">Eventos Culturais</string>
     <string name="msg_denuncia_chat">Reportar problema</string>
     <string name="msg_denuncia_evento">Reportar esse evento</string>
-    <string name="msg_entrou">Está em</string>
+    <string name="msg_entrou">está na</string>
     <string name="msg_enviando_foto">Enviando foto</string>
     <string name="msg_erro_acl">Você não é permitodo para realizar essa operação.</string>
     <string name="msg_erro_campo_vazio">Este campo não pode ser em branco</string>
@@ -52,7 +52,7 @@
     <string name="msg_erro_usuario_ja_existe">You cannot use this user. If the error persist, contact us.</string>
     <string name="msg_foto_recebida">Foto recebida</string>
     <string name="msg_no_events">Sem eventos no momento</string>
-    <string name="msg_saiu">Esquerda</string>
+    <string name="msg_saiu">saiu da </string>
     <string name="msg_salvo_sucesso">Salvo com sucesso</string>
     <string name="msg_x_x_na_sala" formatted="false">%s %s sala de bate papo</string>
     <string name="politica_privacidade">Quando você entrar no Ié Capoeira vocé está de acordo com nossas politicas de privacidade.</string>
