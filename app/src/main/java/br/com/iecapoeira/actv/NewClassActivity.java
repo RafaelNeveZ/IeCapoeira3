@@ -98,6 +98,12 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     RadioButton rdAngola, rdRegional;
 
     @ViewById
+    CheckBox checkCountry;
+
+    @ViewById
+    EditText editTrueCity;
+
+    @ViewById
     CheckBox rdBtSeg, rdBtTer,rdBtQua,rdBtQui,rdBtSex,rdBtSab,rdBtDom;
 
     private ProgressDialog progressDialog;
@@ -185,6 +191,20 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         }
     }
 
+    @Click
+    public void checkCountry(){
+        if(checkCountry.isChecked()){
+            editCountry.setVisibility(View.GONE);
+            editTrueCity.setVisibility(View.GONE);
+            cityChoice.setVisibility(View.VISIBLE);
+
+        }else{
+            editCountry.setVisibility(View.VISIBLE);
+            editTrueCity.setVisibility(View.VISIBLE);
+            cityChoice.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 19) {
@@ -268,9 +288,16 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                 newClass.put("graduacao", editGraduation.getText().toString());
                 newClass.put("sobre", editDesc.getText().toString());
                 newClass.put("endereco", editAddress.getText().toString());
-                newClass.put("cidade", editCity.getText().toString());
+                int editCityVisb = cityChoice.getVisibility();
+                if(editCityVisb == View.VISIBLE) {
+                    newClass.put(Aula.PAIS, "Brasil");
+                    newClass.put(Aula.CIDADE, editCity.getText().toString());
+                }else{
+                    newClass.put(Aula.PAIS, editCountry.getText().toString());
+                    newClass.put(Aula.CIDADE, editTrueCity.getText().toString());
+                }
                 newClass.put("estado", editState.getText().toString());
-                newClass.put("pais", editCountry.getText().toString());
+
                 newClass.put("horario",btHour.getText().toString());
                 newClass.put("owner",ParseUser.getCurrentUser().getUsername());
                 newClass.put("horarioFinal",btFinalHour.getText().toString());
@@ -308,7 +335,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     public void newEvent() {
         if(validateFields()) {
             showProgress("Criando aula...");
-
+            int editCityVisb = cityChoice.getVisibility();
             ParseObject newClass = ParseObject.create("Aulas");
          // newClass.put("foto",byteArray);
             newClass.put("mestre", editName.getText().toString());
@@ -316,9 +343,15 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             newClass.put("graduacao", editGraduation.getText().toString());
             newClass.put("sobre", editDesc.getText().toString());
             newClass.put("endereco", editAddress.getText().toString());
-            newClass.put("cidade", editCity.getText().toString());
+
+            if(editCityVisb == View.VISIBLE) {
+                newClass.put(Aula.PAIS, "Brasil");
+                newClass.put(Aula.CIDADE, editCity.getText().toString());
+            }else{
+                newClass.put(Aula.PAIS, editCountry.getText().toString());
+                newClass.put(Aula.CIDADE, editTrueCity.getText().toString());
+            }
             newClass.put("estado", editState.getText().toString());
-            newClass.put("pais", editCountry.getText().toString());
             newClass.put("horario",btHour.getText().toString());
             newClass.put("horarioFinal",btFinalHour.getText().toString());
             newClass.put("data",putDays());
@@ -379,72 +412,77 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     }
 
-    private  String putDays(){
-        String days="";
-        String[] aux = new String[7];
-        int auxCount =0;
+    private  String putDays() {
+        String days = "";
+        String[] aux = new String[8];
+        int auxCount = 0;
         String last = "";
 
-        if(rdBtSeg.isChecked()) {
+        if (rdBtSeg.isChecked()) {
             aux[auxCount] = getText(R.string.segunda).toString();
             auxCount++;
             last = aux[auxCount];
 
         }
-        if(rdBtTer.isChecked()){
+        if (rdBtTer.isChecked()) {
             aux[auxCount] = getText(R.string.terca).toString();
             auxCount++;
             last = aux[auxCount];
         }
-        if(rdBtQua.isChecked()){
+        if (rdBtQua.isChecked()) {
             aux[auxCount] = getText(R.string.quarta).toString();
             auxCount++;
             last = aux[auxCount];
 
         }
-        if(rdBtQui.isChecked()){
+        if (rdBtQui.isChecked()) {
             aux[auxCount] = getText(R.string.quinta).toString();
             auxCount++;
             last = aux[auxCount];
 
         }
-        if(rdBtSex.isChecked()){
+        if (rdBtSex.isChecked()) {
             aux[auxCount] = getText(R.string.sexta).toString();
             auxCount++;
             last = aux[auxCount];
 
         }
-        if(rdBtSab.isChecked()){
+        if (rdBtSab.isChecked()) {
             aux[auxCount] = getText(R.string.sabado).toString();
             auxCount++;
             last = aux[auxCount];
 
         }
-        if(rdBtDom.isChecked()){
+        if (rdBtDom.isChecked()) {
             aux[auxCount] = getText(R.string.domingo).toString();
             auxCount++;
             last = aux[auxCount];
         }
 
-        if(auxCount==0)
+        if (auxCount == 0)
             return "error";
 
-            for (int i = 0; i < auxCount; i++) {
-                days += aux[i];
-                if (i + 1 < auxCount && i != auxCount - 1) {
-                    days += ", ";
-                }
-
-                if (i == auxCount-1) {
-                    days = " e " + days + ".";
-                }
-
-
-
+        for (int i = 0; i < auxCount; i++) {
+            days += aux[i];
+            if (i + 1 < auxCount && i != auxCount - 2) {
+                days += ", ";
             }
 
+            if (i == auxCount - 2) {
+                days = days + " e ";
+            }
+            if (i == auxCount - 1) {
+                days = days + ".";
+            }
 
-        return days.toLowerCase();
+            Log.d("DAYS", days);
+
+        }
+        String daysAux = days.toLowerCase();
+        String s1 = daysAux.substring(0, 1).toUpperCase();
+        String finalDays = s1 + daysAux.substring(1);
+        Log.d("DAYS", finalDays);
+        return finalDays;
     }
 
     private String isRegional() {
@@ -480,23 +518,30 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             dontLeave = true;
             return false;
         }
+
+        int editCityVisb = cityChoice.getVisibility();
+        if(editCityVisb == View.VISIBLE) {
+            if (editCity.getText().equals(city)) {
+                Toast.makeText(this, "Escolha uma cidade", Toast.LENGTH_SHORT).show();
+                dontLeave =true;
+                return false;
+            }
+        }else{
+
+            if (editTrueCity.getText().toString().isEmpty()) {
+                setError(editTrueCity, getString(R.string.msg_erro_campo_vazio));
+                dontLeave =true;
+                return false;
+            }
+            if (editCountry.getText().toString().isEmpty()) {
+                setError(editCountry, getString(R.string.msg_erro_campo_vazio));
+                dontLeave =true;
+                return false;
+            }
+
+        }
         if (address.isEmpty()) {
             setError(editAddress, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return false;
-        }
-        if (editCity.getText().equals(city)) {
-            Toast.makeText(this, getString(R.string.choose_city), Toast.LENGTH_SHORT).show();
-            dontLeave = true;
-            return false;
-        }
-        /*if (state.isEmpty()) {
-            setError(editState, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }*/
-        if (country.isEmpty()) {
-            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
             return false;
         }

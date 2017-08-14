@@ -150,16 +150,34 @@
 
 
 
-            <EditText
-                android:id="@+id/edit_country"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
-                android:layout_marginLeft="@dimen/small"
-                android:layout_marginRight="@dimen/small"
-                android:hint="@string/hint_pais"
-                android:inputType="textCapSentences"
-                android:maxLength="15"
-                android:maxLines="1" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:id="@+id/check_country"
+                    android:checked="true"
+                    android:layout_marginLeft="@dimen/small"
+                    android:layout_marginRight="@dimen/small"
+                    android:text="Brasil"
+                    android:textSize="15dp"
+                    />
+                <EditText
+                    android:id="@+id/edit_country"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="@dimen/bt_height"
+                    android:layout_marginLeft="@dimen/small"
+                    android:layout_marginRight="@dimen/small"
+                    android:hint="@string/hint_pais"
+                    android:layout_weight="1"
+                    android:inputType="textCapSentences"
+                    android:maxLength="15"
+                    android:maxLines="1" />
+            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/edit_state"
@@ -172,6 +190,17 @@
                 android:maxLength="30"
                 android:maxLines="1" />
 
+            <EditText
+                android:id="@+id/edit_true_city"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="@dimen/bt_height"
+                android:layout_marginLeft="@dimen/small"
+                android:layout_marginRight="@dimen/small"
+                android:hint="@string/hint_city"
+                android:inputType="textCapSentences"
+                android:maxLength="30"
+                android:maxLines="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"

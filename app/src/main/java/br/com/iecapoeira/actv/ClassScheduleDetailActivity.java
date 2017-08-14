@@ -90,8 +90,8 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
         tvTeacher.setText(model.getMestre());
         tvDescription.setText(model.getSobreAula());
         tvDays.setText(model.getDiasSemana());
-        Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco());
-        tvPlace.setText(model.getEndereco());
+        Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco()+"/n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
+        tvPlace.setText(model.getEndereco()+".\n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
         tvTime.setText(model.getHorarioStart()+ " às "+ model.getHorarioEnd());
     }
 

@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -52,6 +53,7 @@ import java.util.Calendar;
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Aula;
+import br.com.iecapoeira.model.Event;
 
 @EActivity(R.layout.activity_new_class)
 @OptionsMenu(R.menu.new_event)
@@ -74,6 +76,10 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
     @ViewById
     Button btHour;
 
+
+    @ViewById
+    LinearLayout cityChoice;
+
     @ViewById
     Button btFinalHour;
 
@@ -82,6 +88,13 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
 
     @ViewById
     RadioButton rdAngola, rdRegional;
+
+    @ViewById
+    CheckBox checkCountry;
+
+    @ViewById
+    EditText editTrueCity;
+
 
     @ViewById
     CheckBox rdBtSeg, rdBtTer,rdBtQua,rdBtQui,rdBtSex,rdBtSab,rdBtDom;
@@ -100,15 +113,20 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
 
     @AfterViews
     public void init() {
+        int editCityVisb = cityChoice.getVisibility();
         addOtherClass.setVisibility(View.GONE);
-       mod =  ClassScheduleDetailActivity_.model;
+         mod =  ClassScheduleDetailActivity_.model;
         editName.setText(mod.get(Aula.MESTRE).toString());
         editGraduation.setText(mod.get(Aula.GRADUACAO).toString());
         editDesc.setText(mod.get(Aula.SOBREAULA).toString());
         editAddress.setText(mod.get(Aula.ENDERECO).toString());
         editState.setText(mod.get(Aula.ESTADO).toString());
-        editCountry.setText(mod.get(Aula.PAIS).toString());
+        if(editCityVisb == View.VISIBLE) {
         editCity.setText(mod.get(Aula.CIDADE).toString());
+        }else{
+            editCountry.setText(mod.get(Aula.PAIS).toString());
+            editTrueCity.setText(mod.get(Aula.CIDADE).toString());
+        }
         btHour.setText(mod.get(Aula.HORARIO_COMECO).toString());
         btFinalHour.setText(mod.get(Aula.HORARIO_FIM).toString());
         if(mod.get(Aula.FOTO)!=null) {
@@ -127,20 +145,35 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
         Calendar c = Calendar.getInstance();
         setupTime( (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
     }
+
+    @Click
+    public void checkCountry(){
+        if(checkCountry.isChecked()){
+            editCountry.setVisibility(View.GONE);
+            editTrueCity.setVisibility(View.GONE);
+            cityChoice.setVisibility(View.VISIBLE);
+
+        }else{
+            editCountry.setVisibility(View.VISIBLE);
+            editTrueCity.setVisibility(View.VISIBLE);
+            cityChoice.setVisibility(View.GONE);
+        }
+    }
+
     private  void checkDays(){
-        if(mod.get(Aula.DIASSEMANA).toString().contains("segunda"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("segunda"))
             rdBtSeg.setChecked(true);
-        if(mod.get(Aula.DIASSEMANA).toString().contains("terça"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("terça"))
             rdBtTer.setChecked(true);
-        if(mod.get(Aula.DIASSEMANA).toString().contains("quarta"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("quarta"))
             rdBtQua.setChecked(true);
-        if(mod.get(Aula.DIASSEMANA).toString().contains("quinta"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("quinta"))
             rdBtQui.setChecked(true);
-        if(mod.get(Aula.DIASSEMANA).toString().contains("sexta"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("sexta"))
             rdBtSex.setChecked(true);
-        if(mod.get(Aula.DIASSEMANA).toString().contains("sábado"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("sábado"))
             rdBtSab.setChecked(true);
-        if(mod.get(Aula.DIASSEMANA).toString().contains("domingo"))
+        if(mod.get(Aula.DIASSEMANA).toString().toLowerCase().contains("domingo"))
             rdBtDom.setChecked(true);
     }
 
@@ -342,9 +375,16 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
                         mod.put(Aula.GRADUACAO, editGraduation.getText().toString());
                         mod.put(Aula.SOBREAULA, editDesc.getText().toString());
                         mod.put(Aula.ENDERECO, editAddress.getText().toString());
-                        mod.put(Aula.CIDADE, editCity.getText().toString());
+                        int editCityVisb = cityChoice.getVisibility();
+                        if(editCityVisb == View.VISIBLE) {
+                            mod.put(Aula.PAIS, "Brasil");
+                            mod.put(Aula.CIDADE, editCity.getText().toString());
+                        }else{
+                            mod.put(Aula.PAIS, editCountry.getText().toString());
+                            mod.put(Aula.CIDADE, editTrueCity.getText().toString());
+                        }
+
                         mod.put(Aula.ESTADO, editState.getText().toString());
-                        mod.put(Aula.PAIS, editCountry.getText().toString());
                         mod.put(Aula.HORARIO_COMECO,btHour.getText().toString());
                         mod.put(Aula.HORARIO_FIM,btFinalHour.getText().toString());
                         mod.put(Aula.DIASSEMANA,putDays());
@@ -410,55 +450,77 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
 
     }
 
-    private  String putDays(){
-        String days="";
-        String[] aux = new String[7];
-        int auxCount =0;
-        if(rdBtSeg.isChecked()) {
+    private  String putDays() {
+        String days = "";
+        String[] aux = new String[8];
+        int auxCount = 0;
+        String last = "";
+
+        if (rdBtSeg.isChecked()) {
             aux[auxCount] = getText(R.string.segunda).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
-        if(rdBtTer.isChecked()){
+        if (rdBtTer.isChecked()) {
             aux[auxCount] = getText(R.string.terca).toString();
             auxCount++;
+            last = aux[auxCount];
         }
-        if(rdBtQua.isChecked()){
+        if (rdBtQua.isChecked()) {
             aux[auxCount] = getText(R.string.quarta).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
-        if(rdBtQui.isChecked()){
+        if (rdBtQui.isChecked()) {
             aux[auxCount] = getText(R.string.quinta).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
-        if(rdBtSex.isChecked()){
+        if (rdBtSex.isChecked()) {
             aux[auxCount] = getText(R.string.sexta).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
-        if(rdBtSab.isChecked()){
+        if (rdBtSab.isChecked()) {
             aux[auxCount] = getText(R.string.sabado).toString();
             auxCount++;
+            last = aux[auxCount];
+
         }
-        if(rdBtDom.isChecked()){
+        if (rdBtDom.isChecked()) {
             aux[auxCount] = getText(R.string.domingo).toString();
             auxCount++;
+            last = aux[auxCount];
         }
 
-        for(int i = 0; i<auxCount;i++){
-            days+= aux[i];
-            if (i + 1 < auxCount) {
-                days += ", ";
-            }
-            if (i == auxCount - 1) {
-                days += ".";
-            }
-        }
-
-
-
-        if(auxCount==0)
+        if (auxCount == 0)
             return "error";
 
-        return days.toLowerCase();
+        for (int i = 0; i < auxCount; i++) {
+            days += aux[i];
+            if (i + 1 < auxCount && i != auxCount - 2) {
+                days += ", ";
+            }
+
+            if (i == auxCount - 2) {
+                days = days + " e ";
+            }
+            if (i == auxCount - 1) {
+                days = days + ".";
+            }
+
+            Log.d("DAYS", days);
+
+        }
+        String daysAux = days.toLowerCase();
+        String s1 = daysAux.substring(0, 1).toUpperCase();
+        String finalDays = s1 + daysAux.substring(1);
+        Log.d("DAYS", finalDays);
+        return finalDays;
     }
 
     private String isRegional() {
@@ -494,23 +556,30 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
             dontLeave = true;
             return false;
         }
+
+        int editCityVisb = cityChoice.getVisibility();
+        if(editCityVisb == View.VISIBLE) {
+            if (editCity.getText().equals(city)) {
+                Toast.makeText(this, "Escolha uma cidade", Toast.LENGTH_SHORT).show();
+                dontLeave =true;
+                return false;
+            }
+        }else{
+
+            if (editTrueCity.getText().toString().isEmpty()) {
+                setError(editTrueCity, getString(R.string.msg_erro_campo_vazio));
+                dontLeave =true;
+                return false;
+            }
+            if (editCountry.getText().toString().isEmpty()) {
+                setError(editCountry, getString(R.string.msg_erro_campo_vazio));
+                dontLeave =true;
+                return false;
+            }
+
+        }
         if (address.isEmpty()) {
             setError(editAddress, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return false;
-        }
-        if (editCity.getText().equals(city)) {
-            Toast.makeText(this, "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
-            dontLeave = true;
-            return false;
-        }
-        /*if (state.isEmpty()) {
-            setError(editState, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }*/
-        if (country.isEmpty()) {
-            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
             return false;
         }
