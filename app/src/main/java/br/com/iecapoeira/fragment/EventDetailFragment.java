@@ -285,18 +285,11 @@ public class EventDetailFragment extends Fragment {
             setIconLater();
         }
         try {
-            if (thisEvent.get(Event.OWNER).equals(ParseUser.getCurrentUser().getUsername())) {
+            if ((Boolean) ParseUser.getCurrentUser().get("Admin") || thisEvent.get(Event.OWNER).equals(ParseUser.getCurrentUser().getUsername())) {
                 menuDelete.setVisible(true);
-            }else{
-                menuDelete.setVisible(false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            if (thisEvent.get(Event.OWNER).equals(ParseUser.getCurrentUser().getUsername())) {
                 menuEdit.setVisible(true);
             }else{
+                menuDelete.setVisible(false);
                 menuEdit.setVisible(false);
             }
         } catch (Exception e) {

@@ -182,17 +182,19 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
 
        // checkClass();
-        if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
+        if ((Boolean) ParseUser.getCurrentUser().get("Admin") || model.get("owner").equals(ParseUser.getCurrentUser().getUsername())) {
             Log.d("TAG", "ADM");
-
-            menu.getItem(1).setEnabled(true);
-            menu.getItem(0).setEnabled(true);
+            edit.setVisible(true);
+            delete.setVisible(true);
+           /* menu.getItem(1).setEnabled(true);
+            menu.getItem(0).setEnabled(true);*/
 
         } else {
             Log.d("TAG", "Não é ADM");
-
-            menu.getItem(1).setEnabled(false);
-            menu.getItem(0).setEnabled(true);
+            edit.setVisible(false);
+            delete.setVisible(false);
+         /*   menu.getItem(1).setEnabled(false);
+            menu.getItem(0).setEnabled(true);*/
         }
 
 

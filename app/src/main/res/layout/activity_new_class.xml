@@ -22,11 +22,10 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:paddingTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true">
 
 
         <LinearLayout
@@ -78,7 +77,16 @@
                 android:inputType="textCapSentences"
                 android:maxLength="35"
                 android:maxLines="1" />
-
+            <EditText
+                android:id="@+id/edit_graduation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bt_height"
+                android:layout_marginLeft="@dimen/small"
+                android:layout_marginRight="@dimen/small"
+                android:hint="@string/hint_graduacao"
+                android:inputType="textCapSentences"
+                android:maxLength="140"
+                android:maxLines="1" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -90,7 +98,7 @@
                 <TextView
                     android:text="Escolha o estilo de capoeira"
                     android:textAlignment="center"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="2dp"
@@ -125,52 +133,33 @@
             </LinearLayout>
 
 
-            <EditText
-                android:id="@+id/edit_graduation"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
-                android:layout_marginLeft="@dimen/small"
-                android:layout_marginRight="@dimen/small"
-                android:hint="@string/hint_graduacao"
-                android:inputType="textCapSentences"
-                android:maxLength="140"
-                android:maxLines="1" />
+
+
             <EditText
 
                 android:id="@+id/edit_desc"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_descricao_aula"
-                android:inputType="textCapSentences"
+                android:inputType="textMultiLine"
                 android:maxLength="140"
-                android:maxLines="1" />
+
+                android:maxLines="10" />
+
+
 
             <EditText
-                android:id="@+id/edit_address"
+                android:id="@+id/edit_country"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bt_height"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
-                android:hint="@string/hint_endereco"
+                android:hint="@string/hint_pais"
                 android:inputType="textCapSentences"
-                android:maxLength="50"
+                android:maxLength="15"
                 android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/edit_city"
-                android:textAlignment="center"
-                android:textSize="20dp"
-                android:layout_marginLeft="10dp"
-                android:padding="5dp"
-                android:textColor="@android:color/black"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_city"
-                 />
-
 
             <EditText
                 android:id="@+id/edit_state"
@@ -183,16 +172,53 @@
                 android:maxLength="30"
                 android:maxLines="1" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bt_newevent_selection"
+                android:layout_marginLeft="@dimen/small"
+                android:layout_marginRight="8dp"
+                android:id="@+id/city_choice"
+                android:padding="5dp"
+
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_location_on_black_24dp" />
+
+                <TextView
+                    android:id="@+id/edit_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:text="@string/choose_city"
+                    android:layout_marginRight="18dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp" />
+              <!--  <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/spinner_ab_default_ie_capoeira" />-->
+            </LinearLayout>
             <EditText
-                android:id="@+id/edit_country"
+                android:id="@+id/edit_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bt_height"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
-                android:hint="@string/hint_pais"
+                android:hint="@string/hint_endereco"
                 android:inputType="textCapSentences"
-                android:maxLength="15"
+                android:maxLength="50"
                 android:maxLines="1" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

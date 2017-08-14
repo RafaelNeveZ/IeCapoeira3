@@ -23,10 +23,12 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -41,6 +43,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.EFragment;
@@ -88,6 +91,9 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     TextView editCity;
 
     @ViewById
+    LinearLayout cityChoice;
+
+    @ViewById
     EditText editState;
 
     @ViewById
@@ -118,6 +124,12 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     RecyclerView rcNew;
 
     @ViewById
+    CheckBox checkCountry;
+
+    @ViewById
+    EditText editTrueCity;
+
+    @ViewById
     RadioButton rdCultural, rdCapoeira;
 
     private ProgressDialog progressDialog;
@@ -135,10 +147,11 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     public String newDate;
     private int rightPosition;
     private String my64foto=null;
-
+    private String Pais="";
     @AfterViews
     public void init() {
 //        setHeader();
+
         Calendar c = Calendar.getInstance();
         setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
         rcNew.setHasFixedSize(false);
@@ -190,7 +203,19 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         return  (listAux);
 
     }
+    @Click
+    public void checkCountry(){
+        if(checkCountry.isChecked()){
+            editCountry.setVisibility(View.GONE);
+            editTrueCity.setVisibility(View.GONE);
+            cityChoice.setVisibility(View.VISIBLE);
 
+        }else{
+            editCountry.setVisibility(View.VISIBLE);
+            editTrueCity.setVisibility(View.VISIBLE);
+            cityChoice.setVisibility(View.GONE);
+        }
+    }
 /*
     public void setHeader() {
 //        toolbar.setNavigationIcon(R.drawable.logo_voltar);
@@ -315,15 +340,22 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     });
                 }*/
 
-
+                int editCityVisb = cityChoice.getVisibility();
                 ParseObject newEvent = ParseObject.create("Event");
 
                 newEvent.put(Event.NAME, editName.getText().toString());
                 newEvent.put(Event.DESCRIPTION, editDesc.getText().toString());
                 newEvent.put(Event.ADDRESS, editAddress.getText().toString());
-                newEvent.put(Event.CITY, editCity.getText().toString());
+
                 newEvent.put(Event.STATE, editState.getText().toString());
-                newEvent.put(Event.COUNTRY, editCountry.getText().toString());
+
+                if(editCityVisb == View.VISIBLE) {
+                    newEvent.put(Event.COUNTRY, "Brasil");
+                    newEvent.put(Event.CITY, editCity.getText().toString());
+                }else{
+                    newEvent.put(Event.COUNTRY, editCountry.getText().toString());
+                    newEvent.put(Event.CITY, editTrueCity.getText().toString());
+                }
                 /*ParseRelation<ParseUser> relation = newEvent.getRelation(Event.OWNER);
                 relation.add(ParseUser.getCurrentUser());*/
                 newEvent.put(Event.OWNER,ParseUser.getCurrentUser().getUsername());
@@ -359,7 +391,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
     @Click
-    public void editCity(){
+    public void cityChoice(){
         startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
     }
    /* @Override
@@ -431,9 +463,23 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             setError(editAddress, getString(R.string.msg_erro_campo_vazio));
             return false;
         }
-        if (editCity.getText().equals(city)) {
-            Toast.makeText(getActivity(), "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
-            return false;
+        int editCityVisb = cityChoice.getVisibility();
+        if(editCityVisb == View.VISIBLE) {
+            if (editCity.getText().equals(city)) {
+                Toast.makeText(getActivity(), "Escolha uma cidade", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }else{
+
+            if (editTrueCity.getText().toString().isEmpty()) {
+                setError(editTrueCity, getString(R.string.msg_erro_campo_vazio));
+                return false;
+            }
+            if (editCountry.getText().toString().isEmpty()) {
+                setError(editCountry, getString(R.string.msg_erro_campo_vazio));
+                return false;
+            }
+
         }
         /*if (city.isEmpty()) {
             setError(editCity, getString(R.string.msg_erro_campo_vazio));
@@ -443,10 +489,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             setError(editState, getString(R.string.msg_erro_campo_vazio));
             return;
         }*/
-        if (country.isEmpty()) {
-            setError(editCountry, getString(R.string.msg_erro_campo_vazio));
-            return false;
-        }
+
 
         return true;
 

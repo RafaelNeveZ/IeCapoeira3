@@ -29,6 +29,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -80,6 +81,9 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @ViewById
     TextView editCity;
+
+    @ViewById
+    LinearLayout cityChoice;
 
     @ViewById
     Button btHour;
@@ -268,6 +272,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                 newClass.put("estado", editState.getText().toString());
                 newClass.put("pais", editCountry.getText().toString());
                 newClass.put("horario",btHour.getText().toString());
+                newClass.put("owner",ParseUser.getCurrentUser().getUsername());
                 newClass.put("horarioFinal",btFinalHour.getText().toString());
                 newClass.put("data",putDays());
                 if(my64foto!=null)
@@ -317,6 +322,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             newClass.put("horario",btHour.getText().toString());
             newClass.put("horarioFinal",btFinalHour.getText().toString());
             newClass.put("data",putDays());
+            newClass.put("owner",ParseUser.getCurrentUser().getUsername());
             if(my64foto!=null)
             newClass.put(Aula.FOTO,my64foto);
             newClass.saveInBackground(new SaveCallback() {
@@ -480,7 +486,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             return false;
         }
         if (editCity.getText().equals(city)) {
-            Toast.makeText(this, "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.choose_city), Toast.LENGTH_SHORT).show();
             dontLeave = true;
             return false;
         }
@@ -519,7 +525,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     }
 
     @Click
-    public void editCity(){
+    public void cityChoice(){
         startActivityForResult(new Intent(context, CityActivity_.class), 5);
     }
 
