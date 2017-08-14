@@ -63,14 +63,20 @@
             android:name=".actv.EventDetailActivity_"
             android:label="@string/title_eventos"
             android:parentActivityName=".actv.MainActivity_"
-            android:theme="@style/menuWhiteTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
+            android:name=".actv.MyEventDetailActivity_"
+            android:label="@string/title_eventos"
+            android:parentActivityName=".actv.AgendaActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ChatActivity_"
             android:label="@string/title_chat"
             android:parentActivityName=".actv.SalaChatActivity_"
-            android:theme="@style/menuWhiteTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ClassScheduleActivity_"
             android:label="@string/title_aulas"
@@ -79,8 +85,8 @@
             android:name=".actv.ClassScheduleDetailActivity_"
             android:label="@string/title_aulas"
             android:parentActivityName=".actv.ClassScheduleActivity_"
-            android:theme="@style/menuWhiteTheme"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.DashboardActivity_"
             android:label="@string/app_name"
@@ -88,9 +94,9 @@
         <activity
             android:name=".actv.EventsActivity_"
             android:label="@string/title_eventos"
-            android:theme="@style/menuWhiteTheme"
             android:parentActivityName=".actv.MainActivity_"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ListaMestreActivity_"
             android:label="@string/title_mestres"
@@ -139,6 +145,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
+            android:name=".actv.UserGoActivity_"
+            android:label="Pessoas Inscritas"
+            android:parentActivityName=".actv.MainActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme"
+            />
+        <activity
             android:name=".actv.EditalActivity_"
             android:label="@string/title_edital"
             android:parentActivityName=".actv.DashboardActivity_"
@@ -150,13 +163,12 @@
             android:parentActivityName=".actv.EditalActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
-
         <activity
             android:name=".actv.SalaChatActivity_"
             android:label="@string/title_chat"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait"
-            android:theme="@style/menuWhiteTheme"/>
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.NewParceiroActivity_"
             android:label="@string/title_new_partners"
@@ -166,9 +178,7 @@
         <activity
             android:name=".actv.AgendaActivity_"
             android:label="Agenda"
-            android:parentActivityName=".actv.DashboardActivity_"
-            android:screenOrientation="portrait"
-            android:theme="@style/menuWhiteTheme" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ContatoActivity_"
             android:label="@string/title_contato"
@@ -184,6 +194,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:theme" />
+
         <meta-data
             android:name="com.parse.SERVER_URL"
             android:value="https://parseapi.back4app.com/" />

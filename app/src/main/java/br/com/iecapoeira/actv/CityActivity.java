@@ -33,6 +33,7 @@ import java.util.List;
 
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.adapter.SearchableAdapter;
+import br.com.iecapoeira.fragment.EventListFragment;
 
 @EActivity(R.layout.activity_city)
 public class CityActivity extends AppCompatActivity {
@@ -89,6 +90,7 @@ public class CityActivity extends AppCompatActivity {
                         Log.d("Cliquei no ", filtro);
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",filtro);
+                        EventListFragment.notUpdate = filtro;
                         setResult(Activity.RESULT_OK,returnIntent);
                         finish();
                     }

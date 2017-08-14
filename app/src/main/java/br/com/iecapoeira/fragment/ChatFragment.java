@@ -183,7 +183,7 @@ public class ChatFragment extends ListFragment {
         }
     }
 
-    @OptionsItem
+   /* @OptionsItem
     public void menuDenunciar() {
         final EditText edit = new EditText(getActivity());
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
@@ -203,7 +203,7 @@ public class ChatFragment extends ListFragment {
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .setView(edit).show();
-    }
+    }*/
 
     @OptionsItem
     public void subscribe() {

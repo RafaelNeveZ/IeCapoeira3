@@ -115,14 +115,10 @@ public class ClassScheduleActivity extends AppCompatActivity {
                 getList();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-
+                getList();
             }
         }
     }
-
-
-
-
 
     @Override
     public void onBackPressed() {

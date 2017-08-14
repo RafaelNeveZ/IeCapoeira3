@@ -28,15 +28,16 @@ public class Event extends ParseObject {
     public static final String PICTURE = "picture";
     public static final String DESCRIPTION = "description";
     public static final String COUNTRY = "country";
-    public static final String OWNER = "owner";
+    public static final String OWNER = "eventOwner";
     public static final String GOING = "going";
     public static final String TYPE = "type";
     public static final String HOURINIT = "startTime";
     public static final String HOUREND = "finalTime";
     public static final String FOTO = "foto";
     public static final String OBJECTID = "objectId";
-    public static final String EVENTGO = "eventgo";
-    public static final String EVENTTIME = "eventgo";
+    public static final String EVENTGO = "eventGo";
+    public static final String EVENTTIME = "eventTime";
+
 
     private Bitmap bitmap;
 

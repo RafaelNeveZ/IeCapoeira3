@@ -333,24 +333,24 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
     public void newEvent() {
         if(validateFields()) {
             showProgress("Editando aula...");
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Aulas");
+            /*ParseQuery<ParseObject> query = ParseQuery.getQuery("Aulas");
             query.getInBackground(mod.getObjectId(), new GetCallback<ParseObject>() {
-                public void done(ParseObject newClass, ParseException e) {
-                    if (e == null) {
-                        newClass.put(Aula.MESTRE, editName.getText().toString());
-                        newClass.put(Aula.TIPOCAPOEIRA,isRegional());
-                        newClass.put(Aula.GRADUACAO, editGraduation.getText().toString());
-                        newClass.put(Aula.SOBREAULA, editDesc.getText().toString());
-                        newClass.put(Aula.ENDERECO, editAddress.getText().toString());
-                        newClass.put(Aula.CIDADE, editCity.getText().toString());
-                        newClass.put(Aula.ESTADO, editState.getText().toString());
-                        newClass.put(Aula.PAIS, editCountry.getText().toString());
-                        newClass.put(Aula.HORARIO_COMECO,btHour.getText().toString());
-                        newClass.put(Aula.HORARIO_FIM,btFinalHour.getText().toString());
-                        newClass.put(Aula.DIASSEMANA,putDays());
+                public void done(ParseObject mod, ParseException e) {
+                    if (e == null) {*/
+                        mod.put(Aula.MESTRE, editName.getText().toString());
+                        mod.put(Aula.TIPOCAPOEIRA,isRegional());
+                        mod.put(Aula.GRADUACAO, editGraduation.getText().toString());
+                        mod.put(Aula.SOBREAULA, editDesc.getText().toString());
+                        mod.put(Aula.ENDERECO, editAddress.getText().toString());
+                        mod.put(Aula.CIDADE, editCity.getText().toString());
+                        mod.put(Aula.ESTADO, editState.getText().toString());
+                        mod.put(Aula.PAIS, editCountry.getText().toString());
+                        mod.put(Aula.HORARIO_COMECO,btHour.getText().toString());
+                        mod.put(Aula.HORARIO_FIM,btFinalHour.getText().toString());
+                        mod.put(Aula.DIASSEMANA,putDays());
                         if(my64foto!=null)
-                            newClass.put(Aula.FOTO,my64foto);
-                        newClass.saveInBackground(new SaveCallback() {
+                            mod.put(Aula.FOTO,my64foto);
+                        mod.saveInBackground(new SaveCallback() {
                             public void done(ParseException e) {
                                 if (e == null) {
                                     dismissProgress();
@@ -364,14 +364,12 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
                             }
                         });
 
-                    }else{
+                   /* }else{
                         dismissProgress();
                         Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-
-             Log.e("TAG",putDays());
+                    }*/
+//                }
+           /* });*/
         }
 
 

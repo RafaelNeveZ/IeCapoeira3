@@ -36,7 +36,7 @@
             android:layout_width="@dimen/bt_height"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_eventlist_cell_confirm_select" />
+            android:src="@drawable/ic_eventlist_cell_confirm_unselect" />
     </LinearLayout>
 
     <LinearLayout

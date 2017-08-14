@@ -42,6 +42,9 @@
 
             <TextView
                 android:id="@+id/text_name"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:text="Nome do Evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/img"
@@ -78,7 +81,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/medium"
-        android:layout_marginTop="@dimen/small"
+        android:id="@+id/people"
+        android:layout_marginTop="12dp"
+
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
@@ -89,7 +94,14 @@
             android:id="@+id/text_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginLeft="8dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/spinner_ab_default_ie_capoeira" />
     </LinearLayout>
 
         <LinearLayout
@@ -97,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/little"
             android:layout_marginLeft="@dimen/medium"
-            android:layout_marginTop="@dimen/small"
+
             android:orientation="horizontal">
 
             <ImageView
@@ -110,6 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
+                android:layout_marginBottom="8dp"
                 android:lines="2" />
         </LinearLayout>
 

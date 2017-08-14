@@ -1,5 +1,6 @@
 package br.com.iecapoeira.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -20,20 +22,20 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 
-import java.util.Calendar;
 import java.util.List;
 
 import br.com.hemobile.MyApplication;
-import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.EventDetailActivity_;
+import br.com.iecapoeira.actv.AgendaActivity;
 import br.com.iecapoeira.actv.EventAdapter;
+import br.com.iecapoeira.actv.EventDetailActivity_;
+import br.com.iecapoeira.actv.MyEventAdapter;
+import br.com.iecapoeira.actv.MyEventDetailActivity_;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.utils.HENetworkUtil;
-import br.com.iecapoeira.view.EventItemView;
 
 @EFragment
-public class EventListFragment extends ListFragment {
+public class MyEventListFragment extends ListFragment {
 
     public static final int LIST_BY_CAPOEIRA = 0;
     public static final int LIST_BY_CULTURAIS = 1;
@@ -45,17 +47,15 @@ public class EventListFragment extends ListFragment {
     @FragmentArg
     int listType;
 
-    @FragmentArg
-    String filter;
 
     @Bean
-    EventAdapter adapter;
+    MyEventAdapter adapter;
 
     @AfterViews
     public void init() {
         setupListView();
     }
-    public static String notUpdate=null;
+
 
     @UiThread
     void showToast(String msg){
@@ -63,47 +63,44 @@ public class EventListFragment extends ListFragment {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 
-    void update(String filter) {
+    void update() {
 
         if(!HENetworkUtil.isOnline(getActivity())){
             showToast(getString(R.string.msg_erro_sem_conexao));
             return;
         }
-
-        ParseQuery<Event> query = ParseQuery.getQuery("Event");
-//        query.include(Event.OWNER);
+        ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
+        ParseQuery<Event> query = relation.getQuery();
         try {
-            Log.d("FILTER","" + filter);
+            Log.d("TAG","" + listType);
             switch (listType) {
                 case LIST_BY_CAPOEIRA:
- //                   query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                    //                   query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
                     query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
-                    if(!filter.equals("")){
-                        Log.d("FILTER","ENTREI" + filter);
-                        query.whereEqualTo(Event.CITY,filter);
-                    }
-
+                    Log.d("TAG","CAPOEIRA");
+                    Log.d("Event.TYPE",Event.TYPE);
+                    Log.d("TYPE_CUTURAL",TYPE_CAPOEIRA);
                     break;
                 case LIST_BY_CULTURAIS:
- //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-                   query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
-                    if(!filter.equals("")){
-                        Log.d("FILTER","ENTREI" + filter);
-                        query.whereEqualTo(Event.CITY,filter);
-                    }
+                    //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                    query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
+                    Log.d("TAG","CULTURAL");
+                    Log.d("Event.TYPE",Event.TYPE);
+                    Log.d("TYPE_CUTURAL",TYPE_CULTURAL);
                     break;
             }
-           // query.orderByAscending(Event.DATE);
+            // query.orderByAscending(Event.DATE);
             query.findInBackground(new FindCallback<Event>() {
                 @Override
                 public void done(List<Event> events, ParseException e) {
-
+                    Log.d("LISTA DE EVENT SIZE","" + events.size());
                     handleResult(events, e);
                 }
             });
-        } catch (Exception e) {
+        } catch (Exception ex) {
 
         }
+
     }
 
     @Background
@@ -113,7 +110,6 @@ public class EventListFragment extends ListFragment {
                 getUsersGoing(event);
             }
         }*/
-        notUpdate=null;
         setupAdapter(events);
     }
 
@@ -129,6 +125,7 @@ public class EventListFragment extends ListFragment {
     @UiThread
     void setupAdapter(List<Event> events) {
         try {
+
             adapter.setList(events);
             adapter.notifyDataSetChanged();
             if (getListAdapter() == null)
@@ -139,13 +136,8 @@ public class EventListFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (notUpdate != null){
-            update(notUpdate);
-            }else{
-            update("");
-        }
+        update();
     }
-
 
     private void setupListView() {
         ListView listView = getListView();
@@ -164,6 +156,18 @@ public class EventListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Event item = adapter.getItem(position);
-        startActivity(new Intent(getActivity(), EventDetailActivity_.class).putExtra("id", item.getObjectId()));
+        startActivity(new Intent(getActivity(), MyEventDetailActivity_.class).putExtra("id", item.getObjectId()));
     }
+   /* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 10) {
+            if(resultCode == Activity.RESULT_OK){
+                getList();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                update();
+            }
+        }
+    }*/
 }

@@ -51,7 +51,7 @@
     <string name="msg_erro_sem_conexao">Você está sem internet, tente novamente.</string>
     <string name="msg_erro_usuario_ja_existe">You cannot use this user. If the error persist, contact us.</string>
     <string name="msg_foto_recebida">Foto recebida</string>
-    <string name="msg_no_events">Evento nao encontrado</string>
+    <string name="msg_no_events">Sem eventos no momento</string>
     <string name="msg_saiu">Esquerda</string>
     <string name="msg_salvo_sucesso">Salvo com sucesso</string>
     <string name="msg_x_x_na_sala" formatted="false">%s %s sala de bate papo</string>
@@ -100,8 +100,8 @@
     <string name="menu_enviar_foto">Enviando foto da galeria.</string>
     <string name="menu_denuncia_chat">Reporte um problema com essa sala</string>
     <string name="criar">Criado</string>
-    <string name="menu_delete">Evento apagado</string>
-    <string name="titulo_delete_event">Vocé tem certeza?</string>
+    <string name="menu_delete">OK</string>
+    <string name="titulo_delete_event">Vocé tem certeza que quer apagar o evento?</string>
 
     <string name="mestre_veru">Mestre Veru</string>
 

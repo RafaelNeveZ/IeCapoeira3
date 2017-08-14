@@ -91,6 +91,30 @@
             android:maxLength="50"
             android:maxLines="1" />
 
+        <RadioGroup
+            android:id="@+id/rd_group"
+            android:layout_marginLeft="@dimen/small"
+            android:layout_marginRight="@dimen/small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="15dp">
+
+            <RadioButton
+                android:id="@+id/rd_cultural"
+                android:checked="true"
+                android:layout_width="match_parent"
+                android:text="CULTURAL"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rd_capoeira"
+                android:layout_width="match_parent"
+                android:text="CAPOEIRA"
+                android:layout_marginTop="5dp"
+
+                android:layout_height="wrap_content" />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/edit_city"

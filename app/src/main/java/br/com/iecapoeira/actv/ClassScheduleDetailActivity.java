@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -63,8 +64,8 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
     @OptionsMenuItem(R.id.delete)
     MenuItem delete;
 
-    @OptionsMenuItem(R.id.singup)
-    MenuItem singup;
+    /*@OptionsMenuItem(R.id.singup)
+    MenuItem singup;*/
 
     private ProgressDialog progressDialog;
 
@@ -109,20 +110,29 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.delete){
-            showProgress("Deletando aula...");
+           /* showProgress("Deletando aula...");
             ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
             query.getInBackground(model.getObjectId(), new GetCallback<Aula>() {
                 public void done(Aula thisClass, ParseException e) {
-                    if (e == null) {
-                        thisClass.deleteInBackground();
-                        dismissProgress();
-                        finish();
-                    }else{
-                        dismissProgress();
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
+                    if (e == null) {*/
+                        model.deleteInBackground(new DeleteCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                               if(e==null) {
+                                   dismissProgress();
+                                   finish();
+                               }else{
+                                   dismissProgress();
+                                   Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                               }
+                            }
+                        });
+
+              /*      }else{*/
+
+                 /*   }
                 }
-            });
+            });*/
 
         }
         if (item.getItemId() == R.id.edit)
@@ -171,7 +181,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu (Menu menu) {
 
 
-        checkClass();
+       // checkClass();
         if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
             Log.d("TAG", "ADM");
 
@@ -190,7 +200,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     }
 
-    public  void checkClass(){
+    /*public  void checkClass(){
         ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
         query.whereEqualTo(Event.OBJECTID, model.getObjectId());
         query.findInBackground(new FindCallback<Aula>() {
@@ -213,12 +223,12 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
                 });
             }
         });
-    }
+    }*/
 
 
 
 
-    @OptionsItem
+    /*@OptionsItem
     public void singup() {
             showProgress("Aguarde um momento...");
             ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
@@ -281,6 +291,6 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
                 }
             });
 
-    }
+    }*/
 
 }

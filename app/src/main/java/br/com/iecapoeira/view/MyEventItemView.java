@@ -1,29 +1,22 @@
 package br.com.iecapoeira.view;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -32,15 +25,12 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import br.com.hemobile.ItemView;
-import br.com.iecapoeira.IEApplication;
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.ClassScheduleActivity;
-import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.utils.HETextUtil;
 
-@EViewGroup(R.layout.item_event)
-public class EventItemView extends ItemView<Event> {
+@EViewGroup(R.layout.my_item_event)
+public class MyEventItemView extends ItemView<Event> {
 
     @ViewById
     TextView textName;
@@ -60,7 +50,7 @@ public class EventItemView extends ItemView<Event> {
     ImageView img;
     private ProgressDialog progressDialog;
 
-    public EventItemView(Context context) {
+    public MyEventItemView(Context context) {
         super(context);
     }
 
@@ -85,7 +75,8 @@ public class EventItemView extends ItemView<Event> {
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         textDate.setText(sdf.format(obj.getDate()));
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
-        checkEvents();
+
+        setImageBtGoing(true);
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {
             setProfilePicture(picture);
@@ -101,35 +92,7 @@ public class EventItemView extends ItemView<Event> {
 
     }
 
-    public  void checkEvents(){
-        /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
-        query.findInBackground(new FindCallback<Event>() {*/
-           /* @Override
-            public void done(List<Event> models, ParseException e) {*/
-                //ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-                ParseRelation<ParseObject> relation = obj.getRelation("eventGo");
-                ParseQuery<ParseObject> qry = relation.getQuery();
-                qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
-                qry.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> users, ParseException e) {
-                        if(users!=null) {
-                            if (users.size() > 0) {
-                                for (int a = 0; a < users.size(); a++) {
-                                    Log.d("EVENT NAME", users.get(a).get(Event.NAME).toString());
-                                }
-                                setImageBtGoing(true);
-                                //  go=false;
-                            }else{
-                                setImageBtGoing(false);
-                            }
-                        }
-                    }
-                });
-        //    }
-      //  });
-    }
+
  /*  public void subscribe(){
        ParseQuery<Event> query = ParseQuery.getQuery("Event");
        query.whereEqualTo(Event.OBJECTID,obj.getObjectId());

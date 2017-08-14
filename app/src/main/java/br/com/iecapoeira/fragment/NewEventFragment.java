@@ -27,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -115,6 +116,9 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @ViewById
     RecyclerView rcNew;
+
+    @ViewById
+    RadioButton rdCultural, rdCapoeira;
 
     private ProgressDialog progressDialog;
 
@@ -320,8 +324,10 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 newEvent.put(Event.CITY, editCity.getText().toString());
                 newEvent.put(Event.STATE, editState.getText().toString());
                 newEvent.put(Event.COUNTRY, editCountry.getText().toString());
-
-                newEvent.put(Event.TYPE,1);
+                /*ParseRelation<ParseUser> relation = newEvent.getRelation(Event.OWNER);
+                relation.add(ParseUser.getCurrentUser());*/
+                newEvent.put(Event.OWNER,ParseUser.getCurrentUser().getUsername());
+                newEvent.put(Event.TYPE,isCapeira());
                 if(my64foto!=null)
                 newEvent.put(Event.FOTO,my64foto);
                 Calendar date = Calendar.getInstance();
@@ -343,7 +349,14 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
 
 
-            }
+        }
+
+    private Integer isCapeira() {
+        if(rdCapoeira.isChecked())
+            return 0;
+        else
+            return 1;
+    }
 
     @Click
     public void editCity(){
@@ -405,7 +418,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
         String name = editName.getText().toString().trim();
         String address = editAddress.getText().toString().trim();
-        String city = editCity.getText().toString().trim();
+        String city = (String) getText(R.string.choose_city);
         String country = editCountry.getText().toString().trim();
         String state = editState.getText().toString().trim();
         String description = editDesc.getText().toString().trim();
@@ -416,6 +429,10 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         }
         if (address.isEmpty()) {
             setError(editAddress, getString(R.string.msg_erro_campo_vazio));
+            return false;
+        }
+        if (editCity.getText().equals(city)) {
+            Toast.makeText(getActivity(), "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
             return false;
         }
         /*if (city.isEmpty()) {
