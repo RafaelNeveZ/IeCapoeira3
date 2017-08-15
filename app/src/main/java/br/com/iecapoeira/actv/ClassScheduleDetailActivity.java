@@ -1,8 +1,10 @@
 package br.com.iecapoeira.actv;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -115,18 +117,27 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             query.getInBackground(model.getObjectId(), new GetCallback<Aula>() {
                 public void done(Aula thisClass, ParseException e) {
                     if (e == null) {*/
-                        model.deleteInBackground(new DeleteCallback() {
-                            @Override
-                            public void done(ParseException e) {
-                               if(e==null) {
-                                   dismissProgress();
-                                   finish();
-                               }else{
-                                   dismissProgress();
-                                   Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                               }
-                            }
-                        });
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.titulo_delete_class)
+                    .setPositiveButton(R.string.menu_delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            model.deleteInBackground(new DeleteCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if(e==null) {
+                                        dismissProgress();
+                                        finish();
+                                    }else{
+                                        dismissProgress();
+                                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null).show();
+
 
               /*      }else{*/
 

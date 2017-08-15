@@ -95,7 +95,7 @@ public class UserActivity extends AppCompatActivity {
         if(validateFields()){
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.choose_email);
-            dialog.setTitle("Atualizar cadastror");
+            dialog.setTitle("Atualizar cadastro");
             dialog.show();
             TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
             Button btY = (Button) dialog.findViewById(R.id.yes);
@@ -111,12 +111,13 @@ public class UserActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     showProgress("Atualizando Cadastro...");
                     Log.e("TAG", actualUser.getObjectId());
-                    ParseQuery<ParseUser> query = ParseUser.getQuery();
+                   /* ParseQuery<ParseUser> query = ParseUser.getQuery();
                     query.getInBackground(actualUser.getObjectId(), new GetCallback<ParseUser>() {
-                        public void done(ParseUser actualUser, ParseException e) {
-                            if (e == null) {
+                        public void done(ParseUser actualUser, ParseException e) {*/
+                            if (ParseUser.getCurrentUser() != null) {
                                 if (!(editEmail.getText().toString().equals("" + actualUser.get("username")))) {
                                     if (!(localList.contains(editEmail.getText().toString()))) {
+                                        Log.d("mudei","mudei");
                                         actualUser.put("username", editEmail.getText().toString());
                                         actualUser.put("email", editEmail.getText().toString());
                                         mudouEmail = true;
@@ -151,10 +152,10 @@ public class UserActivity extends AppCompatActivity {
                             } else {
                                 dismissProgress();
                                 dialog.dismiss();
-                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Erro", Toast.LENGTH_LONG).show();
                             }
-                        }
-                    });
+                     /*   }
+                    });*/
                 }
             });
                 }

@@ -28,6 +28,7 @@ import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 
 import br.com.iecapoeira.actv.MusicaActivity_;
+import br.com.iecapoeira.actv.MyMusicaActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
 import br.com.iecapoeira.actv.SalaChatActivity_;
 import br.com.iecapoeira.actv.UserActivity_;
@@ -167,7 +168,7 @@ public class LeftMenuFragment extends Fragment {
                 notDashActivity=true;
                 break;
             case MUSIC:
-                intent = new Intent(getActivity(), MusicaActivity_.class);
+                intent = new Intent(getActivity(), MyMusicaActivity_.class);
                 notDashActivity=true;
                 break;
             case EDICTS:

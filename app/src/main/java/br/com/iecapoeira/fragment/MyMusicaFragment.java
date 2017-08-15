@@ -6,26 +6,34 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.CityActivity_;
-import br.com.iecapoeira.actv.NewEventActivity_;
+import br.com.iecapoeira.actv.NewMusicActivity_;
 
 @EFragment(R.layout.frag_main)
-@OptionsMenu(R.menu.agenda_menu)
-public class AgendaFragment extends Fragment {
+@OptionsMenu(R.menu.main)
+public class MyMusicaFragment extends Fragment {
 
     @ViewById
     ViewPager pager;
+
+    @OptionsMenuItem(R.id.new_event)
+    MenuItem newsong;
 
     @ViewById
     PagerSlidingTabStrip tabs;
@@ -33,7 +41,7 @@ public class AgendaFragment extends Fragment {
     private String filter="";
 
     private TabsAdapter adapter;
-    final int[] title = {R.string.titulo_eventos_capoeira, R.string.titulo_eventos_culturais};
+    final int[] title = {R.string.angola_title, R.string.regional_title,R.string.play_list};
 
     @AfterViews
     public void init() {
@@ -51,7 +59,7 @@ public class AgendaFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 tabs.notifyDataSetChanged();
-                ((MyEventListFragment_)adapter.getItem(pager.getCurrentItem())).update();
+                ((MyMusicaListFragment_)adapter.getItem(pager.getCurrentItem())).update();
 //                getActivity().setTitle(title[position]);
             }
 
@@ -63,6 +71,28 @@ public class AgendaFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        try {
+            if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
+                Log.d("TAG", "ADM");
+                newsong.setVisible(true);
+            }else{
+                newsong.setVisible(false);
+                Log.d("TAG", "Não é ADM");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OptionsItem
+    public void newEvent() {
+        startActivityForResult(new Intent(getActivity(), NewMusicActivity_.class), 10);
+    }
 
 
 
@@ -120,12 +150,16 @@ public class AgendaFragment extends Fragment {
             if (fragments[position] == null) {
                 switch (position) {
                     case 0:
-                        MyEventListFragment.LIST =0;
-                        fragments[position] = MyEventListFragment_.builder().listType(MyEventListFragment.LIST_BY_CAPOEIRA).build();
+                        MyMusicaListFragment.LIST =0;
+                        fragments[position] = MyMusicaListFragment_.builder().listType(MyMusicaListFragment.LIST_BY_ANGOLA).build();
                         break;
                     case 1:
-                        MyEventListFragment.LIST =1;
-                        fragments[position] = MyEventListFragment_.builder().listType(MyEventListFragment.LIST_BY_CULTURAIS).build();
+                        MyMusicaListFragment.LIST =1;
+                        fragments[position] = MyMusicaListFragment_.builder().listType(MyMusicaListFragment.LIST_BY_REGIONAL).build();
+                        break;
+                    case 2:
+                        MyMusicaListFragment.LIST =2;
+                        fragments[position] = MyMusicaListFragment_.builder().listType(MyMusicaListFragment.LIST_BY_PLAYLIST).build();
                         break;
                     default:
                         return null;
@@ -136,7 +170,7 @@ public class AgendaFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
 
@@ -148,7 +182,7 @@ public class AgendaFragment extends Fragment {
         public void update() {
             for (Fragment fragment : fragments) {
                 try {
-                    ((MyEventListFragment) fragment).update();
+                    ((MyMusicaListFragment) fragment).update();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
