@@ -1,14 +1,19 @@
 package br.com.iecapoeira.fragment;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -22,6 +27,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hemobile.MyApplication;
@@ -30,6 +36,7 @@ import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.MyMusicaAdapter;
 import br.com.iecapoeira.adapter.MusicaAdapter;
 import br.com.iecapoeira.model.Event;
+import br.com.iecapoeira.model.Parceiro;
 import br.com.iecapoeira.utils.HENetworkUtil;
 import br.com.iecapoeira.view.MusicaItemView;
 
@@ -52,6 +59,7 @@ public class MyMusicaListFragment extends ListFragment {
 
     @Bean
     public MyMusicaAdapter adapter;
+    private ProgressDialog progressDialog;
 
     @AfterViews
     public void init() {
@@ -84,7 +92,7 @@ public class MyMusicaListFragment extends ListFragment {
                     query.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> musics, ParseException e) {
-                            Log.d("LISTA DE EVENT SIZE","" + musics.size());
+
                             handleResult(musics, e);
                         }
                     });
@@ -116,7 +124,7 @@ public class MyMusicaListFragment extends ListFragment {
                     queryFav.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> musics, ParseException e) {
-                            Log.d("LISTA DE EVENT SIZE FAV","" + musics.size());
+
 
                             handleResult(musics, e);
                         }
@@ -186,9 +194,66 @@ public class MyMusicaListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        ParseObject item = adapter.getItem(position);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(""+ item.getString("link"))));
-        //startActivity(new Intent(getActivity(), MyEventDetailActivity_.class).putExtra("id", item.getObjectId()));
+        final ParseObject item = adapter.getItem(position);
+        if ((Boolean) ParseUser.getCurrentUser().get("Admin") && !MusicaItemView.sacaninha) {
+            final Dialog dialog = new Dialog(getActivity());
+            dialog.setContentView(R.layout.delete_edit);
+            dialog.setTitle("Música");
+            dialog.show();
+            TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
+            Button btY = (Button) dialog.findViewById(R.id.yes);
+            Button btN = (Button) dialog.findViewById(R.id.no);
+            text.setText("Deseja deletar a música " + item.get("title")+"?");
+            btY.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(""+ item.getString("link"))));
+                }
+            });
+            btN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                        showProgress("Deletando música...");
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Music");
+                        query.getInBackground(item.getObjectId(), new GetCallback<ParseObject>() {
+                            public void done(ParseObject item, ParseException e) {
+                                if (e == null) {
+                                    item.deleteInBackground();
+                                    adapter.notifyDataSetChanged();
+                                    dismissProgress();
+                                    Toast.makeText(getActivity(), "Musica deletada", Toast.LENGTH_LONG).show();
+                                } else {
+                                    dismissProgress();
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                }
+            });
+
+        }else{
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(""+ item.getString("link"))));
+        }
+}
+
+    @UiThread
+    public void showProgress(String text) {
+        try {
+            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.aguarde), text, true, false);
+        } catch (Exception e) { e.printStackTrace(); }
+
+    }
+
+    @UiThread
+    public void dismissProgress() {
+        if (progressDialog != null) {
+            try {
+                progressDialog.dismiss();
+            } catch (Exception e) { e.printStackTrace(); }
+
+        }
     }
    /* @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -83,7 +83,7 @@ public class MusicaActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
        /* final ListView lista = (ListView) findViewById(R.id.listView1);
-        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, musicas );
+        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, classes );
         lista.setAdapter(adapter);*/
 
         drawerToggle = new ActionBarDrawerToggle(
@@ -162,7 +162,7 @@ public class MusicaActivity extends AppCompatActivity {
     }
 
     public void getSetMusicaList(){
-        /*String[] musicas = {
+        /*String[] classes = {
                 "É DE BAMBA",
                 "CAPOEIRA É UMA ARTE",
                 "MUNDO ENGANADOR",
@@ -235,8 +235,8 @@ public class MusicaActivity extends AppCompatActivity {
         };
         List<Musica> listAux = new ArrayList<>();
 
-        for(int i = 0; i < musicas.length; i++){
-            Musica m = new Musica(musicas[i % musicas.length], links[i % links.length]);
+        for(int i = 0; i < classes.length; i++){
+            Musica m = new Musica(classes[i % classes.length], links[i % links.length]);
             listAux.add(m);
         }*/
 

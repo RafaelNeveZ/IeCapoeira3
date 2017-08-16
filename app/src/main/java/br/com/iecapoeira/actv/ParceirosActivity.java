@@ -311,9 +311,9 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
             Button btN = (Button) dialog.findViewById(R.id.no);
 
             if (TABPOSITION == 0)
-                text.setText("Deseja deletar o Parceiro " + listPar.get(position).get(Parceiro.NAME));
+                text.setText("Deseja deletar o Parceiro " + listPar.get(position).get(Parceiro.NAME)+"?");
             else
-                text.setText("Deseja deletar o Patrocinador " + listPatro.get(position).get(Parceiro.NAME));
+                text.setText("Deseja deletar o Patrocinador " + listPatro.get(position).get(Parceiro.NAME)+"?");
 
             btN.setOnClickListener(new View.OnClickListener() {
                 @Override

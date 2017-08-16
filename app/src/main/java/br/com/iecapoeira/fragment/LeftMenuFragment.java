@@ -28,6 +28,7 @@ import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 
 import br.com.iecapoeira.actv.MusicaActivity_;
+import br.com.iecapoeira.actv.MyClassActivity_;
 import br.com.iecapoeira.actv.MyMusicaActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
 import br.com.iecapoeira.actv.SalaChatActivity_;
@@ -160,7 +161,7 @@ public class LeftMenuFragment extends Fragment {
                 notDashActivity=true;
                 break;
             case CLASSES_SCHEDULE:
-                intent = new Intent(getActivity(), ClassScheduleActivity_.class);
+                intent = new Intent(getActivity(), MyClassActivity_.class);
                 notDashActivity=true;
                 break;
             case TEACHERS:

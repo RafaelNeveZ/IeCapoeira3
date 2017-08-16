@@ -76,8 +76,8 @@
     <string name="sala5">Capoeira no Brasil</string>
     <string name="sala6">Capoeira no mundo</string>
 
-    <string name="angola_title">ANGOLA</string>
-    <string name="regional_title">REGIONAL</string>
+    <string name="angola_title" translatable="false">ANGOLA</string>
+    <string name="regional_title" translatable="false">REGIONAL</string>
 
     <string name="angola">Angola</string>
     <string name="regional">Regional</string>
@@ -105,7 +105,7 @@
     <string name="criar">Criado</string>
     <string name="menu_delete">OK</string>
     <string name="titulo_delete_event">Vocé tem certeza que quer apagar o evento?</string>
-    <string name="titulo_delete_class">Vocé tem certeza que quer apagar a aula?</string>
+    <string name="titulo_delete_class" translatable="false">Vocé tem certeza que quer apagar a aula?</string>
 
     <string name="mestre_veru">Mestre Veru</string>
 
@@ -128,7 +128,7 @@
     <string name="sabado">Sábado</string>
     <string name="domingo">Domingo</string>
 
-    <string name="play_list">PLAY LIST</string>
+    <string name="play_list" translatable="false">PLAY LIST</string>
     <string name="hint_nome_professor">Nome do professor</string>
     <string name="hint_estilo_capoeira">Estilo de capoeira</string>
     <string name="hint_graduacao">Graduação</string>

@@ -42,7 +42,8 @@
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="#b8b8b8"
+            android:textColor="@color/gray_txt_dark"
+            android:text="Descrição"
             android:background="@color/white"/>
     </LinearLayout>
 

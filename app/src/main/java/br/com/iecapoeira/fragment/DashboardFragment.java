@@ -22,6 +22,7 @@ import br.com.iecapoeira.actv.EditalActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 import br.com.iecapoeira.actv.MusicaActivity_;
+import br.com.iecapoeira.actv.MyClassActivity_;
 import br.com.iecapoeira.actv.MyMusicaActivity_;
 import br.com.iecapoeira.actv.MyParceirosActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
@@ -135,7 +136,7 @@ public class DashboardFragment extends Fragment {
                 intent = new Intent(getActivity(),AgendaActivity_.class);
                 break;
             case CLASSES_SCHEDULE:
-                intent = new Intent(getActivity(), ClassScheduleActivity_.class);
+                intent = new Intent(getActivity(), MyClassActivity_.class);
                 break;
             case TEACHERS:
                 intent = new Intent(getActivity(), ListaMestreActivity_.class);

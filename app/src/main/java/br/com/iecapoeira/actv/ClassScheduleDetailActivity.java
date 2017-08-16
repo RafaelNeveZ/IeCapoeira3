@@ -51,7 +51,7 @@ import br.com.iecapoeira.utils.ImageUtil;
 @OptionsMenu(R.menu.class_detail)
 public class ClassScheduleDetailActivity extends AppCompatActivity {
 
-    public static Aula model;
+    public static ParseObject model;
     public boolean IsNotAdmin = false;
     @ViewById
     Toolbar toolbar;
@@ -89,12 +89,12 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             ivTeacher.setImageBitmap(decodedByte);
         }
-        tvTeacher.setText(model.getMestre());
-        tvDescription.setText(model.getSobreAula());
-        tvDays.setText(model.getDiasSemana());
-        Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco()+"/n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
-        tvPlace.setText(model.getEndereco()+".\n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
-        tvTime.setText(model.getHorarioStart()+ " às "+ model.getHorarioEnd());
+        tvTeacher.setText(model.getString(Aula.MESTRE));
+        tvDescription.setText(model.getString(Aula.MESTRE));
+        tvDays.setText(model.getString(Aula.DIASSEMANA));
+       // Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco()+"/n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
+        tvPlace.setText(model.getString(Aula.ENDERECO)+".\n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
+        tvTime.setText(model.getString(Aula.HORARIO_COMECO)+ " às "+ model.getString(Aula.HORARIO_FIM));
     }
 
 

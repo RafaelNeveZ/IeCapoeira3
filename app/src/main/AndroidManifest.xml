@@ -189,9 +189,10 @@
             android:name=".actv.MyMusicaActivity_"
             android:label="Agenda"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".actv.MyParceirosActivity_"
-            android:label="@string/title_parceiros"
+            android:name=".actv.MyClassActivity_"
+            android:label="@string/title_aulas"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ContatoActivity_"

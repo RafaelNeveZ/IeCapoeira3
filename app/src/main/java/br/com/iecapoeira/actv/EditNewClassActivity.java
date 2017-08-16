@@ -101,7 +101,7 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
 
     private ProgressDialog progressDialog;
     private int horaInicial, minutoInicial, horafinal,minutofinal;
-    private Aula mod;
+    private ParseObject mod;
     private int selHour, selMinute;
     private final Context context = this;
     private Bitmap bmp;
@@ -115,7 +115,7 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
     public void init() {
         int editCityVisb = cityChoice.getVisibility();
         addOtherClass.setVisibility(View.GONE);
-         mod =  ClassScheduleDetailActivity_.model;
+        mod =  ClassScheduleDetailActivity_.model;
         editName.setText(mod.get(Aula.MESTRE).toString());
         editGraduation.setText(mod.get(Aula.GRADUACAO).toString());
         editDesc.setText(mod.get(Aula.SOBREAULA).toString());
