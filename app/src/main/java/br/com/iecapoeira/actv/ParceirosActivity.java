@@ -93,6 +93,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
     void init() {
         listPar = new ArrayList<>();
         listPatro = new ArrayList<>();
+
         setupParceiro();
 
     }
@@ -116,6 +117,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
         listaParceiros.add(getResources().getDrawable(R.drawable.parceiro_01));
         listaParceiros.add(getResources().getDrawable(R.drawable.parceiro_02));
         listaParceiros.add(getResources().getDrawable(R.drawable.parceiro_03));*/
+        if(layoutManager!=null)
         layoutManager.setSpanCount(2);
         adapter.setPartners(listPar);
     }
@@ -125,6 +127,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
       /*  listaPatrocinadores = new ArrayList<>();
         listaPatrocinadores.add(getResources().getDrawable(R.drawable.patrocinador_01));
         listaPatrocinadores.add(getResources().getDrawable(R.drawable.patrocinador_02));*/
+        if(layoutManager!=null)
         layoutManager.setSpanCount(2);
         adapter.setSponsors(listPatro);
     }
@@ -170,7 +173,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
                 @Override
                 public void done(List<ParseObject> parceiro, ParseException e) {
                     listPar = parceiro;
-                    if (listPar.size() != 0) {
+                /*    if (listPar.size() != 0) {*/
                         if (firstTimeParceiro) {
                             if(firstTimeAdapter)
                             setupAdapter(listPar);
@@ -179,7 +182,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
                         clickParceiros();
                         adapter.notifyDataSetChanged();
 
-                    }
+                   /* }*/
                     dismissProgress();
                 }
             });

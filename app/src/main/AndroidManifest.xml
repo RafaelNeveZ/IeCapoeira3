@@ -190,6 +190,10 @@
             android:label="Agenda"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".actv.MyParceirosActivity_"
+            android:label="@string/title_parceiros"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".actv.ContatoActivity_"
             android:label="@string/title_contato"
             android:parentActivityName=".actv.DashboardActivity_"

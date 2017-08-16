@@ -77,7 +77,7 @@ public class NewParceiroActivity extends AppCompatActivity {
 
     public void galleyView(){
         if(isReadStorageAllowed()) {
-            PhotoUtil.getCroppedImageFromGallery(this);
+            PhotoUtil.getImageFromGallery(this);
         }else{
             requestStoragePermission();
         }

@@ -181,7 +181,7 @@ public class MyMusicaListFragment extends ListFragment {
         listView.setPadding(padding, padding, padding, 0);
         listView.setDivider(null);
         listView.setDividerHeight(padding);
-        setEmptyText(getString(R.string.msg_no_events));
+        setEmptyText("Não possui músicas aqui");
     }
 
     @Override
