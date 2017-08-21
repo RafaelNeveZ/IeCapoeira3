@@ -136,7 +136,7 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
 
     @Override
     public void onBackPressed() {
-
+        super.onBackPressed();
     }
 
     @Override

@@ -23,6 +23,7 @@ import br.com.iecapoeira.actv.ListaMestreActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.MyClassActivity_;
+import br.com.iecapoeira.actv.MyMestreActivity_;
 import br.com.iecapoeira.actv.MyMusicaActivity_;
 import br.com.iecapoeira.actv.MyParceirosActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
