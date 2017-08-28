@@ -410,7 +410,8 @@ e Canjiquinha, era o melhor convite para uma boa roda. Em 26 de
 março de 1999, Mestre Paulo dos Anjos deixa a terra em direção a
 arruanda.
 </string>
-    <string name="hist_capoeira" translatable="false"><p align="justify">
+    <string name="hist_title">Capoeira: legado afro-brasileiro para a humanidade1*</string>
+    <string name="hist_capoeira" ><p align="justify">
 Jogo, luta ou dança? Esta é umas das indagações, sem resposta conclusiva, que diz algo
 acerca do caráter multifacetado e plural da capoeira. Diferentes explicações se dão sobre sua
 origem. De acordo com uns, ela seria originária do Ngolo, mítico ritual africano de iniciação entre
