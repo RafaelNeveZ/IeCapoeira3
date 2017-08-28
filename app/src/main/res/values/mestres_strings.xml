@@ -1,127 +1,466 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="hist_mestre_pastinha" >Vicente Joaquim Ferreira  foi um dos principais mestres de Capoeira da história.\n
-Mais conhecido por Mestre Pastinha, nascido em 5 de abril de 1889, em Salvador,  dizia não ter aprendido a Capoeira em escola, mas "com a sorte". Afinal, foi o destino o responsável pela iniciação do pequeno Pastinha no jogo, ainda garoto. Em depoimento prestado no ano de 1967, no \'Museu da Imagem e do Som\', Mestre Pastinha relatou a história da sua vida: "Quando eu tinha uns dez anos - eu era franzininho - um outro menino mais taludo do que eu tornou-se meu rival. Era só eu sair para a rua - ir na venda fazer compra, por exemplo - e a gente se pegava em briga. Só sei que acabava apanhando dele, sempre. Então eu ia chorar escondido de vergonha e de tristeza." A vida iria dar ao moleque Pastinha a oportunidade de um aprendizado que marcaria todos os anos da sua longa existência.\n
-"Um dia, da janela de sua casa, um velho africano assistiu a uma briga da gente. Vem cá, meu filho, ele me disse, vendo que eu chorava de raiva depois de apanhar. Você não pode com ele, sabe, porque ele é maior e tem mais idade. O tempo que você perde empinando raia vem aqui no meu cazuá que vou lhe ensinar coisa de muita valia. Foi isso que o velho me disse e eu fui". Começou então a formação do mestre que dedicaria sua vida à transferência do legado da Cultura Africana a muitas gerações. Segundo ele, a partir deste momento, o aprendizado se dava a cada dia, até que aprendeu tudo. Além das técnicas, muito mais lhe foi ensinado por Benedito, seu professor africano. "Ele costumava dizer: não provoque, menino, vai botando devagarinho ele sabedor do que você sabe (…). Na última vez que o menino me atacou fiz ele sabedor com um só golpe do que eu era capaz. E acabou-se meu rival, o menino ficou até meu amigo de admiração e respeito."\n
-Ensino e difusão\n
-Foi na atividade do ensino da Capoeira que Pastinha se distinguiu. Ao longo dos anos, a competência maior foi demonstrada no seu talento como pensador sobre o jogo da Capoeira e na capacidade de comunicar-se. Os conceitos do mestre Pastinha formaram seguidores em todo Brasil. A originalidade do método de ensino, a prática do jogo enquanto expressão artística formaram uma escola que privilegia o trabalho físico e mental para que o talento se expanda em criatividade. Foi o maior propagador da Capoeira Angola, modalidade "tradicional" do esporte no Brasil.\n
-Em 1941, fundou a primeira escola de capoeira legalizada pelo governo baiano, o Centro Esportivo de Capoeira Angola (CECA), no Largo do Pelourinho, na Bahia. Hoje, o local que era a sede de sua academia é um restaurante do Senai.\n
-Em 1966, integrou a comitiva brasileira ao primeiro Festival Mundial de Arte Negra no Senegal, e foi um dos destaques do evento. Contra a violência, o Mestre Pastinha transformou a capoeira em arte. Em 1965, publicou o livro Capoeira Angola, em que defendia a natureza desportista e não-violenta do jogo.\n
-Entre seus alunos estão Mestres como João Grande, João Pequeno, Boca Rica, Curió, Bola Sete (Presidente da Associação Brasileira de Capoeira Angola), entre muitos outros que ainda estão em plena atividade. Sua escola ganhou notoriedade com o tempo, frequentada por personalidades como Jorge Amado, Mário Cravo e Carybé, cantada por Caetano Veloso no disco Transa (1972). Apesar da fama, o "velho Mestre" terminou seus dias esquecido. Expulso do Pelourinho em 1973 pela prefeitura, sofreu dois derrames seguidos, que o deixaram cego e indefeso. Morreu aos 93 anos.\n
-Durante décadas, dedicou-se ao ensino da Capoeira, e mesmo quando cego não deixava de acompanhar seus alunos. Vicente Ferreira Pastinha morreu no ano de 1981, mas continua vivo nas rodas, nas cantigas, no jogo.
-FONTE: Wikipédia, a enciclopédia livre.
+<string name="hist_mestre_pastinha" >Vicente Joaquim Ferreira  foi um dos principais mestres de Capoeira da história. \n
+Mais conhecido por Mestre Pastinha, nascido
+em 5 de abril de 1889, em Salvador,  dizia não ter aprendido a
+Capoeira em escola, mas \"com a sorte\";. Afinal, foi o destino o
+responsável pela iniciação do pequeno Pastinha no jogo, ainda
+garoto. Em depoimento prestado no ano de 1967, no \"Museu da
+Imagem e do Som\", Mestre Pastinha relatou a história da sua
+vida: \"Quando eu tinha uns dez anos - eu era franzininho - um outro
+menino mais taludo do que eu tornou-se meu rival. Era só eu sair
+para a rua - ir na venda fazer compra, por exemplo - e a gente se
+pegava em briga. Só sei que acabava apanhando dele, sempre.
+Então eu ia chorar escondido de vergonha e de tristeza.\" A vida iria
+dar ao moleque Pastinha a oportunidade de um aprendizado que
+marcaria todos os anos da sua longa existência.\";Um dia, da janela
+de sua casa, um velho africano assistiu a uma briga da gente. Vem
+cá, meu filho, ele me disse, vendo que eu chorava de raiva depois
+de apanhar. Você não pode com ele, sabe, porque ele é maior e
+tem mais idade. O tempo que você perde empinando raia vem aqui
+no meu cazuá que vou lhe ensinar coisa de muita valia. Foi isso que
+o velho me disse e eu fui\". Começou então a formação do mestre
+que dedicaria sua vida à transferência do legado da Cultura
+Africana a muitas gerações. Segundo ele, a partir deste momento, o
+aprendizado se dava a cada dia, até que aprendeu tudo. Além das
+técnicas, muito mais lhe foi ensinado por Benedito, seu professor
+africano. \"Ele costumava dizer: não provoque, menino, vai botando
+devagarinho ele sabedor do que você sabe (…). Na última vez que
+o menino me atacou fiz ele sabedor com um só golpe do que eu era
+capaz. E acabou-se meu rival, o menino ficou até meu amigo de
+admiração e respeito.\"Ensino e difusão Foi na atividade do ensino
+da Capoeira que Pastinha se distinguiu. Ao longo dos anos, a
+competência maior foi demonstrada no seu talento como pensador
+sobre o jogo da Capoeira e na capacidade de comunicar-se. Os
+conceitos do mestre Pastinha formaram seguidores em todo Brasil.
+A originalidade do método de ensino, a prática do jogo enquanto
+expressão artística formaram uma escola que privilegia o trabalho
+físico e mental para que o talento se expanda em criatividade. Foi o
+maior propagador da Capoeira Angola, modalidade\"tradicional\" do
+esporte no Brasil. Em 1941, fundou a primeira escola de capoeira
+legalizada pelo governo baiano, o Centro Esportivo de Capoeira
+Angola (CECA), no Largo do Pelourinho, na Bahia. Hoje, o local que
+era a sede de sua academia é um restaurante do Senai. Em 1966,
+
+integrou a comitiva brasileira ao primeiro Festival Mundial de Arte
+Negra no Senegal, e foi um dos destaques do evento. Contra a
+violência, o Mestre Pastinha transformou a capoeira em arte. Em
+1965, publicou o livro Capoeira Angola, em que defendia a natureza
+desportista e não-violenta do jogo. Entre seus alunos estão Mestres
+como João Grande, João Pequeno, Boca Rica, Curió, Bola Sete
+(Presidente da Associação Brasileira de Capoeira Angola), entre
+muitos outros que ainda estão em plena atividade. Sua escola
+ganhou notoriedade com o tempo, frequentada por personalidades
+como Jorge Amado, Mário Cravo e Carybé, cantada por Caetano
+Veloso no disco Transa (1972). Apesar da fama, o \"velho Mestre\"
+terminou seus dias esquecido. Expulso do Pelourinho em 1973 pela
+prefeitura, sofreu dois derrames seguidos, que o deixaram cego e
+indefeso. Morreu aos 93 anos. Durante décadas, dedicou-se ao
+ensino da Capoeira, e mesmo quando cego não deixava de
+acompanhar seus alunos. Vicente Ferreira Pastinha morreu no ano
+de 1981, mas continua vivo nas rodas, nas cantigas, no jogo.
 </string>
-    <string name="hist_mestre_bimba">Manoel dos Reis Machado, filho de Luís Cândido Machado exímio lutador de Batuque (luta de origem africana muito praticada na Bahia até o começo do século passado) e Maria Martinha do Bonfim, mais conhecido como Bimba, apelido que ganhou ao nascer entre uma aposta de sua mãe e a parteira sobre o sexo da criança(bimba na Bahia é o órgão sexual masculino), teve seu primeiro contato com a capoeira aos 12 anos de idade (1912), ele iniciou na capoeira na estrada das boiadas, hoje bairro da Liberdade, em Salvador. Seu mestre foi o africano Bentinho, capitão da Cia. De Navegação Baiana.\n
-Bimba começou a ensinar em 1918, quando ainda praticava capoeira(que depois criação da Regional veio se chamar de Angola). Seus alunos eram negros e mulatos das classes populares. Mas apesar da pouca idade(18 anos), possuía alunos também de classes privilegiada, como o Desembargador Décio dos Santos Seabra, da família do ex-governador Seabra ; Dr. Joaquim de Araújo Lima , jornalista(Imparcial e Nova Era) e mais tarde governador de Guaporé. Para estes e outros, as aulas eram particulares nos quintais e varandas de suas casas. Monteiro Lobato enviou-lhe uma carta elogiando sua persistência em elevar a capoeira aos níveis atuais, e um livro de sua autoria no qual estava incluso o \'22 de Marajó\', que contava as façanhas de um marujo capoeirista.\n
-Mestre Bimba um dos capoeiristas mais conceituados em sua época, carismático, lutador temido e jamais vencido em inúmeros desafios e combates públicos, "cantador" e percussionista admirável, discriminado por grande parte dos artistas e intelectuais de Salvador e venerado por seus alunos, realizou uma verdadeira revolução ao criar Capoeira Regional(motivo da discriminação dos artista e intelectuais). Passou a ensinar capoeira – agora chamada luta regional baiana e mais tarde capoeira regional – priorizando as pessoas de nível social mais alto e universitários; isto tiraria a capoeira da marginalidade, e economicamente era muito mais interessante. Abriu sua academia em 1930 (com o alvará saindo em 09/07/1937), sendo a primeira academia de capoeira da história e a quinta termos gerais do Brasil. Recebeu do inspetor técnico de Ensino Secundário profissional, o titulo de registro "que lhe requereu o Sr. Manoel dos Reis Machado, diretor do curso de Educação Física, sito à rua Bananal, 4.\n
-Sobre as inovações introduzidas por Mestre Bimba na capoeira muitos não aceitaram e apenas viram como descaracterização da capoeira que existia. Ele transformou a capoeira, usada para ataque e defesa, praticada por desordeiros e pessoas de classes mais humildes, numa luta com método de ensino próprio tornando-a um verdadeiro curso de Educação Física e criando rituais como: Batizado, Formatura e Especialização, seguindo padrões sociais e acadêmicos, pela própria nomenclatura. Conseguindo assim um grande número de adeptos em todas as classes principalmente entre os universitários, ou seja Mestre Bimba é o responsável pelo interesse de novas classes sociais pela capoeira.\n
-Mestre Bimba também deixou registrado em vinil a sua Regional, gravou um LP chamado Curso de Capoeira Regional, que contém cantigas e os toques de berimbau da Regional, sendo uma referencia para quem quer saber esses, também acompanha um livrete com a biografia do mestre e alguns golpes e movimentos da Regional.
-Em 1930 apareceu em sua academia um funcionário do governo que entregou um oficio convidando-o a comparecer ao palácio. Bimba pensou que ia ser preso, pois a capoeira ainda era muito descriminada, mas para sua surpresa o governador/interventor Juraci Magalhães queria apenas que e seus alunos se exibissem para alguns convidados.
-Em 1949, seus alunos realizam cinco lutas com lutadores de luta livre em São Paulo, vencendo três por nocaute.
-Em 1953, é cumprimentado pelo presidente da Republica, Getúlio Vargas, no palácio do governo em Salvador.
-Em 1955, apresentou-se com grande sucesso no Teatro José de Alencar, em Fortaleza.
-Em 1956, na festa de inauguração da TV Record, em SP, e no mesmo ano na ABI e no Maracanãzinho, no Rio.
-Em 1968, apresentou-se com seus alunos para três mil pessoas na Exposição de Pecuária de Teófilo Otôni, em Minas.
-Em 1969, vai ao II Simpósio Nacional de Capoeira, no Rio, patrocinado pela Comissão de Desportos da Aeronáutica, mais fica só um dia dizendo "aquilo não ia dar em nada". No I Simpósio ele havia enviado o Mestre Decânio
-Apesar da sua simpatia pelo PC(Partido Comunista), Bimba lecionou muito tempo nos meios militares, em 1930 alunos do CPOR entraram em contato e requisitaram seu Curso de Capoeira Regional, queriam que Bimba desse aulas do forte do Barbalho. Ele foi contra sua vontade, devido aos problemas que os capoeiristas e as classes menos favorecidas tinham com a polícia. Após o primeiro momento e sentindo que financeiramente era um bom negócio, ele deu o curso e se tornou um instrutor muito solicitado por elementos das Forças Armadas. O que mais fascinava os militares era o curso de emboscadas.\n
-Antes de ir para Goiânia, Bimba formou sua última turma, uma formatura muito comentada chamada \'formatura do adeus\' depois deste evento ele deixou a Bahia dizendo \'Não voltarei mas, aqui nunca fui lembrado pelos poderes públicos; se não gozar nada em Goiânia, vou gozar do cemitério.\' Depois que ele se foi veio a Salvador apenas duas vezes e dizendo que estava tudo bem, mas dona Nair nos disse \'ele foi enganado. Não volta porque é orgulhoso\'. Em 05 de fevereiro de 1974 um ano depois que deixou a Bahia, morria o mestre Bimba e foi enterrado em Goiânia. Transladar os restos mortais de Goiânia para Salvador foi difícil, os seus alunos achavam que o lugar dele era Bahia "ídolo não se pertence, pertence ao seu Público."\n
-FONTE: capoeirah.blogspot.com.br
+    <string name="hist_mestre_bimba">Manoel dos Reis Machado, filho de Luís Cândido Machado exímio
+lutador de Batuque (luta de origem africana muito praticada na
+Bahia até o começo do século passado) e Maria Martinha do
+Bonfim, mais conhecido como Bimba, apelido que ganhou ao
+nascer entre uma aposta de sua mãe e a parteira sobre o sexo da
+criança(bimba na Bahia é o órgão sexual masculino), teve seu
+primeiro contato com a capoeira aos 12 anos de idade (1912), ele
+iniciou na capoeira na estrada das boiadas, hoje bairro da
+Liberdade, em Salvador. Seu mestre foi o africano Bentinho, capitão
+da Cia. De Navegação Baiana. Bimba começou a ensinar em 1918,
+quando ainda praticava capoeira(que depois criação da Regional
+veio se chamar de Angola). Seus alunos eram negros e mulatos das
+classes populares. Mas apesar da pouca idade(18 anos), possuía
+alunos também de classes privilegiada, como o Desembargador
+Décio dos Santos Seabra, da família do ex-governador Seabra ; Dr.
+Joaquim de Araújo Lima , jornalista(Imparcial e Nova Era) e mais
+tarde governador de Guaporé. Para estes e outros, as aulas eram
+particulares nos quintais e varandas de suas casas. Monteiro
+Lobato enviou-lhe uma carta elogiando sua persistência em elevar a
+capoeira aos níveis atuais, e um livro de sua autoria no qual estava
+incluso o \";22 de Marajó\";, que contava as façanhas de um marujo
+capoeirista. Mestre Bimba um dos capoeiristas mais conceituados
+em sua época, carismático, lutador temido e jamais vencido em
+
+inúmeros desafios e combates públicos, \"cantador\" e percussionista
+admirável, discriminado por grande parte dos artistas e intelectuais
+de Salvador e venerado por seus alunos, realizou uma verdadeira
+revolução ao criar Capoeira Regional(motivo da discriminação dos
+artista e intelectuais). Passou a ensinar capoeira – agora chamada
+luta regional baiana e mais tarde capoeira regional – priorizando as
+pessoas de nível social mais alto e universitários; isto tiraria a
+capoeira da marginalidade, e economicamente era muito mais
+interessante. Abriu sua academia em 1930 (com o alvará saindo em
+09/07/1937), sendo a primeira academia de capoeira da história e a
+quinta termos gerais do Brasil. Recebeu do inspetor técnico de
+Ensino Secundário profissional, o titulo de registro \"que lhe
+requereu o Sr. Manoel dos Reis Machado, diretor do curso de
+Educação Física, sito à rua Bananal, 4. Sobre as inovações
+introduzidas por Mestre Bimba na capoeira muitos não aceitaram e
+apenas viram como descaracterização da capoeira que existia. Ele
+transformou a capoeira, usada para ataque e defesa, praticada por
+desordeiros e pessoas de classes mais humildes, numa luta com
+método de ensino próprio tornando-a um verdadeiro curso de
+Educação Física e criando rituais como: Batizado, Formatura e
+Especialização, seguindo padrões sociais e acadêmicos, pela
+própria nomenclatura. Conseguindo assim um grande número de
+adeptos em todas as classes principalmente entre os universitários,
+ou seja Mestre Bimba é o responsável pelo interesse de novas
+classes sociais pela capoeira. Mestre Bimba também deixou
+registrado em vinil a sua Regional, gravou um LP chamado Curso
+de Capoeira Regional, que contém cantigas e os toques de
+berimbau da Regional, sendo uma referencia para quem quer saber
+esses, também acompanha um livrete com a biografia do mestre e
+alguns golpes e movimentos da Regional. Em 1930 apareceu em
+sua academia um funcionário do governo que entregou um oficio
+convidando-o a comparecer ao palácio. Bimba pensou que ia ser
+preso, pois a capoeira ainda era muito descriminada, mas para sua
+surpresa o governador/interventor Juraci Magalhães queria apenas
+que e seus alunos se exibissem para alguns convidados. Em 1949,
+seus alunos realizam cinco lutas com lutadores de luta livre em São
+Paulo, vencendo três por nocaute. Em 1953, é cumprimentado pelo
+presidente da Republica, Getúlio Vargas, no palácio do governo em
+Salvador. Em 1955, apresentou-se com grande sucesso no Teatro
+José de Alencar, em Fortaleza. Em 1956, na festa de inauguração
+da TV Record, em SP, e no mesmo ano na ABI e no
+Maracanãzinho, no Rio. Em 1968, apresentou-se com seus alunos
+para três mil pessoas na Exposição de Pecuária de Teófilo Otôni,
+
+em Minas. Em 1969, vai ao II Simpósio Nacional de Capoeira, no
+Rio, patrocinado pela Comissão de Desportos da Aeronáutica, mais
+fica só um dia dizendo \"aquilo não ia dar em nada\". No I Simpósio
+ele havia enviado o Mestre Decânio. Apesar da sua simpatia pelo
+PC(Partido Comunista), Bimba lecionou muito tempo nos meios
+militares, em 1930 alunos do CPOR entraram em contato e
+requisitaram seu Curso de Capoeira Regional, queriam que Bimba
+desse aulas do forte do Barbalho. Ele foi contra sua vontade, devido
+aos problemas que os capoeiristas e as classes menos favorecidas
+tinham com a polícia. Após o primeiro momento e sentindo que
+financeiramente era um bom negócio, ele deu o curso e se tornou
+um instrutor muito solicitado por elementos das Forças Armadas. O
+que mais fascinava os militares era o curso de emboscadas. Antes
+de ir para Goiânia, Bimba formou sua última turma, uma formatura
+muito comentada chamada \"formatura do adeus\" depois deste
+evento ele deixou a Bahia dizendo \"Não voltarei mas, aqui nunca fui
+lembrado pelos poderes públicos; se não gozar nada em Goiânia,
+vou gozar do cemitério.\" Depois que ele se foi veio a Salvador
+apenas duas vezes e dizendo que estava tudo bem, mas dona Nair
+nos disse \"ele foi enganado. Não volta porque é orgulhoso\". Em 05
+de fevereiro de 1974 um ano depois que deixou a Bahia, morria o
+mestre Bimba e foi enterrado em Goiânia. Transladar os restos
+mortais de Goiânia para Salvador foi difícil, os seus alunos achavam
+que o lugar dele era Bahia \"ídolo não se pertence, pertence ao seu
+Público.\"
 </string>
-    <string name="hist_mestre_joao_pequeno">Nascido em 27 de dezembro de 1917 em Araci, município do semiárido baiano, ainda jovem mudou-se com a família para Mata de São João, onde iniciou-se nas artes da capoeiragem com o negro Juvêncio. Foi agricultor, carvoeiro, vaqueiro. Anos mais tarde, já em Salvador, trabalha como ajudante de obras e depois feirante.\n
+    <string name="hist_mestre_joao_pequeno">Nascido em 27 de dezembro de 1917 em Araci, município do
+semiárido baiano, ainda jovem mudou-se com a família para Mata
+de São João, onde iniciou-se nas artes da capoeiragem com o
+negro Juvêncio. Foi agricultor, carvoeiro, vaqueiro. Anos mais tarde,
+já em Salvador, trabalha como ajudante de obras e depois feirante.
+Já frequentava algumas rodas de capoeira, como a de Cobrinha
+Verde, no Chame-Chame, mas sua vida começa a mudar quando,
+na década de quarenta, encontra Mestre Pastinha - Vicente Ferreira
+Pastinha , tido como a maior referência da capoeira angola - numa
 
-Já frequentava algumas rodas de capoeira, como a de Cobrinha Verde, no Chame-Chame, mas sua vida começa a mudar quando, na década de quarenta, encontra Mestre Pastinha - Vicente Ferreira Pastinha , tido como a maior referência da capoeira angola - numa roda de capoeira no Largo Dois de Julho. Pastinha o convidou para conhecer sua academia. João atendeu o convite e nunca mais saiu da companhia de seu mestre.\n
+roda de capoeira no Largo Dois de Julho. Pastinha o convidou para
+conhecer sua academia. João atendeu o convite e nunca mais saiu
+da companhia de seu mestre. João Pequeno era o responsável
+pelas aulas no Centro Esportivo de Capoeira Angola, o CECA,
+dirigido pelo Mestre Pastinha e localizado  num casarão no largo do
+Pelourinho. segundo ele contava, muitos capoeiras, hoje
+reconhecidos, passaram por suas mãos, inclusive o Mestre João
+Grande, hoje radicado em Nova York, e também respeitado no
+mundo todo. No início da década de 80, João funda o Centro
+Esportivo de Capoeira Angola Academia Mestre João Pequeno de
+Pastinha, localizado até os dias atuais no Forte de Santo Antônio
+Além do Carmo. O velho capoeirista nos deixou a tarde do dia 9 de
+dezembro de 2011, prestes a completar 94 anos de idade.</string>
 
-João Pequeno era o responsável pelas aulas no Centro Esportivo de Capoeira Angola, o CECA, dirigido pelo Mestre Pastinha e localizado  num casarão no largo do Pelourinho. segundo ele contava, muitos capoeiras, hoje reconhecidos, passaram por suas mãos, inclusive o Mestre João Grande, hoje radicado em Nova York, e também respeitado no mundo todo.\n
+    <string name="hist_mestre_eziquiel">Eziquiel Martins Marinho, o Mestre Eziquiel ou ainda, o Velho Zica,
+nasceu na Bahia no dia 18 de outubro de 1941, criado no bairro da
+Massaramduba e tinha como apelido Bila. Iniciou-se na Capoeira
+ainda menino, aprendendo-a de oitiva, coisa comum aos meninos
+de Salvador. Somente na década de 1960, levado por Sacy aluno
+de Mestre Bimba, chegou ao Centro de Cultura Física Regional-
+CCFR, de onde não saiu mais, formando-se lenço azul do Mestre
+Bimba e um dos seus mais fiéis discípulos. Foi por muito tempo da
+Polícia Militar Baiana, onde iniciou sua carreira de Mestre de
+Capoeira ensinando no quartel dos Dendenzeiros. Mais tarde, com
+a partida de Mestre Bimba para Goiânia (1972), assumiu,
+juntamente com Mestre Vermelho 27, a responsabilidade pela
+academia do antigo Mestre no Terreiro de Jesus em Salvador. Por
+fim, acabou por fundar seu próprio grupo, junto do Mestre Franklin,
+o Grupo Luanda, com sede no Bairro do Resgate (Cabula), próximo
+a sua casa. O grupo tinha a intenção de realizar shows e divulgar a
+cultura baiana, e com ela o Maculelê, a Puxada de Rede, e
+principalmente, a Capoeira. Um dos maiores divulgadores da
+Capoeira pelo Brasil e pelo mundo, fez parte dos Grupo Folclórico
+Olodum e Olodumaré, participando inclusive do Festival
+Internacional de Folclore, em Salta, na Argentina. Com esses
+grupos obteve o primeiro lugar em dois anos consecutivos. Mais
+tarde, em Quito, Equador, sagrou-se também \"Campeão de
+Folclore\", recebendo o \"Huminaua de Oro\", e Campeão Brasileiro
+de Ginga. Como discípulo de Mestre Bimba é, juntamente com
+Mestre Itapoan, um dos maiores responsáveis pela disceminação
 
-No início da década de 80, João funda o Centro Esportivo de Capoeira Angola Academia Mestre João Pequeno de Pastinha, localizado até os dias atuais no Forte de Santo Antônio Além do Carmo.\n
+da filosofia e dos conhecimentos de seu Mestre e da Capoeira
+Regional pelo mundo da Capoeira. Mestre Itapoan comandando a
+parte teórica e histórica da Regional, e o saudoso Mestre Eziquiel
+preparando os esquetes dos jogos de Iuna, Benguela e São Bento
+Grande, como também, das sequências e balões ensinados no
+CCFR. A figura humilde, alegre e amiga de Mestre Eziquiel sempre
+foi uma porta aberta para qualquer pessoa interessada em aprender
+um pouco mais. No passado, a voz marcante, com um estilo único
+de interpretar, fez dele um dos maiores cantadores e compositores
+da Capoeira, enquanto, no presente, a saudade e o vazio deixados
+por sua partida o tornam uma das maiores presenças em nosso
+meio. Mestre eziquiel nos deixou em 26 de março de 1997.</string>
+    <string name="hist_mestre_caicara">Antônio Conceição Morais, conhecido como Mestre Caiçara, nasceu
+        em Cachoeira de São Félix, em 08 de maio de 1824. Caiçara
+        marcou época na história capoeira. Era provocante, alegre, atrevido
+        e simpático, Exibia uma capoeira bonita de se ver. Diziam os
+        entendidos que ele era “uma das lendas vivas da capoeira” e que
+        sua história \"mais parecia ter sido tirada de livros de ficção\". No
+        Pelourinho de sua época, ele “ditava as regras num território de
+        prostitutas e cafetões, de traficantes e malandros”. Todos tinham de
+        pedir a sua benção. Em um disco famoso, gravou os diversos
+        toques de berimbau, as ladainhas e os sambas de roda. Cantador
+        de primeira qualidade, contador de casos e de histórias, tinha
+        sempre uma reza para oferecer aos seus admiradores e
+        camaradas. Muito conhecido e festejado nas Festas de Largo,
+        sempre presente em qualquer evento popular, exibia sua camisa de
+        cores vermelho e verde, e promovia sua Academia de
+        Capoeira Angola São Jorge dos Irmãos Unidos do Mestre Caiçara,
+        (nome também de um disco fonográfico gravado em São Paulo).
+        Ardente defensor das tradições africanas, postava-se todas as
+        tardes no Terreiro de Jesus \"vendendo seu peixe e gingando”. Ele
+        era  “o dono da capoeira de rua”, com sua impressionante voz,
+        grave e profunda\". \"O vozeirão de Caiçara ressoava como o dos
+        possantes cantores de ópera; tanto pelo volume, quanto pela
+        afinação, e também por um natural e sadio exibicionismo. \"Com
+        muito orgulho e cheio de presepadas, contando lorotas, levantava a
+        camisa e exibia a marca dos tiros, facadas e navalhadas, cada uma
+        delas com sua história contada com muita prosopopeia, toda a vez
+        que o convidavam para tomar cerveja gelada, \"acompanhada de
+        cachaça e tira gosto\". 
 
-O velho capoeirista nos deixou a tarde do dia 9 de dezembro de 2011, prestes a completar 94 anos de idade.\n
-
-Fonte: Pedro Habib, Mestres e Capoeiras Famosos da Bahia</string>
-
-    <string name="hist_mestre_eziquiel">Eziquiel Martins Marinho, o Mestre Eziquiel ou ainda, o Velho Zica, nasceu na Bahia no dia 18 de outubro de 1941, criado no bairro da Massaramduba e tinha como apelido Bila.  Iniciou-se na Capoeira ainda menino, aprendendo-a de oitiva, coisa comum aos meninos de Salvador. Somente na década de 1960, levado por Sacy aluno de Mestre Bimba, chegou ao Centro de Cultura Física Regional-CCFR, de onde não saiu mais, formando-se lenço azul do Mestre Bimba e um dos seus mais fiéis discípulos.\n
-Foi por muito tempo da Polícia Militar Baiana, onde iniciou sua carreira de Mestre de Capoeira ensinando no quartel dos Dendenzeiros. Mais tarde, com a partida de Mestre Bimba para Goiânia  (1972), assumiu, juntamente com Mestre Vermelho 27, a responsabilidade pela academia do antigo Mestre no Terreiro de Jesus em Salvador. Por fim, acabou por fundar seu próprio grupo, junto do Mestre Franklin, o Grupo Luanda, com sede no Bairro do Resgate (Cabula), próximo a sua casa. O grupo tinha a intenção de realizar shows e divulgar a cultura baiana, e com ela o Maculelê, a Puxada de Rede, e principalmente, a Capoeira.\n
-Um dos maiores divulgadores da Capoeira pelo Brasil e pelo mundo, fez parte dos Grupo Folclórico Olodum e Olodumaré, participando inclusive do Festival Internacional de Folclore, em Salta, na Argentina. Com esses grupos obteve o primeiro lugar em dois anos consecutivos. Mais tarde, em Quito, Equador, sagrou-se também "Campeão de Folclore", recebendo o "Huminaua de Oro", e Campeão Brasileiro de Ginga.\n
-Como discípulo de Mestre Bimba é, juntamente com Mestre Itapoan, um dos maiores responsáveis pela disceminação da filosofia e dos conhecimentos de seu Mestre e da Capoeira Regional pelo mundo da Capoeira. Mestre Itapoan comandando a parte teórica e histórica da Regional, e o saudoso Mestre Eziquiel preparando os esquetes dos jogos de Iuna, Benguela e São Bento Grande, como também, das sequências e balões ensinados no CCFR.\n
-A figura humilde, alegre e amiga de Mestre Eziquiel sempre foi uma porta aberta para qualquer pessoa interessada em aprender um pouco mais. No passado, a voz marcante, com um estilo único de interpretar, fez dele um dos maiores cantadores e compositores da Capoeira, enquanto, no presente, a saudade e o vazio deixados por sua partida o tornam uma das maiores presenças em nosso meio.\n
-Mestre eziquiel nos deixou em 26 de março de 1997.\n\n
-Fontes bibliográficas:\n
-Wikipédia\n
-DE CAMPOS, Helio José Bastos Carneiro. UMA VIDA NA CAPOEIRA REGIONAL: Os seguidores da escola de Mestre Bimba.</string>
-    <string name="hist_mestre_caicara">Antônio ConceIção Morais, conhecido como Mestre Caiçara, nasceu em Cachoeira de São Félix, em 08 de maio de 1824.\n
-Caiçara marcou época na história capoeira. Era provocante, alegre, atrevido e simpático, Exibia uma capoeira bonita de se ver. Diziam os entendidos que ele era “uma das lendas vivas da capoeira” e que sua história “mais parecia ter sido tirada de livros de ficção”.\n
-No Pelourinho de sua época, ele “ditava as regras num território de prostitutas e cafetões, de traficantes e malandros”. Todos tinham de pedir a sua benção.\n
-Em um disco famoso, gravou os diversos toques de berimbau, as ladainhas e os sambas de roda. Cantador de primeira qualidade, contador de casos e de histórias, tinha sempre uma reza para oferecer aos seus admiradores e camaradas.\n
-Muito conhecido e festejado nas Festas de Largo, sempre presente em qualquer evento popular, exibia sua camisa de cores vermelho e verde, e promovia sua Academia de Capoeira Angola São Jorge dos Irmãos Unidos do Mestre Caiçara, (nome também de um disco fonográfico gravado em São Paulo).\n
-Ardente defensor das tradições africanas, postava-se todas as tardes no Terreiro de Jesus “vendendo seu peixe e gingando”. Ele era  “o dono da capoeira de rua”, com sua impressionante voz, grave e profunda”.  “O vozeirão de Caiçara ressoava como o dos possantes cantores de ópera; tanto pelo volume, quanto pela afinação, e também por um natural e sadio exibicionismo. \n
-“Com muito orgulho e cheio de presepadas, contando lorotas, levantava a camisa e exibia a marca dos tiros, facadas e navalhadas, cada uma delas com sua história contada com muita prosopopeia, toda a vez que o convidavam para tomar cerveja gelada, “acompanhada de cachaça e tira gosto”.\n
-Mestre Caiçara faleceu em 26 de agosto de 1997.
+        Mestre Caiçara faleceu em 26 de agosto de 1997.
 </string>
-    
-    <string name="hist_mestre_traira">Seu nome era José Ramos do Nascimento. Sabe-se que era muito famoso na cena capoeirística da Bahia. Era conhecido como períto na arte das rasteiras e cabeçadas.\n\n
 
-O escritor Jorge Amado, frequentador das rodas de capoeira no famoso barracão de Mestre Waldemar, descreveu Mestre Traíra como está descrito abaixo:\n
-"Traíra, um cabloco seco e de pouco falar, feito de músculos, grande mestre de capoeira. Vê-lo brincar é um verdadeiro prazer estético. Parece bailarino e só mesmo Pastinha pode competir com ele na beleza dos movimentos, na agilidade, na rigidez dos golpes. Quando Traíra não se encontra na Escola de Waldemar, está ali por perto, na Escola de Sete Molas, também na Liberdade".\n
-\n
-Mestre Traíra também teve participação no curta metragem "Vadiação", de Alexandre Robatto Filho, produzido em 1954, junto com muitos capoeiras famosos daquela época como Curió, Nagé, Bimba, Waldemar, Caiçara, Crispim e outros. Este filme foi um marco na história cinematográfica da capoeira.\n
-\n
-Também gravou um disco junto com  Mestre Cobrinha Verde, que recebeu o nome de “Capoeira da Bahia”. O disco foi produzido pela gravadora “Xauã” e é considerado uma raridade da produção fonográfica da capoeira.</string>
+    <string name="hist_mestre_traira">Seu nome era José Ramos do Nascimento. Sabe-se que era muito
+    famoso na cena capoeirística da Bahia. Era conhecido como períto
+    na arte das rasteiras e cabeçadas. O escritor Jorge Amado,
+    frequentador das rodas de capoeira no famoso barracão de Mestre
+    Waldemar, descreveu Mestre Traíra como está descrito
+    abaixo:\"Traíra, um cabloco seco e de pouco falar, feito de músculos,
+    grande mestre de capoeira. Vê-lo brincar é um verdadeiro prazer
+    estético. Parece bailarino e só mesmo Pastinha pode competir com
+    ele na beleza dos movimentos, na agilidade, na rigidez dos golpes.
+    Quando Traíra não se encontra na Escola de Waldemar, está ali por
+    perto, na Escola de Sete Molas, também na Liberdade\". Mestre
+    Traíra também teve participação no curta metragem \"Vadiação\", de
+    Alexandre Robatto Filho, produzido em 1954, junto com muitos
+    capoeiras famosos daquela época como Curió, Nagé, Bimba,
+    Waldemar, Caiçara, Crispim e outros. Este filme foi um marco na
+    história cinematográfica da capoeira. Também gravou um disco
+    junto com  Mestre Cobrinha Verde, que recebeu o nome de
+    \"Capoeira da Bahia\". O disco foi produzido pela gravadora \"Xauã\" e
+    é considerado uma raridade da produção fonográfica da capoeira.
+    </string>
+    <string name="hist_mestre_waldemar">A vida de Waldemar como capoeirista e mestre de capoeira começa
+mais precisamente em 1936, quando o capoeira completava 20
+anos de idade. Nascido em 1916, foi aluno de  Ricardo de Ilha de
+Maré, Talabi, Canário Pardo e Siri do Mangue. Conhecido com
+Mestre Waldemar da Liberdade, ou da Avenida Peixe, monta uma
+barracão de palha na década de 1940, na invasão do Corta-Braço,
+futuro bairro da Liberdade, onde joga-se capoeira e choquen pom
+todos os domingos, também ensinando na rampa do mercado na
+cidade baixa. Praticava uma diversidade de capoeira, dos mais
+lentos aos mais combativos, com afirmada preferência para os mais
+lentos. Durante a década de 50, a capoeira dele na Liberdade atrai
+acadêmicos, artistas e jornalistas. Os etnólogos Anthonny Leeds
+em 1950 e  Simone Dreyfus em 1955 gravam o som dos berimbaus.
+O escultor  Mário Cravo e o pintor Carybé, também capoeiristas,
 
-<string name="hist_mestre_waldemar">A vida de Waldemar como capoeirista e mestre de capoeira começa mais precisamente em 1936, quando o capoeira completava 20 anos de idade. Nascido em 1916, foi aluno de  Ricardo de Ilha de Maré, Talabi, Canário Pardo e Siri do Mangue.\n
-Conhecido com Mestre Waldemar da Liberdade, ou da Avenida Peixe, monta uma barracão de palha na década de 1940, na invasão do Corta-Braço, futuro bairro da Liberdade, onde joga-se capoeira e choquen pom todos os domingos, também ensinando na rampa do mercado na cidade baixa. Praticava uma diversidade de capoeira, dos mais lentos aos mais combativos, com afirmada preferência para os mais lentos.\n
-Durante a década de 50, a capoeira dele na Liberdade atrai acadêmicos, artistas e jornalistas. Os etnólogos Anthonny Leeds em 1950 e  Simone Dreyfus em 1955 gravam o som dos berimbaus. O escultor  Mário Cravo e o pintor Carybé, também capoeiristas, freqüentam o barracão. Mais tarde, a maior parte dos renomados capoeiristas afirmam ter grande influência na capoeira de Waldemar, na de Mestre Cobrinha Verde do bairro de Nordeste de Amaralina até na de Mestre Bimba.\n
-De acordo com Albano Marinho de Oliveira (1956), o grupo da Liberdade começou a cantar longos solos antes do jogo (hoje chamados ladainhas). O próprio Waldemar reivindicou, em depoimento, ter inventado pintar o berimbau. A fabricação e venda para os turistas de berimbau foi uma fonte de renda para mestre Waldemar.\n
-Waldemar, como bom capoeirista, andou na sombra. Ficou discreto sobre suas atividades e breve em sua fala. Mal existem fotos dele antes de velho. Não procurou a fama e, apesar de seu notado talento de cantor e de tocador de berimbau, não integrou muito o mercado de espetáculo turístico. Também, a música que se escuta nas gravações de 1951 e 1955 é coletiva, sempre tendo, ao menos, um dialogo de dois berimbaus.\n
-Velho e impossibilitado de jogar capoeira e de tocar berimbau pela doença de Parkinson, Waldemar ainda aproveitou um pouco do movimento de resgate das tradições dos anos 1980, cantando em diversas ocasiões e gravando CD com Mestre Canjiquinha.\n
-Mestre Waldemar faleceu em 1990.\n\n
-fontes: Mestres e Capoeiras Famosos da Bahia de Pedro Abib - Edufba e Wikipédia
+freqüentam o barracão. Mais tarde, a maior parte dos renomados
+capoeiristas afirmam ter grande influência na capoeira de
+Waldemar, na de Mestre Cobrinha Verde do bairro de Nordeste de
+Amaralina até na de Mestre Bimba. De acordo com Albano Marinho
+de Oliveira (1956), o grupo da Liberdade começou a cantar longos
+solos antes do jogo (hoje chamados ladainhas). O próprio
+Waldemar reivindicou, em depoimento, ter inventado pintar o
+berimbau. A fabricação e venda para os turistas de berimbau foi
+uma fonte de renda para mestre Waldemar. Waldemar, como bom
+capoeirista, andou na sombra. Ficou discreto sobre suas atividades
+e breve em sua fala. Mal existem fotos dele antes de velho. Não
+procurou a fama e, apesar de seu notado talento de cantor e de
+tocador de berimbau, não integrou muito o mercado de espetáculo
+turístico. Também, a música que se escuta nas gravações de 1951
+e 1955 é coletiva, sempre tendo, ao menos, um dialogo de dois
+berimbaus. Velho e impossibilitado de jogar capoeira e de tocar
+berimbau pela doença de Parkinson, Waldemar ainda aproveitou
+um pouco do movimento de resgate das tradições dos anos 1980,
+cantando em diversas ocasiões e gravando CD com Mestre
+Canjiquinha. Mestre Waldemar faleceu em 1990.
+</string>
+    <string name="hist_mestre_cobrinha_verde">Rafael Alves França, o Mestre Cobrinha Verde, viveu entre 1917 e
+1983 e foi um dos mais temidos e respeitados capoeiristas de sua
+época. Nascido na cidade de Santo Amaro da Purificação, berço da
+capoeira baiana, afirmava ser um parente legítimo do lendário
+capoeirista Besouro Mangangá, mais precisamente seu primo. Foi
+com ele que aos quatro anos de idade que se iniciou na arte da
+capoeiragem. Além de seu primo, também teve a oportunidade de
+aprender com os mais famosos capoeiristas daquela época, como
+Siri de Mangue, Canário Pardo e Doze Homens. O apelido
+“cobrinha-verde” foi dado pelo próprio Besouro Mangangá, devido à
+sua agilidade e destreza com as pernas. Foi um dos poucos
+conhecedores do jogo de “Santa Maria”. Toque onde os capoeiras
+jogavam com navalhas entre os dedos dos pés e chegou a ser o
+mais antigo capoeirista em atividade.Participou da revolução de 32
+e após ter dado baixa no exército, começou a dar aulas de capoeira
+na Fazenda Garcia. Também ensinou no Centro Esportivo de
+Capoeira Angola Dois de Julho, localizado no nordeste de
+Amaralina. Chegou a dividir os trabalhos com Mestre Pastinha,
+
+onde passou seus conhecimentos para seus alunos. Cobrinha
+Verde sempre ensinou a capoeira de graça. Conforme foi contado
+por ele próprio, seu primo Besouro o fez prometer que jamais
+cobraria dinheiro para ensinar a arte da capoeira. E essa promessa
+foi mantida até o final de sua vida. Em determinada época de sua
+vida Mestre Cobrinha Verde sai do recôncavo baiano e viaja grande
+parte do nordeste se metendo em várias aventuras, entre elas,
+acompanhar o bando de cangaceiros de Horácio de Matos. Em uma
+dessas aventuras contou que em certa ocasião, armado com um
+facão de 18 polegadas, enfrentou oito policiais que abriram fogo
+contra ele e com o dito facão conseguiu desviar todas as balas.
+Alguma semelhança com seu primo Besouro? Esta e muitas outras
+façanhas eram atribuídas não só à sua agilidade e destreza, mas
+também a algumas mandingas que só os baianos do recôncavo
+conhecem. Contava o mestre que essas mandingas foram
+ensinadas por um africano de nome Pascoal que era vizinho de sua
+avó. Dizia o mestre que possuía um patuá com poderes mágicos,
+que poderiam livrá-lo de inimigos e de algumas situações críticas,
+quando se metia em alguma confusão. Dizia também que esse
+patuá era vivo e que ficava pulando, quando era deixado num prato
+virgem. Mas um dia o patuá foi embora por causa de um erro que o
+mestre havia cometido. Depois de muitas aventuras e “causos” para
+contar, Cobrinha Verde volta à Bahia, onde vive até o final de sua
+vida. Em 1963, foi convidado pelo ator de cinema Roberto Batalin,
+para gravar um disco de capoeira, junto com os mestres Traíra e
+Gato. Este disco recebeu o nome de “Traíra Capoeira da Bahia”. Foi
+um dos primeiros do gênero e é considerada uma obra prima da
+capoeira. Em 1983, Mestre Cobrinha Verde se despede deste
+mundo, deixando um legado digno dos antigos mestres da capoeira
+da Bahia.
+</string>
+    <string name="hist_mestre_canjiquinha">Washington Bruno da Silva - Mestre Canjiquinha, nasceu a 25 de
+        setembro de 1925, em Salvador, na rua do Maciel de Baixo n 06,
+        Pelourinho. Discípulo do Mestre Raimundo Aberre, natural de Santo
+        Amaro da Purificação, Canjiquinha foi um dos capoeiras que mais
+        visibilidade deu a sua arte, viajando por todo o Brasil em exibições e
+        também atuando em muitos filmes. A partir dos anos 60, quando a
+        capoeira se tornou mais conhecida e divulgada no Brasil, a figura do
+        Mestre Canjiquinha ganhou maior relevo. Sua academia tornou-se
+        uma das principais agências de formação de novos capoeiristas
+        como Paulo dos Anjos, Geni, Lua – que se tornaram mestres de
+        outros e contribuídores para a expansão da capoeira em outros
+        países. São os responsáveis pela continuidade da herança de
+        Canjiquinha. A este Mestre a capoeira deve uma serie de invenções
+        sendo as mais conhecidas aquelas que ele introduziu nos toques e
+        jogos : Muzenza, Samango, Samba de Angola e também das
+        \"Festas de Arromba\", que ficaram famosas no largo da Bahia, onde
+        vários capoeiristas se reuniam e jogavam Capoeira em troca de
+        dinheiro ou bebida. Canjiquinha era um capoeira jovem e ágil,
+        fazendo com que se destaque entre os seus companheiros, porém
+        o seu maior destaque era no canto e no toque. Cantava como bem
+        poucos e com um repertório vastíssimo, inclusive com uma grande
+        facilidade de improvisar e de todos era quem mais tinha contribuído
+        para a adaptação de outros cânticos do folclore, à capoeira. A
+        capoeira perdeu o Mestre Canjiquinha aos 69 anos, em 1994.</string>
+    <string name="hist_mestre_paulo_dos_anjos">José Paulo dos Anjos - Mestre Paulo dos Anjos, nasceu na cidade
+de Estância, Estado de Sergipe em 15 de agosto de 1936. Com
+cinco anos foi morar em Salvador, Bahia, na rua Ubaranas, onde
+pela primeira vez conheceu um capoeirista, Mestre Bimba. De lá,
+mudou-se para Matatu e mais tarde Quintas das Beatas, hoje
+Cosme de Farias, onde em 1950 conheceu Mestre Canjiquinha, em
+rodas de rua, com quem então resolveu iniciar-se na Capoeira.
+Jovem, de origem humilde, lutador por natureza, resolveu deixar a
+Capoeira para lutar boxe. Mas seu coração já pertencia à Capoeira,
+e após alguns anos de pugilismo retornou à Academia de Mestre
+Canjiquinha, onde formou-se em 1957, tornando-se um de seus
+maiores discípulos. Além da roda de seu Mestre, era assíduo
+
+frequentador das rodas de Largo e das rodas de Mestre Waldemar
+da Liberdade, uma das mais célebres e tradicionais rodas da época,
+frequentada pela nata da Capoeira de então. Ali, segundo ele,
+aprendeu muitas das mandingas e malícias que possuía, como, por
+exemplo, a perícia no jogo de \"Panha a Laranja no Chão Tico-Tico\",
+o jogo de dinheiro. Em 1972, mudou-se para o km 17 em Itapoan,
+onde, em 1975, fundou a Associação de Capoeira Anjos de Angola.
+Partiu então para São Paulo, onde ensinou por cinco anos,
+deixando vários discípulos por lá, retornando à Salvador no começo
+de 1980. Até seu falecimento, vivia e possuía uma academia em
+Salvador, no Bairro da Paz (antiga Malvinas). Era um dos maiores e
+mais tradicionais Mestres da Velha Guarda da Capoeira Angola da
+Bahia, bastando sua figura para evidenciar tal fato. Seu canto,
+comparado somente ao de nomes como Mestre Waldemar, Caiçara
+e Canjiquinha, era o melhor convite para uma boa roda. Em 26 de
+março de 1999, Mestre Paulo dos Anjos deixa a terra em direção a
+arruanda.
 </string>
 
-<string name="hist_mestre_cobrinha_verde">Rafael Alves França, o Mestre Cobrinha Verde, viveu entre 1917 e 1983 e foi um dos mais temidos e respeitados capoeiristas de sua época. 
-Nascido na cidade de Santo Amaro da Purificação, berço da capoeira baiana, afirmava ser um parente legítimo do lendário capoeirista Besouro Mangangá, mais precisamente seu primo. Foi com ele que aos quatro anos de idade que se iniciou na arte da capoeiragem. Além de seu primo, também teve a oportunidade de aprender com os mais famosos capoeiristas daquela época, como Siri de Mangue, Canário Pardo e Doze Homens. \n
-O apelido “cobrinha-verde” foi dado pelo próprio Besouro Mangangá, devido à sua agilidade e destreza com as pernas. Foi um dos poucos conhecedores do jogo de “Santa Maria”. Toque onde os capoeiras jogavam com navalhas entre os dedos dos pés e chegou a ser o mais antigo capoeirista em atividade.\n
-\n
-Participou da revolução de 32 e após ter dado baixa no exército, começou a dar aulas de capoeira na Fazenda Garcia. Também ensinou no Centro Esportivo de Capoeira Angola Dois de Julho, localizado no nordeste de Amaralina. Chegou a dividir os trabalhos com Mestre Pastinha, onde passou seus conhecimentos para seus alunos.\n
-\n
-Cobrinha Verde sempre ensinou a capoeira de graça. Conforme foi contado por ele próprio, seu primo Besouro o fez prometer que jamais cobraria dinheiro para ensinar a arte da capoeira. E essa promessa foi mantida até o final de sua vida.\n
-\n
-Em determinada época de sua vida Mestre Cobrinha Verde sai do recôncavo baiano e viaja grande parte do nordeste se metendo em várias aventuras, entre elas, acompanhar o bando de cangaceiros de Horácio de Matos.\n
-\n
-Em uma dessas aventuras contou que em certa ocasião, armado com um facão de 18 polegadas, enfrentou oito policiais que abriram fogo contra ele e com o dito facão conseguiu desviar todas as balas. Alguma semelhança com seu primo Besouro?\n
-\n
-Esta e muitas outras façanhas eram atribuídas não só à sua agilidade e destreza, mas também a algumas mandingas que só os baianos do recôncavo conhecem. Contava o mestre que essas mandingas foram ensinadas por um africano de nome Pascoal que era vizinho de sua avó.\n
-Dizia o mestre que possuía um patuá com poderes mágicos, que poderiam livrá-lo de inimigos e de algumas situações críticas, quando se metia em alguma confusão. Dizia também que esse patuá era vivo e que ficava pulando, quando era deixado num prato virgem. Mas um dia o patuá foi embora por causa de um erro que o mestre havia cometido.\n
-\n
-Depois de muitas aventuras e “causos” para contar, Cobrinha Verde volta à Bahia, onde vive até o final de sua vida.\n
-Em 1963, foi convidado pelo ator de cinema Roberto Batalin, para gravar um disco de capoeira, junto com os mestres Traíra e Gato. Este disco recebeu o nome de “Traíra Capoeira da Bahia”. Foi um dos primeiros do gênero e é considerada uma obra prima da capoeira.\n
-\n
-Em 1983, Mestre Cobrinha Verde se despede deste mundo, deixando um legado digno dos antigos mestres da capoeira da Bahia.\n
-\n
-Fonte: capoeiraexports.blogspot.com.br
-</string>
-<string name="hist_mestre_canjiquinha">Washington Bruno da Silva - Mestre Canjiquinha, nasceu a 25 de setembro de 1925, em Salvador, na rua do Maciel de Baixo n 06, Pelourinho. Discípulo do Mestre Raimundo Aberre, natural de Santo Amaro da Purificação, Canjiquinha foi um dos capoeiras que mais visibilidade deu a sua arte, viajando por todo o Brasil em exibições e também atuando em muitos filmes.\n
-A partir dos anos 60, quando a capoeira se tornou mais conhecida e divulgada no Brasil, a figura do Mestre Canjiquinha ganhou maior relevo. Sua academia tornou-se uma das principais agências de formação de novos capoeiristas como Paulo dos Anjos, Geni, Lua – que se tornaram mestres de outros e contribuídores para a expansão da capoeira em outros países. São os responsáveis pela continuidade da herança de Canjiquinha. A este Mestre a capoeira deve uma serie de invenções sendo as mais conhecidas aquelas que ele introduziu nos toques e jogos : Muzenza, Samango, Samba de Angola e também das "Festas de Arromba", que ficaram famosas no largo da Bahia, onde vários capoeiristas se reuniam e jogavam Capoeira em troca de dinheiro ou bebida.\n
-Canjiquinha era um capoeira jovem e ágil, fazendo com que se destaque entre os seus companheiros, porém o seu maior destaque era no canto e no toque. Cantava como bem poucos e com um repertório vastíssimo, inclusive com uma grande facilidade de improvisar e de todos era quem mais tinha contribuído para a adaptação de outros cânticos do folclore, à capoeira.\n
-A capoeira perdeu o Mestre Canjiquinha aos 69 anos, em 1994.\n
-\n
-http://grupokdecapoeira.blogspot.com.br/</string>
-    <string name="hist_mestre_paulo_dos_anjos">José Paulo dos Anjos - Mestre Paulo dos Anjos, nasceu na cidade de Estância, Estado de Sergipe em 15 de agosto de 1936. Com cinco anos foi morar em Salvador, Bahia, na rua Ubaranas, onde pela primeira vez conheceu um capoeirista, Mestre Bimba. De lá, mudou-se para Matatu e mais tarde Quintas das Beatas, hoje Cosme de Farias, onde em 1950 conheceu Mestre Canjiquinha, em rodas de rua, com quem então resolveu iniciar-se na Capoeira. Jovem, de origem humilde, lutador por natureza, resolveu deixar a Capoeira para lutar boxe. Mas seu coração já pertencia à Capoeira, e após alguns anos de pugilismo retornou à Academia de Mestre Canjiquinha, onde formou-se em 1957, tornando-se um de seus maiores discípulos. Além da roda de seu Mestre, era assíduo frequentador das rodas de Largo e das rodas de Mestre Waldemar da Liberdade, uma das mais célebres e tradicionais rodas da época, frequentada pela nata da Capoeira de então. Ali, segundo ele, aprendeu muitas das mandingas e malícias que possuía, como, por exemplo, a perícia no jogo de "Panha a Laranja no Chão Tico-Tico", o jogo de dinheiro. Em 1972, mudou-se para o km 17 em Itapoan, onde, em 1975, fundou a Associação de Capoeira Anjos de Angola. Partiu então para São Paulo, onde ensinou por cinco anos, deixando vários discípulos por lá, retornando à Salvador no começo de 1980. Até seu falecimento, vivia e possuía uma academia em Salvador, no Bairro da Paz (antiga Malvinas). Era um dos maiores e mais tradicionais Mestres da Velha Guarda da Capoeira Angola da Bahia, bastando sua figura para evidenciar tal fato. Seu canto, comparado somente ao de nomes como Mestre Waldemar, Caiçara e Canjiquinha, era o melhor convite para uma boa roda. \n
-Em 26 de março de 1999, Mestre Paulo dos Anjos deixa a terra em direção a arruanda. \n\n
-Fonte: grupokcapoeira.blogspot.com
-</string>
+    <string name="hist_title">Capoeira: legado afro-brasileiro para a humanidade1*</string>
+    <string name="hist_capoeira" translatable="false"><p align="justify">
+Jogo, luta ou dança? Esta é umas das indagações, sem resposta conclusiva, que diz algo
+acerca do caráter multifacetado e plural da capoeira. Diferentes explicações se dão sobre sua
+origem. De acordo com uns, ela seria originária do Ngolo, mítico ritual africano de iniciação entre
+povos bantu da região onde hoje se situa o país de Angola, e teria vindo para cá com o tráfico
+negreiro. Segundo outra versão, ela teria sido criada nas senzalas, como uma necessidade de
+camuflar uma luta em dança. A perspectiva mais aceita hoje é que diferentes povos africanos
+sincretizaram seus saberes, mesclando danças e lutas e estabelecendo aqui no Brasil este formato
+ritual afro-brasileiro.
+Embora haja registros sobre capoeira desde o século XVII, é durante o século XIX que os
+capoeiras marcam presença efetiva no cenário político do império, organizados em maltas. O
+primeiro Código Penal da República, em 1890, criminaliza a capoeira, o batuque e a vadiagem,
+como uma forma de controle social da população negra, considerada pelas elites como uma “classe
+perigosa”. Muitos capoeiristas são perseguidos e presos, terreiros de candomblé são fechados e têm
+seus objetos sagrados apreendidos.
+No início do século XX a capoeira assume o formato pelo qual é conhecida em todo mundo,
+com o ritual da roda de capoeira, conduzida pela musicalidade do berimbau e demais instrumentos,
+com cantigas específicas. Nestes tempos, em que os capoeiras baianos eram temidos pela polícia e
+conhecidos como valentões (Besouro Mangangá, Pedro Mineiro, Inocêncio Sete Mortes...), a
+capoeira ainda não era ensinada em academias. Seu aprendizado se dava por oitiva, observação,
+durante a própria roda.
+Na década de 1930, com o objetivo de modernizar a capoeira e torná-la mais eficiente,
+Mestre Bimba cria a luta regional baiana, posteriormente conhecida como capoeira regional. Em
+1937 se apresenta para o interventor Juracy Magalhães e consegue licença para funcionamento de
+sua academia, que congrega alunos de diversas classes e origens sociais.
+A capoeira tradicional baiana passa a ser conhecida como capoeira angola, e na década de
+1940 os antigos mestres que se reuniam no Gengibirra (Aberrê, Totonho de Maré, Noronha, Livino
+Diogo, Bilusca e Amorzinho, entre outros) se reúnem para criar uma escola de capoeira angola,
+iniciativa que será conduzida por Mestre Pastinha, que passa a liderar o processo de resistência da
+capoeiragem tradicional, com sua academia no Pelourinho. Outros capoeiristas antigos lutam para
+manter vivas suas linhagens, como Cobrinha Verde, Waldemar, Canjiquinha e Caiçara.
+A partir da década de 1960 os capoeiristas baianos criam shows folclóricos que terão forte
+impacto sobre a dinâmica e a estética da capoeira, introduzindo saltos e acrobacias oriundos do
+circo e da ginástica olímpica. Na década de 1970, o processo de esportivização, liderado pelo
+sudeste, cria modelos de graduação (com cordas, cordões ou cordéis) que são adotados por quase
+toda a capoeira baiana. Também neste período, a capoeira baiana começa a se espalhar pelo mundo,
+começando pelos EUA e Europa e chegando aos mais distantes e recônditos lugares.
+Hoje, a capoeiragem baiana permanece como referência para todo o mundo, e o Centro
+Histórico de Salvador concentra algumas das academias mais tradicionais de vários estilos: angola,
+regional, contemporânea, de rua... Patrimônio imaterial brasileiro, a capoeira é uma das grandes
+contribuições brasileiras para o mundo, provando que a astúcia pode vencer a força, que tudo na
+vida tem seu tempo e que a ginga e a mandinga podem nos ajudar a enfrentar os mais difíceis
+desafios do dia a dia.\n
+Axé!!!\n
 
-    <string name="hist_capoeira" translatable="false"><p align="justify">O que é capoeira afinal de contas.
-É uma arte, de luta, cultura, dança, esporte, lazer, que veio da África, juntos com os Negros explorados pelos Portugueses, chegando ao Brasil. Sendo hoje considerada uma luta Afro-Brasileira.
-Ela não é rica apenas pelo seu corpo de trabalho pela luta, mas sua cultura que foi subordinada e atacada pela alta sociedade, proibida os negros tinha que praticar escondidos, este jogo é praticado e roda, dando para ver todos os lados, quando tinha algum perigo eles desfaziam a roda, passando eles voltavam.
-Dividiu-se em duas partes: Capoeira de Angola e Capoeira Regional
-Capoeira de Angola; é um jogo mais lento, cheio de entradas e muita malícia na onde o adversário marca e ataca o outro jogador, nesta não se tem acrobacias.
-Capoeira Regional; um jogo rápido, de entradas e saídas, cheias de marcações e golpes de acrobacias.
-Os Mestres mais conhecidos dentro desta arte: Mestre Bimba e Mestre Pastinha, pioneiros e cultivadores da capoeira, fundadores das primeiras academias após sua liberação.
-Hoje em dia temo mais um tipo de Capoeira a Contemporânea, praticada por muitos grupos, uma mistura de Capoeira Regional, com algum tipo de lutas.
-Sem duvidas nenhuma quando se fala na escravidão e a historia dos negros marcada com tamanha crueldade, se fala em Capoeira, arte pela qual eles praticavam para conseguir forças e lutar pela sua liberdade.
-Minha paixão pela Capoeira começou quando aos 12 anos eu assisti O filme Esporte Sangrento, e aos 14 anos tive o prazer de começar a treinar esta arte com um grupo maravilhoso pelo qual me sinto membro, hoje não pratico esta arte por falta de tempo, mas sempre estou acompanhando o grupo pelo qual faço parte.
+* Paulo Andrade Magalhães Filho é capoeirista, jornalista e mestre em ciências sociais.
 </p></string>
 
+    <string name="hist_autor">* Paulo Andrade Magalhães Filho é capoeirista, jornalista e mestre em ciências sociais.</string>
 
 
 

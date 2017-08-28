@@ -78,16 +78,27 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
     }
 
     public List<Mestre> getSetMestreListAngola(){
-        String[] nomes = new String[]{"Mestre Canjiquinha", "Mestre Paulo dos Anjos", "Mestre Caiçara", "Mestre Traíra", "Mestre Waldemar da Liberdade", "Mestre Cobrinha Verde", "Mestre Eziquiel","Mestre Pastinha,","Mestre Bimba","Mestre João Pequeno" };
-        String[] historia = new String[]{getString(R.string.hist_mestre_canjiquinha), getString(R.string.hist_mestre_paulo_dos_anjos),
-                getString(R.string.hist_mestre_caicara),getString(R.string.hist_mestre_traira),
-                getResources().getString(R.string.hist_mestre_waldemar), getString(R.string.hist_mestre_cobrinha_verde),
-                getString(R.string.hist_mestre_eziquiel), getString(R.string.hist_mestre_pastinha),
-                getString(R.string.hist_mestre_bimba), getString(R.string.hist_mestre_joao_pequeno)};
-        int[] photos = new int[]{R.drawable.mestre_canjiquinha, R.drawable.mestre_paulo_dos_anjos,R.drawable.mestre_caicara, R.drawable.mestre_traira,R.drawable.mestre_waldemar_da_lierdade,R.drawable.mestre_cobrinha_verde, R.drawable.mestre_eziquiel,
-                R.drawable.mestre_pastinha,R.drawable.mestre_bimba,R.drawable.mestre_joao_pequeno};
-        int[] thumbs = new int[]{R.drawable.mestre_canjiquinha_thumb, R.drawable.mestre_paulo_dos_anjos_thumb,R.drawable.mestre_caicara_thumb, R.drawable.mestre_traira_thumb,R.drawable.mestre_waldemar_da_lierdade_thumb,R.drawable.mestre_cobrinha_verde_thumb, R.drawable.mestre_eziquiel_thumb,
-                R.drawable.mestre_pastinha_thumb,R.drawable.mestre_bimba_thumb,R.drawable.mestre_joao_pequeno_thumb};
+        String[] nomes = new String[]{"Mestre Pastinha", "Mestre Paulo dos Anjos",
+                "Mestre Traíra", "Mestre Waldemar da Liberdade", "Mestre Cobrinha Verde",
+                "Mestre João Pequeno", "Mestre Caiçara" };
+        String[] historia = new String[]{getString(R.string.hist_mestre_pastinha),
+                getString(R.string.hist_mestre_paulo_dos_anjos),
+                getString(R.string.hist_mestre_traira),
+                getResources().getString(R.string.hist_mestre_waldemar),
+                getString(R.string.hist_mestre_cobrinha_verde),
+                getString(R.string.hist_mestre_joao_pequeno),
+                getString(R.string.hist_mestre_caicara)};
+
+        int[] photos = new int[]{R.drawable.mestre_pastinha, R.drawable.mestre_paulo_dos_anjos,
+                R.drawable.mestre_traira,R.drawable.mestre_waldemar_da_lierdade,
+                R.drawable.mestre_cobrinha_verde,
+                R.drawable.mestre_joao_pequeno,
+                R.drawable.mestre_caicara};
+        int[] thumbs = new int[]{R.drawable.mestre_pastinha_thumb, R.drawable.mestre_paulo_dos_anjos_thumb,
+                 R.drawable.mestre_traira_thumb, R.drawable.mestre_waldemar_da_lierdade_thumb,
+                R.drawable.mestre_cobrinha_verde_thumb,
+                R.drawable.mestre_joao_pequeno_thumb,
+                R.drawable.mestre_caicara_thumb};
         List<Mestre> listAux = new ArrayList<>();
 
         for(int i = 0; i < nomes.length; i++){
@@ -98,13 +109,14 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
     }
 
     public List<Mestre> getSetMestreListRegional(){
-        String[] nomes = new String[]{"Mestre Pastinha,","Mestre Bimba","Mestre João Pequeno" };
-        String[] historia = new String[]{getString(R.string.hist_mestre_pastinha),
-                getString(R.string.hist_mestre_bimba), getString(R.string.hist_mestre_joao_pequeno)};
+        String[] nomes = new String[]{"Mestre Eziquiel","Mestre Canjiquinha","Mestre Bimba" };
+        String[] historia = new String[]{getString(R.string.hist_mestre_eziquiel),
+                getString(R.string.hist_mestre_canjiquinha),
+                getString(R.string.hist_mestre_bimba)};
         int[] photos = new int[]{
-                R.drawable.mestre_pastinha,R.drawable.mestre_bimba,R.drawable.mestre_joao_pequeno};
+                R.drawable.mestre_eziquiel,R.drawable.mestre_canjiquinha,R.drawable.mestre_bimba};
         int[] thumbs = new int[]{
-                R.drawable.mestre_pastinha_thumb,R.drawable.mestre_bimba_thumb,R.drawable.mestre_joao_pequeno_thumb};
+                R.drawable.mestre_eziquiel_thumb,R.drawable.mestre_canjiquinha_thumb,R.drawable.mestre_bimba_thumb};
         List<Mestre> listAux = new ArrayList<>();
 
         for(int i = 0; i < nomes.length; i++){

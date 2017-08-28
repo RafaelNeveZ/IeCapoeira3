@@ -19,13 +19,15 @@ public class SplashScreen extends AppCompatActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
 
+
+
     @AfterViews
     void init() {
-        final MediaPlayer mp = MediaPlayer.create(this,R.raw.berimbau);
+        final MediaPlayer mp = MediaPlayer.create(this,R.raw.splash_sound);
+        mp.start();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mp.start();
                 /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(SplashScreen.this, LoginActivity_.class);
                 SplashScreen.this.startActivity(mainIntent);

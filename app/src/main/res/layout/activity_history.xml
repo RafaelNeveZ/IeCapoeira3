@@ -48,6 +48,23 @@
             <ScrollView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:paddingBottom="15dp"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="@string/hist_title"
+                android:textColor="@android:color/darker_gray"
+                android:paddingLeft="@dimen/history_padding"
+                android:paddingRight="@dimen/history_padding" />
             <TextView
                 android:id="@+id/bt_login"
                 android:layout_width="match_parent"
@@ -55,12 +72,26 @@
                 android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:paddingBottom="15dp"
-                android:textSize="17dp"
+                android:textSize="15dp"
                 android:gravity="center"
                 android:text="@string/hist_capoeira"
                 android:textColor="@android:color/darker_gray"
                 android:paddingLeft="@dimen/history_padding"
                 android:paddingRight="@dimen/history_padding" />
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"
+                    android:paddingBottom="15dp"
+                    android:textSize="15dp"
+                    android:gravity="center"
+                    android:text="@string/hist_autor"
+                    android:textColor="@android:color/darker_gray"
+                    android:paddingLeft="@dimen/history_padding"
+                    android:paddingRight="@dimen/history_padding" />
+                </LinearLayout>
             </ScrollView>
     </LinearLayout>
 
