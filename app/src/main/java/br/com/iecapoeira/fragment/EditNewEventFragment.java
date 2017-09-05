@@ -130,7 +130,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     private ProgressDialog progressDialog;
 
-    private int selDay, selMonth, selYear;
+    private int selDay, selMonth, selYear,noChangeMonth, noChangeYear, noChangeDay;
     private int selHour, selMinute;
     private Bitmap bmp;
     private int horaInicial, minutoInicial, horafinal,minutofinal;
@@ -275,7 +275,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         aux2.put(EventDate.MIMINIT, selMinute);
         aux2.put(EventDate.MIMEND, selMinute);
         aux2.put(EventDate.DAY, selDay);
-        aux2.put(EventDate.MONTH, selMonth);
+        aux2.put(EventDate.MONTH, noChangeMonth);
         aux2.put(EventDate.YEAR, selYear);
         listNE.add(aux2);
        // adapter.notifyItemInserted(listNE.size() - 1);
@@ -326,11 +326,15 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     private void setupTime(int year, int month, int day, int hour, int minute) {
 
+        Log.d("DAY",day+"");
+        Log.d("MONTH",month+"");
+        Log.d("YEAR",year+"");
         Calendar c = Calendar.getInstance();
-
-
         selDay = day;
-        selMonth = month;
+        noChangeMonth = month;
+        noChangeDay = day;
+        noChangeYear = year;
+        selMonth = month-1;
         selYear = year;
         selMinute = minute;
         selHour = hour;
@@ -338,9 +342,9 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         minutoInicial = minute;
         horafinal = hour+1;
         minutofinal= minute;
-        String pattern = getString(R.string.date_pattern);
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        c.set(year, month, day, hour, minute);
+        //String pattern = getString(R.string.date_pattern);
+       // SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+       // c.set(year, month, day, hour, minute);
 
     }
 
@@ -388,19 +392,20 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     private void setJustDate(int year, int month, int day){
         Calendar c = Calendar.getInstance();
-        selDay = day;
-        selMonth = month;
-        selYear = year;
+
         String pattern = getString(R.string.date_pattern);
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         c.set(year, month, day);
         long dateRecivedinMills = c.getTimeInMillis();
         if(System.currentTimeMillis() < dateRecivedinMills){
+            selDay = day;
+            selMonth = month;
+            selYear = year;
             JSONObject json = new JSONObject();
             JSONObject manJson = new JSONObject();
             try {
                 listNE.get(rightPosition).put(EventDate.DAY,day);
-                listNE.get(rightPosition).put(EventDate.MONTH,month);
+                listNE.get(rightPosition).put(EventDate.MONTH,month+1);
                 listNE.get(rightPosition).put(EventDate.YEAR,year);
                 adapter.notifyDataSetChanged();
             }catch (Exception e){

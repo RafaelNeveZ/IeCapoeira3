@@ -68,7 +68,8 @@ public class NewEventAdapter extends  RecyclerView.Adapter<NewEventAdapter.Payme
         Log.d("DAY",item.getselDay()+"");*/
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        holder.btDate.setText(item.get("day")+"/"+item.get("month")+"/"+item.get("year"));
+
+        holder.btDate.setText((((Integer) item.get("day")<10)?0+item.get("day").toString():item.get("day"))+"/"+(((Integer) item.get("month")<10)?0+item.get("month").toString():item.get("month"))+"/"+item.get("year"));
         holder.btDate.setTag(position);
         holder.btDate.setOnClickListener(new View.OnClickListener() {
             @Override
