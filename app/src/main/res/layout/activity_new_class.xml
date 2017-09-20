@@ -64,35 +64,38 @@
                     android:src="@drawable/camera" />
             </LinearLayout>
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="@dimen/small"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="14dp"
                 android:layout_marginRight="@dimen/small"
                 android:layout_weight="1"
-                android:hint="@string/hint_nome_professor"
-                android:inputType="textCapSentences"
-                android:maxLength="35"
+                android:text="NOME"
+                android:textSize="18dp"
+                android:textColor="@color/gray_txt_dark"
                 android:maxLines="1" />
+
             <EditText
+
                 android:id="@+id/edit_graduation"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_graduacao"
-                android:inputType="textCapSentences"
-                android:maxLength="140"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="50"
+                android:maxLines="10" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="10dp"
+
                 android:layout_height="match_parent"
                 >
                 <TextView
@@ -101,7 +104,6 @@
                     android:textSize="15dp"
                     android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:layout_height="wrap_content">
 
                     <requestFocus />
@@ -143,10 +145,8 @@
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_descricao_aula"
-                android:inputType="textMultiLine"
-                android:maxLength="140"
-
-                android:maxLines="10" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="140" />
 
 
 
@@ -155,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <CheckBox
+
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:id="@+id/check_country"
@@ -182,7 +183,7 @@
             <EditText
                 android:id="@+id/edit_state"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_estado"
@@ -240,13 +241,13 @@
             <EditText
                 android:id="@+id/edit_address"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_endereco"
-                android:inputType="textCapSentences"
-                android:maxLength="50"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="150"
+                android:maxLines="10" />
 
 
             <LinearLayout

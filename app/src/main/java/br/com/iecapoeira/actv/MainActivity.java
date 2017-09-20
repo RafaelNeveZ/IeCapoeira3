@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @AfterViews
     public void init() {
-        PubnubService.startPubnubService();
+        //PubnubService.startPubnubService();
         setHeader();
         loadFragment();
     }
 
     public void setHeader() {
-        toolbar.setNavigationIcon(R.drawable.ic_logo);
+        toolbar.setNavigationIcon(R.drawable.logo_menu);
         toolbar.setTitle(getString(R.string.title_eventos));
         setSupportActionBar(toolbar);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_menu, 0, 0);

@@ -1,5 +1,6 @@
 package br.com.iecapoeira.actv;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -32,13 +33,12 @@ public class DashboardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
 
-
-
+    public  final Context context=this;
     @AfterViews
     public void init() {
-        toolbar.setNavigationIcon(R.drawable.ic_logo);
+        toolbar.setNavigationIcon(R.drawable.logo_menu);
         setSupportActionBar(toolbar);
-
+        toolbar.setTitle(getString(R.string.app_name));
         drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 drawerLayout,         /* DrawerLayout object */
@@ -79,6 +79,15 @@ public class DashboardActivity extends AppCompatActivity {
         if (drawerToggle != null)
             drawerToggle.onConfigurationChanged(newConfig);
     }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawers();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

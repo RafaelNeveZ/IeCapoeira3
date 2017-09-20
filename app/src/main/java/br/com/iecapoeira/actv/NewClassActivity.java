@@ -77,10 +77,10 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     ImageView photo;
 
     @ViewById
-    EditText editName, editGraduation, editDesc,editAddress, editState, editCountry;
+    EditText  editDesc,editAddress, editState, editCountry, editGraduation;
 
     @ViewById
-    TextView editCity;
+    TextView editCity, editName;
 
     @ViewById
     LinearLayout cityChoice;
@@ -122,6 +122,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     public void init() {
         Calendar c = Calendar.getInstance();
         setupTime( (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
+        editName.setText(ParseUser.getCurrentUser().get("name").toString() +" "+ParseUser.getCurrentUser().get("lastName").toString());
     }
 
     private void setupTime(int hour, int minute) {
@@ -277,7 +278,9 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @Click
     public void addOtherClass() {
-        if(!dontLeave) {
+        dontLeave=true;
+        newEvent();
+        /*if(!dontLeave) {
             if(validateFields()) {
                 showProgress("Criando aula...");
 
@@ -320,7 +323,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                 Log.e("TAG",putDays());
             }
         }
-        dontLeave = false;
+        dontLeave = false;*/
 
     }
 
@@ -362,9 +365,15 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                 public void done(ParseException e) {
                     if (e == null) {
                         dismissProgress();
-                        Intent returnIntent = new Intent();
-                        setResult(Activity.RESULT_OK,returnIntent);
-                        finish();
+                        if(!dontLeave) {
+                            Intent returnIntent = new Intent();
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        }else{
+                            Intent intent = new Intent(context, NewClassActivity_.class);
+                            startActivity(intent);
+                            finish();
+                        }
                     } else {
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                         dismissProgress();
@@ -503,11 +512,11 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         String state = editState.getText().toString().trim();
 
 
-        if (name.isEmpty()) {
+        /*if (name.isEmpty()) {
             setError(editName, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
             return false;
-        }
+        }*/
        /* if (style.isEmpty()) {
         //    setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;

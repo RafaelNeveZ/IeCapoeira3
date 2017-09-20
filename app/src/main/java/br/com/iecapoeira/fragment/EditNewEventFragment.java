@@ -116,8 +116,8 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     @ViewById
     Button addOtherEvent;
 
-    @ViewById
-    RecyclerView rcNew;
+ /*   @ViewById
+    RecyclerView rcNew;*/
 
     @ViewById
     CheckBox checkCountry;
@@ -135,16 +135,16 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     private Bitmap bmp;
     private int horaInicial, minutoInicial, horafinal,minutofinal;
     private final static String TAG = "TAG";
-    public List<ParseObject> listNE;
+   // public List<ParseObject> listNE;
     private int eventDaysCount = 0;
-    private NewEventAdapter adapter;
+   // private NewEventAdapter adapter;
     public final  Context context= getContext();
     public int Day=0,Month=0,Year=0;
     public String newDate;
     private int rightPosition;
     private String my64foto=null;
     private String Pais="";
-    private JSONObject jasonFinal;
+   // private JSONObject jasonFinal;
     public static Event event;
 
     @AfterViews
@@ -183,7 +183,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             photo.setImageBitmap(decodedByte);
         }
 
-        jasonFinal=new JSONObject();
+       /* jasonFinal=new JSONObject();
         Calendar c = Calendar.getInstance();
         setupTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DAY_OF_MONTH), (c.get(Calendar.HOUR_OF_DAY) + 1) % 23, 0);
         rcNew.setHasFixedSize(false);
@@ -207,7 +207,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             }
         });
         adapter.setRecyclerViewOnClickListenerHack(this);
-        rcNew.setAdapter(adapter);
+        rcNew.setAdapter(adapter);*/
 
        /* NewEventAdapter adapter = new NewEventAdapter(NewEventActivity.this, listNE);
         ListView PaysListView = (ListView)findViewById(R.id.listView);
@@ -215,7 +215,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     }
 
-    public List<ParseObject> setListNE() throws JSONException {
+    /*public List<ParseObject> setListNE() throws JSONException {
 
         List<ParseObject> listAux = new ArrayList<>();
         ParseObject aux2 =  ParseObject.create("EventDate");
@@ -247,17 +247,17 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
         return  (listAux);
 
-    }
+    }*/
 
-    @Click
+   /* @Click
     public void addOtherEvent() {
-    /*    listNE = setListNE() ;*/
+    *//*    listNE = setListNE() ;*//*
     if(listNE.size()<4) {
         List<ParseObject> listAux = new ArrayList<>();
         ParseObject aux2 = ParseObject.create("EventDate");
 
 
-        /*JSONObject json = new JSONObject();
+        *//*JSONObject json = new JSONObject();
         JSONObject manJson = new JSONObject();
         String pattern = getString(R.string.date_pattern);
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -268,7 +268,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             jasonFinal.put(rightPosition + "", manJson);
         } catch (Exception e) {
 
-        }*/
+        }*//*
 
         aux2.put(EventDate.HOURINIT, selHour);
         aux2.put(EventDate.HOUREND, selHour + 1);
@@ -284,7 +284,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     }else{
         Toast.makeText(getActivity(), "Limite máximo de dias", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     @Override
     public  void onDestroy(){
@@ -359,13 +359,13 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         c.set(0,0,0,hour, minute);
         if (isInicial){
             int horaInitInSec = hour*3600 + minute*60;
-            int horaFimInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOUREND)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMEND)*60;
+           /* int horaFimInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOUREND)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMEND)*60;
             if( horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
-            }
+            }*/
             try {
-                listNE.get(rightPosition).put(EventDate.HOURINIT,hour);
-                listNE.get(rightPosition).put(EventDate.MIMINIT,minute);
+                /*listNE.get(rightPosition).put(EventDate.HOURINIT,hour);
+                listNE.get(rightPosition).put(EventDate.MIMINIT,minute);*/
             }catch (Exception e){
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -373,21 +373,21 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             minutoInicial = minute;
 
         }else{
-            int horaInitInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOURINIT)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMINIT)*60;
+            //int horaInitInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOURINIT)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMINIT)*60;
             int horaFimInSec = hour*3600 + minute*60;
-            if(horaFimInSec <= horaInitInSec) {
+           /* if(horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
-            }
+            }*/
             try {
-                listNE.get(rightPosition).put(EventDate.HOUREND,hour);
-                listNE.get(rightPosition).put(EventDate.MIMEND,minute);
+               /* listNE.get(rightPosition).put(EventDate.HOUREND,hour);
+                listNE.get(rightPosition).put(EventDate.MIMEND,minute);*/
             }catch (Exception e){
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
             horafinal = hour;
             minutofinal = minute;
         }
-        adapter.notifyDataSetChanged();
+ /*       adapter.notifyDataSetChanged();*/
     }
 
     private void setJustDate(int year, int month, int day){
@@ -404,14 +404,14 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             JSONObject json = new JSONObject();
             JSONObject manJson = new JSONObject();
             try {
-                listNE.get(rightPosition).put(EventDate.DAY,day);
+               /* listNE.get(rightPosition).put(EventDate.DAY,day);
                 listNE.get(rightPosition).put(EventDate.MONTH,month+1);
                 listNE.get(rightPosition).put(EventDate.YEAR,year);
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();*/
             }catch (Exception e){
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-            adapter.notifyDataSetChanged();
+            /*adapter.notifyDataSetChanged();*/
         }else{
             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
         }
@@ -449,18 +449,6 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
                 showProgress("Criando evento...");
 
 
-               /* for (ParseObject ne : listNE) {
-                    ne.saveInBackground((new SaveCallback() {
-                        public void done(ParseException e) {
-                            if (e == null) {
-
-                            } else {
-
-                            }
-                        }
-
-                    });
-                }*/
 
                 int editCityVisb = cityChoice.getVisibility();
                 /*final ParseObject event = ParseObject.create("Event");*/
@@ -486,7 +474,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
                     event.put(Event.FOTO, my64foto);
                 /*ParseRelation<ParseObject>relation=newEvent.getRelation("eventTime");
                 relation.add(listNE.get(0));*/
-                jasonFinal=new JSONObject();
+                /*jasonFinal=new JSONObject();
                 int i=0;
                 for (ParseObject item:listNE
                      ) {
@@ -504,7 +492,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
                     }
                     event.put("eventDate", jasonFinal);
-                }
+                }*/
 
 
                 Calendar date = Calendar.getInstance();
@@ -626,10 +614,10 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             }
 
         }
-        if (listNE.size()==0){
+        /*if (listNE.size()==0){
             Toast.makeText(getActivity(), "Escolha pelo menos uma data", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
         /*if (city.isEmpty()) {
             setError(editCity, getString(R.string.msg_erro_campo_vazio));
             return false;

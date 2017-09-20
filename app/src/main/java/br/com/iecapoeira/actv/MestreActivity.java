@@ -42,11 +42,11 @@ public class MestreActivity extends AppCompatActivity {
     }
 
     public void setHeader() {
-        toolbar.setNavigationIcon(R.drawable.logo_voltar);
+        toolbar.setNavigationIcon(R.drawable.logo_menu);
         toolbar.setTitle(getString(R.string.title_mestres));
         setSupportActionBar(toolbar);
     }
-    // makes the back on action bar works as back button
+  /*  // makes the back on action bar works as back button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -54,5 +54,5 @@ public class MestreActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
+    }*/
 }

@@ -166,5 +166,9 @@
     <string name="title_diag_style">Escolha estilo de capoeira</string>
     <string name="log_out">Sair</string>
     <string name="choose_city">Clique para escolher a cidade</string>
+    <string name="title_mestres_in">Historia dos Mestres</string>
+    <string name="date_inicial">Data inicial</string>
+    <string name="date_final">Data final (opcional)</string>
+    <string name="erro_final_date_title">Data final menor que a inicial!</string>
 
 </resources>

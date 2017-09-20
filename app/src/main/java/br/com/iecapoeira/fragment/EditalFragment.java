@@ -181,7 +181,7 @@ public class EditalFragment extends Fragment implements RecyclerViewOnClickListe
             btY.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + mList.get(pos).get(Edital.LINK).toString()));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(/*"https://" +*/ mList.get(pos).get(Edital.LINK).toString()));
                     startActivity(intent);
                     dialog.dismiss();
                 }
@@ -209,7 +209,7 @@ public class EditalFragment extends Fragment implements RecyclerViewOnClickListe
                 }
             });
         }else{
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://" + mList.get(position).get(Edital.LINK).toString()));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(/*"https://" +*/ mList.get(position).get(Edital.LINK).toString()));
             startActivity(intent);
         }
     }

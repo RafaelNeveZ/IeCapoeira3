@@ -53,6 +53,10 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
 
     MestreAdapter adapter;
 
+    @ViewById
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle drawerToggle;
+
 
     @AfterViews
     void init(){
@@ -72,33 +76,38 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
     }
 
     public void setHeader() {
-        toolbar.setNavigationIcon(R.drawable.ic_logo);
-        toolbar.setTitle(getString(R.string.title_mestres));
+        toolbar.setNavigationIcon(R.drawable.logo_menu);
+        toolbar.setTitle(getString(R.string.title_mestres_in));
         setSupportActionBar(toolbar);
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_menu, 0, 0);
+        drawerLayout.setDrawerListener(drawerToggle);
     }
 
     public List<Mestre> getSetMestreListAngola(){
         String[] nomes = new String[]{"Mestre Pastinha", "Mestre Paulo dos Anjos",
                 "Mestre Traíra", "Mestre Waldemar da Liberdade", "Mestre Cobrinha Verde",
-                "Mestre João Pequeno", "Mestre Caiçara" };
+                "Mestre João Pequeno", "Mestre Caiçara","Mestre Canjiquinha" };
         String[] historia = new String[]{getString(R.string.hist_mestre_pastinha),
                 getString(R.string.hist_mestre_paulo_dos_anjos),
                 getString(R.string.hist_mestre_traira),
                 getResources().getString(R.string.hist_mestre_waldemar),
                 getString(R.string.hist_mestre_cobrinha_verde),
                 getString(R.string.hist_mestre_joao_pequeno),
-                getString(R.string.hist_mestre_caicara)};
+                getString(R.string.hist_mestre_caicara),
+                getString(R.string.hist_mestre_canjiquinha)};
 
         int[] photos = new int[]{R.drawable.mestre_pastinha, R.drawable.mestre_paulo_dos_anjos,
                 R.drawable.mestre_traira,R.drawable.mestre_waldemar_da_lierdade,
                 R.drawable.mestre_cobrinha_verde,
                 R.drawable.mestre_joao_pequeno,
-                R.drawable.mestre_caicara};
+                R.drawable.mestre_caicara,
+                R.drawable.mestre_canjiquinha};
         int[] thumbs = new int[]{R.drawable.mestre_pastinha_thumb, R.drawable.mestre_paulo_dos_anjos_thumb,
                  R.drawable.mestre_traira_thumb, R.drawable.mestre_waldemar_da_lierdade_thumb,
                 R.drawable.mestre_cobrinha_verde_thumb,
                 R.drawable.mestre_joao_pequeno_thumb,
-                R.drawable.mestre_caicara_thumb};
+                R.drawable.mestre_caicara_thumb,
+                R.drawable.mestre_canjiquinha_thumb};
         List<Mestre> listAux = new ArrayList<>();
 
         for(int i = 0; i < nomes.length; i++){
@@ -109,14 +118,13 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
     }
 
     public List<Mestre> getSetMestreListRegional(){
-        String[] nomes = new String[]{"Mestre Eziquiel","Mestre Canjiquinha","Mestre Bimba" };
+        String[] nomes = new String[]{"Mestre Eziquiel","Mestre Bimba" };
         String[] historia = new String[]{getString(R.string.hist_mestre_eziquiel),
-                getString(R.string.hist_mestre_canjiquinha),
                 getString(R.string.hist_mestre_bimba)};
         int[] photos = new int[]{
-                R.drawable.mestre_eziquiel,R.drawable.mestre_canjiquinha,R.drawable.mestre_bimba};
+                R.drawable.mestre_eziquiel,R.drawable.mestre_bimba};
         int[] thumbs = new int[]{
-                R.drawable.mestre_eziquiel_thumb,R.drawable.mestre_canjiquinha_thumb,R.drawable.mestre_bimba_thumb};
+                R.drawable.mestre_eziquiel_thumb,R.drawable.mestre_bimba_thumb};
         List<Mestre> listAux = new ArrayList<>();
 
         for(int i = 0; i < nomes.length; i++){
@@ -143,22 +151,32 @@ public class ListaMestreActivity extends AppCompatActivity implements RecyclerVi
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawers();
+        else
+            super.onBackPressed();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
     }

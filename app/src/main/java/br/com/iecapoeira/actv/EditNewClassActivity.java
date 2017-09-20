@@ -68,10 +68,10 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
     ImageView photo;
 
     @ViewById
-    EditText editName, editGraduation, editDesc,editAddress, editState, editCountry;
+    EditText  editGraduation, editDesc,editAddress, editState, editCountry;
 
     @ViewById
-    TextView editCity;
+    TextView editCity, editName;
 
     @ViewById
     Button btHour;
@@ -115,18 +115,28 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
     public void init() {
         int editCityVisb = cityChoice.getVisibility();
         addOtherClass.setVisibility(View.GONE);
+        editCity.setText(getString(R.string.choose_city));
         mod =  ClassScheduleDetailActivity_.model;
         editName.setText(mod.get(Aula.MESTRE).toString());
         editGraduation.setText(mod.get(Aula.GRADUACAO).toString());
         editDesc.setText(mod.get(Aula.SOBREAULA).toString());
         editAddress.setText(mod.get(Aula.ENDERECO).toString());
         editState.setText(mod.get(Aula.ESTADO).toString());
-        if(editCityVisb == View.VISIBLE) {
-        editCity.setText(mod.get(Aula.CIDADE).toString());
-        }else{
+
+        if(!mod.get(Aula.PAIS).toString().equals("Brasil")){
+            checkCountry.setChecked(false);
+            cityChoice.setVisibility(View.GONE);
+            editCountry.setVisibility(View.VISIBLE);
             editCountry.setText(mod.get(Aula.PAIS).toString());
+            editTrueCity.setVisibility(View.VISIBLE);
             editTrueCity.setText(mod.get(Aula.CIDADE).toString());
+        }else {
+            editCity.setText(mod.get(Aula.CIDADE).toString());
         }
+
+
+
+
         btHour.setText(mod.get(Aula.HORARIO_COMECO).toString());
         btFinalHour.setText(mod.get(Aula.HORARIO_FIM).toString());
         if(mod.get(Aula.FOTO)!=null) {
@@ -541,11 +551,11 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
         String state = editState.getText().toString().trim();
 
 
-        if (name.isEmpty()) {
+     /*   if (name.isEmpty()) {
             setError(editName, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
             return false;
-        }
+        }*/
        /* if (style.isEmpty()) {
         //    setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;

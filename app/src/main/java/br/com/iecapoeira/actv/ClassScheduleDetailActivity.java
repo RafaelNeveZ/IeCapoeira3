@@ -90,7 +90,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             ivTeacher.setImageBitmap(decodedByte);
         }
         tvTeacher.setText(model.getString(Aula.MESTRE));
-        tvDescription.setText(model.getString(Aula.MESTRE));
+        tvDescription.setText(model.getString(Aula.SOBREAULA));
         tvDays.setText(model.getString(Aula.DIASSEMANA));
        // Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco()+"/n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
         tvPlace.setText(model.getString(Aula.ENDERECO)+".\n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");

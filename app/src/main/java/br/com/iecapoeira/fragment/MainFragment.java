@@ -7,14 +7,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +45,9 @@ public class MainFragment extends Fragment {
 
     @ViewById
     PagerSlidingTabStrip tabs;
+
+    @OptionsMenuItem
+    MenuItem newEvent;
 
     private TabsAdapter adapter;
     final int[] title = {R.string.titulo_eventos_capoeira, R.string.titulo_eventos_culturais};
@@ -82,7 +88,13 @@ public class MainFragment extends Fragment {
 
     @OptionsItem
     public void newEvent() {
-        startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10);
+        if(((boolean)ParseUser.getCurrentUser().get("Admin"))){
+            startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10);
+        }else{
+            startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10); //TODO CRIAR ACTV
+        }
+
+
     }
 
     @OptionsItem

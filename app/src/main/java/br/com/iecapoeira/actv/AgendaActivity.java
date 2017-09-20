@@ -71,13 +71,13 @@ public class AgendaActivity extends AppCompatActivity implements AdapterView.OnI
 
     @AfterViews
     public void init() {
-        PubnubService.startPubnubService();
+       // PubnubService.startPubnubService();
         setHeader();
         loadFragment();
     }
 
     public void setHeader() {
-        toolbar.setNavigationIcon(R.drawable.ic_logo);
+        toolbar.setNavigationIcon(R.drawable.logo_menu);
         toolbar.setTitle("Agenda");
         setSupportActionBar(toolbar);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_menu, 0, 0);

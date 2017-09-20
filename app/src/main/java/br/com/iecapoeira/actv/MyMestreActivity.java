@@ -52,7 +52,7 @@ public class MyMestreActivity extends AppCompatActivity implements AdapterView.O
 
     @AfterViews
     public void init() {
-        PubnubService.startPubnubService();
+        //PubnubService.startPubnubService();
         setHeader();
         loadFragment();
     }
