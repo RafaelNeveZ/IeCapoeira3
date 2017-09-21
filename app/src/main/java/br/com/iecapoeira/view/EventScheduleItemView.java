@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.iecapoeira.R;
@@ -44,7 +45,7 @@ public class EventScheduleItemView extends RelativeLayout {
 
     @ViewById
     ImageView btGoing;
-
+    Date  eventStartdate, eventFinaldate, timeStart,timeEnd;
     private Event obj;
     public List<JSONObject> jList;
     @ViewById
@@ -62,9 +63,25 @@ public class EventScheduleItemView extends RelativeLayout {
 
     public void bind(Event obj) {
         this.obj = obj;
+
+        eventStartdate =new Date();
+        eventFinaldate =new Date();
+        timeEnd = new Date();
+        timeStart = new Date();
+        eventStartdate = (Date) obj.get("startDate");
+        eventFinaldate = (Date) obj.get("finalDate");
+        timeStart = (Date) obj.get("startTime");
+        timeEnd = (Date) obj.get("endTime");
+        Log.d("START DAY",eventStartdate.getDay()+"");
+        Log.d("Final DAY",eventFinaldate.getDay()+"");
+        Log.d("START M",eventStartdate.getMonth()+"");
+        Log.d("Final M",eventFinaldate.getMonth()+"");
+        Log.d("START Y",eventStartdate.getYear()+"");
+        Log.d("Final Y",eventFinaldate.getYear()+"");
+
         //  IEApplication.getUserDetails();
         textName.setText(obj.getName());
-        String pattern = getContext().getString(R.string.date_pattern);
+       /* String pattern = getContext().getString(R.string.date_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         jList=new ArrayList<>();
         JSONObject jason = obj.getJSONObject("eventDate");
@@ -75,25 +92,33 @@ public class EventScheduleItemView extends RelativeLayout {
             } catch (Exception c) {
                 Log.e("JSON "+a,c.getMessage());
                 break;
-            }
-        }
-        try {
-            textDate.setText(jList.get(0).getString("date") + "");
-            textTime.setText("Das "+jList.get(0).getString("startTime")+" às "+jList.get(0).getString("endTime")+" horas");
-        }catch (Exception c){
+        *//*    }*/
 
-        }
+ /*       try {*/
+       /* if(hasEndDate())
+        textDate.setText();
+        else
+        textDate*/
+
+       // textTime.setText("Das " + jList.get(0).getString("startTime") + " às " + jList.get(0).getString("endTime") + " horas");
+        /*}catch (Exception c){
+
+        }*/
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {
             setProfilePicture(picture);
         }
         else {*/
-        if(obj.get(Event.FOTO)!=null) {
+        if (obj.get(Event.FOTO) != null) {
             byte[] decodedString = Base64.decode(obj.get(Event.FOTO).toString(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             img.setImageBitmap(decodedByte);
         }
-
     }
+
+    public boolean hasEndDate(){
+        return false;
+    }
+
 }

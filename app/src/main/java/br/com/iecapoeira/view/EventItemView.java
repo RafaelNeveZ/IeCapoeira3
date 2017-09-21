@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.hemobile.ItemView;
@@ -59,7 +60,7 @@ public class EventItemView extends ItemView<Event> {
     private Event obj;
 
     public List<JSONObject> jList;
-
+    Date  eventStartdate, eventFinaldate, timeStart,timeEnd;
     @ViewById
     ImageView img;
     private ProgressDialog progressDialog;
@@ -84,8 +85,32 @@ public class EventItemView extends ItemView<Event> {
     public void bind(Event obj, int positionj) {
         this.obj = obj;
         checkEvents();
+        eventStartdate =new Date();
+        eventFinaldate =new Date();
+        timeEnd = new Date();
+        timeStart = new Date();
+        eventStartdate = (Date) obj.get("startDate");
+        eventFinaldate = (Date) obj.get("endDate");
+        timeStart = (Date) obj.get("startTime");
+        timeEnd = (Date) obj.get("endTime");
+        Log.d("START DAY",eventStartdate.getDate()+"");
+    //    Log.d("Final DAY",eventFinaldate.getDate()+"");
+        Log.d("START M",eventStartdate.getMonth()+"");
+     //   Log.d("Final M",eventFinaldate.getMonth()+"");
+        Log.d("START Y",(eventStartdate.getYear()+1900)+"");
+     //   Log.d("Final Y",eventFinaldate.getYear()+"");
+        Log.d("hou ini",timeStart.getHours()+"");
+        Log.d("hou fin",timeEnd.getHours()+"");
+        Log.d("mim ini",timeStart.getMinutes()+"");
+        Log.d("mim fin",timeEnd.getMinutes()+"");
+
+
         //  IEApplication.getUserDetails();
         textName.setText(obj.getName());
+
+
+
+
         String pattern = getContext().getString(R.string.date_pattern);
         final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         jList=new ArrayList<>();

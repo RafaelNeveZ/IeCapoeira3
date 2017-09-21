@@ -363,7 +363,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         minutofinal= minute;
         btHour.setText(((horaInicial<10)?"0"+horaInicial:horaInicial)+":"+((minutoInicial<10)?"0"+minutoInicial:minutoInicial));
         btFinalHour.setText(((horafinal<10)?"0"+horafinal:horafinal)+":"+((minutofinal<10)?"0"+minutofinal:minutofinal));
-        startTime.setHours(horafinal);
+        startTime.setHours(hour);
         startTime.setMinutes(minute);
         endTime.setHours(horafinal);
         endTime.setMinutes(minute);
@@ -407,32 +407,39 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     private void setJustDate(Date myDate){
         Calendar cal = Calendar.getInstance();
+
         cal.set(myDate.getYear(), myDate.getMonth(), myDate.getDate());
         boolean sameday =(myDate.getYear() == noChangeDate.getYear() && myDate.getMonth()==noChangeDate.getMonth() && myDate.getDate()==noChangeDate.getDate());
-        Log.d("MYDATE",myDate.getYear()+"");
+/*        Log.d("MYDATE",myDate.getYear()+"");
         Log.d("MYDATE",myDate.getMonth()+"");
         Log.d("MYDATE",myDate.getDate()+"");
         Log.d("NOCHANGEDATE",noChangeDate.getYear()+"");
         Log.d("NOCHANGEDATE",noChangeDate.getMonth()+"");
-        Log.d("NOCHANGEDATE",noChangeDate.getDate()+"");
-
+        Log.d("NOCHANGEDATE",noChangeDate.getDate()+"");*/
+        Log.d("MYDATE",myDate.getYear()+"");
+        Log.d("MYDATE",myDate.getMonth()+"");
+        Log.d("MYDATE",myDate.getDate()+"");
+        Log.d("end day",endDate.getYear()+"");
+        Log.d("end Month",endDate.getMonth()+"");
+        Log.d("end Year",endDate.getDate()+"");
+        Log.d("st day",initalDate.getYear()+"");
+        Log.d("st Month",initalDate.getMonth()+"");
+        Log.d("st Year",initalDate.getDate()+"");
         long dateRecivedinMills = cal.getTimeInMillis();
-        if(sameday)
-        Log.d("SAMEDAY","true");
-        else
-            Log.d("SAMEDAY","false");
         if(isInitDate){
             if(System.currentTimeMillis() < dateRecivedinMills || sameday) {
                 if(!dataFinalSetada){
-                    initalDate.setYear(myDate.getYear()-1900);
+                    Log.d("!datafinalsetada","false");
+                    initalDate.setYear(myDate.getYear());
                     initalDate.setMonth(myDate.getMonth());
                     initalDate.setDate(myDate.getDate());
                     btDate.setText(((myDate.getDate()<10)?"0"+myDate.getDate(): myDate.getDate()) + "/" + (((myDate.getMonth()+1)<10)?"0"+(myDate.getMonth()+1): (myDate.getMonth()+1))  + "/" + myDate.getYear());
                     btFinalDate.setEnabled(true);
                     dataInicialSetada=true;
                 }else{
+                    Log.d("!datafinalsetada","true");
                     if(endDate.getTime() > myDate.getTime()) {
-                        initalDate.setYear(myDate.getYear()-1900);
+                        initalDate.setYear(myDate.getYear());
                         initalDate.setMonth(myDate.getMonth());
                         initalDate.setDate(myDate.getDate());
                         btDate.setText(((myDate.getDate()<10)?"0"+myDate.getDate(): myDate.getDate()) + "/" + (((myDate.getMonth()+1)<10)?"0"+(myDate.getMonth()+1): (myDate.getMonth()+1))  + "/" + myDate.getYear());
@@ -445,10 +452,11 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
             }
         }else{
-            endDate.setYear(myDate.getYear()-1900);
-            endDate.setMonth(myDate.getMonth());
-            endDate.setDate(myDate.getDate());
-            if(endDate.getTime() > initalDate.getTime()) {
+            if(myDate.getTime() > initalDate.getTime()) {
+                endDate.setYear(myDate.getYear());
+                endDate.setMonth(myDate.getMonth());
+                endDate.setDate(myDate.getDate());
+                dataFinalSetada=true;
                 btFinalDate.setText(((myDate.getDate()<10)?"0"+myDate.getDate(): myDate.getDate()) + "/" + (((myDate.getMonth()+1)<10)?"0"+(myDate.getMonth()+1): (myDate.getMonth()+1))  + "/" + myDate.getYear());
                 dontPutEndDate = false;
             }else{
@@ -518,20 +526,25 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     }
                     newEvent.put("eventDate", jasonFinal);
                 }*/
-
+              //  startTime.setHours(startTime.getHours()-3);
+              //  startTime.setMinutes(minute);
+             //   endTime.setHours(endTime.getHours()-3);
+             //   endTime.setMinutes(minute);
+                newEvent.put("startTime",startTime);
+                newEvent.put("endTime",endTime);
+                initalDate.setYear(initalDate.getYear()-1900);
                 newEvent.put("startDate",initalDate);
                 if(dataFinalSetada) {
+                    newEvent.put("hasMoreDays",true);
+                    endDate.setYear(endDate.getYear()-1900);
                     newEvent.put("endDate", endDate);
                     Log.d("FINAL IGUAL", "SIM");
                 }else {
+                    newEvent.put("hasMoreDays",false);
                     Log.d("FINAL IGUAL", "NAO");
-                    Date nonDate = new Date(0,0,0);
-                    newEvent.put("endDate", nonDate);
                 }
 
-                Calendar date = Calendar.getInstance();
-                date.set(selYear, selMonth, selDay, selHour, selMinute);
-                newEvent.put(Event.DATE,date.getTime());
+
                 newEvent.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
