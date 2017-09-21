@@ -153,7 +153,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     private String my64foto=null;
     private String Pais="";
     private boolean isInitDate=true;
-    Date initalDate, endDate;
+    Date initalDate, endDate, startTime, endTime;
     private boolean dontPutEndDate;
     //  private JSONObject jasonFinal;
 
@@ -207,6 +207,29 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     }
 
+    @Click
+    public void btHour() {
+        isInit=true;
+        putTime();
+
+    }
+    @Click
+    public void btFinalHour() {
+        isInit=false;
+        putTime();
+
+    }
+
+    public void putTime() {
+        TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, selHour, selMinute, true);
+        tpd.show();
+    }
+
+
+    public void putDate() {
+        DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, selYear, selMonth, selDay);
+        dpd.show();
+    }
 
    /* public List<ParseObject> setListNE() throws JSONException {
 
@@ -312,7 +335,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Date date = new Date(year, monthOfYear+1, dayOfMonth);
+        Date date = new Date(year, monthOfYear, dayOfMonth);
         setJustDate(date);
 
     }
@@ -321,9 +344,11 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     private void setupTime(int year, int month, int day, int hour, int minute) {
         initalDate = new Date(year,month,day);
         endDate = new Date(year,month,day+1);
+        startTime = new Date();
+        endTime = new Date();
         Calendar c = Calendar.getInstance();
         selDay = day;
-        noChangeMonth = month;
+        noChangeMonth = month+1;
         noChangeDay = day;
         noChangeYear = year;
         selMonth = month-1;
@@ -334,9 +359,12 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         minutoInicial = minute;
         horafinal = hour+1;
         minutofinal= minute;
-     //   String pattern = getString(R.string.date_pattern);
-      //  SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-     ////   c.set(year, month, day, hour, minute);
+        btHour.setText(((horaInicial<10)?"0"+horaInicial:horaInicial)+":"+((minutoInicial<10)?"0"+minutoInicial:minutoInicial));
+        btFinalHour.setText(((horafinal<10)?"0"+horafinal:horafinal)+":"+((minutofinal<10)?"0"+minutofinal:minutofinal));
+        startTime.setHours(horafinal);
+        startTime.setMinutes(minute);
+        endTime.setHours(horafinal);
+        endTime.setMinutes(minute);
 
     }
 
@@ -344,42 +372,35 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         Calendar c = Calendar.getInstance();
         selMinute = minute;
         selHour = hour;
-        JSONObject json = new JSONObject();
-        JSONObject manJson = new JSONObject();
-        String pattern = getString(R.string.date_pattern);
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         c.set(0,0,0,hour, minute);
-        if (isInicial){
+        if (isInit){
             int horaInitInSec = hour*3600 + minute*60;
-          //  int horaFimInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOUREND)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMEND)*60;
-         /*   if( horaFimInSec <= horaInitInSec) {
+            int horaFimInSec = endTime.getHours()*3600 + endTime.getMinutes()*60;
+            if( horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
-            }*/
-            try {
-          //      listNE.get(rightPosition).put(EventDate.HOURINIT,hour);
-           //     listNE.get(rightPosition).put(EventDate.MIMINIT,minute);
-            }catch (Exception e){
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-            horaInicial = hour;
-            minutoInicial = minute;
+          //  }else{
+                startTime.setHours(hour);
+                startTime.setMinutes(minute);
+                btHour.setText(((hour<10)?"0"+hour: hour)+":"+((minute<10)?"0"+minute:minute));
+                horaInicial = hour;
+                minutoInicial = minute;
 
         }else{
-           // int horaInitInSec = (Integer) listNE.get(rightPosition).get(EventDate.HOURINIT)*3600 + (Integer) listNE.get(rightPosition).get(EventDate.MIMINIT)*60;
+            int horaInitInSec = startTime.getHours()*3600 + startTime.getMinutes()*60;
             int horaFimInSec = hour*3600 + minute*60;
-            /*if(horaFimInSec <= horaInitInSec) {
+            if( horaFimInSec <= horaInitInSec) {
                 showAlert(getString(R.string.erro_time_title), getString(R.string.erro_valid_time));
-            }*/
-            try {
-               /* listNE.get(rightPosition).put(EventDate.HOUREND,hour);
-                listNE.get(rightPosition).put(EventDate.MIMEND,minute);*/
-            }catch (Exception e){
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-            horafinal = hour;
-            minutofinal = minute;
+       //     }else{
+                endTime.setHours(hour);
+                endTime.setMinutes(minute);
+                btFinalHour.setText(((hour<10)?"0"+hour: hour)+":"+((minute<10)?"0"+minute:minute));
+                horafinal = hour;
+                minutofinal = minute;
+
         }
-        //adapter.notifyDataSetChanged();
+
     }
 
     private void setJustDate(Date myDate){
@@ -389,19 +410,18 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         long dateRecivedinMills = cal.getTimeInMillis();
         if(isInitDate){
             if(System.currentTimeMillis() < dateRecivedinMills || sameday) {
-                /*if (dontPutEndDate){
-                    initalDate = myDate;
-                    btDate.setText("" + myDate.getDate() + "/" + myDate.getMonth() + "/" + myDate.getYear());
-                    btFinalDate.setEnabled(true);
-                }else{*/
-                if(!btFinalDate.getText().equals(getString(R.string.date_final))){
-                    initalDate = myDate;
-                    btDate.setText("" + myDate.getDate() + "/" + myDate.getMonth() + "/" + myDate.getYear());
+                if(btFinalDate.getText().equals(getString(R.string.date_final))){
+                    initalDate.setYear(myDate.getYear()-1900);
+                    initalDate.setMonth(myDate.getMonth());
+                    initalDate.setDate(myDate.getDate());
+                    btDate.setText(((myDate.getDate()<10)?"0"+myDate.getDate(): myDate.getDate()) + "/" + (((myDate.getMonth()+1)<10)?"0"+(myDate.getMonth()+1): (myDate.getMonth()+1))  + "/" + myDate.getYear());
                     btFinalDate.setEnabled(true);
                 }else{
                     if(endDate.getTime() > myDate.getTime()) {
-                        initalDate = myDate;
-                        btDate.setText("" + myDate.getDate() + "/" + myDate.getMonth() + "/" + myDate.getYear());
+                        initalDate.setYear(myDate.getYear()-1900);
+                        initalDate.setMonth(myDate.getMonth());
+                        initalDate.setDate(myDate.getDate());
+                        btDate.setText(((myDate.getDate()<10)?"0"+myDate.getDate(): myDate.getDate()) + "/" + (((myDate.getMonth()+1)<10)?"0"+(myDate.getMonth()+1): (myDate.getMonth()+1))  + "/" + myDate.getYear());
                         btFinalDate.setEnabled(true);
                     }else{
                         showAlert(getString(R.string.erro_date_title), getString(R.string.erro_final_date_title));
@@ -411,33 +431,16 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             showAlert(getString(R.string.erro_date_title), getString(R.string.erro_valid_date));
             }
         }else{
-            endDate = myDate;
+            endDate.setYear(myDate.getYear()-1900);
+            endDate.setMonth(myDate.getMonth());
+            endDate.setDate(myDate.getDate());
             if(endDate.getTime() > initalDate.getTime()) {
-                btFinalDate.setText("" + myDate.getDate() + "/" + myDate.getMonth() + "/" + myDate.getYear());
+                btFinalDate.setText(((myDate.getDate()<10)?"0"+myDate.getDate(): myDate.getDate()) + "/" + (((myDate.getMonth()+1)<10)?"0"+(myDate.getMonth()+1): (myDate.getMonth()+1))  + "/" + myDate.getYear());
                 dontPutEndDate = false;
             }else{
                 showAlert(getString(R.string.erro_date_title), getString(R.string.erro_final_date_title));
             }
         }
-
-  /*
-      //  if(System.currentTimeMillis() < dateRecivedinMills || sameday){
-            selDay = day;
-            selMonth = month;
-            selYear = year;
-            JSONObject json = new JSONObject();
-            JSONObject manJson = new JSONObject();
-            try {
-               *//**//* listNE.get(rightPosition).put(EventDate.DAY,day);
-                listNE.get(rightPosition).put(EventDate.MONTH,month+1);
-                listNE.get(rightPosition).put(EventDate.YEAR,year);
-                adapter.notifyDataSetChanged();*//**//*
-            }catch (Exception e){
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-            *//**//*adapter.notifyDataSetChanged();*//**//*
-        */
-
     }
 
     public void showAlert(String title, String msg){
@@ -502,6 +505,13 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     newEvent.put("eventDate", jasonFinal);
                 }*/
 
+                newEvent.put("startDate",initalDate);
+                if(!btFinalDate.getText().equals(""))
+                newEvent.put("endDate",endDate);
+                else {
+                    Date nonDate = new Date(0,0,0);
+                    newEvent.put("endDate", nonDate);
+                }
 
                 Calendar date = Calendar.getInstance();
                 date.set(selYear, selMonth, selDay, selHour, selMinute);
@@ -620,10 +630,10 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             }
 
         }
-       /* if (listNE.size()==0){
-            Toast.makeText(getActivity(), "Escolha pelo menos uma data", Toast.LENGTH_SHORT).show();
+        if (btDate.getText().equals(getString(R.string.date_inicial))){
+            Toast.makeText(getActivity(), "Escolha a data inicial do evento", Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
         /*if (city.isEmpty()) {
             setError(editCity, getString(R.string.msg_erro_campo_vazio));
             return false;
@@ -724,16 +734,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
 
 
-    public void putTime() {
-        TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, selHour, selMinute, true);
-        tpd.show();
-    }
 
-
-    public void putDate() {
-        DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, selYear, selMonth, selDay);
-        dpd.show();
-    }
 
 
 
