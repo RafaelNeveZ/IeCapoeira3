@@ -76,7 +76,8 @@ public class EventListFragment extends ListFragment {
             Log.d("FILTER","" + filter);
             switch (listType) {
                 case LIST_BY_CAPOEIRA:
- //                   query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                    query.orderByAscending("startDate");
+                    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
                     query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
                     if(!filter.equals("")){
                         Log.d("FILTER","ENTREI" + filter);
@@ -85,7 +86,8 @@ public class EventListFragment extends ListFragment {
 
                     break;
                 case LIST_BY_CULTURAIS:
- //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                query.orderByAscending("startDate");
+                   query.whereGreaterThan("startDate", Calendar.getInstance().getTime());
                    query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
                     if(!filter.equals("")){
                         Log.d("FILTER","ENTREI" + filter);

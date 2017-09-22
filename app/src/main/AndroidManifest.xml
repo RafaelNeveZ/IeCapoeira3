@@ -46,7 +46,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.NewEventActivity_"
-            android:label="@string/title_eventos"
+            android:label="@string/title_eventos_new"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
@@ -191,7 +191,7 @@
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.EditNewEventActivity_"
-            android:label="@string/title_add_edital"
+            android:label="@string/title_edit_event"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"

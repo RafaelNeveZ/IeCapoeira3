@@ -22,13 +22,13 @@
         android:id="@+id/delete"
         android:icon="@drawable/ic_delete_white_24dp"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Apagar" />
 
     <item
         android:id="@+id/edit"
         android:icon="@drawable/ic_edit_white_24dp"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Editar" />
     <!--<item
         android:id="@+id/singup"
         android:icon="@drawable/ic_eventlist_cell_confirm_select"

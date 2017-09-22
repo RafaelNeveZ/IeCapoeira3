@@ -10,19 +10,19 @@
         android:id="@+id/menu_delete"
         android:icon="@drawable/ic_delete_white_24dp"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Apagar" />
 
   <item
       android:id="@+id/menu_edit"
       android:icon="@drawable/ic_edit_white_24dp"
       app:showAsAction="always"
-      android:title="" />
+      android:title="Editar" />
 
     <item
         android:id="@+id/menu_go"
         android:icon="@drawable/ic_eventdetail_action_select"
         app:showAsAction="always"
-        android:title="" />
+        android:title="Confirmar" />
 
     <!--<item
         android:icon="@drawable/ic_menu_moreoverflow"

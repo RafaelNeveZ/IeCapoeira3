@@ -5,7 +5,7 @@
     >
     <item android:id="@+id/remove"
         android:icon="@drawable/ic_delete_white_24dp"
-        android:title="Novo Evento"
+        android:title="Apagar"
         app:showAsAction="always"/>
 
     <item android:id="@+id/add"

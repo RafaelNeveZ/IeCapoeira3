@@ -88,13 +88,7 @@ public class MainFragment extends Fragment {
 
     @OptionsItem
     public void newEvent() {
-        if(((boolean)ParseUser.getCurrentUser().get("Admin"))){
             startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10);
-        }else{
-            startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10); //TODO CRIAR ACTV
-        }
-
-
     }
 
     @OptionsItem

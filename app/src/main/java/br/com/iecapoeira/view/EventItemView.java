@@ -84,7 +84,7 @@ public class EventItemView extends ItemView<Event> {
     @Override
     public void bind(Event obj, int positionj) {
         this.obj = obj;
-        checkEvents();
+       // checkEvents();
         eventStartdate =new Date();
         eventFinaldate =new Date();
         timeEnd = new Date();
@@ -107,7 +107,10 @@ public class EventItemView extends ItemView<Event> {
 
         //  IEApplication.getUserDetails();
         textName.setText(obj.getName());
-
+        int hourInit=timeStart.getHours();
+        int hourFim=timeEnd.getHours();
+        int minuteInit=timeStart.getMinutes();
+        int minuteFim=timeEnd.getMinutes();
 
 
 
@@ -125,8 +128,14 @@ public class EventItemView extends ItemView<Event> {
             }
         }
         try {
-            textDate.setText(jList.get(0).getString("date") + "");
-            textTime.setText("Das "+jList.get(0).getString("startTime")+" às "+jList.get(0).getString("endTime")+" horas");
+
+            String end = "";
+            String start =((eventStartdate.getDate()<10)?"0"+eventStartdate.getDate(): eventStartdate.getDate()) + "/" + (((eventStartdate.getMonth()+1)<10)?"0"+(eventStartdate.getMonth()+1): (eventStartdate.getMonth()+1))  + "/" + (eventStartdate.getYear()+1900);
+            if((boolean)obj.get("hasMoreDays"))
+            end =((eventFinaldate.getDate()<10)?"0"+eventFinaldate.getDate(): eventFinaldate.getDate()) + "/" + (((eventFinaldate.getMonth()+1)<10)?"0"+(eventFinaldate.getMonth()+1): (eventFinaldate.getMonth()+1))  + "/" + (eventFinaldate.getYear()+1900);
+            textDate.setText(end.equals("")? start:start+" à "+end);
+
+            textTime.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit)+ " às "+ ((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
         }catch (Exception c){
 
         }
@@ -145,12 +154,7 @@ public class EventItemView extends ItemView<Event> {
     }
 
     public  void checkEvents(){
-        /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
-        query.findInBackground(new FindCallback<Event>() {*/
-           /* @Override
-            public void done(List<Event> models, ParseException e) {*/
-                //ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
+
                 ParseRelation<ParseObject> relation = obj.getRelation("eventGo");
                 ParseQuery<ParseObject> qry = relation.getQuery();
                 qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
@@ -160,84 +164,15 @@ public class EventItemView extends ItemView<Event> {
                         if(users!=null) {
                             if (users.size() > 0) {
                                 for (int a = 0; a < users.size(); a++) {
-                                    Log.d("EVENT NAME", users.get(a).get(Event.NAME).toString());
                                 }
                                 setImageBtGoing(true);
-                                //  go=false;
-                            }else{
-                                setImageBtGoing(false);
+
                             }
                         }
                     }
                 });
-        //    }
-      //  });
+
     }
- /*  public void subscribe(){
-       ParseQuery<Event> query = ParseQuery.getQuery("Event");
-       query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
-       query.findInBackground(new FindCallback<Event>() {
-           @Override
-           public void done(List<Event> models, ParseException e) {
-               ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-               relation.add(ParseUser.getCurrentUser());
-               models.get(0).saveInBackground(new SaveCallback() {
-                   public void done(ParseException e) {
-                       if (e == null) {
-                           setImageBtGoing(true);
-                           go=false;
-                       } else {
-
-                       }
-                   }
-               });
-           }
-       });
-   }
-
-   public  void unSubscribe(){
-       ParseQuery<Event> query = ParseQuery.getQuery("Event");
-       query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
-       query.findInBackground(new FindCallback<Event>() {
-           @Override
-           public void done(List<Event> models, ParseException e) {
-               ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-               relation.remove(ParseUser.getCurrentUser());
-               models.get(0).saveInBackground(new SaveCallback() {
-                   public void done(ParseException e) {
-                       if (e == null) {
-                           setImageBtGoing(false);
-                           go=true;
-                       } else {
-
-                       }
-                   }
-               });
-           }
-       });
-   }*/
-    /*@Click
-    public void btGoing() {
-
-        if(go) {
-            subscribe();
-
-        }else {
-            unSubscribe();
-        }
-
-    }*/
-
-    @Background
-    void changeGoingOnParse(Boolean userGoing) {
-      /*  try {
-            obj.setUserGoing(IEApplication.getUserDetails(), userGoing);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            setImageBtGoing(!userGoing);
-        }*/
-    }
-
     @UiThread
     void setImageBtGoing(boolean userGoing) {
         btGoing.setImageResource(userGoing ? R.drawable.ic_eventlist_cell_confirm_unselect : R.drawable.ic_eventlist_cell_confirm_select);

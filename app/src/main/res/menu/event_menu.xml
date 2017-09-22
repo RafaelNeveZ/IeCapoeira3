@@ -5,7 +5,7 @@
 
     <item android:id="@+id/filter"
         android:icon="@drawable/ic_filter_list_white_24dp"
-        android:title="menu_filter"
+        android:title="Filtro"
         app:showAsAction="always"/>
 
 
