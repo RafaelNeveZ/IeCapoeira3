@@ -22,6 +22,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -71,35 +72,63 @@ public class MyEventListFragment extends ListFragment {
             return;
         }
 
-        ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        try {
-            Log.d("TAG","" + listType);
-            switch (listType) {
-                case LIST_BY_CAPOEIRA:
-                    query.orderByAscending("startDate");
-                    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
-                    query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
-                    Log.d("TAG","CAPOEIRA");
-                    Log.d("Event.TYPE",Event.TYPE);
-                    Log.d("TYPE_CUTURAL",TYPE_CAPOEIRA);
-                    break;
-                case LIST_BY_CULTURAIS:
-                    query.orderByAscending("startDate");
-                    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
-                    Log.d("TAG","CULTURAL");
-                    Log.d("Event.TYPE",Event.TYPE);
-                    Log.d("TYPE_CUTURAL",TYPE_CULTURAL);
-                    break;
-            }
-            // query.orderByAscending(Event.DATE);
-            query.findInBackground(new FindCallback<Event>() {
-                @Override
-                public void done(List<Event> events, ParseException e) {
-                }
-            });
-        } catch (Exception ex) {
 
-        }
+
+        /*ParseQuery<ParseObject> qry = ParseQuery.getQuery("EventGo");
+        qry.whereEqualTo("userid",ParseUser.getCurrentUser().getObjectId());
+        qry.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> myevents, ParseException e) {
+                List<String> List=new ArrayList<String>();
+                ParseQuery<Event> query = ParseQuery.getQuery("Event");
+                if(myevents!=null) {
+                    for (ParseObject event : myevents) {
+                        List.add((String) event.get("eventid"));
+                        Log.d("ID", event.get("eventid") + "");
+                        try {
+                            query.get(event.get("eventid")+"");
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                }*/
+
+                ParseUser me =ParseUser.getCurrentUser();
+                ParseQuery<ParseUser> innerQuery =ParseUser.getQuery();
+                innerQuery.whereEqualTo("objectId", me.getObjectId());
+                ParseQuery<Event> query = ParseQuery.getQuery("Event");
+                query.whereMatchesQuery("eventGo", innerQuery);
+        //ParseQuery<Event> query = ParseQuery.getQuery("Event");
+                /*ParseQuery<ParseUser> innerQuery = ParseUser.getQuery();
+                innerQuery.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId()); //value of userGroupPtr
+                query.whereMatchesQuery("EventGo", innerQuery);*/
+
+        try {
+                    switch (listType) {
+                        case LIST_BY_CAPOEIRA:
+                            query.orderByAscending("startDate");
+                         //   query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
+                            query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
+                            break;
+                        case LIST_BY_CULTURAIS:
+                            query.orderByAscending("startDate");
+                            query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
+                        //    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
+                            break;
+                    }
+                    query.findInBackground(new FindCallback<Event>() {
+                        @Override
+                        public void done(List<Event> events, ParseException e) {
+                            handleResult(events, e);
+                            Log.d("SIZE",events.size()+"");
+                        }
+                    });
+                } catch (Exception ex) {
+
+                }
+           /* }
+        });
+*/
 
     }
 
@@ -156,7 +185,7 @@ public class MyEventListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Event item = adapter.getItem(position);
-        startActivity(new Intent(getActivity(), MyEventDetailActivity_.class).putExtra("id", item.getObjectId()));
+        startActivity(new Intent(getActivity(), EventDetailActivity_.class).putExtra("id", item.getObjectId()));
     }
    /* @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

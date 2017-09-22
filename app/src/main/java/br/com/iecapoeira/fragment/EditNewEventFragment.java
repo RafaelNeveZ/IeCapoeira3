@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -428,10 +429,10 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
                 event.put(Event.CITY, editTrueCity.getText().toString());
             }
 
-            ParseRelation<ParseObject> owner = event.getRelation("eventOwner");
+            /*ParseRelation<ParseObject> owner = event.getRelation("eventOwner");
             owner.add(ParseUser.getCurrentUser());
             ParseRelation<ParseObject> go = event.getRelation("eventGo");
-            go.add(ParseUser.getCurrentUser());
+            go.add(ParseUser.getCurrentUser());*/
 
             if(isAdmin()) {
                 event.put(Event.TYPE, isCapeira());
@@ -548,11 +549,15 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     }
 
     public void galleyView(){
-        if(isReadStorageAllowed()) {
-            PhotoUtil.getCroppedImageFromGalleryFrag(this);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (isReadStorageAllowed()) {
+                PhotoUtil.getCroppedImageFromGalleryFrag(this);
 
-        }else{
-            requestStoragePermission();
+            } else {
+                requestStoragePermission();
+            }
+        } else {
+            PhotoUtil.getCroppedImageFromGalleryFrag(this);
         }
     }
 
@@ -567,7 +572,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream.toByteArray();
                 my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                Log.d("STRING: ", my64foto);
+
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
 

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -186,10 +187,15 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     }
 
     public void galleyView(){
-        if(isReadStorageAllowed()) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (isReadStorageAllowed()) {
+                PhotoUtil.getCroppedImageFromGallery(this);
+
+            } else {
+                requestStoragePermission();
+            }
+        } else {
             PhotoUtil.getCroppedImageFromGallery(this);
-        }else{
-            requestStoragePermission();
         }
     }
 
@@ -219,7 +225,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream .toByteArray();
                 my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                Log.d("STRING: ",my64foto);
+
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
             }

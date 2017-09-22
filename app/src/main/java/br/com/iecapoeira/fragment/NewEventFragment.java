@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -375,7 +376,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 showProgress("Criando evento...");
                 int editCityVisb = cityChoice.getVisibility();
                 final ParseObject newEvent = ParseObject.create("Event");
-
+                final ParseObject eventGo = ParseObject.create("EventGo");
                 newEvent.put(Event.NAME, editName.getText().toString());
                 newEvent.put(Event.DESCRIPTION, editDesc.getText().toString());
                 newEvent.put(Event.ADDRESS, editAddress.getText().toString());
@@ -502,11 +503,15 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     }
 
     public void galleyView(){
-        if(isReadStorageAllowed()) {
-            PhotoUtil.getCroppedImageFromGalleryFrag(this);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (isReadStorageAllowed()) {
+                PhotoUtil.getCroppedImageFromGalleryFrag(this);
 
-        }else{
-            requestStoragePermission();
+            } else {
+                requestStoragePermission();
+            }
+        } else {
+            PhotoUtil.getCroppedImageFromGalleryFrag(this);
         }
     }
 
@@ -521,7 +526,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream.toByteArray();
                 my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                Log.d("STRING: ", my64foto);
+
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
 
