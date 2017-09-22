@@ -21,6 +21,7 @@ import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.hemobile.MyApplication;
@@ -70,27 +71,33 @@ public class EventListFragment extends ListFragment {
             return;
         }
 
+
+
+
         ParseQuery<Event> query = ParseQuery.getQuery("Event");
-//        query.include(Event.OWNER);
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DATE)-1);
+
         try {
             Log.d("FILTER","" + filter);
             switch (listType) {
                 case LIST_BY_CAPOEIRA:
                     query.orderByAscending("startDate");
-                    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
+                    query.whereGreaterThanOrEqualTo("startDate", c.getTime());
                     query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
                     if(!filter.equals("")){
-                        Log.d("FILTER","ENTREI" + filter);
+
                         query.whereEqualTo(Event.CITY,filter);
                     }
 
                     break;
                 case LIST_BY_CULTURAIS:
                 query.orderByAscending("startDate");
-                   query.whereGreaterThan("startDate", Calendar.getInstance().getTime());
+                    query.whereGreaterThanOrEqualTo("startDate", c.getTime());
                    query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
                     if(!filter.equals("")){
-                        Log.d("FILTER","ENTREI" + filter);
+
                         query.whereEqualTo(Event.CITY,filter);
                     }
                     break;

@@ -81,19 +81,30 @@ public class MusicaItemView extends ItemView<ParseObject> {
             tvAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO addplaylist
-                    showProgress("Adicionando à playlist");
-                    final ParseRelation<ParseObject> relation = ParseUser.getCurrentUser().getRelation("favoritos");
-                    ParseQuery query = relation.getQuery();
-                    query.whereEqualTo("objectId",obj.getObjectId());
-                    query.findInBackground(new FindCallback<ParseObject>() {
+
+                    showProgress("Adicionando à playlist...");
+                    ParseUser me =ParseUser.getCurrentUser();
+                    final ParseRelation<ParseObject> relation = obj.getRelation("userFavorite");
+                    ParseQuery pq = relation.getQuery();
+                    pq.whereEqualTo("objectId", me.getObjectId());
+                    pq.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> objects, ParseException e) {
                             if (objects.size() == 0) {
-                                dismissProgress();
-                                relation.add(obj);
-                                ParseUser.getCurrentUser().saveInBackground();
-                                Toast.makeText(con, "Adicionado", Toast.LENGTH_LONG).show();
+
+                                final ParseRelation<ParseObject> relation = obj.getRelation("userFavorite");
+                                relation.add(ParseUser.getCurrentUser());
+                                obj.saveInBackground(new SaveCallback() {
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(con, "Adicionado", Toast.LENGTH_LONG).show();
+                                            dismissProgress();
+                                        } else {
+                                            Toast.makeText(con, "Erro", Toast.LENGTH_LONG).show();
+                                            dismissProgress();
+                                        }
+                                    }
+                                });
                             } else {
                                 dismissProgress();
                                 Toast.makeText(con, "Esta música já está na playlist", Toast.LENGTH_LONG).show();
@@ -108,25 +119,37 @@ public class MusicaItemView extends ItemView<ParseObject> {
                 @Override
                 public void onClick(View view) {
                     showProgress("Removendo da playlist");
-                    ParseRelation<ParseObject> relation = ParseUser.getCurrentUser().getRelation("favoritos");
-                    relation.remove(obj);
-
-                    ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                    /*ParseUser me =ParseUser.getCurrentUser();
+                    ParseQuery<ParseUser> innerQuery =ParseUser.getQuery();
+                    innerQuery.whereEqualTo("objectId", me.getObjectId());
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Music");
+                    query.whereMatchesQuery("userFavorite", innerQuery);
+                    query.findInBackground(new FindCallback<ParseObject>() {
                         @Override
-                        public void done(ParseException e) {
-                            if(e==null){
-                                Toast.makeText(con, "Deletado", Toast.LENGTH_LONG).show();
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if (objects.size() > 0) {*/
                                 dismissProgress();
-                            }else{
-                                Toast.makeText(con, "Ocorreu um erro desconhecido", Toast.LENGTH_LONG).show();
+                                final ParseRelation<ParseObject> relation = obj.getRelation("userFavorite");
+                                relation.remove(ParseUser.getCurrentUser());
+                                obj.saveInBackground(new SaveCallback() {
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            Toast.makeText(con, "Removido com sucesso", Toast.LENGTH_LONG).show();
+                                            dismissProgress();
+                                        } else {
+                                            Toast.makeText(con, "Erro", Toast.LENGTH_LONG).show();
+                                            dismissProgress();
+                                        }
+                                    }
+                                });
+                           /* } else {
                                 dismissProgress();
+                                Toast.makeText(con, "Esta música já está na playlist", Toast.LENGTH_LONG).show();
                             }
                         }
-                    });
-
+                    });*/
                 }
             });
-
         }
     }
 

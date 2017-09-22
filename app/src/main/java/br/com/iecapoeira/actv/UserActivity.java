@@ -125,6 +125,9 @@ public class UserActivity extends AppCompatActivity {
                                         Toast.makeText(context, "Email já em uso, escolha outro.", Toast.LENGTH_LONG).show();
                                     }
                                 }
+
+                                if(!mudouEmail)
+                                actualUser.put("emailVerified", true);
                                 actualUser.put("Associacao", editAssociation.getText().toString());
                                 actualUser.put("nickname", editNickname.getText().toString());
                                 actualUser.saveInBackground(new SaveCallback() {
@@ -139,6 +142,7 @@ public class UserActivity extends AppCompatActivity {
                                                 mudouEmail = false;
                                                 dialog.dismiss();
                                             } else {
+                                                Toast.makeText(context, "Informações cadastradas", Toast.LENGTH_LONG).show();
                                                 dialog.dismiss();
                                                 dismissProgress();
                                             }

@@ -24,6 +24,7 @@ import org.androidannotations.annotations.UiThread;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.com.hemobile.MyApplication;
@@ -98,22 +99,21 @@ public class MyEventListFragment extends ListFragment {
                 innerQuery.whereEqualTo("objectId", me.getObjectId());
                 ParseQuery<Event> query = ParseQuery.getQuery("Event");
                 query.whereMatchesQuery("eventGo", innerQuery);
-        //ParseQuery<Event> query = ParseQuery.getQuery("Event");
-                /*ParseQuery<ParseUser> innerQuery = ParseUser.getQuery();
-                innerQuery.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId()); //value of userGroupPtr
-                query.whereMatchesQuery("EventGo", innerQuery);*/
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DATE)-1);
+
 
         try {
                     switch (listType) {
                         case LIST_BY_CAPOEIRA:
                             query.orderByAscending("startDate");
-                         //   query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
+                            query.whereGreaterThanOrEqualTo("startDate", (c.getTime()));
                             query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
                             break;
                         case LIST_BY_CULTURAIS:
                             query.orderByAscending("startDate");
                             query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
-                        //    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
+                            query.whereGreaterThanOrEqualTo("startDate", c.getTime());
                             break;
                     }
                     query.findInBackground(new FindCallback<Event>() {

@@ -119,13 +119,14 @@ public class MyMusicaListFragment extends ListFragment {
                 case LIST_BY_PLAYLIST:
                     MusicaItemView.sacaninha = true;
                     //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-                    ParseRelation<ParseObject> relation = ParseUser.getCurrentUser().getRelation("favoritos");
-                    ParseQuery<ParseObject> queryFav = relation.getQuery();
-                    queryFav.findInBackground(new FindCallback<ParseObject>() {
+                    ParseUser me =ParseUser.getCurrentUser();
+                    ParseQuery<ParseUser> innerQuery =ParseUser.getQuery();
+                    innerQuery.whereEqualTo("objectId", me.getObjectId());
+                    ParseQuery<ParseObject> queryf = ParseQuery.getQuery("Music");
+                    queryf.whereMatchesQuery("userFavorite", innerQuery);
+                    queryf.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> musics, ParseException e) {
-
-
                             handleResult(musics, e);
                         }
                     });

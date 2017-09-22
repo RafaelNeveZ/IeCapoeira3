@@ -93,16 +93,7 @@ public class EventItemView extends ItemView<Event> {
         eventFinaldate = (Date) obj.get("endDate");
         timeStart = (Date) obj.get("startTime");
         timeEnd = (Date) obj.get("endTime");
-        Log.d("START DAY",eventStartdate.getDate()+"");
-    //    Log.d("Final DAY",eventFinaldate.getDate()+"");
-        Log.d("START M",eventStartdate.getMonth()+"");
-     //   Log.d("Final M",eventFinaldate.getMonth()+"");
-        Log.d("START Y",(eventStartdate.getYear()+1900)+"");
-     //   Log.d("Final Y",eventFinaldate.getYear()+"");
-        Log.d("hou ini",timeStart.getHours()+"");
-        Log.d("hou fin",timeEnd.getHours()+"");
-        Log.d("mim ini",timeStart.getMinutes()+"");
-        Log.d("mim fin",timeEnd.getMinutes()+"");
+
 
 
         //  IEApplication.getUserDetails();
@@ -114,20 +105,6 @@ public class EventItemView extends ItemView<Event> {
 
 
 
-        String pattern = getContext().getString(R.string.date_pattern);
-        final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        jList=new ArrayList<>();
-        JSONObject jason = obj.getJSONObject("eventDate");
-        for(int a=0;a<7;a++) {
-            try {
-                jList.add(jason.getJSONObject(a+""));
-                Log.d("JSON "+a,jList.get(a).getString("startTime"));
-            } catch (Exception c) {
-                Log.e("JSON "+a,c.getMessage());
-                break;
-            }
-        }
-        try {
 
             String end = "";
             String start =((eventStartdate.getDate()<10)?"0"+eventStartdate.getDate(): eventStartdate.getDate()) + "/" + (((eventStartdate.getMonth()+1)<10)?"0"+(eventStartdate.getMonth()+1): (eventStartdate.getMonth()+1))  + "/" + (eventStartdate.getYear()+1900);
@@ -136,9 +113,6 @@ public class EventItemView extends ItemView<Event> {
             textDate.setText(end.equals("")? start:start+" à "+end);
 
             textTime.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit)+ " às "+ ((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
-        }catch (Exception c){
-
-        }
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {

@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.hemobile.ItemView;
@@ -48,8 +49,8 @@ public class MyEventItemView extends ItemView<Event> {
 
     private Event obj;
 
-    public List<JSONObject> jList;
 
+    Date  eventStartdate, eventFinaldate, timeStart,timeEnd;
     @ViewById
     ImageView img;
     private ProgressDialog progressDialog;
@@ -72,28 +73,44 @@ public class MyEventItemView extends ItemView<Event> {
 
     @Override
     public void bind(Event obj, int positionj) {
-        this.obj = obj;
-        //  IEApplication.getUserDetails();
-        textName.setText(obj.getName());
-        String pattern = getContext().getString(R.string.date_pattern);
-        final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        jList=new ArrayList<>();
-        JSONObject jason = obj.getJSONObject("eventDate");
-        for(int a=0;a<7;a++) {
-            try {
-                jList.add(jason.getJSONObject(a+""));
-                Log.d("JSON "+a,jList.get(a).getString("startTime"));
-            } catch (Exception c) {
-                Log.e("JSON "+a,c.getMessage());
-                break;
-            }
-        }
-        try {
-            textDate.setText(jList.get(0).getString("date") + "");
-            textTime.setText("Das "+jList.get(0).getString("startTime")+" às "+jList.get(0).getString("endTime")+" horas");
-        }catch (Exception c){
 
-        }
+        this.obj = obj;
+        // checkEvents();
+        eventStartdate =new Date();
+        eventFinaldate =new Date();
+        timeEnd = new Date();
+        timeStart = new Date();
+        eventStartdate = (Date) obj.get("startDate");
+        eventFinaldate = (Date) obj.get("endDate");
+        timeStart = (Date) obj.get("startTime");
+        timeEnd = (Date) obj.get("endTime");
+        Log.d("START DAY",eventStartdate.getDate()+"");
+        //    Log.d("Final DAY",eventFinaldate.getDate()+"");
+        Log.d("START M",eventStartdate.getMonth()+"");
+        //   Log.d("Final M",eventFinaldate.getMonth()+"");
+        Log.d("START Y",(eventStartdate.getYear()+1900)+"");
+        //   Log.d("Final Y",eventFinaldate.getYear()+"");
+        Log.d("hou ini",timeStart.getHours()+"");
+        Log.d("hou fin",timeEnd.getHours()+"");
+        Log.d("mim ini",timeStart.getMinutes()+"");
+        Log.d("mim fin",timeEnd.getMinutes()+"");
+
+        textName.setText(obj.getName());
+        int hourInit=timeStart.getHours();
+        int hourFim=timeEnd.getHours();
+        int minuteInit=timeStart.getMinutes();
+        int minuteFim=timeEnd.getMinutes();
+
+
+
+            String end = "";
+            String start =((eventStartdate.getDate()<10)?"0"+eventStartdate.getDate(): eventStartdate.getDate()) + "/" + (((eventStartdate.getMonth()+1)<10)?"0"+(eventStartdate.getMonth()+1): (eventStartdate.getMonth()+1))  + "/" + (eventStartdate.getYear()+1900);
+            if((boolean)obj.get("hasMoreDays"))
+                end =((eventFinaldate.getDate()<10)?"0"+eventFinaldate.getDate(): eventFinaldate.getDate()) + "/" + (((eventFinaldate.getMonth()+1)<10)?"0"+(eventFinaldate.getMonth()+1): (eventFinaldate.getMonth()+1))  + "/" + (eventFinaldate.getYear()+1900);
+            textDate.setText(end.equals("")? start:start+" à "+end);
+
+            textTime.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit)+ " às "+ ((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
+
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
         /*Bitmap picture = obj.getProfilePicture(callback);
         if (picture != null) {
@@ -105,7 +122,6 @@ public class MyEventItemView extends ItemView<Event> {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             img.setImageBitmap(decodedByte);
         }
-
     }
 
 

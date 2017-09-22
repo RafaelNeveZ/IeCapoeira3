@@ -93,9 +93,7 @@ public class ParceirosActivity extends AppCompatActivity implements RecyclerView
     void init() {
         listPar = new ArrayList<>();
         listPatro = new ArrayList<>();
-
         setupParceiro();
-
     }
 
 

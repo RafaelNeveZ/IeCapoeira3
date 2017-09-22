@@ -526,10 +526,8 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream.toByteArray();
                 my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
-
             }
         }
         if (requestCode == 5) {
