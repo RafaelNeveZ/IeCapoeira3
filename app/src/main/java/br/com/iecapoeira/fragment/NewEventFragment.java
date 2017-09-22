@@ -423,8 +423,10 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                         if (e == null) {
                             dismissProgress();
                             if(!notOther){
+                                Toast.makeText(getActivity(), "Evento criado com sucesso", Toast.LENGTH_LONG).show();
                                 getActivity().finish();
                             }else{
+                                Toast.makeText(getActivity(), "Evento criado com sucesso", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getActivity(), NewEventActivity_.class);
                                 startActivity(intent);
                                 getActivity().finish();

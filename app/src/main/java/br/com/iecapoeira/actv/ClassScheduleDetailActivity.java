@@ -65,7 +65,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     @OptionsMenuItem(R.id.delete)
     MenuItem delete;
-
+    boolean owner = false;
     /*@OptionsMenuItem(R.id.singup)
     MenuItem singup;*/
 
@@ -190,23 +190,33 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu (Menu menu) {
+        edit.setVisible(false);
+        delete.setVisible(false);
+        showProgress("Carregando dados");
+        ParseRelation<ParseObject> relation1 = model.getRelation("aulaOwner");
+        ParseQuery<ParseObject> qry = relation1.getQuery();
+        qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
+        qry.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> users, ParseException e) {
+                if(users.size()==0 && e==null){
+                    owner =false;
+                }else if(e==null) {
+                    owner =true;
+                }else{
+                }
+                if ((Boolean) ParseUser.getCurrentUser().get("Admin") || owner) {
+                    Log.d("TAG", "ADM");
+                    edit.setVisible(true);
+                    delete.setVisible(true);
+                } else {
+                    Log.d("TAG", "Não é ADM");
 
+                }
+                dismissProgress();
+            }
+        });
 
-       // checkClass();
-        if ((Boolean) ParseUser.getCurrentUser().get("Admin") || model.get("owner").equals(ParseUser.getCurrentUser().getUsername())) {
-            Log.d("TAG", "ADM");
-            edit.setVisible(true);
-            delete.setVisible(true);
-           /* menu.getItem(1).setEnabled(true);
-            menu.getItem(0).setEnabled(true);*/
-
-        } else {
-            Log.d("TAG", "Não é ADM");
-            edit.setVisible(false);
-            delete.setVisible(false);
-         /*   menu.getItem(1).setEnabled(false);
-            menu.getItem(0).setEnabled(true);*/
-        }
 
 
         return true;

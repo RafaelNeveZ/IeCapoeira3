@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
@@ -358,7 +359,10 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             newClass.put("horario",btHour.getText().toString());
             newClass.put("horarioFinal",btFinalHour.getText().toString());
             newClass.put("data",putDays());
-            newClass.put("owner",ParseUser.getCurrentUser().getUsername());
+
+            ParseRelation<ParseObject> owner = newClass.getRelation("aulaOwner");
+            owner.add(ParseUser.getCurrentUser());
+
             if(my64foto!=null)
             newClass.put(Aula.FOTO,my64foto);
             newClass.saveInBackground(new SaveCallback() {

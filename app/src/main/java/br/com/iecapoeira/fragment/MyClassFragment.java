@@ -24,7 +24,6 @@ import org.androidannotations.annotations.ViewById;
 
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.NewClassActivity_;
-import br.com.iecapoeira.actv.NewMusicActivity_;
 
 @EFragment(R.layout.frag_main)
 @OptionsMenu(R.menu.main)
@@ -34,7 +33,7 @@ public class MyClassFragment extends Fragment {
     ViewPager pager;
 
     @OptionsMenuItem(R.id.new_event)
-    MenuItem newsong;
+    MenuItem newClass;
 
     @ViewById
     PagerSlidingTabStrip tabs;
@@ -77,17 +76,17 @@ public class MyClassFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        try {
+        /*try {
             if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
                 Log.d("TAG", "ADM");
-                newsong.setVisible(true);
+                newClass.setVisible(true);
             }else{
-                newsong.setVisible(false);
+                newClass.setVisible(false);
                 Log.d("TAG", "Não é ADM");
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @OptionsItem
