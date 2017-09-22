@@ -71,7 +71,11 @@ public class ClassItemView extends ItemView<ParseObject> {
     public void bind(final ParseObject obj, int positionj) {
         this.model = obj;
         tvTeacher.setText(model.getString(Aula.MESTRE));
-        tvDescription.setText(model.getString(Aula.SOBREAULA));
+        if(model.getString(Aula.SOBREAULA).length()>30) {
+            tvDescription.setText(model.getString(Aula.SOBREAULA).substring(0, 30) + "...");
+        }else{
+            tvDescription.setText(model.getString(Aula.SOBREAULA));
+        }
         if(model.get(Aula.FOTO)!=null) {
             byte[] decodedString = Base64.decode(model.get(Aula.FOTO).toString(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

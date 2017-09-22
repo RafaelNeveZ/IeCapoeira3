@@ -22,6 +22,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 
+import java.util.Calendar;
 import java.util.List;
 
 import br.com.hemobile.MyApplication;
@@ -69,21 +70,22 @@ public class MyEventListFragment extends ListFragment {
             showToast(getString(R.string.msg_erro_sem_conexao));
             return;
         }
-        ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
-        ParseQuery<Event> query = relation.getQuery();
+
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
         try {
             Log.d("TAG","" + listType);
             switch (listType) {
                 case LIST_BY_CAPOEIRA:
-                    //                   query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
+                    query.orderByAscending("startDate");
+                    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
                     query.whereEqualTo(Event.TYPE, LIST_BY_CAPOEIRA);
                     Log.d("TAG","CAPOEIRA");
                     Log.d("Event.TYPE",Event.TYPE);
                     Log.d("TYPE_CUTURAL",TYPE_CAPOEIRA);
                     break;
                 case LIST_BY_CULTURAIS:
-                    //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-                    query.whereEqualTo(Event.TYPE, LIST_BY_CULTURAIS);
+                    query.orderByAscending("startDate");
+                    query.whereGreaterThanOrEqualTo("startDate", Calendar.getInstance().getTime());
                     Log.d("TAG","CULTURAL");
                     Log.d("Event.TYPE",Event.TYPE);
                     Log.d("TYPE_CUTURAL",TYPE_CULTURAL);
@@ -93,8 +95,6 @@ public class MyEventListFragment extends ListFragment {
             query.findInBackground(new FindCallback<Event>() {
                 @Override
                 public void done(List<Event> events, ParseException e) {
-                    Log.d("LISTA DE EVENT SIZE","" + events.size());
-                    handleResult(events, e);
                 }
             });
         } catch (Exception ex) {

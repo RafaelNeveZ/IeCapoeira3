@@ -46,7 +46,7 @@ public class ClassScheduleItemView extends RelativeLayout {
     public void bind(Aula model) {
         this.model = model;
         tvTeacher.setText(model.getMestre());
-        tvDescription.setText(model.getSobreAula());
+        tvDescription.setText(model.getSobreAula().substring(0,19)+"...");
         if(model.get(Aula.FOTO)!=null) {
             byte[] decodedString = Base64.decode(model.get(Aula.FOTO).toString(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
