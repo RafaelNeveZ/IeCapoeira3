@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -119,12 +120,24 @@ public class EventItemView extends ItemView<Event> {
             setProfilePicture(picture);
         }
         else {*/
-        if(obj.get(Event.FOTO)!=null) {
+       /* if(obj.get(Event.FOTO)!=null) {
             byte[] decodedString = Base64.decode(obj.get(Event.FOTO).toString(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             img.setImageBitmap(decodedByte);
+        }*/
+        if(obj.get("Photo")!=null) {
+            ParseFile image = (ParseFile) obj.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        img.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
-
     }
 
     public  void checkEvents(){

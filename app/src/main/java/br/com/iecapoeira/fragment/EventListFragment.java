@@ -102,7 +102,7 @@ public class EventListFragment extends ListFragment {
                     }
                     break;
             }
-           // query.orderByAscending(Event.DATE);
+            query.whereEqualTo("teste",true);
             query.findInBackground(new FindCallback<Event>() {
                 @Override
                 public void done(List<Event> events, ParseException e) {

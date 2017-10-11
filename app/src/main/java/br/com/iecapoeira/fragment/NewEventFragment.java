@@ -9,9 +9,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -38,6 +42,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -58,6 +63,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -154,6 +162,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     Date initalDate, endDate, startTime, endTime, noChangeDate;
     private boolean dontPutEndDate;
     private boolean notOther=false;
+    private String uriImg;
 
 
     @AfterViews
@@ -402,12 +411,26 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     newEvent.put(Event.TYPE, 0);
                 }
 
-                if (my64foto != null)
-                    newEvent.put(Event.FOTO, my64foto);
+               /* if (my64foto != null)
+                newEvent.put(Event.FOTO, my64foto);*/
+
                 newEvent.put("startTime",startTime);
                 newEvent.put("endTime",endTime);
                 initalDate.setYear(initalDate.getYear()-1900);
                 newEvent.put("startDate",initalDate);
+
+                if(bmp!=null){
+                    System.out.println("NOT NULL++++++++++++++++++++++++");
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    // Compress image to lower quality scale 1 - 100
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] image = stream.toByteArray();
+                    // Create the ParseFile
+                    ParseFile file = new ParseFile(editName.getText().toString()+"_foto", image);
+                    newEvent.put("Photo",file);
+                }
+
+
                 if(dataFinalSetada) {
                     newEvent.put("hasMoreDays",true);
                     endDate.setYear(endDate.getYear()-1900);
@@ -417,7 +440,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     newEvent.put("hasMoreDays",false);
                     Log.d("FINAL IGUAL", "NAO");
                 }
-
+                newEvent.put("teste",true);
 
                 newEvent.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
@@ -522,12 +545,20 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             Log.d("URI", uri + "");
             if (uri != null) {
                 bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
+
+
+               /* *//*ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);*//*
+
+
+                uriImg = getImageUri(getActivity(), bmp).toString();
+                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+
+                System.out.println(uriImg);*/
             }
         }
         if (requestCode == 5) {
@@ -540,6 +571,16 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             }
         }
     }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+
+
 
     private void requestStoragePermission(){
 
