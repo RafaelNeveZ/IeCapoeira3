@@ -479,17 +479,6 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
         String country = editCountry.getText().toString().trim();
         String state = editState.getText().toString().trim();
 
-
-     /*   if (name.isEmpty()) {
-            setError(editName, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return false;
-        }*/
-       /* if (style.isEmpty()) {
-        //    setError(editEstilo, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
-            return;
-        }*/
         if (graduation.isEmpty()) {
             setError(editGraduation, getString(R.string.msg_erro_campo_vazio));
             dontLeave = true;
