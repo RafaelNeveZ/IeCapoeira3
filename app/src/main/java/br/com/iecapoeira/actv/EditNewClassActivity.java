@@ -34,7 +34,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -140,10 +142,19 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
 
         btHour.setText(mod.get(Aula.HORARIO_COMECO).toString());
         btFinalHour.setText(mod.get(Aula.HORARIO_FIM).toString());
-        if(mod.get(Aula.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(mod.get(Aula.FOTO).toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            photo.setImageBitmap(decodedByte);
+
+        if(mod.get("Photo")!=null) {
+            ParseFile image = (ParseFile) mod.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        photo.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
         checkDays();
         String regional="Regional";
@@ -265,13 +276,7 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
         if (requestCode == 19) {
             Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
             if (uri != null) {
-
                 bmp = PhotoUtil.resizeBitmap(this, uri);
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
-                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
             }
@@ -329,46 +334,6 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
         tpd.show();
     }
 
-    /*@Click
-    public void addOtherClass() {
-        if(!dontLeave) {
-            if(validateFields()) {
-                showProgress("Criando aula...");
-
-                ParseObject newClass = ParseObject.create("Aulas");
-                // newClass.put("foto",byteArray);
-                newClass.put("mestre", editName.getText().toString());
-                newClass.put("estilo",isRegional());
-                newClass.put("graduacao", editGraduation.getText().toString());
-                newClass.put("sobre", editDesc.getText().toString());
-                newClass.put("endereco", editAddress.getText().toString());
-                newClass.put("cidade", editCity.getText().toString());
-                newClass.put("estado", editState.getText().toString());
-                newClass.put("pais", editCountry.getText().toString());
-                newClass.put("horario",btHour.getText().toString());
-                newClass.put("horarioFinal",btFinalHour.getText().toString());
-                newClass.put("data",putDays());
-                if(my64foto!=null)
-                    newClass.put(Aula.FOTO,my64foto);
-                newClass.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            dismissProgress();
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_FIRST_USER,returnIntent);
-                            finish();
-                        } else {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                            dismissProgress();
-                        }
-                    }
-                });
-                Log.e("TAG",putDays());
-            }
-        }
-        dontLeave = false;
-
-    }*/
 
     @Click
     public void btFinalHour() {
@@ -381,10 +346,6 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
     public void newEvent() {
         if(validateFields()) {
             showProgress("Editando aula...");
-            /*ParseQuery<ParseObject> query = ParseQuery.getQuery("Aulas");
-            query.getInBackground(mod.getObjectId(), new GetCallback<ParseObject>() {
-                public void done(ParseObject mod, ParseException e) {
-                    if (e == null) {*/
                         mod.put(Aula.MESTRE, editName.getText().toString());
                         mod.put(Aula.TIPOCAPOEIRA,isRegional());
                         mod.put(Aula.GRADUACAO, editGraduation.getText().toString());
@@ -403,8 +364,13 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
                         mod.put(Aula.HORARIO_COMECO,btHour.getText().toString());
                         mod.put(Aula.HORARIO_FIM,btFinalHour.getText().toString());
                         mod.put(Aula.DIASSEMANA,putDays());
-                        if(my64foto!=null)
-                            mod.put(Aula.FOTO,my64foto);
+                        if(bmp!=null){
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                            byte[] image = stream.toByteArray();
+                            ParseFile file = new ParseFile(editName.getText().toString()+"_foto", image);
+                            mod.put("Photo",file);
+                        }
                         mod.saveInBackground(new SaveCallback() {
                             public void done(ParseException e) {
                                 if (e == null) {
@@ -419,52 +385,10 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
                             }
                         });
 
-                   /* }else{
-                        dismissProgress();
-                        Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                    }*/
-//                }
-           /* });*/
+
         }
-
-
-      //    showProgress(getString(R.string.aguarde));
-
-       /* Aula aula = Aula.create(Aula.class);
-        aula.setName(name);
-        aula.setStyle(style);
-        aula.setGraduation(graduation);
-        aula.setAddress(address);
-        aula.setCity(city);
-        aula.setState(state);
-        aula.setCountry(country);
-        aula.setDescription(description);
-        Calendar date = Calendar.getInstance();
-        date.set(2000, 1, 1, selHour, selMinute);
-        aula.setDate(date.getTime());
-        aula.setOwner((UserDetails) ParseUser.getCurrentUser().get(UserDetails.USER_DETAILS));
-        try {
-            aula.setBitmap(bmp);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        aula.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(context, R.string.msg_salvo_sucesso, Toast.LENGTH_LONG).show();
-                    setResult(RESULT_OK);
-                    finish();
-                } else {
-                    Toast.makeText(context, R.string.msg_erro_criar_evento, Toast.LENGTH_LONG).show();
-                }
-                    dismissProgress();
-            }
-        });*/
 
     }
-
     private  String putDays() {
         String days = "";
         String[] aux = new String[8];

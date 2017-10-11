@@ -37,6 +37,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -218,14 +219,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         if (requestCode == 19) {
             Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
             if (uri != null) {
-
                 bmp = PhotoUtil.resizeBitmap(this, uri);
-
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream .toByteArray();
-                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
             }
@@ -287,51 +281,6 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     public void addOtherClass() {
         dontLeave=true;
         newEvent();
-        /*if(!dontLeave) {
-            if(validateFields()) {
-                showProgress("Criando aula...");
-
-                ParseObject newClass = ParseObject.create("Aulas");
-                // newClass.put("foto",byteArray);
-                newClass.put("mestre", editName.getText().toString());
-                newClass.put("estilo",isRegional());
-                newClass.put("graduacao", editGraduation.getText().toString());
-                newClass.put("sobre", editDesc.getText().toString());
-                newClass.put("endereco", editAddress.getText().toString());
-                int editCityVisb = cityChoice.getVisibility();
-                if(editCityVisb == View.VISIBLE) {
-                    newClass.put(Aula.PAIS, "Brasil");
-                    newClass.put(Aula.CIDADE, editCity.getText().toString());
-                }else{
-                    newClass.put(Aula.PAIS, editCountry.getText().toString());
-                    newClass.put(Aula.CIDADE, editTrueCity.getText().toString());
-                }
-                newClass.put("estado", editState.getText().toString());
-
-                newClass.put("horario",btHour.getText().toString());
-                newClass.put("owner",ParseUser.getCurrentUser().getUsername());
-                newClass.put("horarioFinal",btFinalHour.getText().toString());
-                newClass.put("data",putDays());
-                if(my64foto!=null)
-                    newClass.put(Aula.FOTO,my64foto);
-                newClass.saveInBackground(new SaveCallback() {
-                    public void done(ParseException e) {
-                        if (e == null) {
-                            dismissProgress();
-                            Intent returnIntent = new Intent();
-                            setResult(Activity.RESULT_FIRST_USER,returnIntent);
-                            finish();
-                        } else {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                            dismissProgress();
-                        }
-                    }
-                });
-                Log.e("TAG",putDays());
-            }
-        }
-        dontLeave = false;*/
-
     }
 
     @Click
@@ -368,9 +317,14 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
             ParseRelation<ParseObject> owner = newClass.getRelation("aulaOwner");
             owner.add(ParseUser.getCurrentUser());
-
-            if(my64foto!=null)
-            newClass.put(Aula.FOTO,my64foto);
+            newClass.put("teste",true);
+            if(bmp!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+                ParseFile file = new ParseFile(editName.getText().toString()+"_foto", image);
+                newClass.put("Photo",file);
+            }
             newClass.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
@@ -393,41 +347,6 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
              Log.e("TAG",putDays());
         }
 
-
-      //    showProgress(getString(R.string.aguarde));
-
-       /* Aula aula = Aula.create(Aula.class);
-        aula.setName(name);
-        aula.setStyle(style);
-        aula.setGraduation(graduation);
-        aula.setAddress(address);
-        aula.setCity(city);
-        aula.setState(state);
-        aula.setCountry(country);
-        aula.setDescription(description);
-        Calendar date = Calendar.getInstance();
-        date.set(2000, 1, 1, selHour, selMinute);
-        aula.setDate(date.getTime());
-        aula.setOwner((UserDetails) ParseUser.getCurrentUser().get(UserDetails.USER_DETAILS));
-        try {
-            aula.setBitmap(bmp);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        aula.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Toast.makeText(context, R.string.msg_salvo_sucesso, Toast.LENGTH_LONG).show();
-                    setResult(RESULT_OK);
-                    finish();
-                } else {
-                    Toast.makeText(context, R.string.msg_erro_criar_evento, Toast.LENGTH_LONG).show();
-                }
-                    dismissProgress();
-            }
-        });*/
 
     }
 

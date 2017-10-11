@@ -5,10 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
@@ -52,6 +57,18 @@ public class ClassScheduleItemView extends RelativeLayout {
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             ivTeacher.setImageBitmap(decodedByte);
         }
-     //   ImageUtil.setBitmapIntoImageView(model, model.FOTOPROFESSOR, ivTeacher, 50);
+        if(model.get("Photo")!=null) {
+            ParseFile image = (ParseFile) model.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        ivTeacher.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
+        }
     }
 }

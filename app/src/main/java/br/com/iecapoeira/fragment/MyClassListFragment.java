@@ -94,7 +94,7 @@ public class MyClassListFragment extends ListFragment {
                     Log.d("TYPE_CUTURAL", TYPE_REGIONAL);
                     break;
             }
-
+            query.whereEqualTo("teste", true);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> musics, ParseException e) {

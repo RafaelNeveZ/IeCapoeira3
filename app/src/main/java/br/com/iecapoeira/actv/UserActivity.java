@@ -111,9 +111,6 @@ public class UserActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     showProgress("Atualizando Cadastro...");
                     Log.e("TAG", actualUser.getObjectId());
-                   /* ParseQuery<ParseUser> query = ParseUser.getQuery();
-                    query.getInBackground(actualUser.getObjectId(), new GetCallback<ParseUser>() {
-                        public void done(ParseUser actualUser, ParseException e) {*/
                             if (ParseUser.getCurrentUser() != null) {
                                 if (!(editEmail.getText().toString().equals("" + actualUser.get("username")))) {
                                     if (!(localList.contains(editEmail.getText().toString()))) {
@@ -125,7 +122,6 @@ public class UserActivity extends AppCompatActivity {
                                         Toast.makeText(context, "Email já em uso, escolha outro.", Toast.LENGTH_LONG).show();
                                     }
                                 }
-
                                 if(!mudouEmail)
                                 actualUser.put("emailVerified", true);
                                 actualUser.put("Associacao", editAssociation.getText().toString());
@@ -136,10 +132,10 @@ public class UserActivity extends AppCompatActivity {
                                         if (e == null) {
                                             if (mudouEmail) {
                                                 dismissProgress();
-                                                Toast.makeText(context, "Verifique seu email e entre novamente", Toast.LENGTH_LONG).show();
+                                                /*Toast.makeText(context, "Verifique seu email e entre novamente", Toast.LENGTH_LONG).show();
                                                 startActivity(new Intent(context, LoginActivity_.class));
                                                 finish();
-                                                mudouEmail = false;
+                                                mudouEmail = false;*/
                                                 dialog.dismiss();
                                             } else {
                                                 Toast.makeText(context, "Informações cadastradas", Toast.LENGTH_LONG).show();

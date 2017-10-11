@@ -33,7 +33,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -168,24 +170,27 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             editCountry.setText(event.getString(Event.COUNTRY));
             editTrueCity.setText(event.getString(Event.CITY));
         }
-        if(event.get(Event.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(event.get(Event.FOTO).toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            photo.setImageBitmap(decodedByte);
+
+        if(event.get("Photo")!=null) {
+            ParseFile image = (ParseFile) event.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        photo.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
+
         initalDate =new Date();
 
         startTime = new Date();
         endTime = new Date();
         initalDate = (Date) event.get("startDate");
 
-        /*if((boolean)event.get("hasMoreDays"))
-        {
-            endDate = new Date();
-            endDate = (Date) event.get("endDate");
-        }else{
-            endDate = new Date(initalDate.getYear(),initalDate.getMonth(),initalDate.getDate()+1);
-        }*/
         endDate = new Date(initalDate.getYear(),initalDate.getMonth(),initalDate.getDate()+1);
         endTime = (Date) event.get("startTime");
         startTime = (Date) event.get("endTime");
@@ -198,11 +203,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         btDate.setText(start);
         btFinalDate.setEnabled(true);
         dataInicialSetada=true;
-        /*if((boolean)event.get("hasMoreDays")) {
-            end = ((endDate.getDate() < 10) ? "0" + endDate.getDate() : endDate.getDate()) + "/" + (((endDate.getMonth() + 1) < 10) ? "0" + (endDate.getMonth() + 1) : (endDate.getMonth() + 1)) + "/" + (endDate.getYear() + 1900);
-            btFinalDate.setText(end);
 
-        }*/
         btHour.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit));
         btFinalHour.setText(((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
     }
@@ -289,12 +290,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
 
     private void setupTime(int year, int month, int day, int hour, int minute) {
-        /*initalDate = new Date(year,month,day);
-        endDate = new Date(year,month,day+1);
-        startTime = new Date();
-        endTime = new Date();*/
         noChangeDate= new Date();
-        Calendar c = Calendar.getInstance();
         selDay = day;
         noChangeDate.setYear(year);
         noChangeDate.setMonth(month);
@@ -307,11 +303,6 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         minutoInicial = minute;
         horafinal = hour+1;
         minutofinal= minute;
-
-        /*startTime.setHours(hour);
-        startTime.setMinutes(minute);
-        endTime.setHours(horafinal);
-        endTime.setMinutes(minute);*/
 
     }
 
@@ -429,21 +420,20 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
                 event.put(Event.CITY, editTrueCity.getText().toString());
             }
 
-            /*ParseRelation<ParseObject> owner = event.getRelation("eventOwner");
-            owner.add(ParseUser.getCurrentUser());
-            ParseRelation<ParseObject> go = event.getRelation("eventGo");
-            go.add(ParseUser.getCurrentUser());*/
-
             if(isAdmin()) {
                 event.put(Event.TYPE, isCapeira());
             }else{
                 event.put(Event.TYPE, 0);
             }
 
-            if (my64foto != null)
-                event.put(Event.FOTO, my64foto);
-            event.put("startTime",startTime);
-            event.put("endTime",endTime);
+            if(bmp!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+                ParseFile file = new ParseFile(editName.getText().toString()+"_foto", image);
+                event.put("Photo",file);
+            }
+
             if(mudouInicial)
             initalDate.setYear(initalDate.getYear()-1900);
             else
@@ -568,11 +558,6 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             Log.d("URI", uri + "");
             if (uri != null) {
                 bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
 

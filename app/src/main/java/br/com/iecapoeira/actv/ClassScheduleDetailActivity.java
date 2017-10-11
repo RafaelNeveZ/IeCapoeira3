@@ -22,7 +22,9 @@ import android.widget.Toast;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -66,8 +68,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
     @OptionsMenuItem(R.id.delete)
     MenuItem delete;
     boolean owner = false;
-    /*@OptionsMenuItem(R.id.singup)
-    MenuItem singup;*/
+
 
     private ProgressDialog progressDialog;
 
@@ -79,20 +80,26 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     @AfterViews
     public void init() {
-        //setHeader();
         if (model == null) {
             return;
         }
 
-        if(model.get(Aula.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(model.get(Aula.FOTO).toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivTeacher.setImageBitmap(decodedByte);
+        if(model.get("Photo")!=null) {
+            ParseFile image = (ParseFile) model.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        ivTeacher.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
         tvTeacher.setText(model.getString(Aula.MESTRE));
         tvDescription.setText(model.getString(Aula.SOBREAULA));
         tvDays.setText(model.getString(Aula.DIASSEMANA));
-       // Log.e("TAG",model.getDiasSemana() +" " + model.getEndereco()+"/n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
         tvPlace.setText(model.getString(Aula.ENDERECO)+".\n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");
         tvTime.setText(model.getString(Aula.HORARIO_COMECO)+ " às "+ model.getString(Aula.HORARIO_FIM));
     }
@@ -104,7 +111,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    // makes the back on action bar works as back button
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -112,11 +119,6 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.delete){
-           /* showProgress("Deletando aula...");
-            ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
-            query.getInBackground(model.getObjectId(), new GetCallback<Aula>() {
-                public void done(Aula thisClass, ParseException e) {
-                    if (e == null) {*/
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.titulo_delete_class)
                     .setPositiveButton(R.string.menu_delete, new DialogInterface.OnClickListener() {
@@ -137,13 +139,6 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null).show();
-
-
-              /*      }else{*/
-
-                 /*   }
-                }
-            });*/
 
         }
         if (item.getItemId() == R.id.edit)
@@ -223,97 +218,5 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
 
     }
 
-    /*public  void checkClass(){
-        ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
-        query.whereEqualTo(Event.OBJECTID, model.getObjectId());
-        query.findInBackground(new FindCallback<Aula>() {
-            @Override
-            public void done(final List<Aula> models, ParseException e) {
-                ParseRelation<ParseObject> relation1 = models.get(0).getRelation("aulaGo");
-                ParseQuery<ParseObject> qry = relation1.getQuery();
-                qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
-                qry.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> users, ParseException e) {
-                        if(users.size()==0 && e==null){
-                            singup.setIcon(R.drawable.ic_eventlist_cell_confirm_select);
-                        }else if(e==null) {
-                            singup.setIcon(R.drawable.ic_eventlist_cell_confirm_unselect);
-                        }else{
-                           // Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }
-        });
-    }*/
-
-
-
-
-    /*@OptionsItem
-    public void singup() {
-            showProgress("Aguarde um momento...");
-            ParseQuery<Aula> query = ParseQuery.getQuery("Aulas");
-            query.whereEqualTo(Event.OBJECTID, model.getObjectId());
-            query.findInBackground(new FindCallback<Aula>() {
-                @Override
-                public void done(final List<Aula> models, ParseException e) {
-                    ParseRelation<ParseObject> relation1 = models.get(0).getRelation("aulaGo");
-                    ParseQuery<ParseObject> qry = relation1.getQuery();
-                    qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
-                    qry.findInBackground(new FindCallback<ParseObject>() {
-                        @Override
-                        public void done(List<ParseObject> users, ParseException e) {
-                            if(users.size()==0){
-                                ParseRelation<ParseObject> relation = models.get(0).getRelation("aulaGo");
-                                relation.add(ParseUser.getCurrentUser());
-                                models.get(0).saveInBackground(new SaveCallback() {
-                                    public void done(ParseException e) {
-                                        if (e == null) {
-                                            ParseRelation<Aula> relation = ParseUser.getCurrentUser().getRelation("aulaGo");
-                                            relation.add(models.get(0));
-                                            ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                @Override
-                                                public void done(ParseException e) {
-                                                    Log.d("OK", "COLOCADO");
-                                                    singup.setIcon(R.drawable.ic_eventlist_cell_confirm_unselect);
-                                                    dismissProgress();
-                                                }
-                                            });
-                                        } else {
-                                            Log.d("OK", e.getMessage());
-                                            dismissProgress();
-                                        }
-                                    }
-                                });
-
-                            }else{
-
-                                ParseRelation<ParseObject> relation = models.get(0).getRelation("aulaGo");
-                                relation.remove(ParseUser.getCurrentUser());
-                                models.get(0).saveInBackground(new SaveCallback() {
-                                    public void done(ParseException e) {
-                                        if (e == null) {
-                                            ParseRelation<Aula> relation = ParseUser.getCurrentUser().getRelation("aulaGo");
-                                            relation.remove(models.get(0));
-                                            ParseUser.getCurrentUser().saveInBackground();
-                                            Log.d("OK", "APAGADO");
-                                            singup.setIcon(R.drawable.ic_eventlist_cell_confirm_select);
-                                            dismissProgress();
-                                        } else {
-                                            Log.d("OK", e.getMessage());
-                                            dismissProgress();
-                                        }
-                                    }
-                                });
-
-                            }
-                        }
-                    });
-                }
-            });
-
-    }*/
 
 }

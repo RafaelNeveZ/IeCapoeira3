@@ -28,6 +28,7 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -169,7 +170,6 @@ public class EventDetailFragment extends Fragment {
     void update() {
         textName.setText(thisEvent.get(Event.NAME).toString());
         textLocation.setText(String.format("%s\n%s, %s - %s", HETextUtil.toTitleCase(thisEvent.getAddress()), HETextUtil.toTitleCase(thisEvent.getCity()), thisEvent.getState().toUpperCase(), thisEvent.getCountry()));
-        int howManyIsGoing = thisEvent.getHowManyIsGoing();
                 ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
                 ParseQuery<ParseObject> qry = relation.getQuery();
                 qry.findInBackground(new FindCallback<ParseObject>() {
@@ -210,17 +210,19 @@ public class EventDetailFragment extends Fragment {
         textHour.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit)+ " às "+ ((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
         textDesc.setText(thisEvent.getDescription());
 
-        if(thisEvent.get(Event.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(thisEvent.get(Event.FOTO).toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            setImage(decodedByte);
+        if(thisEvent.get("Photo")!=null) {
+            ParseFile image = (ParseFile) thisEvent.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        img.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
-
-    }
-
-    @UiThread
-    public void setImage(Bitmap picture) {
-        img.setImageBitmap(picture);
     }
 
 
@@ -229,11 +231,6 @@ public class EventDetailFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         menuEdit.setVisible(false);
         menuDelete.setVisible(false);
-        try {
-            menuGo.setIcon(thisEvent.isUserGoing(IEApplication.getUserDetails()) ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
-        } catch (Exception e) {
-            setIconLater();
-        }
         ParseRelation<ParseObject> relation1 = thisEvent.getRelation("eventOwner");
         ParseQuery<ParseObject> qry = relation1.getQuery();
         qry.whereEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
@@ -281,7 +278,6 @@ public class EventDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-
             getActivity().onBackPressed();
             return true;
         }
@@ -291,23 +287,9 @@ public class EventDetailFragment extends Fragment {
 
 
 
-    @UiThread
-    public void setIconLater() {
-        try {
-            menuGo.setIcon(thisEvent.isUserGoing(IEApplication.getUserDetails()) ? R.drawable.ic_eventdetail_action_unselect : R.drawable.ic_eventdetail_action_select);
-        } catch (Exception e) {
-        }
-        try {
-            if (thisEvent.getOwner().equals(IEApplication.getUserDetails())) {
-                menuDelete.setVisible(true);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     @OptionsItem
     public void menuGo() {
-
         if(go) {
             showProgress("Se inscrevendo no evento...");
             ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
@@ -315,10 +297,12 @@ public class EventDetailFragment extends Fragment {
             thisEvent.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
+                        Log.d("OK", "COLOCADO");
                         Toast.makeText(getActivity(), "Você está inscrito no evento", Toast.LENGTH_LONG).show();
                         menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
                         go =false;
                         update();
+
                         dismissProgress();
                     } else {
                         Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
@@ -334,9 +318,10 @@ public class EventDetailFragment extends Fragment {
             thisEvent.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
-                                menuGo.setIcon(R.drawable.ic_eventdetail_action_select);
-                                go=true;
-                                update();
+                        menuGo.setIcon(R.drawable.ic_eventdetail_action_select);
+                        go=true;
+                        update();
+
                     } else {
                         Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
                         dismissProgress();
@@ -346,6 +331,8 @@ public class EventDetailFragment extends Fragment {
         }
 
     }
+
+
 
 
     @OptionsItem
@@ -394,5 +381,4 @@ public class EventDetailFragment extends Fragment {
 
         }
     }
-
 }

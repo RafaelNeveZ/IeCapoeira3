@@ -71,27 +71,10 @@ public class LoginActivity extends BaseActivity {
 
     @AfterViews
     public void init() {
-         printKeyHash();
-                Log.e("APP ID: ","");
-                Log.e("ClientKey: ","");
-                Log.e("SERVER: ","");
-
-        if (ParseUser.getCurrentUser() != null)
-        Log.d("USER",""+ParseUser.getCurrentUser().get("emailVerified"));
-
-
-      if (ParseUser.getCurrentUser() != null && (Boolean) ParseUser.getCurrentUser().get("emailVerified")) {
-
+      if (ParseUser.getCurrentUser() != null) {
           startActivity(new Intent(getActivity(), DashboardActivity_.class));
           finish();
       }
-
-      if (ParseUser.getCurrentUser() != null && !((Boolean) ParseUser.getCurrentUser().get("emailVerified"))) {
-          ParseUser.logOut();
-      }
-
-
-
     }
 
     @Override
@@ -102,21 +85,14 @@ public class LoginActivity extends BaseActivity {
 
     private boolean validateFields() {
         boolean result = true;
-//        if (etAssociacao.getText().toString().isEmpty()) {
-//            etAssociacao.setError(getString(R.string.error_missing_field));
-//            result = false;
-//        }
         if (etEmail.getText().toString().isEmpty()) {
             etEmail.setError(getString(R.string.error_missing_field));
             result = false;
         } else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()){
             etEmail.setError(getString(R.string.error_valid_email));
-          //  result = false;
+            result = false;
         }
-//        if (etApelido.getText().toString().isEmpty()) {
-//            etApelido.setError(getString(R.string.error_missing_field));
-//            result = false;
-//        }
+
         if (etPassword.getText().toString().isEmpty()) {
             etPassword.setError(getString(R.string.error_missing_field));
             result = false;
@@ -136,7 +112,6 @@ public class LoginActivity extends BaseActivity {
             query.findInBackground( new FindCallback<ParseUser>() {
                 public void done(List<ParseUser> newUser, ParseException e) {
                     if (newUser.size() != 0){
-                        if ((Boolean) newUser.get(0).get("emailVerified")) {
                             if (e == null) {
                                 newUser.get(0).setUsername(etEmail.getText().toString());
                                 newUser.get(0).setPassword(etPassword.getText().toString());
@@ -144,16 +119,11 @@ public class LoginActivity extends BaseActivity {
                                 newUser.get(0).logInInBackground(newUser.get(0).getUsername(), etPassword.getText().toString(), new LogInCallback() {
                                     @Override
                                     public void done(ParseUser parseUser, ParseException e) {
-                                        // Log.d("TAG",e.getMessage());
                                         if (parseUser != null) {
                                             startActivity(new Intent(getActivity(), DashboardActivity_.class));
                                             dismissProgress();
                                             finish();
-                                            //Login Successful
-                                            //You may choose what to do or display here
-                                            //For example: Welcome + ParseUser.getUsername()
                                         } else {
-                                            //Login Fail
                                             dismissProgress();
                                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                         }
@@ -163,12 +133,6 @@ public class LoginActivity extends BaseActivity {
                                 dismissProgress();
                                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-                        } else {
-                            dismissProgress();
-                            newUser.get(0).setEmail(etEmail.getText().toString());
-                            newUser.get(0).saveInBackground();
-                            Toast.makeText(context, "Verifique seu email", Toast.LENGTH_LONG).show();
-                        }
 
                     }else{
                         dismissProgress();
@@ -178,54 +142,6 @@ public class LoginActivity extends BaseActivity {
             });
 
         }
-
-// newUser.setEmail(etEmail.getText().toString());
-        //  newUser.put("Associacao", "teste2");
-        //  UserDetails details = new UserDetails();
-        //  details.setEmail(etEmail.getText().toString());
-        //  details.setName("teste2");
-        //  final UserDetails finalDetails = details;
-        //  final ParseUser finalUser = newUser;
-           /* newUser.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        readParseException(e);
-                        Toast.makeText(LoginActivity.this, "null", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    try {
-                        finalDetails.pin();
-                    } catch (ParseException e1) {
-                        e1.printStackTrace();
-                    }
-
-                    finalUser.put(UserDetails.USER_DETAILS, finalDetails);
-                    finalUser.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            if (e != null) {
-                                readParseException(e);
-                                return;
-                            }
-                            dismissProgress();
-                            goToMainList();
-                        }
-                    });
-                }
-            });*/
-           /* newUser.signUpInBackground(new SignUpCallback() {
-                public void done(ParseException e) {
-                    if (e == null) {
-                        startActivity(new Intent(getActivity(), DashboardActivity_.class));
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            });*/
-
     }
 
     @Click
@@ -302,7 +218,6 @@ public class LoginActivity extends BaseActivity {
 
                                            @Override
                                            public void done(ParseUser actualUser, ParseException e) {
-                                               // Log.d("TAG",e.getMessage());
                                                if (actualUser != null) {
                                                    actualUser.put("username", editem.getText().toString());
                                                    actualUser.put("email", editem.getText().toString());
@@ -314,7 +229,6 @@ public class LoginActivity extends BaseActivity {
                                                            dismissProgress();
                                                        }
                                                    });
-
                                                } else {
                                                    dismissProgress();
                                                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();

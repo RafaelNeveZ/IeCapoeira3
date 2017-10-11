@@ -57,7 +57,7 @@ public class CadastroActivity extends AppCompatActivity {
             newUser.signUpInBackground(new SignUpCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
-                        Toast.makeText(context, "Verifique no seu email", Toast.LENGTH_LONG).show();
+                    //    Toast.makeText(context, "Verifique no seu email", Toast.LENGTH_LONG).show();
                         dismissProgress();
                         startActivity(new Intent(context, LoginActivity_.class));
                         finish();

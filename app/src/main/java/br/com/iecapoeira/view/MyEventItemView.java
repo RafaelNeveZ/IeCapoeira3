@@ -6,15 +6,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EViewGroup;
@@ -39,7 +44,7 @@ public class MyEventItemView extends ItemView<Event> {
     TextView textName;
 
     @ViewById
-    TextView textDate, textTime;;
+    TextView textDate,textTime;
 
     @ViewById
     TextView textLocation;
@@ -48,7 +53,6 @@ public class MyEventItemView extends ItemView<Event> {
     ImageView btGoing;
 
     private Event obj;
-
 
     Date  eventStartdate, eventFinaldate, timeStart,timeEnd;
     @ViewById
@@ -59,23 +63,16 @@ public class MyEventItemView extends ItemView<Event> {
         super(context);
     }
 
-   /* private final GetDataCallback callback = new GetDataCallback() {
-        @Override
-        public void done(byte[] bytes, ParseException e) {
-            setProfilePicture(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-        }
-    };*/
-   public  boolean go = true;
+    public  boolean go;
     @UiThread
     public void setProfilePicture(Bitmap picture) {
         img.setImageBitmap(picture);
     }
 
     @Override
-    public void bind(Event obj, int positionj) {
-
+    public void bind(final Event obj, int positionj) {
         this.obj = obj;
-        // checkEvents();
+
         eventStartdate =new Date();
         eventFinaldate =new Date();
         timeEnd = new Date();
@@ -84,116 +81,112 @@ public class MyEventItemView extends ItemView<Event> {
         eventFinaldate = (Date) obj.get("endDate");
         timeStart = (Date) obj.get("startTime");
         timeEnd = (Date) obj.get("endTime");
-        Log.d("START DAY",eventStartdate.getDate()+"");
-        //    Log.d("Final DAY",eventFinaldate.getDate()+"");
-        Log.d("START M",eventStartdate.getMonth()+"");
-        //   Log.d("Final M",eventFinaldate.getMonth()+"");
-        Log.d("START Y",(eventStartdate.getYear()+1900)+"");
-        //   Log.d("Final Y",eventFinaldate.getYear()+"");
-        Log.d("hou ini",timeStart.getHours()+"");
-        Log.d("hou fin",timeEnd.getHours()+"");
-        Log.d("mim ini",timeStart.getMinutes()+"");
-        Log.d("mim fin",timeEnd.getMinutes()+"");
+
+
+
 
         textName.setText(obj.getName());
         int hourInit=timeStart.getHours();
         int hourFim=timeEnd.getHours();
         int minuteInit=timeStart.getMinutes();
         int minuteFim=timeEnd.getMinutes();
+        String end = "";
+        String start =((eventStartdate.getDate()<10)?"0"+eventStartdate.getDate(): eventStartdate.getDate()) + "/" + (((eventStartdate.getMonth()+1)<10)?"0"+(eventStartdate.getMonth()+1): (eventStartdate.getMonth()+1))  + "/" + (eventStartdate.getYear()+1900);
+        if((boolean)obj.get("hasMoreDays"))
+            end =((eventFinaldate.getDate()<10)?"0"+eventFinaldate.getDate(): eventFinaldate.getDate()) + "/" + (((eventFinaldate.getMonth()+1)<10)?"0"+(eventFinaldate.getMonth()+1): (eventFinaldate.getMonth()+1))  + "/" + (eventFinaldate.getYear()+1900);
+        textDate.setText(end.equals("")? start:start+" à "+end);
 
-
-
-            String end = "";
-            String start =((eventStartdate.getDate()<10)?"0"+eventStartdate.getDate(): eventStartdate.getDate()) + "/" + (((eventStartdate.getMonth()+1)<10)?"0"+(eventStartdate.getMonth()+1): (eventStartdate.getMonth()+1))  + "/" + (eventStartdate.getYear()+1900);
-            if((boolean)obj.get("hasMoreDays"))
-                end =((eventFinaldate.getDate()<10)?"0"+eventFinaldate.getDate(): eventFinaldate.getDate()) + "/" + (((eventFinaldate.getMonth()+1)<10)?"0"+(eventFinaldate.getMonth()+1): (eventFinaldate.getMonth()+1))  + "/" + (eventFinaldate.getYear()+1900);
-            textDate.setText(end.equals("")? start:start+" à "+end);
-
-            textTime.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit)+ " às "+ ((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
-
+        textTime.setText(((hourInit<10)?"0"+hourInit: hourInit)+":"+((minuteInit<10)?"0"+minuteInit:minuteInit)+ " às "+ ((hourFim<10)?"0"+hourFim: hourFim)+":"+((minuteFim<10)?"0"+minuteFim:minuteFim));
         textLocation.setText(String.format("%s, %s - %s", HETextUtil.toTitleCase(obj.getCity()), obj.getState(), obj.getCountry()));
-        /*Bitmap picture = obj.getProfilePicture(callback);
-        if (picture != null) {
-            setProfilePicture(picture);
-        }
-        else {*/
-        if(obj.get(Event.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(obj.get(Event.FOTO).toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            img.setImageBitmap(decodedByte);
+
+        ParseRelation<ParseUser> me = obj.getRelation("eventGo");
+        ParseQuery<ParseUser> query = me.getQuery().whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> user, ParseException e) {
+                if(user!=null) {
+                    if (user.size() > 0) {
+                        btGoing.setImageResource(R.drawable.ic_eventlist_cell_confirm_unselect);
+                        go=false;
+                    }else{
+                        btGoing.setImageResource(R.drawable.ic_eventlist_cell_confirm_select);
+                        go=true;
+                    }
+                }
+            }
+        });
+
+        btGoing.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(go) {
+                    showProgress("Se inscrevendo no evento...");
+                    ParseRelation<ParseObject> relation = obj.getRelation("eventGo");
+                    relation.add(ParseUser.getCurrentUser());
+                    obj.saveInBackground(new SaveCallback() {
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                dismissProgress();
+                                Toast.makeText(getContext(), "Você está inscrito no evento", Toast.LENGTH_LONG).show();
+                                btGoing.setImageResource(R.drawable.ic_eventlist_cell_confirm_unselect);
+                                go=false;
+                            } else {
+                                Toast.makeText(getContext(), "Erro", Toast.LENGTH_SHORT).show();
+                                dismissProgress();
+                            }
+                        }
+                    });
+                }else{
+                    showProgress("Retirando inscrição no evento...");
+                    ParseRelation<ParseObject> relation = obj.getRelation("eventGo");
+                    relation.remove(ParseUser.getCurrentUser());
+                    obj.saveInBackground(new SaveCallback() {
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                btGoing.setImageResource(R.drawable.ic_eventlist_cell_confirm_select);
+                                go=true;
+                                dismissProgress();
+                                Toast.makeText(getContext(), "Você tirou sua inscrição", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Erro", Toast.LENGTH_SHORT).show();
+                                dismissProgress();
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        if(obj.get("Photo")!=null) {
+            ParseFile image = (ParseFile) obj.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        img.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
+        }else{
+            img.setImageResource(R.drawable.ic_eventlist_cell_photo);
         }
     }
+    @UiThread
+    public void showProgress(String text) {
+        try {
+            progressDialog = ProgressDialog.show(getContext(), getContext().getString(R.string.aguarde), text, true, false);
+        } catch (Exception e) { e.printStackTrace(); }
 
-
- /*  public void subscribe(){
-       ParseQuery<Event> query = ParseQuery.getQuery("Event");
-       query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
-       query.findInBackground(new FindCallback<Event>() {
-           @Override
-           public void done(List<Event> models, ParseException e) {
-               ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-               relation.add(ParseUser.getCurrentUser());
-               models.get(0).saveInBackground(new SaveCallback() {
-                   public void done(ParseException e) {
-                       if (e == null) {
-                           setImageBtGoing(true);
-                           go=false;
-                       } else {
-
-                       }
-                   }
-               });
-           }
-       });
-   }
-
-   public  void unSubscribe(){
-       ParseQuery<Event> query = ParseQuery.getQuery("Event");
-       query.whereEqualTo(Event.OBJECTID,obj.getObjectId());
-       query.findInBackground(new FindCallback<Event>() {
-           @Override
-           public void done(List<Event> models, ParseException e) {
-               ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
-               relation.remove(ParseUser.getCurrentUser());
-               models.get(0).saveInBackground(new SaveCallback() {
-                   public void done(ParseException e) {
-                       if (e == null) {
-                           setImageBtGoing(false);
-                           go=true;
-                       } else {
-
-                       }
-                   }
-               });
-           }
-       });
-   }*/
-    /*@Click
-    public void btGoing() {
-
-        if(go) {
-            subscribe();
-
-        }else {
-            unSubscribe();
-        }
-
-    }*/
-
-    @Background
-    void changeGoingOnParse(Boolean userGoing) {
-      /*  try {
-            obj.setUserGoing(IEApplication.getUserDetails(), userGoing);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            setImageBtGoing(!userGoing);
-        }*/
     }
 
     @UiThread
-    void setImageBtGoing(boolean userGoing) {
-        btGoing.setImageResource(userGoing ? R.drawable.ic_eventlist_cell_confirm_unselect : R.drawable.ic_eventlist_cell_confirm_select);
+    public void dismissProgress() {
+        if (progressDialog != null) {
+            try {
+                progressDialog.dismiss();
+            } catch (Exception e) { e.printStackTrace(); }
+
+        }
     }
-
-
 }

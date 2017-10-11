@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -52,25 +53,37 @@ public class MainFragment extends Fragment {
     private TabsAdapter adapter;
     final int[] title = {R.string.titulo_eventos_capoeira, R.string.titulo_eventos_culturais};
     private String filter="";
+    public boolean capoeira = true;
+    public boolean adm = false;
 
     @AfterViews
     public void init() {
         adapter = new TabsAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
-
+        adm = ((boolean) ParseUser.getCurrentUser().get("Admin"));
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+               if(!adm) {
+                   if (position == 0) {
+                       Log.d("TAG", "0!!!!");
+                       getActivity().invalidateOptionsMenu();
+                       capoeira = true;
+                   } else {
+                       Log.d("TAG", "1!!!!");
+                       getActivity().invalidateOptionsMenu();
+                       capoeira = false;
+                   }
+               }
             }
 
             @Override
             public void onPageSelected(int position) {
                 tabs.notifyDataSetChanged();
                 ((EventListFragment_)adapter.getItem(pager.getCurrentItem())).update("");
-//                getActivity().setTitle(title[position]);
+
             }
 
             @Override
@@ -82,9 +95,6 @@ public class MainFragment extends Fragment {
 
 
     }
-
-
-
 
     @OptionsItem
     public void newEvent() {
@@ -119,17 +129,30 @@ public class MainFragment extends Fragment {
                 adapter.update("");
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-
             }
         }
 //        adapter.update();
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        Log.d("TAG","PREPAREI!!!!");
+        if(!adm) {
+            if (capoeira) {
+                Log.d("TAG", "TRUE!!!!");
+                newEvent.setVisible(true);
+                capoeira = false;
+            } else {
+                Log.d("TAG", "FALSE!!!!");
+                newEvent.setVisible(false);
+                capoeira = true;
+            }
+        }
+    }
+
     private class TabsAdapter extends FragmentPagerAdapter {
 
-        //        private int[] icons = {R.drawable.ic_eventlist_tab_globo_unselected, R.drawable.ic_eventlist_tab_mapa_unselected, R.drawable.ic_eventlist_tab_agend_unselected};
-//        private int[] iconsSelected = {R.drawable.ic_eventlist_tab_globo_select, R.drawable.ic_eventlist_tab_mapa_selected, R.drawable.ic_eventlist_tab_agend_selected};
-        private Fragment[] fragments;
+      private Fragment[] fragments;
 
         public TabsAdapter(FragmentManager fm) {
             super(fm);

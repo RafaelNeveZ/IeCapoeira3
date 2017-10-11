@@ -26,6 +26,7 @@ import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -100,28 +101,6 @@ public class MyEventDetailFragment extends Fragment {
     public  boolean go = true;
 
 
-
-    private final GetDataCallback callbackProfilePicture = new GetDataCallback() {
-        @Override
-        public void done(byte[] bytes, ParseException e) {
-            if(e == null)
-                setProfilePicture(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-            else
-                e.printStackTrace();
-
-        }
-    };
-
-    private final GetDataCallback callback = new GetDataCallback() {
-        @Override
-        public void done(byte[] bytes, ParseException e) {
-            if(e == null)
-                setImage(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-            else
-                e.printStackTrace();
-        }
-    };
-
     @OptionsMenuItem(R.id.menu_go)
     MenuItem menuGo;
 
@@ -166,17 +145,6 @@ public class MyEventDetailFragment extends Fragment {
                 break;
             }
         }
-        recyclerviewChat.setHasFixedSize(false);
-        recyclerviewChat.setNestedScrollingEnabled(false);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        recyclerviewChat.setLayoutManager(llm);
-        adapter = new MyTimeEventoAdapter(getActivity(), jList);
-        adapter.setRecyclerViewOnClickListenerHack((MyEventDetailActivity_) getActivity());
-        recyclerviewChat.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Event");
         query.getInBackground(thisEvent.getObjectId(), new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
@@ -189,27 +157,9 @@ public class MyEventDetailFragment extends Fragment {
                 }
             }
         });
-        /*thisEvent.fetchIfNeededInBackground(new GetCallback<Event>() {
-            @Override
-            public void done(Event event, ParseException e) {
-                thisEvent = event;
-                try {
-                    thisEvent.setOwner((UserDetails) thisEvent.getOwner().fetchIfNeeded());
-                } catch (ParseException e1) {}
-                if (e == null) {
-                    update();
-                }
-            }
-        });*/
     }
     public  void checkEvent(){
-      /*  ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.whereEqualTo(Event.OBJECTID, thisEvent.getObjectId());
-        query.findInBackground(new FindCallback<Event>() {
-            @Override
-            public void done(final List<Event> models, ParseException e) {*/
         ParseRelation<ParseObject> relation1 = thisEvent.getRelation("eventGo");
-        //  ParseRelation<ParseObject> relation1 = models.get(0).getRelation("eventGo");
         ParseQuery<ParseObject> qry = relation1.getQuery();
         qry.whereEqualTo("objectId",ParseUser.getCurrentUser().getObjectId());
         qry.findInBackground(new FindCallback<ParseObject>() {
@@ -223,37 +173,19 @@ public class MyEventDetailFragment extends Fragment {
                     menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
                     go=false;
                 }else{
-                    // Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+
                 }
             }
         });
-        /*    }
-        });*/
     }
-
-
-
 
 
     @UiThread
     void update() {
-
-
-
         textName.setText(thisEvent.get(Event.NAME).toString());
-        String pattern = getString(R.string.date_hour_pattern);
-        final SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        //  textDate.setText(/*sdf.format(*//*)*/);
         textLocation.setText(String.format("%s\n%s, %s - %s", HETextUtil.toTitleCase(thisEvent.getAddress()), HETextUtil.toTitleCase(thisEvent.getCity()), thisEvent.getState().toUpperCase(), thisEvent.getCountry()));
-        int howManyIsGoing = thisEvent.getHowManyIsGoing();
-
-        /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
-        query.findInBackground(new FindCallback<Event>() {
-            @Override
-            public void done(List<Event> models, ParseException e) {*/
         ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
-        //  ParseRelation<ParseObject> relation1 = models.get(0).getRelation("eventGo");
+
         ParseQuery<ParseObject> qry = relation.getQuery();
         qry.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -272,35 +204,20 @@ public class MyEventDetailFragment extends Fragment {
                 }
             }
         });
-         /*   }
-        });*/
 
-        // textQuantity.setText(getResources().getQuantityString(R.plurals.x_pessoas_irao, howManyIsGoing, howManyIsGoing));
-        UserDetails owner = null;
-        try {
-            owner = thisEvent.getOwner();
-            textDesc.setText(thisEvent.getDescription() + "\n\n- " + owner.getName());
-        } catch (Exception ex) {
-            textDesc.setText(thisEvent.getDescription());
+        if(thisEvent.get("Photo")!=null) {
+            ParseFile image = (ParseFile) thisEvent.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        img.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
-
-        if(thisEvent.get(Event.FOTO)!=null) {
-            byte[] decodedString = Base64.decode(thisEvent.get(Event.FOTO).toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            setImage(decodedByte);
-        }
-
-
-
-        if (owner != null) {
-            Bitmap profilePicture = owner.getProfilePicture(callbackProfilePicture);
-            if (profilePicture != null)
-                setProfilePicture(profilePicture);
-        }
-
-
-
-
     }
 
 
@@ -374,84 +291,47 @@ public class MyEventDetailFragment extends Fragment {
         }
     }
 
- /*   @OptionsItem
-    public void menuChat() {
-        if (MyApplication.hasInternetConnection()) {
-            startActivity(new Intent(getActivity(), ChatActivity_.class).putExtra(ChatActivity.EXTRA_ID, thisEvent.getObjectId()).putExtra(ChatActivity.EXTRA_CHAT_NAME, thisEvent.getName()));
-        } else {
-            Toast.makeText(getActivity(), R.string.msg_erro_no_internet, Toast.LENGTH_LONG).show();
-        }
-    }*/
 
     @OptionsItem
     public void menuGo() {
-
         if(go) {
             showProgress("Se inscrevendo no evento...");
-        /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
-        query.findInBackground(new FindCallback<Event>() {
-            @Override
-            public void done(final List<Event> models, ParseException e) {*/
             ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
-            //   ParseRelation<ParseObject> relation = models.get(0).getRelation("eventGo");
             relation.add(ParseUser.getCurrentUser());
             thisEvent.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
-                        ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
-                        relation.add(thisEvent);
-                        ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
                                 Log.d("OK", "COLOCADO");
                                 Toast.makeText(getActivity(), "Você está inscrito no evento", Toast.LENGTH_LONG).show();
                                 menuGo.setIcon(R.drawable.ic_eventdetail_action_unselect);
                                 go =false;
                                 update();
-                            }
-                        });
+
                         dismissProgress();
                     } else {
                         Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
                         dismissProgress();
                     }
-            /*        }
-                });*/
                 }
             });
 
         }else {
             showProgress("Retirando inscrição no evento...");
-        /*ParseQuery<Event> query = ParseQuery.getQuery("Event");
-        query.whereEqualTo(Event.OBJECTID,thisEvent.getObjectId());
-        query.findInBackground(new FindCallback<Event>() {
-            @Override
-            public void done(final List<Event> models, ParseException e) {*/
             ParseRelation<ParseObject> relation = thisEvent.getRelation("eventGo");
             relation.remove(ParseUser.getCurrentUser());
             thisEvent.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
-                        ParseRelation<Event> relation = ParseUser.getCurrentUser().getRelation("eventGo");
-                        relation.remove(thisEvent);
-                        ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(ParseException e) {
                                 menuGo.setIcon(R.drawable.ic_eventdetail_action_select);
                                 go=true;
                                 update();
 
-                            }
-                        });
                     } else {
                         Toast.makeText(getActivity(), "Erro", Toast.LENGTH_LONG).show();
                         dismissProgress();
                     }
                 }
             });
-         /*   }
-        });*/
         }
 
     }

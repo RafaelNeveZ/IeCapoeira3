@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/confirm_logout"
-        android:text="Deseja atualizar o cadastrp?"
+        android:text="Deseja atualizar o cadastro?"
         android:textAlignment="center"
         android:textColor="@color/gray_txt_dark"
         android:layout_width="match_parent"

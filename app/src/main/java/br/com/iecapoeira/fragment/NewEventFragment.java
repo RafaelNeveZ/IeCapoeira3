@@ -420,12 +420,9 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 newEvent.put("startDate",initalDate);
 
                 if(bmp!=null){
-                    System.out.println("NOT NULL++++++++++++++++++++++++");
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    // Compress image to lower quality scale 1 - 100
                     bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] image = stream.toByteArray();
-                    // Create the ParseFile
                     ParseFile file = new ParseFile(editName.getText().toString()+"_foto", image);
                     newEvent.put("Photo",file);
                 }
@@ -548,17 +545,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                 photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
 
-
-               /* *//*ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[] byteArray = byteArrayOutputStream.toByteArray();
-                my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);*//*
-
-
-                uriImg = getImageUri(getActivity(), bmp).toString();
-                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-
-                System.out.println(uriImg);*/
             }
         }
         if (requestCode == 5) {

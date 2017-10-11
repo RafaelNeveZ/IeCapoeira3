@@ -42,8 +42,7 @@ public class MyEventListFragment extends ListFragment {
 
     public static final int LIST_BY_CAPOEIRA = 0;
     public static final int LIST_BY_CULTURAIS = 1;
-    public static final String TYPE_CAPOEIRA = "0";
-    public static final String TYPE_CULTURAL = "1";
+
 
     public static int LIST = 0;
 
@@ -72,37 +71,13 @@ public class MyEventListFragment extends ListFragment {
             showToast(getString(R.string.msg_erro_sem_conexao));
             return;
         }
-
-
-
-        /*ParseQuery<ParseObject> qry = ParseQuery.getQuery("EventGo");
-        qry.whereEqualTo("userid",ParseUser.getCurrentUser().getObjectId());
-        qry.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> myevents, ParseException e) {
-                List<String> List=new ArrayList<String>();
-                ParseQuery<Event> query = ParseQuery.getQuery("Event");
-                if(myevents!=null) {
-                    for (ParseObject event : myevents) {
-                        List.add((String) event.get("eventid"));
-                        Log.d("ID", event.get("eventid") + "");
-                        try {
-                            query.get(event.get("eventid")+"");
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }*/
-
-                ParseUser me =ParseUser.getCurrentUser();
-                ParseQuery<ParseUser> innerQuery =ParseUser.getQuery();
-                innerQuery.whereEqualTo("objectId", me.getObjectId());
-                ParseQuery<Event> query = ParseQuery.getQuery("Event");
-                query.whereMatchesQuery("eventGo", innerQuery);
+        ParseUser me =ParseUser.getCurrentUser();
+        ParseQuery<ParseUser> innerQuery =ParseUser.getQuery();
+        innerQuery.whereEqualTo("objectId", me.getObjectId());
+        ParseQuery<Event> query = ParseQuery.getQuery("Event");
+        query.whereMatchesQuery("eventGo", innerQuery);
         Calendar c = Calendar.getInstance();
         c.set(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DATE)-1);
-
-
         try {
                     switch (listType) {
                         case LIST_BY_CAPOEIRA:
@@ -126,30 +101,17 @@ public class MyEventListFragment extends ListFragment {
                 } catch (Exception ex) {
 
                 }
-           /* }
-        });
-*/
 
     }
 
     @Background
     void handleResult(List<Event> events, ParseException e) {
-        /*if (e == null) {
-            for (Event event : events) {
-                getUsersGoing(event);
-            }
-        }*/
-        setupAdapter(events);
+        if (e == null) {
+            setupAdapter(events);
+        }
+
     }
 
-    void getUsersGoing(Event event) {
-        ParseRelation<ParseObject> relation = event.getRelation(Event.GOING);
-        try {
-            ParseObject.pinAll(relation.getQuery().find());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 
     @UiThread
     void setupAdapter(List<Event> events) {
@@ -187,16 +149,6 @@ public class MyEventListFragment extends ListFragment {
         Event item = adapter.getItem(position);
         startActivity(new Intent(getActivity(), EventDetailActivity_.class).putExtra("id", item.getObjectId()));
     }
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 10) {
-            if(resultCode == Activity.RESULT_OK){
-                getList();
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                update();
-            }
-        }
-    }*/
+
 }
