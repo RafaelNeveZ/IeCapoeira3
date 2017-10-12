@@ -136,13 +136,13 @@ public class DashboardFragment extends Fragment {
         partners.dashboardEnum = DashboardEnum.PARTNERS;
         items.add(partners);
 
-        DashboardItem history = new DashboardItem();
+       /* DashboardItem history = new DashboardItem();
         history.title = getResources().getStringArray(R.array.dashboard)[10];
         history.titleColor = getResources().getColor(R.color.white);
         history.image = BitmapFactory.decodeResource(getActivity().getResources(),R.drawable.history_icon);
         history.backgroundColor = getResources().getColor(R.color.green);
         history.dashboardEnum = DashboardEnum.HISTORY;
-        items.add(history);
+        items.add(history);*/
 
     }
 
@@ -177,9 +177,9 @@ public class DashboardFragment extends Fragment {
             case PARTNERS:
                 intent = new Intent(getActivity(), ParceirosActivity_.class);
                 break;
-            case HISTORY:
+           /* case HISTORY:
                 intent = new Intent(getActivity(), HistoryActivity_.class);
-                break;
+                break;*/
 
         }
         if (intent != null) {
