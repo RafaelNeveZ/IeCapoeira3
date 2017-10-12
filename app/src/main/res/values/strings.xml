@@ -199,5 +199,8 @@
     <string name="erro_final_date_title">Data final menor que a inicial!</string>
     <string name="title_eventos_new">Criar Evento</string>
     <string name="title_edit_event">Editar Evento</string>
+    <string name="video_title">Vídeos de capoeira</string>
+    <string name="hint_title_video">Título do vídeo</string>
+    <string name="new_video">Insira um novo vídeo</string>
 
 </resources>

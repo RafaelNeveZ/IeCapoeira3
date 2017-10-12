@@ -39,7 +39,7 @@ public class MyMestreListFragment extends ListFragment {
 
     public static final int LIST_BY_ANGOLA = 0;
     public static final int LIST_BY_REGIONAL = 1;
-
+    public static boolean oneTime=true;
 
     public static final String TYPE_ANGOLA = "Anggola";
     public static final String TYPE_REGIONAL = "Regional";
@@ -72,7 +72,6 @@ public class MyMestreListFragment extends ListFragment {
 
     void update() {
 
-
         try {
 
             switch (listType) {
@@ -88,8 +87,6 @@ public class MyMestreListFragment extends ListFragment {
                     break;
             }
 
-
-
         } catch (Exception ex) {
 
         }
@@ -98,22 +95,9 @@ public class MyMestreListFragment extends ListFragment {
 
     @Background
     void handleResult(List<Mestre> mestres) {
-        /*if (e == null) {
-            for (Event event : events) {
-                getUsersGoing(event);
-            }
-        }*/
         setupAdapter(mestres);
     }
 
-    /*void getUsersGoing(ParseObject musica) {
-        ParseRelation<ParseObject> relation = event.getRelation(Event.GOING);
-        try {
-            ParseObject.pinAll(relation.getQuery().find());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @UiThread
     void setupAdapter(List<Mestre> mestres) {
@@ -125,11 +109,7 @@ public class MyMestreListFragment extends ListFragment {
         } catch (Exception e) {}
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        update();
-    }
+
 
     private void setupListView() {
         ListView listView = getListView();

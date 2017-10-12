@@ -69,7 +69,7 @@ public class ChatMessageView extends ItemView<ChatMessage> {
             textName.setVisibility(GONE);
             root.setBackgroundResource(R.drawable.img_right_bubble);
             layoutParams.addRule(ALIGN_PARENT_RIGHT);
-            text.setGravity(Gravity.RIGHT);
+            text.setGravity(Gravity.LEFT);
 //            preview.setBackgroundResource(0);
         } else {
             textName.setVisibility(VISIBLE);

@@ -102,7 +102,6 @@ public class EventListFragment extends ListFragment {
                     }
                     break;
             }
-            query.whereEqualTo("teste",true);
             query.findInBackground(new FindCallback<Event>() {
                 @Override
                 public void done(List<Event> events, ParseException e) {
@@ -117,13 +116,10 @@ public class EventListFragment extends ListFragment {
 
     @Background
     void handleResult(List<Event> events, ParseException e) {
-        /*if (e == null) {
-            for (Event event : events) {
-                getUsersGoing(event);
-            }
-        }*/
-        notUpdate=null;
-        setupAdapter(events);
+        if (e == null) {
+            notUpdate = null;
+            setupAdapter(events);
+        }
     }
 
     void getUsersGoing(Event event) {

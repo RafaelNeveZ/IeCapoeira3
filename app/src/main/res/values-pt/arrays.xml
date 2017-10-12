@@ -21,13 +21,14 @@
         <item>Agenda Pessoal</item>  <!--1-->
         <item>Aulas</item>  <!--2-->
         <item>Mestres</item>  <!--3-->
-        <item>Musica</item>  <!--4-->
-        <item>Editais</item>  <!--5-->
-        <item>Bate papo</item>  <!--6-->
-        <item>Parceiros</item>  <!--7-->
-        <item>Contato</item>  <!--8-->
-        <item>História da Capoeira</item>  <!--9-->
-        <item>Área do usuário</item>  <!--10-->
+        <item>Musicas</item>  <!--4-->
+        <item>Videos</item>  <!--5-->
+        <item>Editais</item>  <!--6-->
+        <item>Bate papo</item>  <!--7-->
+        <item>Parceiros</item>  <!--8-->
+        <item>Contato</item>  <!--9-->
+        <item>História da Capoeira</item>  <!--10-->
+        <item>Área do usuário</item>  <!--11-->
     </string-array>
 
 </resources>

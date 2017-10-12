@@ -55,77 +55,101 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginTop="16dp"
-            android:padding="8dp"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <br.com.iecapoeira.widget.TextViewPlus
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/icon_phone"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                android:gravity="center"
-                app:fontNameTextViewPlus="icomoon"
-                />
+                app:fontNameTextViewPlus="icomoon" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
                 android:text="@string/lbl_contato_telefone"
-                />
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <br.com.iecapoeira.widget.TextViewPlus
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/icon_mail"
                 android:textColor="@color/colorAccent"
-                android:gravity="center"
                 android:textSize="18sp"
-                app:fontNameTextViewPlus="icomoon"
-                />
+                app:fontNameTextViewPlus="icomoon" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
                 android:text="@string/lbl_contato_email"
-                />
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <br.com.iecapoeira.widget.TextViewPlus
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/icon_home"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
-                android:gravity="center"
-                app:fontNameTextViewPlus="icomoon"
-                />
+                app:fontNameTextViewPlus="icomoon" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
                 android:text="@string/lbl_contato_website"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/midia"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inserir texto"
+                android:textColor="@color/colorAccent"
+                android:layout_marginLeft="12dp"
+                android:textSize="18sp" />
 
         </LinearLayout>
 

@@ -317,7 +317,6 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
             ParseRelation<ParseObject> owner = newClass.getRelation("aulaOwner");
             owner.add(ParseUser.getCurrentUser());
-            newClass.put("teste",true);
             if(bmp!=null){
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -339,7 +338,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
                             finish();
                         }
                     } else {
-                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
                         dismissProgress();
                     }
                 }
@@ -453,7 +452,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         }*/
         if (graduation.isEmpty()) {
             setError(editGraduation, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
+            dontLeave = false;
             return false;
         }
 
@@ -461,31 +460,32 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         if(editCityVisb == View.VISIBLE) {
             if (editCity.getText().equals(city)) {
                 Toast.makeText(this, "Escolha uma cidade", Toast.LENGTH_SHORT).show();
-                dontLeave =true;
+                dontLeave = false;
                 return false;
             }
         }else{
 
             if (editTrueCity.getText().toString().isEmpty()) {
                 setError(editTrueCity, getString(R.string.msg_erro_campo_vazio));
-                dontLeave =true;
+                dontLeave = false;
                 return false;
             }
             if (editCountry.getText().toString().isEmpty()) {
                 setError(editCountry, getString(R.string.msg_erro_campo_vazio));
-                dontLeave =true;
+                dontLeave = false;
                 return false;
             }
 
         }
         if (address.isEmpty()) {
             setError(editAddress, getString(R.string.msg_erro_campo_vazio));
-            dontLeave = true;
+            dontLeave = false;
             return false;
         }
 
         if(putDays().equals("error")) {
             Toast.makeText(this, "Selecione os dias", Toast.LENGTH_SHORT).show();
+            dontLeave = false;
             return false;
         }
         return true;

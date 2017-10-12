@@ -1,5 +1,6 @@
 package br.com.iecapoeira.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
@@ -8,11 +9,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -76,6 +82,7 @@ import br.com.iecapoeira.model.SubscribeHolder;
 public class ChatFragment extends ListFragment {
 
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 101;
+    private int STORAGE_PERMISSION_CODE = 23;
 
     @FragmentArg
     String channel;
@@ -107,6 +114,7 @@ public class ChatFragment extends ListFragment {
     private Uri fileUri;
     final private BroadcastReceiver broadcastReceiver = new MessageBroadcastReceiver();
     private String sender = "";
+    private boolean saiuDeVardade = true;
 
     @AfterViews
     public void init() {
@@ -168,6 +176,7 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        subscribe.setVisible(false);
         try {
             subscribe.setIcon(subscribeHolder.isSubscribed(channel) ? R.drawable.ic_chat_notification_desable : R.drawable.ic_chat_notification_enable);
         } catch (Exception e) {
@@ -208,6 +217,10 @@ public class ChatFragment extends ListFragment {
     @OptionsItem
     public void subscribe() {
         boolean isSubscribed = subscribeHolder.isSubscribed(channel);
+        if(!isSubscribed)
+            Log.e("SUB", "SIM");
+        else
+            Log.e("SUB", "NAO");
         subscribeHolder.saveSubscribe(channel, !isSubscribed);
         subscribe.setIcon(!isSubscribed ? R.drawable.ic_chat_notification_desable : R.drawable.ic_chat_notification_enable);
         Toast.makeText(getActivity(),!isSubscribed ? R.string.msg_toast_notif_chat_sim : R.string.msg_toast_notif_chat_nao,Toast.LENGTH_LONG).show();
@@ -230,7 +243,6 @@ public class ChatFragment extends ListFragment {
 
     private void startPubnub() throws Exception {
         Pubnub pubnub = PubnubPusher.initAndGetPubnub();
-
         int count = 50;
         PubnubPusher.getHistory(channel, count, new Callback() {
             @Override
@@ -286,11 +298,55 @@ public class ChatFragment extends ListFragment {
     @Click
     public void btPhoto() {
         takePicture();
+
     }
 
     @OptionsItem
     public void gallery() {
-        getPictureFromGallery();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (isReadStorageAllowed()) {
+                saiuDeVardade=false;
+                getPictureFromGallery();
+            } else {
+                requestStoragePermission();
+            }
+        } else {
+            saiuDeVardade=false;
+            getPictureFromGallery();
+        }
+    }
+
+    private void requestStoragePermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+            //Caso o usuario tenha negado anteriormente a permissão
+        }
+        //Pedidndo a permissão
+        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            //Caso a permissão tenha sido aceita
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                gallery();
+            } else {
+                //Caso a permissão tenha sido recusada
+                Toast.makeText(getActivity(), "Permissão negada", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private boolean isReadStorageAllowed() {
+        //Testando se a permissão já foi aceita
+        int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        //Caso sim
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //Caso não
+        return false;
     }
 
     @Click
@@ -340,7 +396,9 @@ public class ChatFragment extends ListFragment {
 
        try {
            if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+               saiuDeVardade=true;
                if (resultCode == Activity.RESULT_OK) {
+
                    handlePhotoTaken();
                } else if (resultCode == Activity.RESULT_CANCELED) {
                    // User cancelled the image capture
@@ -348,11 +406,15 @@ public class ChatFragment extends ListFragment {
                    // Image capture failed, advise user
                }
            } else if (requestCode == PhotoUtil.PICK_CROPPED_IMAGE) {
+               saiuDeVardade=true;
                fileUri = PhotoUtil.onGalleryResult(requestCode, data);
-               if (fileUri != null)
+               if (fileUri != null) {
+
                    handlePhotoTaken();
+               }
            }
        }catch (Exception e){
+           saiuDeVardade=true;
            e.printStackTrace();
        }
     }
@@ -371,11 +433,8 @@ public class ChatFragment extends ListFragment {
             chatMessage.create();
             update();
         } catch (Exception e1) {}
-
         final ParseFile pf = new ParseFile("photo.jpg", byteArray);
-
         Toast.makeText(getActivity(), R.string.msg_enviando_foto, Toast.LENGTH_LONG).show();
-
         pf.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -468,23 +527,23 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+    Log.e("RESUME","ESTOU");
+            IEApplication.getOpenHelper().clearUnreadTableUserMessage(channel);
+            mNotificationManager.cancel(channel.hashCode());
+            ChatMessageService.setCurrentChatId(channel);
+            LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_RECEIVED));
+            LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_UPDATED));
+            if (subscribeHolder.isSubscribed(channel)) {
+                sendSystemMessage(true);
+            }
 
-        IEApplication.getOpenHelper().clearUnreadTableUserMessage(channel);
-        mNotificationManager.cancel(channel.hashCode());
-        ChatMessageService.setCurrentChatId(channel);
-
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_RECEIVED));
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(broadcastReceiver, new IntentFilter(ChatMessageService.ACTION_MESSAGE_UPDATED));
-
-        if (subscribeHolder.isSubscribed(channel)) {
-            sendSystemMessage(true);
-        }
         ((ChatActivity)getActivity()).hideKeyboard();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.e("PAUSE","ESTOU");
         ChatMessageService.setCurrentChatId(null);
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(broadcastReceiver);
         ((ChatActivity)getActivity()).hideKeyboard();
@@ -493,8 +552,9 @@ public class ChatFragment extends ListFragment {
     @Override
     public void onStop() {
         super.onStop();
-
+        Log.e("STOP","ESTOU");
         if (!subscribeHolder.isSubscribed(channel)) {
+            if(saiuDeVardade)
             sendSystemMessage(false);
         }
     }

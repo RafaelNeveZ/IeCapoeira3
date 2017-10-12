@@ -143,7 +143,7 @@
             android:name=".actv.NewMusicActivity_"
             android:label="@string/title_new_song"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:parentActivityName=".actv.MusicaActivity_"
+            android:parentActivityName=".actv.MyMusicaActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
@@ -248,6 +248,18 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             tools:replace="android:theme" />
+        <activity
+            android:name=".actv.MyVideoActivity_"
+            android:label="Vídeos"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.NewVideoActivity_"
+            android:label="Novo vídeo"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:parentActivityName=".actv.MyVideoActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
 
         <meta-data
             android:name="com.parse.SERVER_URL"

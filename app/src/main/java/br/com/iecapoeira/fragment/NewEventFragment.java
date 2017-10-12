@@ -437,7 +437,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     newEvent.put("hasMoreDays",false);
                     Log.d("FINAL IGUAL", "NAO");
                 }
-                newEvent.put("teste",true);
+
 
                 newEvent.saveInBackground(new SaveCallback() {
                     public void done(ParseException e) {
@@ -453,7 +453,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                                 getActivity().finish();
                             }
                         } else {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
                             dismissProgress();
                         }
                     }
@@ -483,31 +483,38 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
         if (name.isEmpty()) {
             setError(editName, getString(R.string.msg_erro_campo_vazio));
+            notOther=false;
             return false;
         }
-        if (address.isEmpty()) {
-            setError(editAddress, getString(R.string.msg_erro_campo_vazio));
-            return false;
-        }
+
         int editCityVisb = cityChoice.getVisibility();
         if (editCityVisb == View.VISIBLE) {
             if (editCity.getText().equals(city)) {
+                notOther=false;
                 Toast.makeText(getActivity(), "Escolha uma cidade", Toast.LENGTH_SHORT).show();
                 return false;
             }
         } else {
 
             if (editTrueCity.getText().toString().isEmpty()) {
+                notOther=false;
                 setError(editTrueCity, getString(R.string.msg_erro_campo_vazio));
                 return false;
             }
-            if (editCountry.getText().toString().isEmpty()) {
+            if (editCountry.getText().toString().isEmpty()){
+                notOther=false;
                 setError(editCountry, getString(R.string.msg_erro_campo_vazio));
                 return false;
             }
 
         }
+        if (address.isEmpty()) {
+            notOther=false;
+            setError(editAddress, getString(R.string.msg_erro_campo_vazio));
+            return false;
+        }
         if (!dataInicialSetada){
+            notOther=false;
             Log.d("INICIAL VAZIO", "SIM");
             Toast.makeText(getActivity(), "Escolha a data inicial do evento", Toast.LENGTH_SHORT).show();
             return false;

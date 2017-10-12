@@ -17,7 +17,6 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
@@ -27,38 +26,35 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.UiThread;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hemobile.MyApplication;
 import br.com.iecapoeira.R;
-
 import br.com.iecapoeira.actv.MyMusicaAdapter;
-import br.com.iecapoeira.adapter.MusicaAdapter;
+import br.com.iecapoeira.actv.MyVideoAdapter;
 import br.com.iecapoeira.model.Event;
-import br.com.iecapoeira.model.Parceiro;
 import br.com.iecapoeira.utils.HENetworkUtil;
 import br.com.iecapoeira.view.MusicaItemView;
 
 @EFragment
-public class MyMusicaListFragment extends ListFragment {
+public class MyVideoListFragment extends ListFragment {
 
-    public static final int LIST_BY_ANGOLA = 0;
-    public static final int LIST_BY_REGIONAL = 1;
-    public static final int LIST_BY_PLAYLIST = 2;
+    public static final int LIST_BY_CAPOEIRA = 0;
 
     public static final String TYPE_ANGOLA = "0";
+
     public static final String TYPE_REGIONAL = "1";
     public static final String TYPE_PLAYLIST = "2";
 
     public static int LIST = 0;
-
+    List<ParseObject> updatade_videos;
+    public
     @FragmentArg
     int listType;
 
 
     @Bean
-    public MyMusicaAdapter adapter;
+    public MyVideoAdapter adapter;
     private ProgressDialog progressDialog;
 
     @AfterViews
@@ -84,85 +80,33 @@ public class MyMusicaListFragment extends ListFragment {
         try {
             Log.d("TAG","" + listType);
             switch (listType) {
-                case LIST_BY_ANGOLA:
-                    MusicaItemView.sacaninha = false;
-                    //                   query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Music");
-                    query.whereEqualTo(Event.TYPE, LIST_BY_ANGOLA);
+                case LIST_BY_CAPOEIRA:
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Video");
                     query.findInBackground(new FindCallback<ParseObject>() {
                         @Override
-                        public void done(List<ParseObject> musics, ParseException e) {
-
-                            handleResult(musics, e);
+                        public void done(List<ParseObject> videos, ParseException e) {
+                            updatade_videos=videos;
+                            handleResult(updatade_videos, e);
                         }
                     });
-                    Log.d("TAG","CAPOEIRA");
-                    Log.d("Event.TYPE",Event.TYPE);
-                    Log.d("TYPE_CUTURAL", TYPE_ANGOLA);
-                    break;
-                case LIST_BY_REGIONAL:
-                    MusicaItemView.sacaninha = false;
-                    //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-                    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("Music");
-                    query1.whereEqualTo(Event.TYPE, LIST_BY_REGIONAL);
-                    query1.findInBackground(new FindCallback<ParseObject>() {
-                        @Override
-                        public void done(List<ParseObject> musics, ParseException e) {
-                            Log.d("LISTA DE EVENT SIZE","" + musics.size());
-                            handleResult(musics, e);
-                        }
-                    });
-                    Log.d("TAG","CULTURAL");
-                    Log.d("Event.TYPE",Event.TYPE);
-                    Log.d("TYPE_CUTURAL", TYPE_REGIONAL);
-                    break;
-                case LIST_BY_PLAYLIST:
-                    MusicaItemView.sacaninha = true;
-                    //                query.whereGreaterThan(Event.DATE, Calendar.getInstance().getTime());
-                    ParseUser me =ParseUser.getCurrentUser();
-                    ParseQuery<ParseUser> innerQuery =ParseUser.getQuery();
-                    innerQuery.whereEqualTo("objectId", me.getObjectId());
-                    ParseQuery<ParseObject> queryf = ParseQuery.getQuery("Music");
-                    queryf.whereMatchesQuery("userFavorite", innerQuery);
-                    queryf.findInBackground(new FindCallback<ParseObject>() {
-                        @Override
-                        public void done(List<ParseObject> musics, ParseException e) {
-                            handleResult(musics, e);
-                        }
-                    });
-                    Log.d("TAG","CULTURAL");
-                    Log.d("Event.TYPE",Event.TYPE);
-                    Log.d("TYPE_CUTURAL", TYPE_REGIONAL);
                     break;
             }
-
-
-
         } catch (Exception ex) {
-
         }
 
     }
 
     @Background
-    void handleResult(List<ParseObject> musics, ParseException e) {
-        if (e == null)
-        setupAdapter(musics);
+    void handleResult(List<ParseObject> videos, ParseException e) {
+        if(e==null)
+        setupAdapter(videos);
     }
 
-    /*void getUsersGoing(ParseObject musica) {
-        ParseRelation<ParseObject> relation = event.getRelation(Event.GOING);
-        try {
-            ParseObject.pinAll(relation.getQuery().find());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     @UiThread
-    void setupAdapter(List<ParseObject> musics) {
+    void setupAdapter(List<ParseObject> videos) {
         try {
-            adapter.setList(musics);
+            adapter.setList(videos);
             adapter.notifyDataSetChanged();
             if (getListAdapter() == null)
                 setListAdapter(adapter);
@@ -181,26 +125,25 @@ public class MyMusicaListFragment extends ListFragment {
         listView.setFocusableInTouchMode(false);
         listView.setClickable(false);
         listView.setItemsCanFocus(true);
-
         int padding = MyApplication.dpToPixels(16);
         listView.setPadding(padding, padding, padding, 0);
         listView.setDivider(null);
         listView.setDividerHeight(padding);
-        setEmptyText("Não possui músicas aqui");
+        setEmptyText("Não possui vídeos aqui");
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         final ParseObject item = adapter.getItem(position);
-        if ((Boolean) ParseUser.getCurrentUser().get("Admin") && !MusicaItemView.sacaninha) {
+        if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
             final Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.delete_edit);
-            dialog.setTitle("Música");
+            dialog.setTitle("Vídeo");
             dialog.show();
             TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
             Button btY = (Button) dialog.findViewById(R.id.yes);
             Button btN = (Button) dialog.findViewById(R.id.no);
-            text.setText("Deseja deletar a música " + item.get("title")+"?");
+            text.setText("Deseja deletar o vídeo " + item.get("title")+"?");
             btY.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -212,15 +155,14 @@ public class MyMusicaListFragment extends ListFragment {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();
-                        showProgress("Deletando música...");
-                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Music");
+                        showProgress("Deletando vídeo...");
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Video");
                         query.getInBackground(item.getObjectId(), new GetCallback<ParseObject>() {
                             public void done(ParseObject item, ParseException e) {
                                 if (e == null) {
                                     item.deleteInBackground();
-                                    adapter.notifyDataSetChanged();
                                     dismissProgress();
-                                    Toast.makeText(getActivity(), "Musica deletada", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Vídeo deletado", Toast.LENGTH_LONG).show();
                                 } else {
                                     dismissProgress();
                                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -252,16 +194,5 @@ public class MyMusicaListFragment extends ListFragment {
 
         }
     }
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == 10) {
-            if(resultCode == Activity.RESULT_OK){
-                getList();
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                update();
-            }
-        }
-    }*/
 }

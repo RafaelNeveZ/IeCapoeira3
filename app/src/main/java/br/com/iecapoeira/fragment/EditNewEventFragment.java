@@ -148,8 +148,8 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
         if(!isAdmin()){
             tipoEvento.setVisibility(View.GONE);
         }else{
-            String cap="Capoeira";
-            if(cap.equals(event.get(Event.TYPE)))
+
+            if(((int)event.get(Event.TYPE))== 0)
                 rdCapoeira.setChecked(true);
             else
                 rdCultural.setChecked(true);
@@ -465,7 +465,7 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
                             getActivity().finish();
                         }
                     } else {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG).show();
                         dismissProgress();
                         Intent returnIntent = new Intent();
                         getActivity().setResult(Activity.RESULT_CANCELED,returnIntent);

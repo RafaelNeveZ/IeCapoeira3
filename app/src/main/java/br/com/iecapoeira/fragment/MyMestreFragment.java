@@ -104,8 +104,8 @@ public class MyMestreFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                tabs.notifyDataSetChanged();
-                ((MyMestreListFragment_)adapter.getItem(pager.getCurrentItem())).update();
+            //    tabs.notifyDataSetChanged();
+             //   ((MyMestreListFragment_)adapter.getItem(pager.getCurrentItem())).update();
 //                getActivity().setTitle(title[position]);
             }
 
@@ -148,13 +148,10 @@ public class MyMestreFragment extends Fragment {
 
         if (requestCode == 5) {
             if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("result");
-                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
-                adapter.update();
-                filter = result;
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
+
             }
         }
 
@@ -166,7 +163,7 @@ public class MyMestreFragment extends Fragment {
 
             }
         }
-        adapter.update();
+
     }
 
     private class TabsAdapter extends FragmentPagerAdapter {

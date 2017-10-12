@@ -158,7 +158,6 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
         }
         checkDays();
         String regional="Regional";
-
         if(regional.equals(mod.get(Aula.TIPOCAPOEIRA)))
             rdRegional.setChecked(true);
         else
@@ -379,7 +378,7 @@ public class EditNewClassActivity extends AppCompatActivity implements DatePicke
                                     setResult(Activity.RESULT_OK,returnIntent);
                                     finish();
                                 } else {
-                                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
                                     dismissProgress();
                                 }
                             }

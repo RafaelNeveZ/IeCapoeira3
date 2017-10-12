@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -21,12 +20,11 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.fragment.EventListFragment;
 import br.com.iecapoeira.fragment.MusicaFragment;
 
-@EActivity(R.layout.activity_new_music)
+@EActivity(R.layout.activity_new_video)
 @OptionsMenu(R.menu.new_event)
-public class NewMusicActivity extends AppCompatActivity {
+public class NewVideoActivity extends AppCompatActivity {
     @ViewById
     EditText editTitle;
 
@@ -54,10 +52,9 @@ public class NewMusicActivity extends AppCompatActivity {
             setError(editLink, getString(R.string.msg_erro_campo_vazio));
             return;
         }
-        ParseObject music = ParseObject.create("Music");
+        ParseObject music = ParseObject.create("Video");
         music.put("title",title);
         music.put("link",youtube);
-        music.put("type",(rdRegional.isChecked() ? MusicaFragment.REGIONAL : MusicaFragment.ANGOLA));
         music.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -66,7 +63,7 @@ public class NewMusicActivity extends AppCompatActivity {
                     returnIntent.putExtra("title", title);
                     returnIntent.putExtra("link", youtube);
                     setResult(Activity.RESULT_OK, returnIntent);
-                    Toast.makeText(context, "Música criado com sucesso", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Vídeo criado com sucesso", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
                     Toast.makeText(context, "Ocorreu um erro", Toast.LENGTH_LONG).show();

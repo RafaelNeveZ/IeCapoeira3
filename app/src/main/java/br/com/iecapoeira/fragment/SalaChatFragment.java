@@ -55,7 +55,6 @@ public class SalaChatFragment extends Fragment implements RecyclerViewOnClickLis
                 "Capoeira de Angola",
                 "Capoeira Regional",
                 "Capoeira de Rua",
-                "História de Capoeira",
         };
 
         List<String> listAux = new ArrayList<>();
