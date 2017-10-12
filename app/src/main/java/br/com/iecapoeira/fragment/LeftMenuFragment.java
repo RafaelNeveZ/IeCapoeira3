@@ -32,6 +32,7 @@ import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.MyClassActivity_;
 import br.com.iecapoeira.actv.MyMestreActivity_;
 import br.com.iecapoeira.actv.MyMusicaActivity_;
+import br.com.iecapoeira.actv.MyParceirosActivity_;
 import br.com.iecapoeira.actv.MyVideoActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
 import br.com.iecapoeira.actv.SalaChatActivity_;
@@ -151,7 +152,6 @@ public class LeftMenuFragment extends Fragment {
         user.dashboardEnum = DashboardEnum.USER;
         items.add(user);
 
-
         DashboardItem contact = new DashboardItem();
         contact.title = getResources().getStringArray(R.array.dashboard)[9];
         contact.titleColor = getResources().getColor(R.color.gray_txt);
@@ -196,7 +196,7 @@ public class LeftMenuFragment extends Fragment {
 
                 break;
             case PARTNERS:
-                intent = new Intent(getActivity(), ParceirosActivity_.class);
+                intent = new Intent(getActivity(), MyParceirosActivity_.class);
 
                 break;
             case HISTORY:

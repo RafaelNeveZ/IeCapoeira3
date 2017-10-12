@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
@@ -92,16 +93,12 @@ public class NewParceiroActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
+        Log.d("URI", uri + "");
         if (uri != null) {
             bmp = PhotoUtil.resizeBitmap(this, uri);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream .toByteArray();
-            my64foto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            Log.d("STRING: ",my64foto);
             photo.setImageBitmap(bmp);
             photo.setBackgroundResource(android.R.color.transparent);
+
         }
     }
 
@@ -147,7 +144,14 @@ public class NewParceiroActivity extends AppCompatActivity {
 
             ParseObject newParc = ParseObject.create("Parceiro");
             newParc.put(Parceiro.NAME,editName.getText().toString());
-            newParc.put(Parceiro.FOTO,my64foto);
+
+            if(bmp!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
+                ParseFile file = new ParseFile(editName.getText().toString()+"_foto", image);
+                newParc.put("Photo",file);
+            }
 
             if(sponsorChecked)
                 newParc.put(Parceiro.PART,true);

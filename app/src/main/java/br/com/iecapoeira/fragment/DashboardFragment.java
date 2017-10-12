@@ -175,7 +175,7 @@ public class DashboardFragment extends Fragment {
                 intent = new Intent(getActivity(), SalaChatActivity_.class);
                 break;
             case PARTNERS:
-                intent = new Intent(getActivity(), ParceirosActivity_.class);
+                intent = new Intent(getActivity(), MyParceirosActivity_.class);
                 break;
            /* case HISTORY:
                 intent = new Intent(getActivity(), HistoryActivity_.class);

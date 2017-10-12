@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -110,13 +111,10 @@ public class MyParceirosListFragment extends ListFragment {
 
     @Background
     void handleResult(List<ParseObject> part, ParseException e) {
-        /*if (e == null) {
-            for (Event event : events) {
-                getUsersGoing(event);
-            }
-        }*/
-        notUpdate=null;
-        setupAdapter(part);
+        if (e == null) {
+            notUpdate = null;
+            setupAdapter(part);
+        }
     }
 
 
@@ -142,6 +140,8 @@ public class MyParceirosListFragment extends ListFragment {
 
 
     private void setupListView() {
+        GridView gridView = new GridView(getContext());
+        gridView.setAdapter(adapter);
         ListView listView = getListView();
         listView.setFocusable(false);
         listView.setFocusableInTouchMode(false);

@@ -6,13 +6,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +75,7 @@ public class ParceirosAdapter extends RecyclerView.Adapter<ParceirosAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ParseObject par = list.get(position);
 
-        holder.bind((String) par.get(Parceiro.FOTO));
+        holder.bind(par);
     }
 
     public void setRecyclerViewOnClickListenerHack(RecyclerViewOnClickListenerHack r) {
@@ -92,11 +97,20 @@ public class ParceirosAdapter extends RecyclerView.Adapter<ParceirosAdapter.View
             itemView.setOnClickListener(this);
         }
 
-        public void bind(String foto) {
-            byte[] decodedString = Base64.decode(foto, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivLogo.setImageBitmap(decodedByte);
-            ivLogo.setBackgroundResource(android.R.color.transparent);
+        public void bind(ParseObject obj) {
+            if(obj.get("Photo")!=null) {
+                ParseFile image = (ParseFile) obj.get("Photo");
+                image.getDataInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
+                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            ivLogo.setImageBitmap(bmp);
+                        } else {
+                            Log.d("test", "There was a problem downloading the data.");
+                        }
+                    }
+                });
+            }
         }
 
         @Override

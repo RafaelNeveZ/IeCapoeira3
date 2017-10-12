@@ -2,11 +2,9 @@ package br.com.iecapoeira.fragment;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -63,7 +61,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.List;
 
-import br.com.hemobile.BaseActivity;
 import br.com.hemobile.MyApplication;
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.IEApplication;
@@ -114,7 +111,7 @@ public class ChatFragment extends ListFragment {
     private Uri fileUri;
     final private BroadcastReceiver broadcastReceiver = new MessageBroadcastReceiver();
     private String sender = "";
-    private boolean saiuDeVardade = true;
+    private boolean saiuDeVerdade = true;
 
     @AfterViews
     public void init() {
@@ -297,7 +294,17 @@ public class ChatFragment extends ListFragment {
 
     @Click
     public void btPhoto() {
-        takePicture();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (isReadCameraAllowed()) {
+                saiuDeVerdade =false;
+                takePicture();
+            } else {
+                requestCameraPermission();
+            }
+        } else {
+            saiuDeVerdade =false;
+            takePicture();
+        }
 
     }
 
@@ -305,13 +312,13 @@ public class ChatFragment extends ListFragment {
     public void gallery() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (isReadStorageAllowed()) {
-                saiuDeVardade=false;
+                saiuDeVerdade =false;
                 getPictureFromGallery();
             } else {
                 requestStoragePermission();
             }
         } else {
-            saiuDeVardade=false;
+            saiuDeVerdade =false;
             getPictureFromGallery();
         }
     }
@@ -325,6 +332,15 @@ public class ChatFragment extends ListFragment {
         ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
     }
 
+    private void requestCameraPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)){
+            //Caso o usuario tenha negado anteriormente a permissão
+        }
+        //Pedidndo a permissão
+        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA},50);
+    }
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == STORAGE_PERMISSION_CODE) {
             //Caso a permissão tenha sido aceita
@@ -335,11 +351,31 @@ public class ChatFragment extends ListFragment {
                 Toast.makeText(getActivity(), "Permissão negada", Toast.LENGTH_LONG).show();
             }
         }
+        if (requestCode == 50) {
+            //Caso a permissão tenha sido aceita
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                btPhoto();
+            } else {
+                //Caso a permissão tenha sido recusada
+                Toast.makeText(getActivity(), "Permissão negada", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private boolean isReadStorageAllowed() {
         //Testando se a permissão já foi aceita
         int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        //Caso sim
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //Caso não
+        return false;
+    }
+    private boolean isReadCameraAllowed() {
+        //Testando se a permissão já foi aceita
+        int result = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
 
         //Caso sim
         if (result == PackageManager.PERMISSION_GRANTED)
@@ -396,7 +432,7 @@ public class ChatFragment extends ListFragment {
 
        try {
            if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-               saiuDeVardade=true;
+               saiuDeVerdade =true;
                if (resultCode == Activity.RESULT_OK) {
 
                    handlePhotoTaken();
@@ -406,7 +442,7 @@ public class ChatFragment extends ListFragment {
                    // Image capture failed, advise user
                }
            } else if (requestCode == PhotoUtil.PICK_CROPPED_IMAGE) {
-               saiuDeVardade=true;
+               saiuDeVerdade =true;
                fileUri = PhotoUtil.onGalleryResult(requestCode, data);
                if (fileUri != null) {
 
@@ -414,7 +450,7 @@ public class ChatFragment extends ListFragment {
                }
            }
        }catch (Exception e){
-           saiuDeVardade=true;
+           saiuDeVerdade =true;
            e.printStackTrace();
        }
     }
@@ -554,7 +590,7 @@ public class ChatFragment extends ListFragment {
         super.onStop();
         Log.e("STOP","ESTOU");
         if (!subscribeHolder.isSubscribed(channel)) {
-            if(saiuDeVardade)
+            if(saiuDeVerdade)
             sendSystemMessage(false);
         }
     }
@@ -563,6 +599,7 @@ public class ChatFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         ChatMessage message = adapter.getItem(position);
         if (message.isPhoto()) {
+            saiuDeVerdade = false;
             PhotoUtil.showPhotoOnGallery(getActivity(), message.getText());
         }
     }

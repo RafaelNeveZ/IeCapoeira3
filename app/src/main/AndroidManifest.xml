@@ -4,6 +4,7 @@
     package="br.com.iecapoeira">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -137,6 +138,11 @@
             android:name=".actv.MusicaActivity_"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title_musicas"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actv.MyParceirosActivity_"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_parceiros"
             android:screenOrientation="portrait" />
 
         <activity

@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
@@ -50,10 +52,18 @@ public class MyParceiroItemView extends ItemView<ParseObject> {
     @Override
     public void bind(ParseObject obj, int positionj) {
         this.obj = obj;
-        if(obj.get("foto")!=null) {
-            byte[] decodedString = Base64.decode(obj.get("foto").toString(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivLogo.setImageBitmap(decodedByte);
+        if(obj.get("Photo")!=null) {
+            ParseFile image = (ParseFile) obj.get("Photo");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        ivLogo.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
         }
 
     }
