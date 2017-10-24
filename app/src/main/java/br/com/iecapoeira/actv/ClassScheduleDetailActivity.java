@@ -97,7 +97,7 @@ public class ClassScheduleDetailActivity extends AppCompatActivity {
                 }
             });
         }
-        tvTeacher.setText(model.getString(Aula.MESTRE));
+        tvTeacher.setText(model.get(Aula.GRADUACAO)+" "+model.getString(Aula.MESTRE));
         tvDescription.setText(model.getString(Aula.SOBREAULA));
         tvDays.setText(model.getString(Aula.DIASSEMANA));
         tvPlace.setText(model.getString(Aula.ENDERECO)+".\n"+model.get(Aula.CIDADE)+". "+model.get(Aula.ESTADO)+". "+model.get(Aula.PAIS)+".");

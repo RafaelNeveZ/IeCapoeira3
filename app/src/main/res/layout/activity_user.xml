@@ -44,25 +44,23 @@
             <EditText
                 android:id="@+id/edit_email"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:maxLength="140"
-                android:maxLines="1" />
+                android:inputType="textEmailAddress|textMultiLine"
+                android:maxLength="100" />
 
 
             <EditText
                 android:id="@+id/edit_association"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_associacao"
-                android:inputType="textCapSentences"
-                android:maxLength="15"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="200" />
 
             <EditText
                 android:id="@+id/edit_nickname"
@@ -72,14 +70,13 @@
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_apelido"
                 android:inputType="textCapSentences"
-                android:maxLength="140"
-                android:maxLines="1" />
+                android:maxLength="30" />
 
 
         </LinearLayout>
 
     </ScrollView>
-    <Button
+   <!-- <Button
         android:id="@+id/bt_logout"
         android:textColor="@color/white"
         android:background="@color/colorAccent"
@@ -88,5 +85,5 @@
         android:text="@string/log_out"
         android:layout_marginLeft="@dimen/small"
         android:layout_marginRight="@dimen/small"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"/>-->
 </LinearLayout>

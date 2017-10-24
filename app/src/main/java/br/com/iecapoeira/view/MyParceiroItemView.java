@@ -31,6 +31,7 @@ import java.util.List;
 import br.com.hemobile.ItemView;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Event;
+import br.com.iecapoeira.model.Parceiro;
 import br.com.iecapoeira.utils.HETextUtil;
 
 @EViewGroup(R.layout.item_partner)
@@ -39,7 +40,8 @@ public class MyParceiroItemView extends ItemView<ParseObject> {
 
     private ParseObject obj;
 
-
+    @ViewById
+    TextView nome;
     @ViewById
     ImageView ivLogo;
     private ProgressDialog progressDialog;
@@ -52,6 +54,7 @@ public class MyParceiroItemView extends ItemView<ParseObject> {
     @Override
     public void bind(ParseObject obj, int positionj) {
         this.obj = obj;
+        nome.setText((String)obj.get(Parceiro.NAME));
         if(obj.get("Photo")!=null) {
             ParseFile image = (ParseFile) obj.get("Photo");
             image.getDataInBackground(new GetDataCallback() {

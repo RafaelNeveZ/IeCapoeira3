@@ -40,8 +40,8 @@ public class ClassItemView extends ItemView<ParseObject> {
 
     ParseObject model;
 
-    @ViewById
-    public View viewTop;
+/*    @ViewById
+    public View viewTop;*/
 
     @ViewById
     ImageView ivTeacher;
@@ -73,7 +73,7 @@ public class ClassItemView extends ItemView<ParseObject> {
     @Override
     public void bind(final ParseObject obj, int positionj) {
         this.model = obj;
-        tvTeacher.setText(model.getString(Aula.MESTRE));
+        tvTeacher.setText(model.getString(Aula.GRADUACAO)+" "+model.getString(Aula.MESTRE));
         if(model.getString(Aula.SOBREAULA).length()>30) {
             tvDescription.setText(model.getString(Aula.SOBREAULA).substring(0, 30) + "...");
         }else{

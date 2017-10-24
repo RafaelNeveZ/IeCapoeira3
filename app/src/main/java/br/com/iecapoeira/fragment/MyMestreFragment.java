@@ -27,6 +27,7 @@ import java.util.List;
 
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.actv.NewClassActivity_;
+import br.com.iecapoeira.actv.NewMestreActivity_;
 import br.com.iecapoeira.model.Mestre;
 
 @EFragment(R.layout.frag_main)
@@ -37,59 +38,17 @@ public class MyMestreFragment extends Fragment {
     ViewPager pager;
 
     @OptionsMenuItem(R.id.new_event)
-    MenuItem newsong;
+    MenuItem newEvent;
 
     @ViewById
     PagerSlidingTabStrip tabs;
 
-    private String filter="";
-
-    public  List<Mestre> listAngola;
-    public List<Mestre> listRegional;
 
     private TabsAdapter adapter;
     final int[] title = {R.string.angola_title, R.string.regional_title};
 
     @AfterViews
     public void init() {
-        String[] nomes = new String[]{"Mestre Canjiquinha", "Mestre Paulo dos Anjos", "Mestre Caiçara", "Mestre Traíra", "Mestre Waldemar da Liberdade", "Mestre Cobrinha Verde", "Mestre Eziquiel","Mestre Pastinha,","Mestre Bimba","Mestre João Pequeno" };
-        String[] historia = new String[]{getString(R.string.hist_mestre_canjiquinha), getString(R.string.hist_mestre_paulo_dos_anjos),
-                getString(R.string.hist_mestre_caicara),getString(R.string.hist_mestre_traira),
-                getResources().getString(R.string.hist_mestre_waldemar), getString(R.string.hist_mestre_cobrinha_verde),
-                getString(R.string.hist_mestre_eziquiel), getString(R.string.hist_mestre_pastinha),
-                getString(R.string.hist_mestre_bimba), getString(R.string.hist_mestre_joao_pequeno)};
-        int[] photos = new int[]{R.drawable.mestre_canjiquinha, R.drawable.mestre_paulo_dos_anjos,R.drawable.mestre_caicara, R.drawable.mestre_traira,R.drawable.mestre_waldemar_da_lierdade,R.drawable.mestre_cobrinha_verde, R.drawable.mestre_eziquiel,
-                R.drawable.mestre_pastinha,R.drawable.mestre_bimba,R.drawable.mestre_joao_pequeno};
-        int[] thumbs = new int[]{R.drawable.mestre_canjiquinha_thumb, R.drawable.mestre_paulo_dos_anjos_thumb,R.drawable.mestre_caicara_thumb, R.drawable.mestre_traira_thumb,R.drawable.mestre_waldemar_da_lierdade_thumb,R.drawable.mestre_cobrinha_verde_thumb, R.drawable.mestre_eziquiel_thumb,
-                R.drawable.mestre_pastinha_thumb,R.drawable.mestre_bimba_thumb,R.drawable.mestre_joao_pequeno_thumb};
-        listAngola = new ArrayList<>();
-
-        for(int i = 0; i < nomes.length; i++){
-            Mestre m = new Mestre( nomes[i % nomes.length],historia[i % historia.length],photos[i % nomes.length],thumbs[i % nomes.length] );
-            listAngola.add(m);
-        }
-
-        MyMestreListFragment_.angola = listAngola;
-
-        String[] nomes1 = new String[]{"Mestre Pastinha,","Mestre Bimba","Mestre João Pequeno" };
-        String[] historia1 = new String[]{getString(R.string.hist_mestre_pastinha),
-                getString(R.string.hist_mestre_bimba), getString(R.string.hist_mestre_joao_pequeno)};
-        int[] photos1 = new int[]{
-                R.drawable.mestre_pastinha,R.drawable.mestre_bimba,R.drawable.mestre_joao_pequeno};
-        int[] thumbs1 = new int[]{
-                R.drawable.mestre_pastinha_thumb,R.drawable.mestre_bimba_thumb,R.drawable.mestre_joao_pequeno_thumb};
-        listRegional = new ArrayList<>();
-
-        for(int i = 0; i < nomes1.length; i++){
-            Mestre m = new Mestre( nomes1[i % nomes1.length],historia1[i % historia1.length],photos1[i % nomes1.length],thumbs1[i % nomes1.length] );
-            listRegional.add(m);
-        }
-
-        MyMestreListFragment_.regional = listRegional;
-
-
-
-
 
         adapter = new TabsAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
@@ -104,9 +63,9 @@ public class MyMestreFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-            //    tabs.notifyDataSetChanged();
-             //   ((MyMestreListFragment_)adapter.getItem(pager.getCurrentItem())).update();
-//                getActivity().setTitle(title[position]);
+                tabs.notifyDataSetChanged();
+                ((MyMestreListFragment_)adapter.getItem(pager.getCurrentItem())).update();
+
             }
 
             @Override
@@ -114,6 +73,7 @@ public class MyMestreFragment extends Fragment {
 
             }
         });
+        ((MyMestreListFragment_)adapter.getItem(pager.getCurrentItem())).update();
 
     }
 
@@ -121,33 +81,32 @@ public class MyMestreFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-                newsong.setVisible(false);
+        // checkClass();
+        if ((Boolean) ParseUser.getCurrentUser().get("Admin")) {
+            Log.d("TAG", "ADM");
+            newEvent.setVisible(true);
+
+        } else {
+            Log.d("TAG", "Não é ADM");
+            newEvent.setVisible(false);
+
+         /*   menu.getItem(1).setEnabled(false);
+           menu.getItem(0).setEnabled(true);*/
+        }
 
     }
 
-   /* @OptionsItem
+    @OptionsItem
     public void newEvent() {
-        startActivityForResult(new Intent(getActivity(), NewClassActivity_.class), 10);
-    }*/
-
-
-
-   /* @OptionsItem
-    public void newEvent() {
-        startActivityForResult(new Intent(getActivity(), NewEventActivity_.class), 10);
-    }*/
-
-   /* @OptionsItem
-    public void filter() {
-        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
-    }*/
-
+        startActivityForResult(new Intent(getActivity(), NewMestreActivity_.class), 10);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 5) {
             if(resultCode == Activity.RESULT_OK){
+                ((MyMestreListFragment_)adapter.getItem(pager.getCurrentItem())).update();
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -187,7 +146,7 @@ public class MyMestreFragment extends Fragment {
                         fragments[position] = MyMestreListFragment_.builder().listType(MyMestreListFragment_.LIST_BY_ANGOLA).build();
                         break;
                     case 1:
-                        MyClassListFragment.LIST =1;
+                        MyMestreListFragment.LIST =1;
                         fragments[position] = MyMestreListFragment_.builder().listType(MyMestreListFragment_.LIST_BY_REGIONAL).build();
                         break;
                     default:

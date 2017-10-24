@@ -211,9 +211,16 @@
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.NewParceiroActivity_"
-            android:label="@string/title_new_partners"
+            android:label="Novo Mestre"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".actv.ParceirosActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
+            android:name=".actv.NewMestreActivity_"
+            android:label="@string/title_new_partners"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:parentActivityName=".actv.MyMestreActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity

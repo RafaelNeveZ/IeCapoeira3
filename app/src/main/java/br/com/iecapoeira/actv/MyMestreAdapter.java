@@ -16,13 +16,13 @@ import br.com.iecapoeira.view.ClassItemView_;
 import br.com.iecapoeira.view.MestreItemView_;
 
 @EBean
-public class MyMestreAdapter extends GenericBaseAdapter<Mestre>implements Filterable {
+public class MyMestreAdapter extends GenericBaseAdapter<ParseObject>implements Filterable {
 
     @RootContext
     Context c;
 
     @Override
-    public ItemView<Mestre> buildItemView() {
+    public ItemView<ParseObject> buildItemView() {
         return MestreItemView_.build(c);
     }
 

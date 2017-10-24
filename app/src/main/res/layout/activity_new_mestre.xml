@@ -74,10 +74,11 @@
                 android:layout_marginRight="@dimen/small"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:hint="@string/hint_part_sponso"
-                android:inputType="textCapSentences|textMultiLine"
-                android:maxLength="200"
-                 />
+                android:hint="Mestre"
+                android:inputType="textCapSentences"
+                android:maxLength="35"
+                android:maxLines="1" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,41 +86,39 @@
             android:layout_marginLeft="@dimen/small"
             android:layout_marginRight="@dimen/small"
             android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/cb_sponsor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:text="@string/cb_sponsor"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:background="@drawable/button_set_background"
-                android:textSize="15dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="7dp"
-                android:layout_marginRight="5dp"
-                android:textAlignment="center"
-                />
-            <CheckBox
-                android:id="@+id/cb_partner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:text="@string/cb_partner"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:background="@drawable/button_set_background"
-                android:textSize="15dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="7dp"
-                android:layout_marginRight="5dp"
-                android:textAlignment="center"
-                />
+           <RadioGroup
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <RadioButton
+                   android:id="@+id/bt_angola"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:checked="true"
+                   android:text="ANGOLA"/>
+               <RadioButton
+                   android:id="@+id/bt_regional"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="REGIONAL"/>
+
+
+
+
+           </RadioGroup>
+
         </LinearLayout>
+            <EditText
+                android:id="@+id/edit_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/small"
+                android:layout_marginRight="@dimen/small"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:hint="Histtória"
+                android:inputType="textCapSentences|textMultiLine" />
         </LinearLayout>
 
     </ScrollView>

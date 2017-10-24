@@ -177,7 +177,7 @@ public class LeftMenuFragment extends Fragment {
 
                 break;
             case TEACHERS:
-                intent = new Intent(getActivity(), ListaMestreActivity_.class);
+                intent = new Intent(getActivity(), MyMestreActivity_.class);
 
                 break;
             case MUSIC:

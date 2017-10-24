@@ -1,14 +1,22 @@
 package br.com.iecapoeira.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import android.widget.GridView;
+
+import com.parse.ParseUser;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -22,6 +30,7 @@ import br.com.iecapoeira.actv.EditalActivity;
 import br.com.iecapoeira.actv.EditalActivity_;
 import br.com.iecapoeira.actv.HistoryActivity_;
 import br.com.iecapoeira.actv.ListaMestreActivity_;
+import br.com.iecapoeira.actv.LoginActivity_;
 import br.com.iecapoeira.actv.MainActivity_;
 import br.com.iecapoeira.actv.MusicaActivity_;
 import br.com.iecapoeira.actv.MyClassActivity_;
@@ -29,6 +38,7 @@ import br.com.iecapoeira.actv.MyMestreActivity_;
 import br.com.iecapoeira.actv.MyMusicaActivity_;
 import br.com.iecapoeira.actv.MyParceirosActivity_;
 import br.com.iecapoeira.actv.MyVideoActivity_;
+import br.com.iecapoeira.actv.NewEditalActivity_;
 import br.com.iecapoeira.actv.ParceirosActivity_;
 import br.com.iecapoeira.actv.SalaChatActivity_;
 import br.com.iecapoeira.adapter.DashboardAdapter;
@@ -39,6 +49,7 @@ import br.com.iecapoeira.model.DashboardItem;
  * Created by Rafael on 11/08/16.
  */
 @EFragment(R.layout.frag_dashboard)
+@OptionsMenu(R.menu.dashboard)
 public class DashboardFragment extends Fragment {
 
     @ViewById
@@ -46,11 +57,24 @@ public class DashboardFragment extends Fragment {
 
     List<DashboardItem> items;
 
+    @OptionsMenuItem
+    MenuItem sair;
+    private ProgressDialog progressDialog;
+
     @AfterViews
     public void init() {
         loadItems();
         gridView.setAdapter(new DashboardAdapter(items));
 
+    }
+
+    @OptionsItem
+    public void sair() {
+        showProgress("Saindo...");
+        ParseUser.logOut();
+        startActivity(new Intent(getActivity(), LoginActivity_.class));
+        dismissProgress();
+        getActivity().finish();
     }
 
     public void loadItems() {
@@ -160,7 +184,7 @@ public class DashboardFragment extends Fragment {
                 intent = new Intent(getActivity(), MyClassActivity_.class);
                 break;
             case TEACHERS:
-                intent = new Intent(getActivity(), ListaMestreActivity_.class);
+                intent = new Intent(getActivity(), MyMestreActivity_.class);
                 break;
             case MUSIC:
                 intent = new Intent(getActivity(), MyMusicaActivity_.class);
@@ -184,6 +208,23 @@ public class DashboardFragment extends Fragment {
         }
         if (intent != null) {
             startActivity(intent);
+        }
+    }
+    @UiThread
+    public void showProgress(String text) {
+        try {
+            progressDialog = ProgressDialog.show(getActivity(), getString(R.string.aguarde), text, true, false);
+        } catch (Exception e) { e.printStackTrace(); }
+
+    }
+
+    @UiThread
+    public void dismissProgress() {
+        if (progressDialog != null) {
+            try {
+                progressDialog.dismiss();
+            } catch (Exception e) { e.printStackTrace(); }
+
         }
     }
 }

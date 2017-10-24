@@ -5,10 +5,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 
 import org.androidannotations.annotations.EViewGroup;
@@ -21,7 +25,7 @@ import br.com.iecapoeira.model.Aula;
 import br.com.iecapoeira.model.Mestre;
 
 @EViewGroup(R.layout.item_mestre)
-public class MestreItemView extends ItemView<Mestre> {
+public class MestreItemView extends ItemView<ParseObject> {
 
 
 
@@ -31,7 +35,7 @@ public class MestreItemView extends ItemView<Mestre> {
     @ViewById
     TextView tvNome;
 
-    private Mestre obj;
+    private ParseObject obj;
 
 
 
@@ -43,18 +47,24 @@ public class MestreItemView extends ItemView<Mestre> {
         con=context;
     }
 
-   /* private final GetDataCallback callback = new GetDataCallback() {
-        @Override
-        public void done(byte[] bytes, ParseException e) {
-            setProfilePicture(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-        }
-    };*/
-
     @Override
-    public void bind(final Mestre obj, int positionj) {
+    public void bind(final ParseObject obj, int positionj) {
         this.obj = obj;
-        tvNome.setText(this.obj.getNome());
-        ivFoto.setImageResource(this.obj.getPhoto());
+        tvNome.setText((String) obj.get("nome"));
+        if(obj.get("foto")!=null) {
+            ParseFile image = (ParseFile) obj.get("foto");
+            image.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        ivFoto.setImageBitmap(bmp);
+                    } else {
+                        Log.d("test", "There was a problem downloading the data.");
+                    }
+                }
+            });
+        }else{
+        }
     }
 
 

@@ -10,8 +10,8 @@ android {
         applicationId "br.com.iecapoeira"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 16
-        versionName "1.0.13-beta"
+        versionCode 18
+        versionName "1.0.15-beta"
     }
     signingConfigs {
         release {

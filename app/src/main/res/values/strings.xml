@@ -92,7 +92,7 @@
 
     <string name="lbl_contato_telefone" translatable="false">(71) 991292-0300</string>
     <string name="lbl_contato_email" translatable="false">appiecapoeira@gmail.com</string>
-    <string name="lbl_contato_website" translatable="false">www.iecapoeira.com.br</string>
+    <string name="lbl_contato_website" translatable="false"><u>iecapoeira.com.br</u></string>
 
     <string name="angola_title" >ANGOLA</string>
     <string name="regional_title">REGIONAL</string>
@@ -116,7 +116,8 @@
     <string name="facebook_app_id">1500676333535649</string>
 
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
-
+    <string name="face_link" translatable="false"><u>facebook.com/IeCapoeiraAplicativo</u></string>
+    <string name="insta_link" translatable="false"><u>instagram.com/iecapoeira</u></string>
     <!-- Icons -->
     <string name="icon_phone" translatable="false"></string>
     <string name="icon_mail" translatable="false"></string>

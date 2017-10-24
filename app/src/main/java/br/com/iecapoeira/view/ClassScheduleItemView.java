@@ -31,8 +31,8 @@ public class ClassScheduleItemView extends RelativeLayout {
 
     Aula model;
 
-    @ViewById
-    public View viewTop;
+/*    @ViewById
+    public View viewTop;*/
 
     @ViewById
     ImageView ivTeacher;

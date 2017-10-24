@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -45,20 +46,25 @@ public class UserActivity extends AppCompatActivity {
     @ViewById
     EditText editEmail,editAssociation, editNickname;
 
-    @ViewById
-    Button btLogout;
+   /* @ViewById
+    Button btLogout;*/
     private ParseUser actualUser;
     private final Context context = this;
     private ProgressDialog progressDialog;
     private boolean mudouEmail=false;
     public static String safe="";
     public List<String> localList;
+    String email, asso, nick;
 
     @AfterViews
     public void init() {
 
         setlist();
+
         actualUser = ParseUser.getCurrentUser();
+        email = actualUser.getEmail();
+        asso = actualUser.get("Associacao").toString();
+        nick = actualUser.get("nickname").toString();
         editEmail.setText(actualUser.getEmail());
         editAssociation.setText(actualUser.get("Associacao").toString());
         editNickname.setText(actualUser.get("nickname").toString());
@@ -97,6 +103,7 @@ public class UserActivity extends AppCompatActivity {
             dialog.setContentView(R.layout.choose_email);
             dialog.setTitle("Atualizar cadastro");
             dialog.show();
+            final ParseUser editedUser = ParseUser.getCurrentUser();
             TextView text = (TextView) dialog.findViewById(R.id.confirm_logout);
             Button btY = (Button) dialog.findViewById(R.id.yes);
             Button btN = (Button) dialog.findViewById(R.id.no);
@@ -110,39 +117,44 @@ public class UserActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     showProgress("Atualizando Cadastro...");
-                    Log.e("TAG", actualUser.getObjectId());
+                    Log.e("TAG", editedUser.getObjectId());
                             if (ParseUser.getCurrentUser() != null) {
-                                if (!(editEmail.getText().toString().equals("" + actualUser.get("username")))) {
-                                    if (!(localList.contains(editEmail.getText().toString()))) {
+                              /*  if (!(editEmail.getText().toString().equals("" + actualUser.get("username")))) {*/
+                                  /*  if (!(localList.contains(editEmail.getText().toString()))) {*/
                                         Log.d("mudei","mudei");
-                                        actualUser.put("username", editEmail.getText().toString());
-                                        actualUser.put("email", editEmail.getText().toString());
-                                        mudouEmail = true;
-                                    } else {
+                                        editedUser.put("username", editEmail.getText().toString());
+                                        editedUser.put("email", editEmail.getText().toString());
+                       /*                 mudouEmail = true;*/
+                                 /*   } else {
                                         Toast.makeText(context, "Email já em uso, escolha outro.", Toast.LENGTH_LONG).show();
                                     }
                                 }
                                 if(!mudouEmail)
-                                actualUser.put("emailVerified", true);
-                                actualUser.put("Associacao", editAssociation.getText().toString());
-                                actualUser.put("nickname", editNickname.getText().toString());
-                                actualUser.saveInBackground(new SaveCallback() {
+                                actualUser.put("emailVerified", true);*/
+                                editedUser.put("Associacao", editAssociation.getText().toString());
+                                editedUser.put("nickname", editNickname.getText().toString());
+                                editedUser.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
                                         if (e == null) {
-                                            if (mudouEmail) {
+                                          /*  if (mudouEmail) {
                                                 dismissProgress();
-                                                /*Toast.makeText(context, "Verifique seu email e entre novamente", Toast.LENGTH_LONG).show();
+                                                *//*Toast.makeText(context, "Verifique seu email e entre novamente", Toast.LENGTH_LONG).show();
                                                 startActivity(new Intent(context, LoginActivity_.class));
                                                 finish();
-                                                mudouEmail = false;*/
+                                                mudouEmail = false;*//*
                                                 dialog.dismiss();
-                                            } else {
+                                            } else {*/
+                                                actualUser = editedUser;
                                                 Toast.makeText(context, "Informações cadastradas", Toast.LENGTH_LONG).show();
                                                 dialog.dismiss();
                                                 dismissProgress();
-                                            }
+                                            /*}*/
                                         } else {
+                                            actualUser.put("nickname", nick);
+                                            actualUser.put("Associacao", asso);
+                                            actualUser.put("email", email);
+                                            actualUser.put("username", email);
                                             dismissProgress();
                                             dialog.dismiss();
                                             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -180,14 +192,14 @@ public class UserActivity extends AppCompatActivity {
         }
     }
 
-    @Click
+   /* @Click
     public void btLogout() {
         showProgress("Saindo...");
         ParseUser.logOut();
         startActivity(new Intent(this, LoginActivity_.class));
         dismissProgress();
         finish();
-    }
+    }*/
 
     public boolean validateFields(){
 

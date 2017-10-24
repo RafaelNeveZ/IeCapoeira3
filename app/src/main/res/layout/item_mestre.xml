@@ -11,15 +11,16 @@
     <ImageView
         android:layout_alignParentLeft="true"
         android:id="@+id/iv_foto"
+        android:background="@drawable/ic_teacher"
         android:layout_width="62dp"
         android:layout_height="62dp"
         android:scaleType="centerCrop"
         android:layout_marginRight="18dp"  />
 
     <TextView
-        android:textColor="@color/gray_txt"
-        android:textStyle="bold"
+        android:textColor="@android:color/black"
         android:id="@+id/tv_nome"
+        android:text="Nome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"

@@ -46,36 +46,34 @@
                 android:layout_marginRight="@dimen/small"
                 android:layout_weight="1"
                 android:hint="@string/hint_nome"
-                android:inputType="textCapSentences"
-                android:maxLength="35"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="50"
                 android:maxLines="1" />
 
             <EditText
                 android:id="@+id/edit_second_name"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_second_name"
-                android:inputType="textCapSentences"
-                android:maxLength="50"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="100" />
 
             <EditText
                 android:id="@+id/edit_email"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:maxLength="50"
-                android:maxLines="1" />
+                android:inputType="textEmailAddress|textMultiLine"
+                android:maxLength="100" />
 
             <EditText
                 android:id="@+id/edit_tel"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_telefone"
@@ -87,51 +85,48 @@
             <EditText
                 android:id="@+id/edit_city"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_city"
-                android:inputType="textCapSentences"
-                android:maxLength="30"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="100"/>
 
 
             <EditText
                 android:id="@+id/edit_country"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_pais"
-                android:inputType="textCapSentences"
-                android:maxLength="30"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="100"
+                 />
 
             <EditText
                 android:id="@+id/edit_association"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_associacao"
-                android:inputType="textCapSentences"
-                android:maxLength="30"
-                android:maxLines="1" />
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="200" />
 
             <EditText
                 android:id="@+id/edit_nickname"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_apelido"
                 android:inputType="textCapSentences"
-                android:maxLength="20"
-                android:maxLines="1" />
+                android:maxLength="30" />
             <EditText
                 android:id="@+id/edit_pass"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/bt_height"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/small"
                 android:layout_marginRight="@dimen/small"
                 android:hint="@string/hint_senha"
