@@ -38,9 +38,12 @@ public class ContatoActivity extends AppCompatActivity {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/I%C3%AA-Capoeira-Aplicativo-663020423814756/")));
     }
     public void instaLink(View v){
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/iecapoeira/")));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/iecapoeira.app/")));
     }
     public void siteLink(View v) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://iecapoeira.com.br/")));
+    }
+    public void youtubeLink(View v) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UCcoSB2ExYjSPPqjYlX28mVg")));
     }
 }

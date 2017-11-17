@@ -203,5 +203,6 @@
     <string name="video_title">Vídeos de capoeira</string>
     <string name="hint_title_video">Título do vídeo</string>
     <string name="new_video">Insira um novo vídeo</string>
+    <string name="youtube_com_channel_iecapoeira"><u>youtube.com/channel/IECapoeira</u></string>
 
 </resources>
