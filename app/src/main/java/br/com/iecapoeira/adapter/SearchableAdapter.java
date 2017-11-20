@@ -66,12 +66,12 @@ public class SearchableAdapter extends BaseAdapter implements Filterable {
             convertView.setTag(holder);
         } else {
             // Get the ViewHolder back to get fast access to the TextView
-            // and the ImageView.
+            // and the seeImage.
             holder = (ViewHolder) convertView.getTag();
         }
 
         // If weren't re-ordering this you could rely on what you set last time
-        Log.e("TAG",""+ filteredData.get(position));
+
         holder.etSearch.setText(filteredData.get(position));
 
         return convertView;

@@ -94,10 +94,10 @@
     <string name="lbl_contato_email" translatable="false">appiecapoeira@gmail.com</string>
     <string name="lbl_contato_website" translatable="false"><u>iecapoeira.com.br</u></string>
 
-    <string name="angola_title" >ANGOLA</string>
+    <string name="angola_title">ANGOLA</string>
     <string name="regional_title">REGIONAL</string>
-    <string name="titulo_delete_class" >Você tem certeza que quer apagar a aula?</string>
-    <string name="play_list" >PLAY LIST</string>
+    <string name="titulo_delete_class">Você tem certeza que quer apagar a aula?</string>
+    <string name="play_list">PLAY LIST</string>
 
     <plurals name="x_pessoas_irao">
         <item quantity="zero">no one is going</item>

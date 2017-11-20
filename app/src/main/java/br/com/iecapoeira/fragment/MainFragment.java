@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,21 +19,9 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.CityActivity;
-import br.com.iecapoeira.actv.CityActivity_;
-import br.com.iecapoeira.actv.ContatoActivity_;
-import br.com.iecapoeira.actv.MainActivity;
+import br.com.iecapoeira.actv.CityFiterActivity_;
 import br.com.iecapoeira.actv.NewEventActivity_;
 
 @EFragment(R.layout.frag_main)
@@ -61,18 +48,19 @@ public class MainFragment extends Fragment {
         adapter = new TabsAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
-        adm = ((boolean) ParseUser.getCurrentUser().get("Admin"));
+
+       // getActivity().invalidateOptionsMenu();
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                if(!adm) {
                    if (position == 0) {
-                       Log.d("TAG", "0!!!!");
+
                        getActivity().invalidateOptionsMenu();
                        capoeira = true;
                    } else {
-                       Log.d("TAG", "1!!!!");
+
                        getActivity().invalidateOptionsMenu();
                        capoeira = false;
                    }
@@ -101,7 +89,7 @@ public class MainFragment extends Fragment {
 
     @OptionsItem
     public void filter() {
-        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+        startActivityForResult(new Intent(getActivity(), CityFiterActivity_.class), 5);
     }
 
 
@@ -127,6 +115,7 @@ public class MainFragment extends Fragment {
                 adapter.update("");
             }
             if (resultCode == Activity.RESULT_CANCELED) {
+
             }
         }
 //        adapter.update();
@@ -134,16 +123,15 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        Log.d("TAG","PREPAREI!!!!");
+
+        adm = ((boolean) ParseUser.getCurrentUser().get("Admin"));
         if(!adm) {
             if (capoeira) {
-                Log.d("TAG", "TRUE!!!!");
                 newEvent.setVisible(true);
-                capoeira = false;
+           //     capoeira = false;
             } else {
-                Log.d("TAG", "FALSE!!!!");
                 newEvent.setVisible(false);
-                capoeira = true;
+         //       capoeira = true;
             }
         }
     }

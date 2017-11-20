@@ -7,14 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +40,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
@@ -67,6 +71,8 @@ public class NewParceiroActivity extends AppCompatActivity {
     private Bitmap bmp=null;
     private ProgressDialog progressDialog;
     public String my64foto;
+    private Uri imgUri = null;
+
     @AfterViews
     void init() {
 
@@ -95,9 +101,17 @@ public class NewParceiroActivity extends AppCompatActivity {
         Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
         Log.d("URI", uri + "");
         if (uri != null) {
-            bmp = PhotoUtil.resizeBitmap(this, uri);
-            photo.setImageBitmap(bmp);
-            photo.setBackgroundResource(android.R.color.transparent);
+
+            try {
+                Bitmap thumb =  PhotoUtil.resizeBitmapThumb(this, uri);
+                imgUri = uri;
+                photo.setImageBitmap(thumb);
+                bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(),uri);
+                photo.setBackgroundResource(android.R.color.transparent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
     }
@@ -233,5 +247,15 @@ public class NewParceiroActivity extends AppCompatActivity {
     @UiThread(delay = 3000)
     public void dismissError(EditText edit) {
         edit.setError(null);
+    }
+
+    public void photoClick(View view) {
+
+        if(imgUri!=null){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(imgUri,"image/*");
+            startActivity(intent);
+        }
+
     }
 }

@@ -30,104 +30,104 @@
         </activity>
         <activity
             android:name=".actv.LoginActivity_"
-            android:label="@string/app_name"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".actv.CadastroActivity_"
-            android:label="@string/app_cadastro"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_cadastro"
             android:parentActivityName=".actv.LoginActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.MainActivity_"
-            android:label="@string/title_eventos"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_eventos"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.NewEventActivity_"
-            android:label="@string/title_eventos_new"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_eventos_new"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.NewClassActivity_"
-            android:label="@string/title_class_register"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_class_register"
             android:parentActivityName=".actv.ClassScheduleActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.EditNewClassActivity_"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title_class_register"
             android:parentActivityName=".actv.ClassScheduleActivity_"
             android:screenOrientation="portrait"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.EventDetailActivity_"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title_eventos"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.MyEventDetailActivity_"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title_eventos"
             android:parentActivityName=".actv.AgendaActivity_"
             android:screenOrientation="portrait"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ChatActivity_"
-            android:label="@string/title_chat"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_chat"
             android:parentActivityName=".actv.SalaChatActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ClassScheduleActivity_"
-            android:label="@string/title_aulas"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_aulas"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ClassScheduleDetailActivity_"
-            android:label="@string/title_aulas"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_aulas"
             android:parentActivityName=".actv.ClassScheduleActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.DashboardActivity_"
-            android:label="@string/app_name"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.EventsActivity_"
-            android:label="@string/title_eventos"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_eventos"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.ListaMestreActivity_"
-            android:label="@string/title_mestres"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_mestres"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.UserActivity_"
-            android:label="@string/title_usuario"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_usuario"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.MestreActivity_"
-            android:label="@string/title_mestres"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_mestres"
             android:parentActivityName=".actv.ListaMestreActivity_"
             android:screenOrientation="portrait" />
         <activity
@@ -144,116 +144,120 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/title_parceiros"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.NewMusicActivity_"
-            android:label="@string/title_new_song"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_new_song"
             android:parentActivityName=".actv.MyMusicaActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.MusicaDetalheActivity_"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:icon="@drawable/ic_logo"
             android:label="@string/title_musicas"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".actv.MusicaActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ParceirosActivity_"
-            android:label="@string/title_parceiros"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_parceiros"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
-            android:name=".actv.CityActivity_"
-            android:label="@string/title_filter"
+            android:name=".actv.CityFiterActivity_"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_filter"
+            android:parentActivityName=".actv.MainActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/menuWhiteTheme" />
+        <activity
+            android:name=".actv.CityChoiceActivity_"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_filter"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.UserGoActivity_"
-            android:label="Pessoas Inscritas"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Pessoas Inscritas"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
-            android:theme="@style/menuWhiteTheme"
-            />
+            android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.EditalActivity_"
-            android:label="@string/title_edital"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_edital"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.NewEditalActivity_"
-            android:label="@string/title_add_edital"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_add_edital"
             android:parentActivityName=".actv.EditalActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.EditNewEventActivity_"
-            android:label="@string/title_edit_event"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_edit_event"
             android:parentActivityName=".actv.MainActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.SalaChatActivity_"
-            android:label="@string/title_chat"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_chat"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.NewParceiroActivity_"
-            android:label="Novo Mestre"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Novo Mestre"
             android:parentActivityName=".actv.ParceirosActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.NewMestreActivity_"
-            android:label="@string/title_new_partners"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_new_partners"
             android:parentActivityName=".actv.MyMestreActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
         <activity
             android:name=".actv.AgendaActivity_"
-            android:label="Agenda"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Agenda"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.MyMusicaActivity_"
-            android:label="Agenda"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Agenda"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.MyMestreActivity_"
-            android:label="@string/title_mestres"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_mestres"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".actv.MyClassActivity_"
-            android:label="@string/title_aulas"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_aulas"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.ContatoActivity_"
-            android:label="@string/title_contato"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_contato"
             android:parentActivityName=".actv.DashboardActivity_"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.HistoryActivity_"
-            android:label="@string/title_historia"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/title_historia"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -263,13 +267,13 @@
             tools:replace="android:theme" />
         <activity
             android:name=".actv.MyVideoActivity_"
-            android:label="Vídeos"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Vídeos"
             android:screenOrientation="portrait" />
         <activity
             android:name=".actv.NewVideoActivity_"
-            android:label="Novo vídeo"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Novo vídeo"
             android:parentActivityName=".actv.MyVideoActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/menuWhiteTheme" />
@@ -298,7 +302,12 @@
             </intent-filter>
         </receiver>
 
-
+        <activity
+            android:name=".actv.seeImage"
+            android:theme="@style/menuWhiteTheme"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Imagem"
+            />
     </application>
 
 </manifest>

@@ -103,7 +103,7 @@ public class MyMusicaFragment extends Fragment {
 
    /* @OptionsItem
     public void filter() {
-        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+        startActivityForResult(new Intent(getActivity(), CityFiterActivity_.class), 5);
     }*/
 
 

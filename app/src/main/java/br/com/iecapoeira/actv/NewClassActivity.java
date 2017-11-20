@@ -3,7 +3,6 @@ package br.com.iecapoeira.actv;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -18,12 +17,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -42,7 +37,6 @@ import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -53,19 +47,11 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Array;
-import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.model.Aula;
-import br.com.iecapoeira.model.Event;
-import br.com.iecapoeira.model.Parceiro;
-import br.com.iecapoeira.model.UserDetails;
 
 @EActivity(R.layout.activity_new_class)
 @OptionsMenu(R.menu.new_event)
@@ -120,6 +106,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
     public boolean dontLeave = false;
     public ParseObject newClass;
     private String my64foto=null;
+    private Uri imgUri = null;
 
     @AfterViews
     public void init() {
@@ -219,12 +206,14 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
         if (requestCode == 19) {
             Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
             if (uri != null) {
+                Bitmap thumb =  PhotoUtil.resizeBitmapThumb(this, uri);
+                imgUri = uri;
+                photo.setImageBitmap(thumb);
                 bmp = PhotoUtil.resizeBitmap(this, uri);
-                photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
             }
         }
-        if (requestCode == 5) {
+        if (requestCode == 25) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
                 editCity.setText(result);
@@ -509,7 +498,7 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
 
     @Click
     public void cityChoice(){
-        startActivityForResult(new Intent(context, CityActivity_.class), 5);
+        startActivityForResult(new Intent(context, CityChoiceActivity_.class), 25);
     }
 
 
@@ -534,5 +523,15 @@ public class NewClassActivity extends AppCompatActivity implements DatePickerDia
             } catch (Exception e) { e.printStackTrace(); }
 
         }
+    }
+
+    public void photoClick(View view) {
+
+        if(imgUri!=null){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(imgUri,"image/*");
+            startActivity(intent);
+        }
+
     }
 }

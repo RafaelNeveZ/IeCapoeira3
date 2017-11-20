@@ -12,13 +12,10 @@ import com.astuetz.PagerSlidingTabStrip;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.CityActivity_;
-import br.com.iecapoeira.actv.NewEventActivity_;
 
 @EFragment(R.layout.frag_main)
 @OptionsMenu(R.menu.agenda_menu)
@@ -73,7 +70,7 @@ public class AgendaFragment extends Fragment {
 
    /* @OptionsItem
     public void filter() {
-        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+        startActivityForResult(new Intent(getActivity(), CityFiterActivity_.class), 5);
     }*/
 
 

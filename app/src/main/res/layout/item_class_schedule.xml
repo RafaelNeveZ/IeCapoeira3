@@ -19,6 +19,7 @@
         android:background="@color/pager_strip_border"
         android:textColor="@color/white"
         android:text="@string/teacher"
+        android:maxLines="1"
         android:textStyle="bold"
         android:textSize="16sp"
         android:padding="10dp"/>

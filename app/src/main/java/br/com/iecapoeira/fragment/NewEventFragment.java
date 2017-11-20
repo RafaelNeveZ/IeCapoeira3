@@ -9,22 +9,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,56 +28,36 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.CityActivity_;
-import br.com.iecapoeira.actv.EditalActivity_;
+import br.com.iecapoeira.actv.CityChoiceActivity_;
+import br.com.iecapoeira.actv.CityFiterActivity_;
 import br.com.iecapoeira.actv.NewEventActivity_;
-import br.com.iecapoeira.adapter.NewEventAdapter;
 import br.com.iecapoeira.model.Event;
-import br.com.iecapoeira.model.EventDate;
-import br.com.iecapoeira.model.NewEvent;
-import br.com.iecapoeira.utils.OnButtonClicked;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
-
-import static android.icu.text.DateTimePatternGenerator.DAY;
 
 @EFragment(R.layout.actv_new_event)
 @OptionsMenu(R.menu.new_event)
@@ -163,7 +136,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     private boolean dontPutEndDate;
     private boolean notOther=false;
     private String uriImg;
-
+    private Uri imgUri = null;
 
     @AfterViews
     public void init(){
@@ -329,7 +302,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         if(isInitDate){
             if(System.currentTimeMillis() < dateRecivedinMills || sameday) {
                 if(!dataFinalSetada){
-                    Log.d("!datafinalsetada","false");
+
                     initalDate.setYear(myDate.getYear());
                     initalDate.setMonth(myDate.getMonth());
                     initalDate.setDate(myDate.getDate());
@@ -337,7 +310,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     btFinalDate.setEnabled(true);
                     dataInicialSetada=true;
                 }else{
-                    Log.d("!datafinalsetada","true");
                     if(endDate.getTime() > myDate.getTime()) {
                         initalDate.setYear(myDate.getYear());
                         initalDate.setMonth(myDate.getMonth());
@@ -432,10 +404,8 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                     newEvent.put("hasMoreDays",true);
                     endDate.setYear(endDate.getYear()-1900);
                     newEvent.put("endDate", endDate);
-                    Log.d("FINAL IGUAL", "SIM");
                 }else {
                     newEvent.put("hasMoreDays",false);
-                    Log.d("FINAL IGUAL", "NAO");
                 }
 
 
@@ -444,7 +414,9 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
                         if (e == null) {
                             dismissProgress();
                             if(!notOther){
+                                Intent returnIntent = new Intent();
                                 Toast.makeText(getActivity(), "Evento criado com sucesso", Toast.LENGTH_LONG).show();
+                                getActivity().setResult(Activity.RESULT_OK,returnIntent);
                                 getActivity().finish();
                             }else{
                                 Toast.makeText(getActivity(), "Evento criado com sucesso", Toast.LENGTH_LONG).show();
@@ -472,7 +444,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Click
     public void cityChoice(){
-        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+        startActivityForResult(new Intent(getActivity(), CityChoiceActivity_.class), 25);
     }
 
     public boolean validateFields() {
@@ -515,7 +487,6 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
         }
         if (!dataInicialSetada){
             notOther=false;
-            Log.d("INICIAL VAZIO", "SIM");
             Toast.makeText(getActivity(), "Escolha a data inicial do evento", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -532,6 +503,7 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
     public void galleyView(){
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (isReadStorageAllowed()) {
+
                 PhotoUtil.getCroppedImageFromGalleryFrag(this);
 
             } else {
@@ -544,23 +516,25 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == 19) {
             Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
-            Log.d("URI", uri + "");
             if (uri != null) {
+                Bitmap thumb =  PhotoUtil.resizeBitmapThumb(getActivity(), uri);
+                imgUri = data.getData();
+                photo.setImageBitmap(thumb);
                 bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
-                photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
 
             }
         }
-        if (requestCode == 5) {
+        if (requestCode == 25) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("result");
                 editCity.setText(result);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -639,6 +613,18 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
 
     @Override
     public void onClickListener(View v, int position) {
+
+    }
+
+    @Click
+    public void photo() {
+
+        if(imgUri!=null){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(imgUri,"image/*");
+            startActivity(intent);
+
+        }
 
     }
 }

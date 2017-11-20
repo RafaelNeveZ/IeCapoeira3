@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -49,6 +50,8 @@ public class PhotoUtil {
 	}
 
     public static Bitmap resizeBitmap(Activity actv, Uri uriImage) {
+
+
         try {
             Options opts = new Options();
             opts.inSampleSize = 1;
@@ -64,8 +67,31 @@ public class PhotoUtil {
             bitmap = BitmapFactory.decodeStream(actv.getContentResolver().openInputStream(uriImage), null, opts);
             return bitmap;
         } catch (FileNotFoundException e) {
+
             e.printStackTrace();
         }
+
+        return null;
+    }
+
+    public static Bitmap resizeBitmapThumb(Activity actv, Uri uriImage) {
+
+
+        try {
+            Options opts = new Options();
+            opts.inSampleSize = 1;
+            opts.inJustDecodeBounds = true;
+            Bitmap resized = null;
+            Bitmap bitmap = BitmapFactory.decodeStream(actv.getContentResolver().openInputStream(uriImage));
+            if(bitmap !=null) {
+                resized = ThumbnailUtils.extractThumbnail(bitmap, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+            }
+            return resized;
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -138,6 +164,7 @@ public class PhotoUtil {
         actv.startActivityForResult(Intent.createChooser(intent, "Selecione uma imagem"), PICK_IMAGE);
     }
 
+
     public static Uri onGalleryResult(int requestCode, Intent data) {
         switch (requestCode) {
             case PICK_CROPPED_IMAGE:
@@ -178,6 +205,17 @@ public class PhotoUtil {
         photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
         photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         fragment.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+    }
+
+    public static void getImageFromGalleryFrag(Fragment fragment) {
+        if (fragment == null) return;
+        Intent intent = new Intent();
+//        intent.setAction(Intent.ACTION_PICK);
+//        intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+
+        fragment.startActivityForResult(Intent.createChooser(intent, "Selecione uma imagem"), PICK_IMAGE);
     }
 
     private static Uri getTempUri() {

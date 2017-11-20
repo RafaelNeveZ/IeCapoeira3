@@ -3,22 +3,16 @@ package br.com.iecapoeira.actv;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,14 +23,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import br.com.iecapoeira.R;
 import br.com.iecapoeira.adapter.SearchableAdapter;
 import br.com.iecapoeira.fragment.EventListFragment;
 
 @EActivity(R.layout.activity_city)
-public class CityActivity extends AppCompatActivity {
+public class CityChoiceActivity extends AppCompatActivity {
 
     @ViewById
     ListView myList;
@@ -87,10 +80,8 @@ public class CityActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> myAdapter, View view, int myItemInt, long mylng) {
                         filtro =(String) (myList.getItemAtPosition(myItemInt));
-                        Log.d("Cliquei no ", filtro);
                         Intent returnIntent = new Intent();
                         returnIntent.putExtra("result",filtro);
-                        EventListFragment.notUpdate = filtro;
                         setResult(Activity.RESULT_OK,returnIntent);
                         finish();
                     }
@@ -104,7 +95,7 @@ public class CityActivity extends AppCompatActivity {
         try {
             JSONObject obj = new JSONObject(loadJSONFromAsset());
             JSONArray m_jArry = obj.getJSONArray("City");
-            Log.d("TAG", m_jArry.length() + "");
+
             formList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
             listaCidade = new ArrayList<String>();
@@ -150,6 +141,17 @@ public class CityActivity extends AppCompatActivity {
         return json;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
 
-}
+        if(id == android.R.id.home){
+            super.onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    }

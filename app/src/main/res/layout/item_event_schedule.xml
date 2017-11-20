@@ -33,7 +33,7 @@
             android:layout_marginRight="@dimen/little_plus"
             android:background="@drawable/img_eventlist_cell_divider" />
 
-       <!-- <ImageView
+       <!-- <seeImage
             android:id="@+id/bt_going"
             android:layout_width="@dimen/bt_height"
             android:layout_height="wrap_content"

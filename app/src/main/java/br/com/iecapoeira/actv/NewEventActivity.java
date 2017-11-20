@@ -3,6 +3,7 @@ package br.com.iecapoeira.actv;
 import android.support.v4.app.FragmentManager;
 
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -20,4 +21,6 @@ public class NewEventActivity extends AppCompatActivity  {
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().add(R.id.content, NewEventFragment_.builder().build()).commit();
     }
+
+
 }

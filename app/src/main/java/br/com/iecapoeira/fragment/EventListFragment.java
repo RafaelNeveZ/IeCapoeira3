@@ -80,7 +80,6 @@ public class EventListFragment extends ListFragment {
         c.set(Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.DATE)-1);
 
         try {
-            Log.d("FILTER","" + filter);
             switch (listType) {
                 case LIST_BY_CAPOEIRA:
                     query.orderByAscending("startDate");

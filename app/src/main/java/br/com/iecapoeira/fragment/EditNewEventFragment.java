@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -18,7 +19,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,8 +36,6 @@ import android.widget.Toast;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -55,7 +53,8 @@ import java.util.Date;
 
 import br.com.hemobile.util.PhotoUtil;
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.CityActivity_;
+import br.com.iecapoeira.actv.CityChoiceActivity_;
+import br.com.iecapoeira.actv.CityFiterActivity_;
 import br.com.iecapoeira.actv.NewEventActivity_;
 import br.com.iecapoeira.model.Event;
 import br.com.iecapoeira.widget.RecyclerViewOnClickListenerHack;
@@ -137,6 +136,8 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     private boolean notOther=false;
     public static Event event;
     private boolean mudouInicial=false;
+    private Uri imgUri = null;
+
 
     @AfterViews
     public void init(){
@@ -176,7 +177,10 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
             image.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
+
                         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        bmp =  ThumbnailUtils.extractThumbnail(bmp, bmp.getWidth() / 2, bmp.getHeight() / 2);
+
                         photo.setImageBitmap(bmp);
                     } else {
                         Log.d("test", "There was a problem downloading the data.");
@@ -488,7 +492,8 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     @Click
     public void cityChoice(){
-        startActivityForResult(new Intent(getActivity(), CityActivity_.class), 5);
+        startActivityForResult(new Intent(getActivity(), CityChoiceActivity_.class), 25);
+
     }
 
     public boolean validateFields() {
@@ -555,21 +560,22 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 19) {
             Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
-            Log.d("URI", uri + "");
             if (uri != null) {
+                Bitmap thumb =  PhotoUtil.resizeBitmapThumb(getActivity(), uri);
+                imgUri = data.getData();
+                photo.setImageBitmap(thumb);
                 bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
-                photo.setImageBitmap(bmp);
                 photo.setBackgroundResource(android.R.color.transparent);
 
             }
         }
-        if (requestCode == 5) {
+        if (requestCode == 25) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("result");
                 editCity.setText(result);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getActivity(), "Você não escolheu um filtro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Você não escolheu a cidade", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -638,6 +644,17 @@ public class EditNewEventFragment extends Fragment implements DatePickerDialog.O
 
     @Override
     public void onClickListener(View view, int position) {
+
+    }
+    @Click
+    public void photo() {
+
+        if(imgUri!=null){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(imgUri,"image/*");
+            startActivity(intent);
+
+        }
 
     }
 }

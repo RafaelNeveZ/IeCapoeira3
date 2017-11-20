@@ -23,8 +23,6 @@ import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 
 import br.com.iecapoeira.R;
-import br.com.iecapoeira.actv.CityActivity_;
-import br.com.iecapoeira.actv.NewEventActivity_;
 import br.com.iecapoeira.actv.NewParceiroActivity_;
 
 @EFragment(R.layout.frag_main)
