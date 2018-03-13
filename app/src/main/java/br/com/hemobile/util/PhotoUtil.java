@@ -2,8 +2,11 @@ package br.com.hemobile.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -22,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import br.com.hemobile.MyApplication;
 
@@ -30,7 +34,7 @@ public class PhotoUtil {
     public static final int PICK_IMAGE = 9;
     public static final int PICK_CROPPED_IMAGE = 19;
     private static final String PHOTO_DIR_NAME = MyApplication.getAppName();
-
+    private static final String GOOGLE_PHOTOS_PACKAGE_NAME = "com.google.android.apps.photos";
     private static final String TEMP_PHOTO_FILE = "temp.jpg";
 
     public static Bitmap resizeBitmap(String pathName) {
@@ -168,12 +172,14 @@ public class PhotoUtil {
     public static Uri onGalleryResult(int requestCode, Intent data) {
         switch (requestCode) {
             case PICK_CROPPED_IMAGE:
-                if (data != null) {
+      /*          if (data != null) {
+                    Log.d("ra","pick croped");
                     Uri uri = getTempUri();
                     return uri;
-                }
+                }*/
             case PICK_IMAGE:
                 if (data != null && data.getData() != null) {
+                    Log.d("ra","croped");
                     Uri _uri = data.getData();
                     return _uri;
                 }
@@ -182,29 +188,139 @@ public class PhotoUtil {
     }
 
     public static void getCroppedImageFromGallery(Activity actv) {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        photoPickerIntent.setType("image/*");
+        if (actv != null && isPackageInstalled(GOOGLE_PHOTOS_PACKAGE_NAME,actv.getPackageManager())) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("aspectX", 4);
+            intent.putExtra("aspectY", 3);
+            intent.putExtra("scale",true);
+            List<ResolveInfo> resolveInfoList = actv.getPackageManager().queryIntentActivities(intent, 0);
+            for (int i = 0; i < resolveInfoList.size(); i++) {
+                if (resolveInfoList.get(i) != null) {
+                    String packageName = resolveInfoList.get(i).activityInfo.packageName;
+                    if (GOOGLE_PHOTOS_PACKAGE_NAME.equals(packageName)) {
+                        intent.setComponent(new ComponentName(packageName, resolveInfoList.get(i).activityInfo.name));
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+                        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                        actv.startActivityForResult(intent, 19);
+                    }
+                }
+            }
+        }else{
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            photoPickerIntent.setType("image/*");
+            photoPickerIntent.putExtra("crop", "true");
+            photoPickerIntent.putExtra("aspectX", 4);
+            photoPickerIntent.putExtra("aspectY", 3);
+            photoPickerIntent.putExtra("scale",true);
+
+            photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+            photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+            actv.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+        }
+        /*Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setPackage(GOOGLE_PHOTOS_PACKAGE_NAME);
+        photoPickerIntent.setType("image*//*");
         photoPickerIntent.putExtra("crop", "true");
         photoPickerIntent.putExtra("aspectX", 4);
         photoPickerIntent.putExtra("aspectY", 3);
         photoPickerIntent.putExtra("scale",true);
         photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
         photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        actv.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+        actv.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);*/
+    }
+    public static void launchGooglePhotosPicker(Fragment fragment) {
+        if (fragment != null && isPackageInstalled(GOOGLE_PHOTOS_PACKAGE_NAME,fragment.getActivity().getPackageManager())) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("aspectX", 4);
+            intent.putExtra("aspectY", 3);
+            intent.putExtra("scale",true);
+            List<ResolveInfo> resolveInfoList = fragment.getActivity().getPackageManager().queryIntentActivities(intent, 0);
+            for (int i = 0; i < resolveInfoList.size(); i++) {
+                if (resolveInfoList.get(i) != null) {
+                    String packageName = resolveInfoList.get(i).activityInfo.packageName;
+                    if (GOOGLE_PHOTOS_PACKAGE_NAME.equals(packageName)) {
+                        intent.setComponent(new ComponentName(packageName, resolveInfoList.get(i).activityInfo.name));
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+                        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                        fragment.startActivityForResult(intent, 19);
+                    }
+                }
+            }
+        }else{
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            photoPickerIntent.setType("image/*");
+            photoPickerIntent.putExtra("crop", "true");
+            photoPickerIntent.putExtra("aspectX", 4);
+            photoPickerIntent.putExtra("aspectY", 3);
+            photoPickerIntent.putExtra("scale",true);
+
+            photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+            photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+            fragment.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+        }
+    }
+    private static boolean isPackageInstalled(String packagename, PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packagename, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     public static void getCroppedImageFromGalleryFrag(Fragment fragment) {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        photoPickerIntent.setType("image/*");
+        if (fragment != null && isPackageInstalled(GOOGLE_PHOTOS_PACKAGE_NAME,fragment.getActivity().getPackageManager())) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("aspectX", 4);
+            intent.putExtra("aspectY", 3);
+            intent.putExtra("scale",true);
+            List<ResolveInfo> resolveInfoList = fragment.getActivity().getPackageManager().queryIntentActivities(intent, 0);
+            for (int i = 0; i < resolveInfoList.size(); i++) {
+                if (resolveInfoList.get(i) != null) {
+                    String packageName = resolveInfoList.get(i).activityInfo.packageName;
+                    if (GOOGLE_PHOTOS_PACKAGE_NAME.equals(packageName)) {
+                        intent.setComponent(new ComponentName(packageName, resolveInfoList.get(i).activityInfo.name));
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+                        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                        fragment.startActivityForResult(intent, 19);
+                    }
+                }
+            }
+        }else{
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            photoPickerIntent.setType("image/*");
+            photoPickerIntent.putExtra("crop", "true");
+            photoPickerIntent.putExtra("aspectX", 4);
+            photoPickerIntent.putExtra("aspectY", 3);
+            photoPickerIntent.putExtra("scale",true);
+
+            photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
+            photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+            fragment.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+        }
+       /* Intent photoPickerIntent = new Intent(Intent.ACTION_PICK
+                );
+        photoPickerIntent.setPackage(GOOGLE_PHOTOS_PACKAGE_NAME);
+        photoPickerIntent.setType("image*//*");
         photoPickerIntent.putExtra("crop", "true");
         photoPickerIntent.putExtra("aspectX", 4);
         photoPickerIntent.putExtra("aspectY", 3);
         photoPickerIntent.putExtra("scale",true);
         photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri());
         photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        fragment.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);
+        fragment.startActivityForResult(photoPickerIntent, PICK_CROPPED_IMAGE);*/
     }
 
     public static void getImageFromGalleryFrag(Fragment fragment) {

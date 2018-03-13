@@ -1,10 +1,9 @@
 package br.com.iecapoeira;
 
-import com.facebook.FacebookSdk;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
+
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -37,12 +36,6 @@ public class IEApplication extends MyApplication {
         Parse.initialize(this, PARSE_APP_ID, PARSE_CLIENT_KEY);
 
 
-     /*   // Facebook
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        ParseFacebookUtils.initialize(getApplicationContext());*/
-
-
-//        PubnubService.startPubnubService();
 
 
     }

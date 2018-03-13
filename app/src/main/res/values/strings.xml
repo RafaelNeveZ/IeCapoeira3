@@ -15,11 +15,11 @@
     <string name="title_historia">Históry</string>
     <string name="title_new_song">New Music</string>
 
-    <string name="bt_login_face">Login with Facebook</string>
+
     <string name="bt_singup">Sing Up</string>
     <string name="bt_login">Login</string>
     <string name="bt_save">SAVE</string>
-    <string name="buscando_dados_facebook">Gathering Facebook data...</string>
+
     <string name="date_hour_pattern">MM/dd/yyyy \'at\' HH:mm</string>
     <string name="date_pattern">MM/dd/yyyy</string>
     <string name="hint_city">City</string>
@@ -113,10 +113,10 @@
 
     <string name="mestre_veru">Teacher Veru</string>
 
-    <string name="facebook_app_id">1500676333535649</string>
+
 
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
-    <string name="face_link" translatable="false"><u>facebook.com/IeCapoeiraAplicativo</u></string>
+
     <string name="insta_link" translatable="false"><u>instagram.com/iecapoeira</u></string>
     <!-- Icons -->
     <string name="icon_phone" translatable="false"></string>
@@ -204,5 +204,6 @@
     <string name="hint_title_video">Título do vídeo</string>
     <string name="new_video">Insira um novo vídeo</string>
     <string name="youtube_com_channel_iecapoeira"><u>youtube.com/channel/IECapoeira</u></string>
+    <string name="face_link" translatable="false"><u>facebook.com/IeCapoeiraAplicativo</u></string>
 
 </resources>

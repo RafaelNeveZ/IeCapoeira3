@@ -15,11 +15,11 @@
     <string name="title_historia">História da Capoeria</string>
     <string name="title_new_song">Nova Música</string>
 
-    <string name="bt_login_face">Entrar com o Facebook</string>
+
     <string name="bt_singup">Cadastrar</string>
     <string name="bt_login">Entrar</string>
     <string name="bt_save">SALVAR</string>
-    <string name="buscando_dados_facebook">Pegando dados do Facebok...</string>
+
     <string name="date_hour_pattern">dd/MM/yyyy \'as\' HH:mm</string>
     <string name="date_pattern">dd/MM/yyyy</string>
     <string name="hint_city">Cidade</string>
@@ -109,7 +109,7 @@
 
     <string name="mestre_veru">Mestre Veru</string>
 
-    <string name="facebook_app_id">1500676333535649</string>
+
 
     <string name="error_player">Houve um erro ao inicializar o YouTubePlayer (%1$s)</string>
     <string name="seg">SEG</string>
@@ -176,5 +176,6 @@
     <string name="hint_title_video">Título do vídeo</string>
     <string name="new_video">Insira um novo vídeo</string>
     <string name="youtube_com_channel_iecapoeira"><u>youtube.com/channel/IECapoeira</u></string>
+    <string name="face_link" translatable="false"><u>facebook.com/IeCapoeiraAplicativo</u></string>
 
 </resources>

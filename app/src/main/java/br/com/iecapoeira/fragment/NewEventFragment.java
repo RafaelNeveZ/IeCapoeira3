@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -48,6 +49,9 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -505,29 +509,36 @@ public class NewEventFragment extends Fragment implements DatePickerDialog.OnDat
             if (isReadStorageAllowed()) {
 
                 PhotoUtil.getCroppedImageFromGalleryFrag(this);
+              // PhotoUtil.launchGooglePhotosPicker(this);
+
+
 
             } else {
                 requestStoragePermission();
             }
         } else {
             PhotoUtil.getCroppedImageFromGalleryFrag(this);
+         //  PhotoUtil.launchGooglePhotosPicker(this);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("TAG",requestCode+"");
 
         if (requestCode == 19) {
             Uri uri = PhotoUtil.onGalleryResult(requestCode, data);
+            Log.d("TAG",uri+"");
             if (uri != null) {
                 Bitmap thumb =  PhotoUtil.resizeBitmapThumb(getActivity(), uri);
-                imgUri = data.getData();
+                imgUri = uri;
                 photo.setImageBitmap(thumb);
                 bmp = PhotoUtil.resizeBitmap(getActivity(), uri);
                 photo.setBackgroundResource(android.R.color.transparent);
 
             }
         }
+
         if (requestCode == 25) {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getStringExtra("result");

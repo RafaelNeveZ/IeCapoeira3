@@ -21,7 +21,6 @@ public class UserDetails extends ParseObject {
     private static final int FEMALE = 0;
     private static final int MALE = 1;
     public static final String USER_DETAILS = "userDetails";
-    public static final String FACEBOOK_ID = "fbId";
     public static final String EMAIL = "email";
     public static final String NAME = "name";
     private Bitmap profilePicture;

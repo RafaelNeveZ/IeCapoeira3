@@ -21,7 +21,7 @@ import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
+
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -77,11 +77,6 @@ public class LoginActivity extends BaseActivity {
       }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
-    }
 
     private boolean validateFields() {
         boolean result = true;
@@ -275,32 +270,7 @@ public class LoginActivity extends BaseActivity {
         return result;
     }
 
-//    @Click
-//    public void btLoginFacebook() {
-//        final ParseUser currentUser = ParseUser.getCurrentUser();
 //
-//        // http://parseplatform.github.io/docs/android/guide/#facebook-users
-//        if (currentUser == null || !ParseFacebookUtils.isLinked(currentUser)) {
-//            ParseFacebookUtils.logInWithReadPermissionsInBackground(this, PERMISSIONS, new LogInCallback() {
-//                @Override
-//                public void done(ParseUser user, ParseException err) {
-//                    if (user == null) {
-//                        Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-//                    } else {
-//                        if (user.isNew()) {
-//                            Log.d("MyApp", "User signed up and logged in through Facebook!");
-//                        } else {
-//                            Log.d("MyApp", "User logged in through Facebook!");
-//                        }
-//                        startActivity(new Intent(getActivity(), DashboardActivity_.class));
-//                        finish();
-//                    }
-//                }
-//            });
-//        }else {
-////            getFacebookData();
-//        }
-//    }
 
     private void readParseException(ParseException err) {
         String strError = getString(R.string.msg_erro_desconhecido);
@@ -329,83 +299,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-   /* private void getFacebookData() {
-        changeProgressMessage(getString(R.string.buscando_dados_facebook));
-        PackageInstaller.Session session = ParseFacebookUtils.getSession();
-        Bundle params = new Bundle();
-        params.putString("fields", "email, age_range, location, picture.width(600).height(600),first_name, last_name, gender");
-        new LoginClient.Request(session, "/me", params, HttpMethod.GET, new LoginClient.Request.Callback() {
-            @Override
-            public void onCompleted(Response response) {
-                LoginResponse loginResponse = response.getGraphObjectAs(LoginResponse.class);
-                handleFacebookDataInBackground(loginResponse);
-            }
-        }).executeAsync();
-    }*/
 
-//    @Background
-//    public void handleFacebookDataInBackground(LoginResponse response) {
-//        final ParseUser currentUser = ParseUser.getCurrentUser();
-//
-//        UserDetails details = (UserDetails) currentUser.get(UserDetails.USER_DETAILS);
-//
-//        if (details == null)
-//            details = ParseObject.create(UserDetails.class);
-//
-//        currentUser.put(UserDetails.FACEBOOK_ID, response.getId());
-//        String email = response.getEmail();
-//        if (email != null) {
-//            currentUser.put(UserDetails.EMAIL, email);
-//        }
-//
-//        details.setName(response.getFirstName() + " " + response.getLastName());
-//        details.setGender(response.getGender());
-//
-//        //get City
-//        try {
-//            String location = response.getLocation().getString(UserDetails.NAME);
-//            details.setCity(location.split(",")[0].toLowerCase());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        Bitmap bitmap = getRemoteImage(getPictureURLFromResponse(response));
-//        try {
-//            details.setProfilePicture(bitmap);
-//            final UserDetails finalDetails = details;
-//            details.saveInBackground(new SaveCallback() {
-//                @Override
-//                public void done(ParseException e) {
-//                    if (e != null) {
-//                        readParseException(e);
-//                        return;
-//                    }
-//
-//                    try {
-//                        finalDetails.pin();
-//                    } catch (ParseException e1) {
-//                        e1.printStackTrace();
-//                    }
-//
-//                    currentUser.put(UserDetails.USER_DETAILS, finalDetails);
-//                    currentUser.saveInBackground(new SaveCallback() {
-//                        @Override
-//                        public void done(ParseException e) {
-//                            if (e != null) {
-//                                readParseException(e);
-//                                return;
-//                            }
-//                            dismissProgress();
-//                            goToMainList();
-//                        }
-//                    });
-//                }
-//            });
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void goToMainList() {
         startActivity(new Intent(getActivity(), CadastroActivity_.class));
@@ -438,7 +332,6 @@ public class LoginActivity extends BaseActivity {
 //    }
 
     public String printKeyHash() {
-        // http://stackoverflow.com/questions/23674131/android-facebook-integration-invalid-key-hash
         PackageInfo packageInfo;
         String key = null;
         try {
